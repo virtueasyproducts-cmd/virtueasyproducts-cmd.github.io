@@ -1270,6 +1270,281 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     transform: translateY(0);
   }
 
+  /* ── SKILLS QUIZ ── */
+  .quiz-section {
+    background: var(--white);
+    padding: 80px 24px;
+    position: relative;
+  }
+
+  .quiz-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,31,122,0.05) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    pointer-events: none;
+  }
+
+  .quiz-section .container { position: relative; z-index: 1; }
+
+  .quiz-eyebrow {
+    display: inline-block;
+    background: var(--pink);
+    color: var(--white);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+
+  .quiz-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    letter-spacing: 0.02em;
+    line-height: 0.95;
+    margin-bottom: 8px;
+  }
+
+  .quiz-heading .pink { color: var(--pink); }
+
+  .quiz-intro {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 36px;
+  }
+
+  .quiz-container {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .quiz-card {
+    background: var(--off-white);
+    border: 2px solid rgba(0,0,0,0.06);
+    border-radius: 20px;
+    padding: 36px 32px 32px;
+    display: none;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.35s ease, transform 0.35s ease, border-color 0.3s ease;
+  }
+
+  .quiz-card.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .quiz-card.answered {
+    border-color: var(--pink);
+  }
+
+  .quiz-q-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: rgba(255,31,122,0.15);
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+
+  .quiz-question {
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--black);
+    line-height: 1.55;
+    margin-bottom: 22px;
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 0;
+  }
+
+  .quiz-option {
+    background: var(--white);
+    border: 2px solid rgba(0,0,0,0.08);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--black);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+  }
+
+  .quiz-option:hover {
+    border-color: var(--pink);
+    background: var(--pink-pale);
+    transform: translateX(4px);
+  }
+
+  .quiz-option.selected {
+    border-color: var(--pink);
+    background: var(--pink);
+    color: var(--white);
+    font-weight: 600;
+    transform: translateX(4px);
+  }
+
+  .quiz-option-no {
+    color: #999;
+    font-weight: 400;
+  }
+
+  .quiz-skill-tag {
+    font-size: 0.88rem;
+    color: var(--pink);
+    line-height: 1.5;
+    margin-top: 18px;
+    padding: 12px 16px;
+    background: var(--pink-pale);
+    border-left: 3px solid var(--pink);
+    border-radius: 0 10px 10px 0;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.4s ease, max-height 0.4s ease, margin-top 0.3s ease, padding 0.3s ease;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+  }
+
+  .quiz-skill-tag.visible {
+    opacity: 1;
+    max-height: 80px;
+    margin-top: 18px;
+    padding: 12px 16px;
+  }
+
+  .quiz-skill-tag strong { color: var(--black); }
+
+  .quiz-progress {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .quiz-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.12);
+    transition: all 0.3s ease;
+  }
+
+  .quiz-dot.active {
+    background: var(--pink);
+    transform: scale(1.3);
+  }
+
+  .quiz-dot.done {
+    background: var(--pink);
+    opacity: 0.5;
+  }
+
+  /* Quiz result */
+  .quiz-result {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .quiz-result-inner {
+    background: var(--dark);
+    border-radius: 24px;
+    padding: 48px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: resultIn 0.5s ease both;
+  }
+
+  .quiz-result-inner::before {
+    content: '';
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 180px; height: 180px;
+    background: var(--pink);
+    border-radius: 50%;
+    opacity: 0.15;
+    filter: blur(40px);
+  }
+
+  .quiz-result-inner::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 120px; height: 120px;
+    background: var(--pink-light);
+    border-radius: 50%;
+    opacity: 0.1;
+    filter: blur(30px);
+  }
+
+  @keyframes resultIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .quiz-result-icon {
+    font-size: 2.6rem;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .quiz-result-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .quiz-result-title .pink { color: var(--pink); }
+
+  .quiz-result-body {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.65;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .quiz-result-note {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+    max-width: 440px;
+    margin: 0 auto 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .quiz-result .btn-primary {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 640px) {
+    .quiz-card { padding: 28px 22px 24px; }
+    .quiz-result-inner { padding: 36px 24px; }
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
     .product-inner { grid-template-columns: 1fr; gap: 32px; }
@@ -1331,44 +1606,6 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   </div>
 </section>
   
-<!-- PRODUCT SECTION -->
-<section class="product-section">
-  <div class="product-inner">
-    <div class="product-mockup reveal">
-      <div class="mockup-label">Interactive Workbook</div>
-      <div class="mockup-title">The VA<br><span>Blueprint</span></div>
-      <div class="mockup-sub">30 Days to Your First High-Ticket Client</div>
-      <div class="mockup-badge" style="margin-top: 32px;">
-        <div class="mockup-badge-icon">⚡</div>
-        <div class="mockup-badge-text">
-          <strong>Instant browser access</strong>
-          No app. No download. Open and go.
-        </div>
-      </div>
-      <div class="mockup-badge" style="margin-top: 10px; background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12);">
-        <div class="mockup-badge-icon">✅</div>
-        <div class="mockup-badge-text" style="color: rgba(255,255,255,0.6);">
-          <strong style="color: white;">Built for complete beginners</strong>
-          No experience. No following. No fluff.
-        </div>
-      </div>
-    </div>
-
-    <div class="product-copy reveal">
-      <h2>What Skills Do I Need to Become a Virtual Assistant?</h2>
-      <p class="sub"> Fewer than you think. Most of the skills clients look for are ones you already use in everyday life. The VA Blueprint doesn't assume you know anything going in; it meets you at zero and moves you forward, one day at a time. 
-        <br><br> Every day you open the workbook, it tells you exactly what to do. One task at a time. No overwhelm. No "where do I start." Just the next move.</p>
-      <ul class="feature-list">
-        <li><span class="feature-arrow">→</span> 30 days of action tasks: niche, pitch, price, and close</li>
-        <li><span class="feature-arrow">→</span> Word-for-word DM scripts, discovery call framework, and proposal templates</li>
-        <li><span class="feature-arrow">→</span> Interactive checkboxes, daily journal prompts, and downloadable notes</li>
-      </ul>
-      <p class="price-line">Get instant access for just <strong>$27</strong></p>
-      <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn-primary">I'm Ready to Land My First Client</a>
-    </div>
-  </div>
-</section>
-
 <!-- WORKBOOK PREVIEW -->
 <section class="preview-section">
   <div class="container">
@@ -1398,6 +1635,83 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     </div>
 
     <p class="preview-note reveal"><strong>Every day looks like this.</strong> Checkboxes that save. Journal prompts that stick. Progress that actually moves.</p>
+  </div>
+</section>
+
+<!-- SKILLS QUIZ SECTION -->
+<section class="quiz-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="quiz-eyebrow">Quick Reality Check</div>
+      <h2 class="quiz-heading">Think You Don't Have the Skills?<br><span class="pink">Let's Find Out.</span></h2>
+      <p class="quiz-intro">Answer these 4 quick questions. We bet you'll surprise yourself.</p>
+    </div>
+
+    <div class="quiz-container reveal" id="quizContainer">
+      <!-- Question cards -->
+      <div class="quiz-card active" data-q="0">
+        <div class="quiz-q-num">01</div>
+        <p class="quiz-question">Have you ever sent a professional email, scheduled a meeting, or organized files on a computer?</p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="answerQuiz(0, true)">Yes, I do this regularly</button>
+          <button class="quiz-option" onclick="answerQuiz(0, true)">Sometimes — I've done it before</button>
+          <button class="quiz-option quiz-option-no" onclick="answerQuiz(0, false)">No, never</button>
+        </div>
+        <p class="quiz-skill-tag">✨ That's <strong>admin & organization</strong> — the #1 skill clients pay for.</p>
+      </div>
+
+      <div class="quiz-card" data-q="1">
+        <div class="quiz-q-num">02</div>
+        <p class="quiz-question">Have you ever posted on social media, replied to a comment, or helped someone write a caption?</p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="answerQuiz(1, true)">Yes, I'm on socials all the time</button>
+          <button class="quiz-option" onclick="answerQuiz(1, true)">I've helped someone with theirs</button>
+          <button class="quiz-option quiz-option-no" onclick="answerQuiz(1, false)">Not really</button>
+        </div>
+        <p class="quiz-skill-tag">✨ That's <strong>social media management</strong> — clients pay $500–$1,500/mo for this.</p>
+      </div>
+
+      <div class="quiz-card" data-q="2">
+        <div class="quiz-q-num">03</div>
+        <p class="quiz-question">Have you ever Googled something to find an answer, compared products, or researched a topic online?</p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="answerQuiz(2, true)">All the time — I'm a great Googler</button>
+          <button class="quiz-option" onclick="answerQuiz(2, true)">Yeah, for work or personal stuff</button>
+          <button class="quiz-option quiz-option-no" onclick="answerQuiz(2, false)">No, I don't do that</button>
+        </div>
+        <p class="quiz-skill-tag">✨ That's <strong>research & data entry</strong> — a real, billable VA service.</p>
+      </div>
+
+      <div class="quiz-card" data-q="3">
+        <div class="quiz-q-num">04</div>
+        <p class="quiz-question">Have you ever helped a friend solve a problem, talked someone through a process, or handled a complaint?</p>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="answerQuiz(3, true)">I'm the person everyone comes to</button>
+          <button class="quiz-option" onclick="answerQuiz(3, true)">I've done it a few times</button>
+          <button class="quiz-option quiz-option-no" onclick="answerQuiz(3, false)">Not really my thing</button>
+        </div>
+        <p class="quiz-skill-tag">✨ That's <strong>client support & communication</strong> — the backbone of every VA business.</p>
+      </div>
+
+      <!-- Progress dots -->
+      <div class="quiz-progress">
+        <div class="quiz-dot active" data-dot="0"></div>
+        <div class="quiz-dot" data-dot="1"></div>
+        <div class="quiz-dot" data-dot="2"></div>
+        <div class="quiz-dot" data-dot="3"></div>
+      </div>
+    </div>
+
+    <!-- Result panel (hidden by default) -->
+    <div class="quiz-result reveal" id="quizResult" style="display:none;">
+      <div class="quiz-result-inner">
+        <div class="quiz-result-icon">🎉</div>
+        <h3 class="quiz-result-title" id="quizResultTitle"></h3>
+        <p class="quiz-result-body" id="quizResultBody"></p>
+        <p class="quiz-result-note">The VA Blueprint doesn't assume you know anything going in. It meets you at zero and moves you forward — one day at a time. One task at a time. No overwhelm.</p>
+        <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn-primary pulse">Turn These Skills Into Income — $27</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1718,6 +2032,79 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   window.addEventListener('scroll', () => {
     stickyBar.classList.toggle('visible', window.scrollY > 500);
   });
+
+  // Skills Quiz
+  let quizAnswers = [];
+  let currentQ = 0;
+
+  function answerQuiz(qIndex, isYes) {
+    quizAnswers[qIndex] = isYes;
+    const card = document.querySelector(`.quiz-card[data-q="${qIndex}"]`);
+
+    // Highlight selected button
+    card.querySelectorAll('.quiz-option').forEach(b => b.classList.remove('selected'));
+    event.target.classList.add('selected');
+
+    // Show skill tag
+    card.classList.add('answered');
+    const tag = card.querySelector('.quiz-skill-tag');
+    if (tag) tag.classList.add('visible');
+
+    // Mark dot as done
+    const dot = document.querySelector(`.quiz-dot[data-dot="${qIndex}"]`);
+    if (dot) { dot.classList.remove('active'); dot.classList.add('done'); }
+
+    // Advance to next question or show results
+    setTimeout(() => {
+      if (qIndex < 3) {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(-12px)';
+        setTimeout(() => {
+          card.classList.remove('active');
+          card.style.opacity = '';
+          card.style.transform = '';
+          currentQ = qIndex + 1;
+          const next = document.querySelector(`.quiz-card[data-q="${currentQ}"]`);
+          next.classList.add('active');
+          const nextDot = document.querySelector(`.quiz-dot[data-dot="${currentQ}"]`);
+          if (nextDot) nextDot.classList.add('active');
+        }, 280);
+      } else {
+        // Show results
+        setTimeout(() => {
+          showQuizResult();
+        }, 600);
+      }
+    }, 800);
+  }
+
+  function showQuizResult() {
+    const yesCount = quizAnswers.filter(a => a === true).length;
+    const container = document.getElementById('quizContainer');
+    const result = document.getElementById('quizResult');
+    const title = document.getElementById('quizResultTitle');
+    const body = document.getElementById('quizResultBody');
+
+    container.style.opacity = '0';
+    container.style.transform = 'translateY(-12px)';
+    container.style.transition = 'opacity 0.3s, transform 0.3s';
+
+    setTimeout(() => {
+      container.style.display = 'none';
+      result.style.display = 'block';
+
+      if (yesCount >= 3) {
+        title.innerHTML = 'You Already Have <span class="pink">' + yesCount + ' Out of 4</span> VA Skills.';
+        body.textContent = 'You\'re not starting from scratch — you\'re closer than you think. The skills you already use every day are the same ones businesses pay $1,000+/month for. You just need the roadmap to turn them into income.';
+      } else if (yesCount >= 1) {
+        title.innerHTML = 'You\'re Not Starting From <span class="pink">Zero.</span>';
+        body.textContent = 'You already have real, billable skills — even if it doesn\'t feel like it yet. The VA Blueprint is built for exactly where you are right now. No experience required.';
+      } else {
+        title.innerHTML = 'That\'s Exactly Why <span class="pink">This Exists.</span>';
+        body.textContent = 'You don\'t need to walk in with a skillset. The VA Blueprint starts at absolute zero and builds you up — one simple task per day, no assumptions, no jargon.';
+      }
+    }, 300);
+  }
 </script>
 </body>
 </html>
