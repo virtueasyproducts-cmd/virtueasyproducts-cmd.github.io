@@ -1609,21 +1609,447 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 </section>
   
 <!-- WORKBOOK PREVIEW -->
+<style>
+/* ===== PREVIEW SECTION STYLES ===== */
+.preview-section {
+  padding: 80px 0;
+}
+ 
+.preview-section .container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+ 
+.preview-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 32px 0 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+ 
+.preview-tab {
+  background: #f5f5f5;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+ 
+.preview-tab:hover {
+  background: #eee;
+}
+ 
+.preview-tab.active {
+  background: #FF2D8B;
+  color: #fff;
+}
+ 
+/* Browser Chrome */
+.browser-wrap {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  border: 1px solid #e5e5e5;
+  background: #fff;
+}
+ 
+.browser-bar {
+  background: #f8f8f8;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #e5e5e5;
+}
+ 
+.browser-dots {
+  display: flex;
+  gap: 6px;
+}
+ 
+.browser-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+ 
+.browser-dot.red { background: #ff5f57; }
+.browser-dot.yellow { background: #ffbd2e; }
+.browser-dot.green { background: #28c840; }
+ 
+.browser-url {
+  background: #efefef;
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #999;
+  font-family: 'DM Sans', sans-serif;
+  flex: 1;
+  text-align: center;
+}
+ 
+/* Workbook Inner Content */
+.wb-inner {
+  padding: 24px 20px 28px;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: 'DM Sans', sans-serif;
+}
+ 
+/* Focus Banner */
+.wb-focus {
+  background: linear-gradient(135deg, #FF2D8B, #ff5ca8);
+  color: #fff;
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+ 
+.wb-focus-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+ 
+.wb-focus-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+ 
+.wb-focus-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+ 
+.wb-focus-desc {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+ 
+/* Stats Row */
+.wb-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+ 
+.wb-stat {
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 16px;
+  position: relative;
+}
+ 
+.wb-stat-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 8px;
+}
+ 
+.wb-stat-number {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 36px;
+  font-weight: 800;
+  color: #FF2D8B;
+  opacity: 0.35;
+  line-height: 1;
+}
+ 
+.wb-stat-text {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.45;
+  margin-top: 18px;
+}
+ 
+/* Tasks Section */
+.wb-tasks {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 20px;
+}
+ 
+.wb-tasks-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #FF2D8B;
+  margin-bottom: 4px;
+}
+ 
+.wb-tasks-label::after {
+  content: '';
+  display: inline-block;
+  width: 60px;
+  height: 1px;
+  background: #FFD6E8;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+ 
+.wb-tasks h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 6px 0 16px;
+  color: #111;
+}
+ 
+.wb-task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+ 
+.wb-task-item:last-child {
+  border-bottom: none;
+}
+ 
+.wb-checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid #ddd;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+.wb-checkbox.checked {
+  background: #FF2D8B;
+  border-color: #FF2D8B;
+}
+ 
+.wb-checkbox.checked::after {
+  content: '✓';
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+ 
+.wb-task-text {
+  font-size: 13.5px;
+  color: #333;
+  line-height: 1.45;
+  flex: 1;
+}
+ 
+.wb-task-text.completed {
+  text-decoration: line-through;
+  color: #aaa;
+}
+ 
+.wb-task-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+ 
+.wb-task-badge.time { color: #FF2D8B; background: #FFF0F6; }
+.wb-task-badge.action { color: #FF2D8B; background: #FFF0F6; }
+ 
+/* Reflection / Journal */
+.wb-reflection {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 20px;
+}
+ 
+.wb-reflection-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #FF2D8B;
+  margin-bottom: 4px;
+}
+ 
+.wb-reflection-label::after {
+  content: '';
+  display: inline-block;
+  width: 60px;
+  height: 1px;
+  background: #FFD6E8;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+ 
+.wb-reflection h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 6px 0 4px;
+  color: #111;
+}
+ 
+.wb-reflection-sub {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 14px;
+}
+ 
+.wb-journal-prompt {
+  border-left: 3px solid #FF2D8B;
+  background: #FFF8FB;
+  padding: 14px 16px;
+  border-radius: 0 10px 10px 0;
+  margin-bottom: 10px;
+}
+ 
+.wb-journal-prompt p {
+  font-size: 13.5px;
+  color: #333;
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0;
+}
+ 
+.wb-journal-input {
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: #bbb;
+  min-height: 50px;
+}
+ 
+/* Quote Banner */
+.wb-quote {
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  color: #fff;
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+ 
+.wb-quote-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+ 
+.wb-quote-text {
+  font-size: 13.5px;
+  font-style: italic;
+  line-height: 1.5;
+}
+ 
+.wb-quote-text .pink {
+  color: #FF2D8B;
+  font-style: italic;
+}
+ 
+/* Navigation Footer */
+.wb-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 4px;
+}
+ 
+.wb-nav-btn {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: default;
+  font-family: 'DM Sans', sans-serif;
+}
+ 
+.wb-nav-btn.next {
+  background: #FF2D8B;
+  color: #fff;
+  border-color: #FF2D8B;
+}
+ 
+.wb-nav-progress {
+  font-size: 12px;
+  color: #999;
+}
+ 
+/* Preview note below browser */
+.preview-note {
+  text-align: center;
+  font-size: 15px;
+  color: #666;
+  margin-top: 24px;
+  font-family: 'DM Sans', sans-serif;
+}
+ 
+.preview-note strong {
+  color: #111;
+}
+ 
+/* Responsive */
+@media (max-width: 600px) {
+  .wb-inner { padding: 16px 14px 20px; }
+  .wb-focus { padding: 14px 16px; }
+  .wb-focus-desc { font-size: 13px; }
+  .wb-stats { gap: 8px; }
+  .wb-stat { padding: 12px; }
+  .wb-stat-number { font-size: 28px; }
+  .wb-stat-text { margin-top: 14px; }
+  .wb-stat-text { font-size: 12px; }
+  .wb-task-text { font-size: 13px; }
+  .preview-tabs { gap: 6px; }
+  .preview-tab { padding: 8px 14px; font-size: 13px; }
+}
+</style>
+ 
 <section class="preview-section">
   <div class="container">
     <div class="reveal">
       <div class="eyebrow">Your System In Action</div>
-      <h2>This Is What You're Getting</h2>
-      <p class="sub">A live, interactive 30-day system that works right in your browser.</p>
+      <h2>This Isn't a PDF You'll Never Open</h2>
+      <p class="sub">It's a live, interactive 30-day system that works right in your browser. Here's what Day 1 looks like.</p>
     </div>
-
+ 
     <div class="preview-tabs reveal" id="previewTabs">
       <button class="preview-tab active" onclick="switchPreview(0, this)">Day 1 — Niche</button>
       <button class="preview-tab" onclick="switchPreview(1, this)">Day 7 — Cold DM</button>
       <button class="preview-tab" onclick="switchPreview(2, this)">Day 11 — Discovery Call</button>
       <button class="preview-tab" onclick="switchPreview(3, this)">Day 23 — Proposal</button>
     </div>
-
+ 
     <div class="browser-wrap reveal" id="previewBrowser">
       <div class="browser-bar">
         <div class="browser-dots">
@@ -1633,10 +2059,189 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
         </div>
         <div class="browser-url">blueprint.virtueasy.com</div>
       </div>
-      <div class="wb-inner" id="previewContent"></div>
+      <div class="wb-inner" id="previewContent">
+        <!-- Content injected by JS -->
+      </div>
     </div>
-
-    <p class="preview-note reveal"><strong>Every day looks like this.</strong> Check things off. Write things down. Track your progress.</p>
+ 
+    <p class="preview-note reveal"><strong>Every day looks like this.</strong> Check things off. Write things down. Actually move forward.</p>
+  </div>
+</section>
+ 
+<script>
+const previewData = [
+  // Day 1 — Niche
+  {
+    focus: {
+      icon: "🎯",
+      label: "TODAY'S FOCUS",
+      text: "Define your ideal high-ticket client avatar \u2014 the one person you'd work with forever."
+    },
+    stats: {
+      time: { number: "15", text: "15 min of focused work. Progress over perfection." },
+      win: { text: "You'll finish today knowing exactly who your offer is built for. That clarity is worth thousands." }
+    },
+    tasks: [
+      { text: "Write down 3 industries you already have experience or interest in", badge: "10 MIN", type: "time", checked: true },
+      { text: "For each industry, name one type of business owner inside it (ex: \"solo real estate agent\")", badge: "5 MIN", type: "time", checked: true },
+      { text: "Pick your top ONE. Don't overthink it \u2014 you can always pivot. Commit for now.", badge: "2 MIN", type: "time", checked: false },
+      { text: "Fill in the sentence: \"I help [niche] do [result] so they can [bigger outcome].\"", badge: "BONUS", type: "action", checked: false }
+    ],
+    journal: {
+      prompt: "Who is the one person I want to wake up excited to serve? What do they struggle with that I can solve?"
+    },
+    quote: {
+      text: "\"The riches are in the niches. <span class='pink'>The right one client beats ten wrong ones, every time.</span>\""
+    },
+    nav: { prev: "Home", next: "Day 2", progress: "2 / 4 tasks done" }
+  },
+  // Day 7 — Cold DM
+  {
+    focus: {
+      icon: "✉️",
+      label: "TODAY'S FOCUS",
+      text: "Most cold outreach fails because it's about the sender. Yours will be about the recipient."
+    },
+    stats: {
+      time: { number: "20", text: "20 min of focused work. Progress over perfection." },
+      win: { text: "One cold DM template you can send today \u2014 and actually feel good about." }
+    },
+    tasks: [
+      { text: "Study 3 bad cold DMs you've received. Write down what made them annoying.", badge: "RESEARCH", type: "action", checked: true },
+      { text: "Write a DM that leads with a specific observation about their business.", badge: "10 MIN", type: "time", checked: true },
+      { text: "Keep it under 5 sentences. End with a soft CTA, not a hard sell.", badge: "EDIT", type: "action", checked: false },
+      { text: "Send it to at least 3 people in your target niche today", badge: "SEND IT", type: "action", checked: false }
+    ],
+    journal: {
+      prompt: "If I received this DM, would I reply? What would make me actually want to respond to a stranger reaching out?"
+    },
+    quote: {
+      text: "\"The best cold outreach doesn't feel cold. <span class='pink'>It feels like someone actually paid attention.</span>\""
+    },
+    nav: { prev: "Day 6", next: "Day 8", progress: "2 / 4 tasks done" }
+  },
+  // Day 11 — Discovery Call
+  {
+    focus: {
+      icon: "📞",
+      label: "TODAY'S FOCUS",
+      text: "Discovery calls aren't interviews \u2014 they're diagnostic conversations. Today you build your framework."
+    },
+    stats: {
+      time: { number: "25", text: "25 min of focused work. Progress over perfection." },
+      win: { text: "A 5-question discovery call script you can use on your next prospect call." }
+    },
+    tasks: [
+      { text: "Write 5 open-ended questions that uncover your prospect's problem and urgency", badge: "15 MIN", type: "time", checked: true },
+      { text: "Script your opening 90 seconds: who you are, what the call will cover, what they can expect", badge: "5 MIN", type: "time", checked: false },
+      { text: "Plan your close: how will you present your offer and pricing at the end?", badge: "5 MIN", type: "time", checked: false },
+      { text: "Practice the full call out loud \u2014 record yourself on your phone", badge: "PRACTICE", type: "action", checked: false }
+    ],
+    journal: {
+      prompt: "What questions, if answered, would tell me everything I need to know about whether this person is the right client? What would a great discovery call feel like?"
+    },
+    quote: {
+      text: "\"The best closer isn't the best talker. <span class='pink'>They're the best listener.</span>\""
+    },
+    nav: { prev: "Day 10", next: "Day 12", progress: "1 / 4 tasks done" }
+  },
+  // Day 23 — Proposal
+  {
+    focus: {
+      icon: "📋",
+      label: "TODAY'S FOCUS",
+      text: "The call is today. Or it's happening this week. Your only job: listen more than you talk."
+    },
+    stats: {
+      time: { number: "60", text: "60 min of focused work. Progress over perfection." },
+      win: { text: "A completed discovery call and a clear next step communicated to the prospect." }
+    },
+    tasks: [
+      { text: "Open with warmth and set the agenda for the next 30-45 minutes", badge: "OPENER", type: "action", checked: false },
+      { text: "Ask your 5 diagnostic questions and LISTEN without interrupting or pitching early", badge: "MIDDLE", type: "action", checked: false },
+      { text: "Present your offer only after you understand their problem clearly \u2014 connect it to their words", badge: "OFFER", type: "action", checked: false },
+      { text: "End with a clear next step: \"I'll send you the proposal by [day]\" \u2014 not \"I'll be in touch\"", badge: "CLOSE", type: "action", checked: false }
+    ],
+    journal: {
+      prompt: "How did the call feel? What did I do well? Where did I rush, over-explain, or undersell? What will I do differently next time?"
+    },
+    quote: {
+      text: "\"You don't have to be perfect on the call. <span class='pink'>You just have to be present, curious, and helpful.</span>\""
+    },
+    nav: { prev: "Day 22", next: "Day 24", progress: "0 / 4 tasks done" }
+  }
+];
+ 
+function renderPreview(index) {
+  const d = previewData[index];
+  const el = document.getElementById('previewContent');
+ 
+  el.innerHTML = `
+    <div class="wb-focus">
+      <div class="wb-focus-icon">${d.focus.icon}</div>
+      <div class="wb-focus-text">
+        <div class="wb-focus-label">${d.focus.label}</div>
+        <div class="wb-focus-desc">${d.focus.text}</div>
+      </div>
+    </div>
+ 
+    <div class="wb-stats">
+      <div class="wb-stat">
+        <div class="wb-stat-label">Time Required</div>
+        <div class="wb-stat-number">${d.stats.time.number}</div>
+        <div class="wb-stat-text">${d.stats.time.text}</div>
+      </div>
+      <div class="wb-stat">
+        <div class="wb-stat-label">Big Win Today</div>
+        <div class="wb-stat-number">1</div>
+        <div class="wb-stat-text">${d.stats.win.text}</div>
+      </div>
+    </div>
+ 
+    <div class="wb-tasks">
+      <div class="wb-tasks-label">TODAY'S TASKS</div>
+      <h3>Do These 4 Things</h3>
+      ${d.tasks.map(t => `
+        <div class="wb-task-item">
+          <div class="wb-checkbox ${t.checked ? 'checked' : ''}"></div>
+          <div class="wb-task-text ${t.checked ? 'completed' : ''}">${t.text}</div>
+          <div class="wb-task-badge ${t.type}">${t.badge}</div>
+        </div>
+      `).join('')}
+    </div>
+ 
+    <div class="wb-reflection">
+      <div class="wb-reflection-label">REFLECTION</div>
+      <h3>Your Daily Journal</h3>
+      <div class="wb-reflection-sub">Takes 2 minutes. Skipping this is skipping results.</div>
+      <div class="wb-journal-prompt">
+        <p>${d.journal.prompt}</p>
+      </div>
+      <div class="wb-journal-input">Write your answer here. No judgment, no editing \u2014 just think out loud...</div>
+    </div>
+ 
+    <div class="wb-quote">
+      <div class="wb-quote-icon">✨</div>
+      <div class="wb-quote-text">${d.quote.text}</div>
+    </div>
+ 
+    <div class="wb-nav">
+      <div class="wb-nav-btn">\u2190 ${d.nav.prev}</div>
+      <div class="wb-nav-progress">${d.nav.progress}</div>
+      <div class="wb-nav-btn next">${d.nav.next} \u2192</div>
+    </div>
+  `;
+}
+ 
+function switchPreview(index, btn) {
+  document.querySelectorAll('.preview-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderPreview(index);
+}
+ 
+// Initialize with Day 1
+document.addEventListener('DOMContentLoaded', () => renderPreview(0));
+</script>
   </div>
 </section>
 
