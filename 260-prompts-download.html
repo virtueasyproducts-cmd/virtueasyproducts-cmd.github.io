@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your 260 Prompts Are Ready | Virtueasy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink: #FF2D8B;
+      --pink-glow: rgba(255, 45, 139, 0.35);
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --gray: rgba(255,255,255,0.55);
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Subtle grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    /* Pink radial glow behind hero */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(255,45,139,0.18) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px 80px;
+      text-align: center;
+    }
+
+    /* Logo */
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.18em;
+      color: var(--pink);
+      margin-bottom: 56px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    /* Confirmation pill */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,45,139,0.12);
+      border: 1px solid rgba(255,45,139,0.3);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+    .pill::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--pink);
+      box-shadow: 0 0 6px var(--pink);
+      animation: pulse 1.8s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* Headline */
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 9vw, 6.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.2s forwards;
+    }
+    h1 span {
+      color: var(--pink);
+      display: block;
+    }
+
+    /* Subtext */
+    .sub {
+      font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+      font-weight: 300;
+      color: var(--gray);
+      max-width: 480px;
+      line-height: 1.65;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.3s forwards;
+    }
+
+    /* Download button */
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--pink);
+      color: var(--white);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.1em;
+      padding: 18px 44px;
+      border-radius: 4px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 0 30px var(--pink-glow);
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.4s forwards;
+      margin-bottom: 16px;
+    }
+    .btn-download::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .btn-download:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 50px var(--pink-glow), 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .btn-download:active {
+      transform: translateY(0);
+    }
+
+    /* Download icon */
+    .btn-download svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .download-note {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.04em;
+      margin-bottom: 72px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.5s forwards;
+    }
+
+    /* Divider */
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 0 auto 56px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.55s forwards;
+    }
+
+    /* Upsell block */
+    .upsell {
+      max-width: 540px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 40px 36px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.6s forwards;
+    }
+
+    .upsell-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 14px;
+    }
+
+    .upsell h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+
+    .upsell p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--gray);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    .price-block {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .price-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .price-desc {
+      font-size: 0.85rem;
+      color: var(--gray);
+      font-weight: 300;
+    }
+
+    .btn-upsell {
+      display: inline-block;
+      background: transparent;
+      border: 1.5px solid var(--pink);
+      color: var(--pink);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      padding: 14px 36px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+    .btn-upsell:hover {
+      background: var(--pink);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 64px;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.05em;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.7s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .upsell { padding: 28px 20px; }
+      .btn-download { padding: 16px 28px; font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="logo">VIRTUEASY</div>
+
+    <div class="pill">Your download is ready</div>
+
+    <h1>260 Prompts.<br><span>All yours.</span></h1>
+
+    <p class="sub">260 ready-to-use ChatGPT prompts for every part of your VA business. Save the file somewhere you'll actually use it.</p>
+
+    <a
+      class="btn-download"
+      href="https://virtueasyproducts-cmd.github.io/Virtueasy_260_ChatGPT_Prompts.pdf"
+      download="260-ChatGPT-Prompts-Virtueasy.pdf"
+      target="_blank"
+      rel="noopener"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
+      </svg>
+      DOWNLOAD THE PDF
+    </a>
+
+    <p class="download-note">PDF · Free · No account needed</p>
+
+    <div class="divider"></div>
+
+    <div class="upsell">
+      <div class="upsell-label">Ready to go further?</div>
+      <h2>Land Your First<br>High-Ticket Client</h2>
+      <p>The VA Blueprint is a 30-day interactive system that walks you through every step of building a VA business that actually pays. Built for beginners who are done guessing.</p>
+      <div class="price-block">
+        <span class="price-amount">$27</span>
+        <span class="price-desc">one-time · instant access</span>
+      </div>
+      <a class="btn-upsell" href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" target="_blank" rel="noopener">
+        GET THE BLUEPRINT
+      </a>
+    </div>
+
+    <footer>© 2026 Virtueasy Products · All rights reserved</footer>
+
+  </div>
+</body>
+</html>
