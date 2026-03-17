@@ -2601,5 +2601,282 @@ document.addEventListener('DOMContentLoaded', () => renderPreview(0));
   <div style="text-align:center; padding:12px 0; font-size:13px; color:#888; font-family:Jost, sans-serif;">
   Owned and Operated by <a href="https://messickmarketing.com" target="_blank" rel="noopener" style="color:#5a9ab8; text-decoration:none;">Messick Marketing LLC</a>
 </div>
+  <!-- ============================================================
+     VIRTUEASY -- 260 PROMPTS LEAD MAGNET WIDGET
+     Instructions: Paste everything between the PASTE START and 
+     PASTE END comments just before your closing </body> tag
+     in index.html
+     ============================================================ -->
+
+<!-- PASTE START -->
+<style>
+  /* ---- Floating Button ---- */
+  .ve-float-btn {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #FF2D8B;
+    color: #ffffff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    padding: 14px 22px;
+    border-radius: 50px;
+    box-shadow: 0 4px 24px rgba(255, 45, 139, 0.45);
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    animation: ve-bounce-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  .ve-float-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 32px rgba(255, 45, 139, 0.55);
+  }
+  .ve-float-btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  @keyframes ve-bounce-in {
+    from { opacity: 0; transform: translateY(20px) scale(0.9); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* ---- Pop-up Overlay ---- */
+  .ve-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .ve-overlay.ve-visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* ---- Pop-up Card ---- */
+  .ve-modal {
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 45, 139, 0.25);
+    border-radius: 16px;
+    padding: 48px 40px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+    box-shadow: 0 0 60px rgba(255, 45, 139, 0.12);
+  }
+  .ve-overlay.ve-visible .ve-modal {
+    transform: translateY(0) scale(1);
+  }
+
+  /* Glow behind modal */
+  .ve-modal::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 200px;
+    background: radial-gradient(ellipse, rgba(255,45,139,0.18) 0%, transparent 70%);
+    pointer-events: none;
+    border-radius: 50%;
+  }
+
+  .ve-close {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.35);
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+    padding: 4px;
+  }
+  .ve-close:hover { color: #ffffff; }
+
+  .ve-modal-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid rgba(255,45,139,0.35);
+    border-radius: 100px;
+    padding: 5px 14px;
+    margin-bottom: 20px;
+  }
+  .ve-modal-pill-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #FF2D8B;
+    box-shadow: 0 0 6px #FF2D8B;
+  }
+  .ve-modal-pill span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #FF2D8B;
+  }
+
+  .ve-modal h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    margin-bottom: 12px;
+  }
+  .ve-modal h2 span { color: #FF2D8B; }
+
+  .ve-modal p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+
+  .ve-modal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #FF2D8B;
+    color: #ffffff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    padding: 15px 34px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 0 24px rgba(255,45,139,0.3);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .ve-modal-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 40px rgba(255,45,139,0.45);
+  }
+  .ve-modal-btn svg {
+    width: 17px;
+    height: 17px;
+    display: inline;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+
+  .ve-modal-skip {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.25);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    transition: color 0.2s;
+  }
+  .ve-modal-skip:hover { color: rgba(255,255,255,0.5); }
+
+  @media (max-width: 480px) {
+    .ve-modal { padding: 36px 24px; }
+    .ve-modal h2 { font-size: 2.4rem; }
+    .ve-float-btn span { display: none; }
+    .ve-float-btn { padding: 14px; border-radius: 50%; }
+  }
+</style>
+
+<!-- Floating Button -->
+<button class="ve-float-btn" onclick="veOpenModal()" aria-label="Get 260 free prompts">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
+  </svg>
+  <span>FREE: 260 PROMPTS</span>
+</button>
+
+<!-- Pop-up Overlay -->
+<div class="ve-overlay" id="veOverlay" role="dialog" aria-modal="true">
+  <div class="ve-modal">
+    <button class="ve-close" onclick="veCloseModal()" aria-label="Close">&times;</button>
+
+    <div class="ve-modal-pill">
+      <div class="ve-modal-pill-dot"></div>
+      <span>Free Download</span>
+    </div>
+
+    <h2>260 ChatGPT<br><span>Prompts.</span></h2>
+    <p>Ready-to-use prompts for every part of your VA business. Client pitches, onboarding, service descriptions, difficult emails. All of it, free.</p>
+
+    <a class="ve-modal-btn" href="https://subscribepage.io/260-chatgpt-prompts" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
+      </svg>
+      GET THE FREE DOWNLOAD
+    </a>
+    <button class="ve-modal-skip" onclick="veCloseModal()">No thanks, I don't need this</button>
+  </div>
+</div>
+
+<script>
+  var veModalShown = false;
+
+  function veOpenModal() {
+    document.getElementById('veOverlay').classList.add('ve-visible');
+  }
+
+  function veCloseModal() {
+    document.getElementById('veOverlay').classList.remove('ve-visible');
+    // Don't show scroll pop-up again once dismissed
+    veModalShown = true;
+    // Remember in session so it doesn't re-trigger on page reload
+    sessionStorage.setItem('ve_modal_dismissed', '1');
+  }
+
+  // Close on overlay background click
+  document.getElementById('veOverlay').addEventListener('click', function(e) {
+    if (e.target === this) veCloseModal();
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') veCloseModal();
+  });
+
+  // Scroll trigger -- fires at 50% page scroll
+  window.addEventListener('scroll', function() {
+    if (veModalShown) return;
+    if (sessionStorage.getItem('ve_modal_dismissed')) return;
+
+    var scrolled = window.scrollY + window.innerHeight;
+    var total = document.documentElement.scrollHeight;
+    var pct = scrolled / total;
+
+    if (pct >= 0.5) {
+      veModalShown = true;
+      veOpenModal();
+    }
+  });
+</script>
+<!-- PASTE END -->
 </body>
 </html>
