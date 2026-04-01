@@ -1604,39 +1604,11 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 </div>
 
 
-<section class="pain-section">
-  <div class="container reveal">
-    <h2>
-      What Is A Virtual Assistant?<br>
-      <span class="pink">A virtual assistant works remotely to help business owners with tasks they don't have time for.</span>
-    </h2>
-    <p class="pain-body" style="margin-top:20px;">
-      <strong> <br> Business owners are drowning in tasks they hate.</strong> 
-      <br> Email. Scheduling. Social media. Client follow-ups. They will pay someone $500-1500/month or more to take it off their plate.<br>
-      <strong> <br> That someone could be you.</strong> 
-      <br>You don't need a degree. You don't need an office. You don't need experience.<br> 
-      <strong> <br> What you need is a plan for landing the first one.</strong>  <br>
-    </p>
-    <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn-primary" style="margin-top: 28px;">I'm Ready to Land My First Client!</a>
-  </div>
-</section>
-  
 <!-- WORKBOOK PREVIEW -->
 <style>
 /* ===== PREVIEW SECTION STYLES ===== */
 .preview-section { padding: 80px 0; }
 .preview-section .container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
-
-.preview-tabs {
-  display: flex; gap: 8px; margin: 32px 0 24px; flex-wrap: wrap; justify-content: center;
-}
-.preview-tab {
-  background: #f5f5f5; border: none; padding: 10px 18px; border-radius: 999px;
-  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: #666;
-  cursor: pointer; transition: all 0.25s ease;
-}
-.preview-tab:hover { background: #eee; }
-.preview-tab.active { background: #FF2D8B; color: #fff; }
 
 /* iPad Frame */
 .ipad-frame {
@@ -1666,96 +1638,54 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   color: #aaa; font-family: 'DM Sans', sans-serif;
 }
 
-/* Workbook Inner */
-.wb-inner {
-  padding: 24px 20px 0; max-height: 520px; overflow: hidden; position: relative;
-  display: flex; flex-direction: column; gap: 20px; font-family: 'DM Sans', sans-serif;
-}
+/* Blueprint Dashboard Preview */
+.bp-dashboard { font-family: 'DM Sans', sans-serif; padding: 0; max-height: 520px; overflow: hidden; position: relative; }
+.bp-hero { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding: 28px 20px 22px; text-align: center; }
+.bp-hero h3 { color: #fff; font-size: 18px; font-weight: 400; margin: 0 0 4px; line-height: 1.3; }
+.bp-hero h3 strong { font-weight: 800; }
+.bp-hero h3 .pink-text { color: #FF2D8B; font-style: italic; font-weight: 800; }
+.bp-hero p { color: rgba(255,255,255,0.6); font-size: 11px; margin: 8px 0 0; line-height: 1.4; }
+
+.bp-pipeline { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid #f0f0f0; }
+.bp-pipeline-left { display: flex; align-items: center; gap: 6px; }
+.bp-pipeline-label { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #999; }
+.bp-pipeline-status { font-size: 12px; font-weight: 600; color: #333; }
+.bp-pipeline-btn { background: #FF2D8B; color: #fff; font-size: 10px; font-weight: 700; padding: 6px 14px; border-radius: 6px; text-decoration: none; letter-spacing: 0.3px; }
+
+.bp-progress { padding: 14px 20px; border-bottom: 1px solid #f0f0f0; }
+.bp-progress-label { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #999; margin-bottom: 8px; }
+.bp-progress-row { display: flex; align-items: center; gap: 10px; }
+.bp-progress-bar { flex: 1; height: 8px; background: #f0f0f0; border-radius: 4px; overflow: hidden; }
+.bp-progress-fill { height: 100%; width: 30%; background: linear-gradient(90deg, #FF2D8B, #ff5ca8); border-radius: 4px; }
+.bp-progress-text { font-size: 11px; font-weight: 600; color: #666; white-space: nowrap; }
+
+.bp-week { padding: 14px 20px 10px; }
+.bp-week-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #999; margin-bottom: 10px; }
+.bp-days { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.bp-day { border: 1px solid #eee; border-radius: 8px; padding: 8px 10px; min-width: 72px; text-align: center; font-size: 11px; }
+.bp-day-num { font-weight: 800; font-size: 13px; color: #333; margin-bottom: 2px; }
+.bp-day-text { font-size: 9px; color: #999; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px; }
+.bp-day.done { border-color: #eee; }
+.bp-day.done .bp-day-num::after { content: ' \2713'; color: #FF2D8B; font-size: 11px; }
+.bp-day.active { border-color: #FF2D8B; background: #FFF0F6; }
+.bp-day.active .bp-day-num { color: #FF2D8B; }
 
 /* Fade-out overlay */
-.wb-fade {
-  position: absolute; bottom: 0; left: 0; right: 0; height: 180px; z-index: 10;
+.bp-fade {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 160px; z-index: 10;
   background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,1) 100%);
-  display: flex; align-items: flex-end; justify-content: center; padding-bottom: 28px;
+  display: flex; align-items: flex-end; justify-content: center; padding-bottom: 24px;
 }
-.wb-fade-btn {
+.bp-fade-btn {
   display: inline-flex; align-items: center; gap: 8px;
   background: #FF2D8B; color: #fff; font-family: 'Barlow', sans-serif;
   font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
   padding: 14px 28px; border-radius: 100px; border: none; cursor: pointer;
   text-decoration: none; transition: all 0.2s; box-shadow: 0 4px 20px rgba(255,31,122,0.35);
 }
-.wb-fade-btn:hover {
+.bp-fade-btn:hover {
   background: #e0156a; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,31,122,0.4);
 }
-
-/* Focus Banner */
-.wb-focus {
-  background: linear-gradient(135deg, #FF2D8B, #ff5ca8); color: #fff;
-  border-radius: 14px; padding: 18px 20px; display: flex; align-items: flex-start; gap: 12px;
-}
-.wb-focus-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
-.wb-focus-text { display: flex; flex-direction: column; gap: 4px; }
-.wb-focus-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.9; }
-.wb-focus-desc { font-size: 14px; font-weight: 500; line-height: 1.45; }
-
-/* Stats Row */
-.wb-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.wb-stat { background: #fafafa; border: 1px solid #eee; border-radius: 12px; padding: 16px; position: relative; }
-.wb-stat-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #999; margin-bottom: 8px; }
-.wb-stat-number { position: absolute; top: 14px; right: 16px; font-size: 36px; font-weight: 800; color: #FF2D8B; opacity: 0.35; line-height: 1; }
-.wb-stat-text { font-size: 13px; color: #555; line-height: 1.45; margin-top: 18px; }
-
-/* Tasks Section */
-.wb-tasks { background: #fff; border: 1px solid #eee; border-radius: 14px; padding: 20px; }
-.wb-tasks-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #FF2D8B; margin-bottom: 4px;
-}
-.wb-tasks-label::after {
-  content: ''; display: inline-block; width: 60px; height: 1px;
-  background: #FFD6E8; vertical-align: middle; margin-left: 8px;
-}
-.wb-tasks h3 { font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 800; margin: 6px 0 16px; color: #111; }
-.wb-task-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f5f5f5; }
-.wb-task-item:last-child { border-bottom: none; }
-.wb-checkbox {
-  width: 22px; height: 22px; border-radius: 6px; border: 2px solid #ddd;
-  flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center;
-}
-.wb-checkbox.checked { background: #FF2D8B; border-color: #FF2D8B; }
-.wb-checkbox.checked::after { content: '\2713'; color: #fff; font-size: 13px; font-weight: 700; }
-.wb-task-text { font-size: 13.5px; color: #333; line-height: 1.45; flex: 1; }
-.wb-task-text.completed { text-decoration: line-through; color: #aaa; }
-.wb-task-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 4px; flex-shrink: 0; white-space: nowrap; margin-top: 2px; }
-.wb-task-badge.time { color: #FF2D8B; background: #FFF0F6; }
-.wb-task-badge.action { color: #FF2D8B; background: #FFF0F6; }
-
-/* Reflection */
-.wb-reflection { background: #fff; border: 1px solid #eee; border-radius: 14px; padding: 20px; }
-.wb-reflection-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #FF2D8B; margin-bottom: 4px;
-}
-.wb-reflection-label::after {
-  content: ''; display: inline-block; width: 60px; height: 1px;
-  background: #FFD6E8; vertical-align: middle; margin-left: 8px;
-}
-.wb-reflection h3 { font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 800; margin: 6px 0 4px; color: #111; }
-.wb-reflection-sub { font-size: 13px; color: #999; margin-bottom: 14px; }
-.wb-journal-prompt { border-left: 3px solid #FF2D8B; background: #FFF8FB; padding: 14px 16px; border-radius: 0 10px 10px 0; margin-bottom: 10px; }
-.wb-journal-prompt p { font-size: 13.5px; color: #333; font-style: italic; line-height: 1.5; margin: 0; }
-.wb-journal-input { background: #fafafa; border: 1px solid #eee; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #bbb; min-height: 50px; }
-
-/* Quote */
-.wb-quote { background: linear-gradient(135deg, #1a1a1a, #2a2a2a); color: #fff; border-radius: 14px; padding: 18px 20px; display: flex; align-items: flex-start; gap: 10px; }
-.wb-quote-icon { font-size: 18px; flex-shrink: 0; }
-.wb-quote-text { font-size: 13.5px; font-style: italic; line-height: 1.5; }
-.wb-quote-text .pink { color: #FF2D8B; font-style: italic; }
-
-/* Nav */
-.wb-nav { display: flex; align-items: center; justify-content: space-between; padding: 4px 0 20px; }
-.wb-nav-btn { font-size: 13px; font-weight: 600; color: #555; background: none; border: 1px solid #ddd; border-radius: 8px; padding: 8px 16px; cursor: default; font-family: 'DM Sans', sans-serif; }
-.wb-nav-btn.next { background: #FF2D8B; color: #fff; border-color: #FF2D8B; }
-.wb-nav-progress { font-size: 12px; color: #999; }
 
 .preview-note { text-align: center; font-size: 15px; color: #666; margin-top: 24px; font-family: 'DM Sans', sans-serif; }
 .preview-note strong { color: #111; }
@@ -1765,17 +1695,12 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   .ipad-screen { border-radius: 10px; }
   .ipad-camera { width: 6px; height: 6px; top: 5px; }
   .ipad-frame::before { left: 5px; width: 2px; height: 24px; }
-  .wb-inner { padding: 16px 14px 0; max-height: 460px; }
-  .wb-focus { padding: 14px 16px; }
-  .wb-focus-desc { font-size: 13px; }
-  .wb-stats { gap: 8px; }
-  .wb-stat { padding: 12px; }
-  .wb-stat-number { font-size: 28px; }
-  .wb-stat-text { margin-top: 14px; font-size: 12px; }
-  .wb-task-text { font-size: 13px; }
-  .preview-tabs { gap: 6px; }
-  .preview-tab { padding: 8px 14px; font-size: 13px; }
-  .wb-fade-btn { font-size: 0.78rem; padding: 12px 22px; }
+  .bp-dashboard { max-height: 420px; }
+  .bp-hero { padding: 20px 16px 16px; }
+  .bp-hero h3 { font-size: 15px; }
+  .bp-day { min-width: 60px; padding: 6px 8px; }
+  .bp-day-num { font-size: 12px; }
+  .bp-fade-btn { font-size: 0.78rem; padding: 12px 22px; }
 }
 </style>
 
@@ -1787,12 +1712,6 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       <p class="sub">It's a live, interactive 30-day system that works right in your browser. Try 3 real days free.</p>
     </div>
 
-    <div class="preview-tabs reveal" id="previewTabs">
-      <button class="preview-tab active" onclick="switchPreview(0, this)">Day 10 - Content</button>
-      <button class="preview-tab" onclick="switchPreview(1, this)">Day 11 - Discovery Call</button>
-      <button class="preview-tab" onclick="switchPreview(2, this)">Day 12 - Objections</button>
-    </div>
-
     <div class="ipad-frame reveal" id="previewBrowser">
       <div class="ipad-camera"></div>
       <div class="ipad-screen">
@@ -1801,11 +1720,60 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
           <span class="ipad-statusbar-url">blueprint.virtueasy.com</span>
           <span>100%</span>
         </div>
-        <div class="wb-inner" id="previewContent">
-          <!-- Content injected by JS -->
-        </div>
-        <div class="wb-fade">
-          <a href="https://subscribepage.io/blueprint-preview" class="wb-fade-btn">Try the Full Preview Free &rarr;</a>
+        <div class="bp-dashboard">
+          <!-- Hero -->
+          <div class="bp-hero">
+            <h3>30 Days to Your<br><strong class="pink-text">First High-Ticket Client</strong></h3>
+            <p>A day-by-day action plan for virtual assistants ready to stop<br>trading hours for dollars.</p>
+          </div>
+          <!-- Client Pipeline -->
+          <div class="bp-pipeline">
+            <div class="bp-pipeline-left">
+              <div>
+                <div class="bp-pipeline-label">Client Pipeline</div>
+                <div class="bp-pipeline-status">2 client won 🎉</div>
+              </div>
+            </div>
+            <a href="#" class="bp-pipeline-btn">View Pipeline &rarr;</a>
+          </div>
+          <!-- Overall Progress -->
+          <div class="bp-progress">
+            <div class="bp-progress-label">Overall Progress</div>
+            <div class="bp-progress-row">
+              <div class="bp-progress-bar"><div class="bp-progress-fill"></div></div>
+              <div class="bp-progress-text">9/30 days</div>
+            </div>
+          </div>
+          <!-- Week 1 -->
+          <div class="bp-week">
+            <div class="bp-week-label">Week 1 &mdash; Foundation</div>
+            <div class="bp-days">
+              <div class="bp-day done"><div class="bp-day-num">Day 1</div><div class="bp-day-text">Get Brutally Clear...</div></div>
+              <div class="bp-day done"><div class="bp-day-num">Day 2</div><div class="bp-day-text">Identify the Problem...</div></div>
+              <div class="bp-day done"><div class="bp-day-num">Day 3</div><div class="bp-day-text">Build Your Offer...</div></div>
+              <div class="bp-day done"><div class="bp-day-num">Day 4</div><div class="bp-day-text">Price It Like...</div></div>
+              <div class="bp-day done"><div class="bp-day-num">Day 5</div><div class="bp-day-text">Create a LinkedIn...</div></div>
+              <div class="bp-day done"><div class="bp-day-num">Day 6</div><div class="bp-day-text">Build a Simple...</div></div>
+              <div class="bp-day done"><div class="bp-day-num">Day 7</div><div class="bp-day-text">Write Your First...</div></div>
+            </div>
+          </div>
+          <!-- Week 2 -->
+          <div class="bp-week">
+            <div class="bp-week-label">Week 2 &mdash; Systems &amp; Outreach</div>
+            <div class="bp-days">
+              <div class="bp-day"><div class="bp-day-num">Day 8</div><div class="bp-day-text">Set Up Your...</div></div>
+              <div class="bp-day"><div class="bp-day-num">Day 9</div><div class="bp-day-text">Find Where Your...</div></div>
+              <div class="bp-day"><div class="bp-day-num">Day 10</div><div class="bp-day-text">Create Content That...</div></div>
+              <div class="bp-day"><div class="bp-day-num">Day 11</div><div class="bp-day-text">Master the Discovery...</div></div>
+              <div class="bp-day active"><div class="bp-day-num">Day 12</div><div class="bp-day-text">Handle Objections Before...</div></div>
+              <div class="bp-day"><div class="bp-day-num">Day 13</div><div class="bp-day-text">Send 10 Outreach...</div></div>
+              <div class="bp-day"><div class="bp-day-num">Day 14</div><div class="bp-day-text">Follow Up Like...</div></div>
+            </div>
+          </div>
+          <!-- Fade overlay -->
+          <div class="bp-fade">
+            <a href="https://subscribepage.io/blueprint-preview" class="bp-fade-btn">Try the Full Preview Free &rarr;</a>
+          </div>
         </div>
       </div>
     </div>
@@ -1814,154 +1782,23 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   </div>
 </section>
 
-<script>
-const previewData = [
-  // Day 10 - Content
-  {
-    focus: {
-      icon: "\ud83d\udcdd",
-      label: "TODAY'S FOCUS",
-      text: "You don\u2019t need a huge audience. You need the right 10 people to see the right post. Let\u2019s create it."
-    },
-    stats: {
-      time: { number: "30", text: "30 min of focused work. Progress over perfection." },
-      win: { text: "One piece of content published today that speaks directly to your niche\u2019s pain point." }
-    },
-    tasks: [
-      { text: "Write a post that starts with a bold statement about your niche\u2019s biggest problem", badge: "15 MIN", type: "time", checked: true },
-      { text: "Include a specific insight, tip, or perspective \u2014 not generic advice", badge: "EDIT", type: "action", checked: true },
-      { text: "End with a soft CTA: a question, a DM invite, or a comment prompt", badge: "5 MIN", type: "time", checked: false },
-      { text: "Post it on LinkedIn AND the Facebook groups you joined yesterday", badge: "PUBLISH", type: "action", checked: false }
-    ],
-    journal: {
-      prompt: "What\u2019s one thing I know about my niche that most people get wrong? What would I tell them if they were sitting right across from me?"
-    },
-    quote: {
-      text: "\"Content doesn\u2019t build audiences. <span class='pink'>It builds trust. One right person reading the right post changes everything.</span>\""
-    },
-    nav: { prev: "Day 9", next: "Day 11", progress: "2 / 4 tasks done" }
-  },
-  // Day 11 - Discovery Call
-  {
-    focus: {
-      icon: "\ud83d\udcde",
-      label: "TODAY'S FOCUS",
-      text: "Discovery calls aren\u2019t interviews \u2014 they\u2019re diagnostic conversations. Today you build your framework."
-    },
-    stats: {
-      time: { number: "25", text: "25 min of focused work. Progress over perfection." },
-      win: { text: "A 5-question discovery call script you can use on your next prospect call." }
-    },
-    tasks: [
-      { text: "Write 5 open-ended questions that uncover your prospect\u2019s problem and urgency", badge: "15 MIN", type: "time", checked: true },
-      { text: "Script your opening 90 seconds: who you are, what the call will cover, what they can expect", badge: "5 MIN", type: "time", checked: false },
-      { text: "Plan your close: how will you present your offer and pricing at the end?", badge: "5 MIN", type: "time", checked: false },
-      { text: "Practice the full call out loud \u2014 record yourself on your phone", badge: "PRACTICE", type: "action", checked: false }
-    ],
-    journal: {
-      prompt: "What questions, if answered, would tell me everything I need to know about whether this person is the right client? What would a great discovery call feel like?"
-    },
-    quote: {
-      text: "\"The best closer isn\u2019t the best talker. <span class='pink'>They\u2019re the best listener.</span>\""
-    },
-    nav: { prev: "Day 10", next: "Day 12", progress: "1 / 4 tasks done" }
-  },
-  // Day 12 - Objections
-  {
-    focus: {
-      icon: "\ud83d\udee1\ufe0f",
-      label: "TODAY'S FOCUS",
-      text: "\"I need to think about it\" is code for something. Today you learn to decode it \u2014 and respond with confidence."
-    },
-    stats: {
-      time: { number: "20", text: "20 min of focused work. Progress over perfection." },
-      win: { text: "A written response to the 3 most common objections in your niche." }
-    },
-    tasks: [
-      { text: "List the top 3 objections you expect: price, timing, \"I'll do it myself\"", badge: "5 MIN", type: "time", checked: false },
-      { text: "For each one, write a response that acknowledges, reframes, and redirects \u2014 not defends", badge: "15 MIN", type: "time", checked: false },
-      { text: "Role-play each objection with a friend, partner, or yourself in the mirror", badge: "PRACTICE", type: "action", checked: false },
-      { text: "Save your responses where you can reference them before every call", badge: "SAVE", type: "action", checked: false }
-    ],
-    journal: {
-      prompt: "What am I most afraid someone will say on a call? Why does that feel threatening \u2014 and what\u2019s the truth underneath my fear?"
-    },
-    quote: {
-      text: "\"An objection is not a rejection. <span class='pink'>It\u2019s a question wearing a trench coat.</span>\""
-    },
-    nav: { prev: "Day 11", next: "Day 13", progress: "0 / 4 tasks done" }
-  }
-];
 
-function renderPreview(index) {
-  const d = previewData[index];
-  const el = document.getElementById('previewContent');
-
-  el.innerHTML = `
-    <div class="wb-focus">
-      <div class="wb-focus-icon">${d.focus.icon}</div>
-      <div class="wb-focus-text">
-        <div class="wb-focus-label">${d.focus.label}</div>
-        <div class="wb-focus-desc">${d.focus.text}</div>
-      </div>
-    </div>
-
-    <div class="wb-stats">
-      <div class="wb-stat">
-        <div class="wb-stat-label">Time Required</div>
-        <div class="wb-stat-number">${d.stats.time.number}</div>
-        <div class="wb-stat-text">${d.stats.time.text}</div>
-      </div>
-      <div class="wb-stat">
-        <div class="wb-stat-label">Big Win Today</div>
-        <div class="wb-stat-number">1</div>
-        <div class="wb-stat-text">${d.stats.win.text}</div>
-      </div>
-    </div>
-
-    <div class="wb-tasks">
-      <div class="wb-tasks-label">TODAY'S TASKS</div>
-      <h3>Do These 4 Things</h3>
-      ${d.tasks.map(t => `
-        <div class="wb-task-item">
-          <div class="wb-checkbox ${t.checked ? 'checked' : ''}"></div>
-          <div class="wb-task-text ${t.checked ? 'completed' : ''}">${t.text}</div>
-          <div class="wb-task-badge ${t.type}">${t.badge}</div>
-        </div>
-      `).join('')}
-    </div>
-
-    <div class="wb-reflection">
-      <div class="wb-reflection-label">REFLECTION</div>
-      <h3>Your Daily Journal</h3>
-      <div class="wb-reflection-sub">Takes 2 minutes. Skipping this is skipping results.</div>
-      <div class="wb-journal-prompt">
-        <p>${d.journal.prompt}</p>
-      </div>
-      <div class="wb-journal-input">Write your answer here. No judgment, no editing \u2014 just think out loud...</div>
-    </div>
-
-    <div class="wb-quote">
-      <div class="wb-quote-icon">\u2728</div>
-      <div class="wb-quote-text">${d.quote.text}</div>
-    </div>
-
-    <div class="wb-nav">
-      <div class="wb-nav-btn">\u2190 ${d.nav.prev}</div>
-      <div class="wb-nav-progress">${d.nav.progress}</div>
-      <div class="wb-nav-btn next">${d.nav.next} \u2192</div>
-    </div>
-  `;
-}
-
-function switchPreview(index, btn) {
-  document.querySelectorAll('.preview-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  renderPreview(index);
-}
-
-document.addEventListener('DOMContentLoaded', () => renderPreview(0));
-</script>
+<section class="pain-section">
+  <div class="container reveal">
+    <h2>
+      What Is A Virtual Assistant?<br>
+      <span class="pink">A virtual assistant works remotely to help business owners with tasks they don't have time for.</span>
+    </h2>
+    <p class="pain-body" style="margin-top:20px;">
+      <strong> <br> Business owners are drowning in tasks they hate.</strong>
+      <br> Email. Scheduling. Social media. Client follow-ups. They will pay someone $500-1500/month or more to take it off their plate.<br>
+      <strong> <br> That someone could be you.</strong>
+      <br>You don't need a degree. You don't need an office. You don't need experience.<br>
+      <strong> <br> What you need is a plan for landing the first one.</strong>  <br>
+    </p>
+    <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn-primary" style="margin-top: 28px;">I'm Ready to Land My First Client!</a>
+  </div>
+</section>
 
 
 <!-- SKILLS QUIZ SECTION -->
