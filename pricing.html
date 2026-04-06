@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Pricing Builder — VIRTUeasy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#FF1F7A;--pink-dark:#D91565;--pink-light:#FF85B3;--pink-pale:#FFE6F0;--pink-blush:#FFF5F9;
+  --black:#0D0D0D;--gray-dark:#333;--gray-mid:#888;--gray-light:#CCC;--gray-pale:#F0F0F0;--gray-bg:#FAFAFA;
+  --white:#FFFFFF;--radius:12px;--radius-sm:8px;--radius-pill:100px;
+  --font-body:'DM Sans',sans-serif;--font-display:'Playfair Display',serif;
+}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--gray-bg);color:var(--black);min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased}
+input,select,button,textarea{font-family:inherit;font-size:inherit}
+button{cursor:pointer}
+
+/* Shell */
+.shell{max-width:480px;margin:0 auto;min-height:100vh;min-height:100dvh;padding-bottom:90px;position:relative}
+
+/* Header */
+.header{padding:20px 20px 0}
+.logo-row{display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;font-size:20px;letter-spacing:-0.02em;color:var(--black);text-decoration:none}
+.logo span{color:var(--pink);font-weight:600}
+.badge{font-size:10px;font-weight:700;color:var(--pink);background:var(--pink-pale);padding:4px 10px;border-radius:var(--radius-pill);letter-spacing:0.05em;text-transform:uppercase}
+.greeting{font-size:14px;color:var(--gray-mid);margin-top:4px}
+
+/* Progress */
+.progress-wrap{padding:14px 20px 8px}
+.progress-track{height:3px;background:#EAEAEA;border-radius:4px;overflow:hidden;margin-bottom:14px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--pink-light));border-radius:4px;transition:width 0.4s ease}
+.step-dots{display:flex;justify-content:space-between}
+.step-dot{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:none;padding:0}
+.step-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:#EAEAEA;color:#999;transition:all 0.3s}
+.step-dot.active .step-num{background:var(--pink-pale);color:var(--pink)}
+.step-dot.current .step-num{background:var(--pink);color:var(--white);box-shadow:0 2px 8px rgba(255,31,122,0.3)}
+.step-dot.done .step-num{background:var(--pink);color:var(--white)}
+.step-label{font-size:10px;color:#AAA;font-weight:500;white-space:nowrap}
+.step-dot.active .step-label,.step-dot.current .step-label{color:var(--pink)}
+
+/* Content */
+.content{padding:0 16px}
+.card{background:var(--white);border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,0.04),0 4px 12px rgba(0,0,0,0.02)}
+.card-title{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--black);margin-bottom:4px}
+.card-sub{font-size:14px;color:var(--gray-mid);margin-bottom:20px;line-height:1.5}
+
+/* Forms */
+.form-label{font-size:11px;font-weight:700;color:#666;margin-bottom:8px;display:block;text-transform:uppercase;letter-spacing:0.05em}
+.form-input{width:100%;padding:12px 14px;font-size:15px;border:1.5px solid #E8E8E8;border-radius:10px;background:var(--gray-bg);outline:none;margin-bottom:16px;color:var(--black);transition:border-color 0.2s}
+.form-input:focus{border-color:var(--pink)}
+select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' fill='none' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+
+/* Chips */
+.chip-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{padding:8px 14px;border-radius:var(--radius-pill);font-size:13px;font-weight:500;border:1.5px solid #E8E8E8;background:var(--white);color:#555;cursor:pointer;transition:all 0.2s;line-height:1.3}
+.chip:hover{border-color:var(--pink-light)}
+.chip.active{background:var(--pink);color:var(--white);border-color:var(--pink)}
+.chip-sm{padding:5px 10px;border-radius:var(--radius-pill);font-size:12px;font-weight:500;border:1px solid #E8E8E8;background:var(--white);color:#555;cursor:pointer;transition:all 0.2s}
+.chip-sm.active{background:var(--pink-pale);color:var(--pink);border-color:var(--pink-light)}
+.chip-readonly{padding:6px 12px;border-radius:var(--radius-pill);font-size:12px;font-weight:500;background:#F5F5F5;color:#555;display:inline-block}
+
+/* Experience cards */
+.exp-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:8px}
+.exp-card{padding:14px 16px;border-radius:var(--radius);text-align:left;border:1.5px solid #E8E8E8;background:var(--white);cursor:pointer;transition:all 0.2s;font-size:14px;font-weight:600;color:var(--gray-dark)}
+.exp-card:hover{border-color:var(--pink-light)}
+.exp-card.active{border-color:var(--pink);background:var(--pink-blush)}
+
+/* Model cards */
+.model-card{display:flex;align-items:center;gap:14px;padding:16px;border-radius:14px;margin-bottom:10px;border:1.5px solid #E8E8E8;background:var(--white);cursor:pointer;transition:all 0.2s;width:100%;text-align:left}
+.model-card:hover{border-color:var(--pink-light)}
+.model-card.active{border-color:var(--pink);background:var(--pink-blush)}
+.model-icon{font-size:24px;flex-shrink:0}
+.model-text{flex:1;display:flex;flex-direction:column;gap:2px}
+.model-title{font-size:15px;font-weight:700;color:var(--black)}
+.model-desc{font-size:12px;color:var(--gray-mid);line-height:1.4}
+.model-check{width:24px;height:24px;border-radius:50%;border:2px solid #DDD;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--white);transition:all 0.2s;flex-shrink:0}
+.model-card.active .model-check{background:var(--pink);border-color:var(--pink)}
+
+/* Rate display */
+.rate-display{display:flex;align-items:baseline;justify-content:center;padding:20px 0 8px;gap:2px}
+.rate-currency{font-size:28px;font-weight:700;color:var(--pink)}
+.rate-amount{font-size:56px;font-weight:800;color:var(--black);letter-spacing:-0.03em;line-height:1}
+.rate-per{font-size:18px;font-weight:500;color:#AAA}
+.rate-slider{width:100%;height:6px;-webkit-appearance:none;appearance:none;background:linear-gradient(90deg,var(--pink-pale),var(--pink));border-radius:6px;outline:none;margin-bottom:8px}
+.rate-slider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--pink);border:3px solid var(--white);box-shadow:0 2px 6px rgba(255,31,122,0.35);cursor:pointer}
+.rate-slider::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--pink);border:3px solid var(--white);box-shadow:0 2px 6px rgba(255,31,122,0.35);cursor:pointer}
+.rate-labels{display:flex;justify-content:space-between;font-size:11px;color:#BBB;margin-bottom:20px}
+.rate-projections{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.proj-card{background:var(--gray-bg);border-radius:10px;padding:12px 10px;text-align:center;display:flex;flex-direction:column;gap:4px}
+.proj-label{font-size:11px;font-weight:500;color:#999}
+.proj-value{font-size:15px;font-weight:700;color:var(--black)}
+
+/* Packages */
+.pkg-card{border:1.5px solid var(--gray-pale);border-radius:14px;padding:16px;margin-bottom:14px;background:var(--gray-bg)}
+.pkg-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.pkg-name{font-size:16px;font-weight:700;color:var(--black);border:none;background:transparent;outline:none;width:50%}
+.pkg-price{font-size:20px;font-weight:800;color:var(--pink)}
+.pkg-price-per{font-size:12px;font-weight:500;color:#AAA}
+.pkg-controls{display:flex;gap:10px;margin-bottom:12px}
+.pkg-field{flex:1}
+.pkg-field-label{font-size:10px;font-weight:700;color:#999;margin-bottom:4px;display:block;text-transform:uppercase;letter-spacing:0.04em}
+.pkg-input{width:100%;padding:8px 10px;font-size:14px;border:1.5px solid #E8E8E8;border-radius:var(--radius-sm);background:var(--white);color:var(--black);outline:none}
+.pkg-input:focus{border-color:var(--pink)}
+
+/* Projects */
+.project-preview{font-size:14px;color:#555;margin-bottom:12px}
+.project-preview strong{color:var(--pink)}
+.project-item{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:#F8F8F8;border-radius:10px;margin-bottom:8px}
+.project-name{font-size:14px;font-weight:600;color:var(--black);display:block}
+.project-meta{font-size:12px;color:#999}
+.project-right{display:flex;align-items:center;gap:10px}
+.project-price{font-size:16px;font-weight:700;color:var(--pink)}
+.remove-btn{background:none;border:none;font-size:16px;color:#CCC;cursor:pointer;padding:0}
+.remove-btn:hover{color:var(--pink)}
+
+/* Add row */
+.add-row{display:flex;gap:8px;margin-bottom:16px;align-items:center}
+.add-row .form-input{flex:1;margin-bottom:0}
+.add-btn{padding:10px 18px;font-size:14px;font-weight:600;background:var(--black);color:var(--white);border:none;border-radius:10px;white-space:nowrap;transition:background 0.2s}
+.add-btn:hover{background:#333}
+
+/* Summary */
+.summary-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--black);margin-bottom:16px}
+.summary-rate{display:flex;align-items:baseline;gap:4px;margin-bottom:16px}
+.summary-big{font-size:40px;font-weight:800;color:var(--pink);letter-spacing:-0.02em}
+.summary-per{font-size:16px;color:#AAA;font-weight:500}
+
+.pkg-summary-card{border:1.5px solid var(--gray-pale);border-radius:14px;padding:18px;background:var(--gray-bg);margin-bottom:12px;position:relative}
+.pkg-summary-card.featured{border-color:var(--pink);background:var(--pink-blush)}
+.featured-badge{position:absolute;top:-10px;right:16px;background:var(--pink);color:var(--white);font-size:10px;font-weight:700;padding:3px 10px;border-radius:var(--radius-pill);text-transform:uppercase;letter-spacing:0.04em}
+.pkg-summary-name{font-size:16px;font-weight:700;color:var(--black);margin-bottom:4px}
+.pkg-summary-price{font-size:28px;font-weight:800;color:var(--pink);margin-bottom:2px}
+.pkg-summary-price-per{font-size:14px;font-weight:500;color:#AAA}
+.pkg-summary-hours{font-size:13px;color:var(--gray-mid);margin-bottom:4px}
+.pkg-summary-discount{font-size:12px;color:var(--pink);font-weight:600;margin-bottom:8px}
+.pkg-summary-list{list-style:none;padding:0;margin:0}
+.pkg-summary-item{font-size:13px;color:#555;padding:4px 0;border-top:1px solid var(--gray-pale)}
+
+.project-summary-item{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--gray-pale)}
+
+/* Actions */
+.action-row{display:flex;gap:10px;padding:0 0 40px}
+.save-btn{flex:1;padding:14px 0;font-size:15px;font-weight:700;background:var(--pink);color:var(--white);border:none;border-radius:var(--radius);transition:all 0.2s}
+.save-btn:hover{background:var(--pink-dark)}
+.save-btn.saved{background:#22C55E}
+.reset-btn{padding:14px 20px;font-size:14px;font-weight:600;background:#F5F5F5;color:#999;border:none;border-radius:var(--radius)}
+.reset-btn:hover{background:#EEE;color:#666}
+
+/* Bottom nav */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:rgba(255,255,255,0.95);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--gray-pale);max-width:480px;margin:0 auto;z-index:100}
+.back-btn{padding:12px 20px;font-size:14px;font-weight:600;background:none;color:#555;border:1.5px solid #E8E8E8;border-radius:10px;transition:all 0.2s}
+.back-btn:hover{border-color:var(--pink);color:var(--pink)}
+.next-btn{padding:12px 24px;font-size:15px;font-weight:700;background:var(--pink);color:var(--white);border:none;border-radius:10px;margin-left:auto;transition:all 0.2s;box-shadow:0 2px 8px rgba(255,31,122,0.25)}
+.next-btn:hover{background:var(--pink-dark)}
+.next-btn:disabled{background:var(--gray-pale);color:var(--gray-light);cursor:not-allowed;box-shadow:none}
+
+/* Step visibility */
+.step-panel{display:none;animation:fadeUp 0.35s ease}
+.step-panel.visible{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Loading */
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:16px}
+.loading-dot{width:32px;height:32px;border-radius:50%;background:var(--pink);animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.15);opacity:0.7}}
+.loading p{font-size:14px;color:var(--gray-mid)}
+
+/* Toast */
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-60px);background:var(--black);color:var(--white);padding:10px 20px;border-radius:var(--radius-pill);font-size:13px;font-weight:600;opacity:0;transition:all 0.35s ease;z-index:200;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+</style>
+</head>
+<body>
+<div class="shell" id="app">
+  <div class="loading" id="loading">
+    <div class="loading-dot"></div>
+    <p>Loading your pricing data...</p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  const STORAGE_KEY = "virtueasy-pricing-v1";
+  const VA_TYPES = ["Executive/Admin","Social media","Bookkeeping","Tech/Dev","Real estate","E-commerce","Creative/Design","Customer support","General"];
+  const EXP_LEVELS = [
+    {label:"Just starting out",value:"beginner",mult:0.8},
+    {label:"1–2 years",value:"junior",mult:1.0},
+    {label:"3–5 years",value:"mid",mult:1.25},
+    {label:"5+ years",value:"senior",mult:1.5}
+  ];
+  const SUGGESTED = {
+    "Executive/Admin":["Email management","Calendar scheduling","Travel booking","Data entry","Document formatting","Meeting notes"],
+    "Social media":["Content creation","Post scheduling","Community management","Analytics reporting","Hashtag research","Story design"],
+    "Bookkeeping":["Invoice processing","Expense tracking","Bank reconciliation","Financial reports","Payroll support","Tax prep"],
+    "Tech/Dev":["Website maintenance","Bug fixes","Plugin setup","API integration","Database management","Tech support"],
+    "Real estate":["Listing management","Lead follow-up","CRM updates","Transaction coordination","Market research","Open house prep"],
+    "E-commerce":["Product listings","Order management","Customer emails","Inventory tracking","Review management","Storefront updates"],
+    "Creative/Design":["Graphic design","Brand assets","Presentation design","Video editing","Photo retouching","Template creation"],
+    "Customer support":["Email support","Live chat","Ticket management","FAQ updates","Returns processing","Feedback collection"],
+    "General":["Email management","Calendar scheduling","Data entry","Research","Social media","Customer support"]
+  };
+  const BASE_RATES = {"Executive/Admin":30,"Social media":28,"Bookkeeping":35,"Tech/Dev":45,"Real estate":25,"E-commerce":28,"Creative/Design":40,"Customer support":22,"General":25};
+  const STEP_LABELS = ["Profile","Services","Model","Builder","Summary"];
+
+  let state = {
+    step:0,
+    profile:{vaType:"",experience:"",name:""},
+    services:[],
+    pricingModels:[],
+    hourlyRate:25,
+    packages:[
+      {name:"Starter",hours:10,discount:0,services:[]},
+      {name:"Growth",hours:20,discount:5,services:[]},
+      {name:"Premium",hours:40,discount:10,services:[]}
+    ],
+    projects:[]
+  };
+
+  function load(){
+    try{
+      const d=localStorage.getItem(STORAGE_KEY);
+      if(d){const parsed=JSON.parse(d);Object.assign(state,parsed)}
+    }catch(e){}
+  }
+
+  function save(){
+    try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(e){}
+  }
+
+  function toast(msg){
+    const t=document.getElementById("toast");
+    t.textContent=msg;t.classList.add("show");
+    setTimeout(()=>t.classList.remove("show"),2000);
+  }
+
+  function suggestedRate(){
+    const base=BASE_RATES[state.profile.vaType]||25;
+    const exp=EXP_LEVELS.find(e=>e.value===state.profile.experience);
+    return Math.round(base*(exp?exp.mult:1));
+  }
+
+  function canAdvance(){
+    if(state.step===0)return state.profile.vaType&&state.profile.experience;
+    if(state.step===1)return state.services.length>0;
+    if(state.step===2)return state.pricingModels.length>0;
+    return true;
+  }
+
+  function render(){
+    const app=document.getElementById("app");
+    let h="";
+
+    // Header
+    h+=`<div class="header">
+      <div class="logo-row">
+        <a class="logo" href="https://virtueasy.com" target="_blank">VIRTU<span>easy</span></a>
+        <span class="badge">Pricing builder</span>
+      </div>
+      ${state.profile.name?`<p class="greeting">Hey, ${esc(state.profile.name)}</p>`:""}
+    </div>`;
+
+    // Progress
+    const pct=((state.step+1)/5)*100;
+    h+=`<div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="step-dots">`;
+    STEP_LABELS.forEach((l,i)=>{
+      let cls="step-dot";
+      if(i<state.step)cls+=" done active";
+      else if(i===state.step)cls+=" current active";
+      h+=`<button class="${cls}" ${i<=state.step?`onclick="goStep(${i})"`:""}>
+        <span class="step-num">${i<state.step?"✓":i+1}</span>
+        <span class="step-label">${l}</span>
+      </button>`;
+    });
+    h+=`</div></div>`;
+
+    // Content
+    h+=`<div class="content">`;
+    h+=renderStep0();
+    h+=renderStep1();
+    h+=renderStep2();
+    h+=renderStep3();
+    h+=renderStep4();
+    h+=`</div>`;
+
+    // Nav
+    h+=`<div class="bottom-nav">`;
+    if(state.step>0)h+=`<button class="back-btn" onclick="goStep(${state.step-1})">← Back</button>`;
+    if(state.step<4)h+=`<button class="next-btn" onclick="advance()" ${canAdvance()?"":"disabled"}>${state.step===3?"View summary →":"Continue →"}</button>`;
+    h+=`</div>`;
+
+    app.innerHTML=h;
+  }
+
+  function vis(i){return state.step===i?"step-panel visible":"step-panel"}
+
+  function renderStep0(){
+    let h=`<div class="${vis(0)}"><div class="card">
+      <h2 class="card-title">Let's set up your profile</h2>
+      <p class="card-sub">This helps us suggest the right rates for you.</p>
+      <label class="form-label">Your name</label>
+      <input class="form-input" placeholder="e.g. Sarah" value="${esc(state.profile.name)}" oninput="updateName(this.value)">
+      <label class="form-label">What type of VA are you?</label>
+      <div class="chip-grid">`;
+    VA_TYPES.forEach(t=>{
+      h+=`<button class="chip${state.profile.vaType===t?" active":""}" onclick="setVAType('${t}')">${t}</button>`;
+    });
+    h+=`</div><label class="form-label">Experience level</label><div class="exp-grid">`;
+    EXP_LEVELS.forEach(e=>{
+      h+=`<button class="exp-card${state.profile.experience===e.value?" active":""}" onclick="setExp('${e.value}')">${e.label}</button>`;
+    });
+    h+=`</div></div></div>`;
+    return h;
+  }
+
+  function renderStep1(){
+    const sug=SUGGESTED[state.profile.vaType]||[];
+    let h=`<div class="${vis(1)}"><div class="card">
+      <h2 class="card-title">What services do you offer?</h2>
+      <p class="card-sub">Pick from suggestions or add your own.</p>`;
+    if(sug.length){
+      h+=`<label class="form-label">Suggested for ${esc(state.profile.vaType.toLowerCase())} VAs</label><div class="chip-grid">`;
+      sug.forEach(s=>{
+        const active=state.services.includes(s);
+        h+=`<button class="chip${active?" active":""}" onclick="toggleService('${esc(s)}')">${active?"✓ ":"+ "}${esc(s)}</button>`;
+      });
+      h+=`</div>`;
+    }
+    h+=`<label class="form-label">Add a custom service</label>
+      <div class="add-row">
+        <input class="form-input" id="customSvc" placeholder="e.g. Podcast editing" onkeydown="if(event.key==='Enter')addCustomSvc()">
+        <button class="add-btn" onclick="addCustomSvc()">Add</button>
+      </div>`;
+    if(state.services.length){
+      h+=`<label class="form-label">Your services (${state.services.length})</label><div class="chip-grid">`;
+      state.services.forEach(s=>{
+        h+=`<button class="chip active" onclick="removeSvc('${esc(s)}')">${esc(s)} ✕</button>`;
+      });
+      h+=`</div>`;
+    }
+    h+=`</div></div>`;
+    return h;
+  }
+
+  function renderStep2(){
+    const models=[
+      {id:"hourly",icon:"⏱",title:"Hourly rate",desc:"Charge by the hour — simple and flexible"},
+      {id:"package",icon:"📦",title:"Packages",desc:"Bundle hours + services into tiered plans"},
+      {id:"project",icon:"🎯",title:"Per-project",desc:"Fixed price based on scope and complexity"}
+    ];
+    let h=`<div class="${vis(2)}"><div class="card">
+      <h2 class="card-title">Choose pricing models</h2>
+      <p class="card-sub">Select one or more — you can build each one out.</p>`;
+    models.forEach(m=>{
+      const active=state.pricingModels.includes(m.id);
+      h+=`<button class="model-card${active?" active":""}" onclick="toggleModel('${m.id}')">
+        <span class="model-icon">${m.icon}</span>
+        <div class="model-text"><span class="model-title">${m.title}</span><span class="model-desc">${m.desc}</span></div>
+        <span class="model-check">${active?"✓":""}</span>
+      </button>`;
+    });
+    h+=`</div></div>`;
+    return h;
+  }
+
+  function renderStep3(){
+    let h=`<div class="${vis(3)}">`;
+
+    // Hourly
+    if(state.pricingModels.includes("hourly")){
+      const sr=suggestedRate();
+      const hr=state.hourlyRate;
+      h+=`<div class="card">
+        <h2 class="card-title">Hourly rate</h2>
+        <p class="card-sub">Suggested rate for your profile: <strong style="color:var(--pink)">$${sr}/hr</strong></p>
+        <div class="rate-display">
+          <span class="rate-currency">$</span>
+          <span class="rate-amount">${hr}</span>
+          <span class="rate-per">/hr</span>
+        </div>
+        <input type="range" class="rate-slider" min="10" max="150" value="${hr}" oninput="setRate(this.value)">
+        <div class="rate-labels"><span>$10</span><span>$150</span></div>
+        <div class="rate-projections">
+          <div class="proj-card"><span class="proj-label">10 hrs/week</span><span class="proj-value">$${(hr*10*4).toLocaleString()}/mo</span></div>
+          <div class="proj-card"><span class="proj-label">20 hrs/week</span><span class="proj-value">$${(hr*20*4).toLocaleString()}/mo</span></div>
+          <div class="proj-card"><span class="proj-label">40 hrs/week</span><span class="proj-value">$${(hr*40*4).toLocaleString()}/mo</span></div>
+        </div>
+      </div>`;
+    }
+
+    // Packages
+    if(state.pricingModels.includes("package")){
+      h+=`<div class="card"><h2 class="card-title">Package builder</h2>
+        <p class="card-sub">Bundle hours and services into tiered plans.</p>`;
+      state.packages.forEach((pkg,i)=>{
+        const price=Math.round(state.hourlyRate*pkg.hours*(1-pkg.discount/100));
+        h+=`<div class="pkg-card">
+          <div class="pkg-header">
+            <input class="pkg-name" value="${esc(pkg.name)}" oninput="updatePkg(${i},'name',this.value)" placeholder="Package name">
+            <span class="pkg-price">$${price}<span class="pkg-price-per">/mo</span></span>
+          </div>
+          <div class="pkg-controls">
+            <div class="pkg-field"><label class="pkg-field-label">Hours/month</label>
+              <input type="number" class="pkg-input" value="${pkg.hours}" oninput="updatePkg(${i},'hours',+this.value)"></div>
+            <div class="pkg-field"><label class="pkg-field-label">Discount %</label>
+              <input type="number" class="pkg-input" value="${pkg.discount}" min="0" max="50" oninput="updatePkg(${i},'discount',+this.value)"></div>
+          </div>
+          <label class="pkg-field-label">Included services</label>
+          <div class="chip-grid">`;
+        state.services.forEach(s=>{
+          const active=pkg.services.includes(s);
+          h+=`<button class="chip-sm${active?" active":""}" onclick="togglePkgSvc(${i},'${esc(s)}')">${active?"✓ ":""}${esc(s)}</button>`;
+        });
+        h+=`</div></div>`;
+      });
+      h+=`</div>`;
+    }
+
+    // Projects
+    if(state.pricingModels.includes("project")){
+      h+=`<div class="card"><h2 class="card-title">Per-project pricing</h2>
+        <p class="card-sub">Set fixed prices based on estimated hours and complexity.</p>
+        <input class="form-input" id="projName" placeholder="Project name (e.g. Website redesign)">
+        <div class="add-row">
+          <input type="number" class="form-input" id="projHours" placeholder="Est. hours">
+          <select class="form-input" id="projComplexity">
+            <option value="simple">Simple (0.75x)</option>
+            <option value="standard" selected>Standard (1x)</option>
+            <option value="complex">Complex (1.5x)</option>
+          </select>
+        </div>
+        <div id="projPreview" class="project-preview"></div>
+        <button class="add-btn" onclick="addProject()">Add project</button>`;
+      if(state.projects.length){
+        h+=`<div style="margin-top:16px">`;
+        state.projects.forEach((p,i)=>{
+          h+=`<div class="project-item">
+            <div><span class="project-name">${esc(p.name)}</span><span class="project-meta">${p.hours}hrs · ${p.complexity}</span></div>
+            <div class="project-right"><span class="project-price">$${p.price}</span>
+              <button class="remove-btn" onclick="removeProject(${i})">✕</button></div>
+          </div>`;
+        });
+        h+=`</div>`;
+      }
+      h+=`</div>`;
+    }
+
+    h+=`</div>`;
+    return h;
+  }
+
+  function renderStep4(){
+    const expLabel=EXP_LEVELS.find(e=>e.value===state.profile.experience);
+    let h=`<div class="${vis(4)}">`;
+
+    // Overview card
+    h+=`<div class="card">
+      <h2 class="card-title">Your pricing summary</h2>
+      <p class="card-sub">${state.profile.name?esc(state.profile.name)+" · ":""}${esc(state.profile.vaType||"VA")} · ${expLabel?expLabel.label:""}</p>
+      <label class="form-label">Services offered</label>
+      <div class="chip-grid">${state.services.map(s=>`<span class="chip-readonly">${esc(s)}</span>`).join("")}</div>
+    </div>`;
+
+    // Hourly summary
+    if(state.pricingModels.includes("hourly")){
+      const hr=state.hourlyRate;
+      h+=`<div class="card">
+        <h3 class="summary-title">Hourly rate</h3>
+        <div class="summary-rate"><span class="summary-big">$${hr}</span><span class="summary-per">/hour</span></div>
+        <div class="rate-projections">
+          <div class="proj-card"><span class="proj-label">Part-time</span><span class="proj-value">$${(hr*10*4).toLocaleString()}/mo</span></div>
+          <div class="proj-card"><span class="proj-label">Half-time</span><span class="proj-value">$${(hr*20*4).toLocaleString()}/mo</span></div>
+          <div class="proj-card"><span class="proj-label">Full-time</span><span class="proj-value">$${(hr*40*4).toLocaleString()}/mo</span></div>
+        </div>
+      </div>`;
+    }
+
+    // Package summary
+    if(state.pricingModels.includes("package")){
+      h+=`<div class="card"><h3 class="summary-title">Packages</h3>`;
+      state.packages.forEach((pkg,i)=>{
+        const price=Math.round(state.hourlyRate*pkg.hours*(1-pkg.discount/100));
+        h+=`<div class="pkg-summary-card${i===1?" featured":""}">
+          ${i===1?'<span class="featured-badge">Most popular</span>':""}
+          <h4 class="pkg-summary-name">${esc(pkg.name)}</h4>
+          <div class="pkg-summary-price">$${price}<span class="pkg-summary-price-per">/mo</span></div>
+          <p class="pkg-summary-hours">${pkg.hours} hours/month</p>
+          ${pkg.discount>0?`<p class="pkg-summary-discount">${pkg.discount}% discount applied</p>`:""}
+          ${pkg.services.length?`<ul class="pkg-summary-list">${pkg.services.map(s=>`<li class="pkg-summary-item">✓ ${esc(s)}</li>`).join("")}</ul>`:""}
+        </div>`;
+      });
+      h+=`</div>`;
+    }
+
+    // Project summary
+    if(state.pricingModels.includes("project")&&state.projects.length){
+      h+=`<div class="card"><h3 class="summary-title">Per-project pricing</h3>`;
+      state.projects.forEach(p=>{
+        h+=`<div class="project-summary-item">
+          <div><span class="project-name">${esc(p.name)}</span><span class="project-meta">${p.hours} hours · ${p.complexity}</span></div>
+          <span class="project-price">$${p.price}</span>
+        </div>`;
+      });
+      h+=`</div>`;
+    }
+
+    // Actions
+    h+=`<div class="action-row">
+      <button class="save-btn" onclick="saveAndToast()">Save pricing</button>
+      <button class="reset-btn" onclick="resetAll()">Start over</button>
+    </div>`;
+
+    h+=`</div>`;
+    return h;
+  }
+
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}
+
+  // Global handlers
+  window.goStep=function(i){state.step=i;save();render()};
+  window.advance=function(){if(canAdvance()&&state.step<4){state.step++;save();render();window.scrollTo(0,0)}};
+
+  window.updateName=function(v){state.profile.name=v;save()};
+  window.setVAType=function(t){
+    state.profile.vaType=t;
+    if(state.profile.experience){
+      state.hourlyRate=Math.round((BASE_RATES[t]||25)*(EXP_LEVELS.find(e=>e.value===state.profile.experience)?.mult||1));
+    }
+    save();render();
+  };
+  window.setExp=function(v){
+    state.profile.experience=v;
+    if(state.profile.vaType){
+      state.hourlyRate=Math.round((BASE_RATES[state.profile.vaType]||25)*(EXP_LEVELS.find(e=>e.value===v)?.mult||1));
+    }
+    save();render();
+  };
+
+  window.toggleService=function(s){
+    const i=state.services.indexOf(s);
+    if(i>=0)state.services.splice(i,1);else state.services.push(s);
+    save();render();
+  };
+  window.removeSvc=function(s){state.services=state.services.filter(x=>x!==s);save();render()};
+  window.addCustomSvc=function(){
+    const el=document.getElementById("customSvc");if(!el)return;
+    const v=el.value.trim();
+    if(v&&!state.services.includes(v)){state.services.push(v);save();render()}
+  };
+
+  window.toggleModel=function(m){
+    const i=state.pricingModels.indexOf(m);
+    if(i>=0)state.pricingModels.splice(i,1);else state.pricingModels.push(m);
+    save();render();
+  };
+
+  window.setRate=function(v){state.hourlyRate=+v;save();render()};
+
+  window.updatePkg=function(i,field,val){state.packages[i][field]=val;save();render()};
+  window.togglePkgSvc=function(i,s){
+    const svcs=state.packages[i].services;
+    const idx=svcs.indexOf(s);
+    if(idx>=0)svcs.splice(idx,1);else svcs.push(s);
+    save();render();
+  };
+
+  window.addProject=function(){
+    const name=document.getElementById("projName")?.value?.trim();
+    const hours=+document.getElementById("projHours")?.value;
+    const complexity=document.getElementById("projComplexity")?.value||"standard";
+    if(!name||!hours)return;
+    const mult=complexity==="complex"?1.5:complexity==="simple"?0.75:1;
+    state.projects.push({name,hours,complexity,price:Math.round(hours*state.hourlyRate*mult)});
+    save();render();
+  };
+  window.removeProject=function(i){state.projects.splice(i,1);save();render()};
+
+  window.saveAndToast=function(){save();toast("Pricing saved!")};
+  window.resetAll=function(){
+    if(!confirm("Start over? This will clear all your pricing data."))return;
+    state={step:0,profile:{vaType:"",experience:"",name:""},services:[],pricingModels:[],hourlyRate:25,
+      packages:[{name:"Starter",hours:10,discount:0,services:[]},{name:"Growth",hours:20,discount:5,services:[]},{name:"Premium",hours:40,discount:10,services:[]}],
+      projects:[]};
+    localStorage.removeItem(STORAGE_KEY);render();
+  };
+
+  // Init
+  load();
+  render();
+})();
+</script>
+</body>
+</html>
