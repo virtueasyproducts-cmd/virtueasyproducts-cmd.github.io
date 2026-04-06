@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Access Unlocked — VIRTUeasy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#FF1F7A;--pink-dark:#D91565;--pink-pale:#FFE6F0;
+  --black:#0D0D0D;--gray-mid:#888;--white:#FFFFFF;
+  --font-body:'DM Sans',sans-serif;--font-display:'Playfair Display',serif;
+}
+body{font-family:var(--font-body);background:var(--white);color:var(--black);min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px}
+
+.logo{font-weight:800;font-size:18px;letter-spacing:-0.02em;color:var(--black);margin-bottom:40px}
+.logo span{color:var(--pink);font-weight:600}
+
+.success-icon{width:80px;height:80px;border-radius:50%;background:#E8FFF0;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:36px;animation:popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275)}
+
+@keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+
+h1{font-family:var(--font-display);font-size:clamp(26px,6vw,34px);font-weight:800;margin-bottom:12px}
+h1 em{font-style:italic;color:var(--pink)}
+
+p{font-size:15px;color:var(--gray-mid);line-height:1.6;max-width:360px;margin:0 auto 24px}
+
+.redirect-note{font-size:13px;color:#BBB;margin-top:16px}
+
+.dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
+.dots i{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:bounce 1s ease-in-out infinite}
+.dots i:nth-child(2){animation-delay:0.15s}
+.dots i:nth-child(3){animation-delay:0.3s}
+@keyframes bounce{0%,100%{opacity:0.3;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
+</style>
+</head>
+<body>
+
+<div class="logo">VIRTU<span>easy</span></div>
+
+<div class="success-icon">✓</div>
+
+<h1>You're <em>all set!</em></h1>
+
+<p>Lifetime access unlocked. Your pricing calculator is ready to use — no limits, no expiration.</p>
+
+<p class="redirect-note">Redirecting you to the calculator...</p>
+
+<div class="dots"><i></i><i></i><i></i></div>
+
+<script>
+// Grant lifetime access
+localStorage.setItem("lifetimeAccess", "true");
+
+// Redirect to the app after a brief moment
+setTimeout(function() {
+  window.location.href = "app.html";
+}, 2500);
+</script>
+</body>
+</html>
