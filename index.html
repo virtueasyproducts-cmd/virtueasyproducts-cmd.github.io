@@ -1712,16 +1712,22 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       <p class="sub">It's a live, interactive 30-day system that works right in your browser.</p>
     </div>
 
-  <div class="ipad-frame reveal" id="previewBrowser">
+ <div class="ipad-frame reveal" id="previewBrowser" style="background: #0A0A0A;">
       <div class="ipad-camera"></div>
       <div class="ipad-screen">
-        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" id="previewVideo">
           <source src="BlueprintDemo(1).mp4" type="video/mp4">
           <p>Your browser doesn't support HTML5 video. <a href="https://subscribepage.io/blueprint-preview">Try the preview here</a>.</p>
         </video>
       </div>
     </div>
 
+    <script>
+      const video = document.getElementById('previewVideo');
+      if (video) {
+        video.playbackRate = 2.0;
+      }
+    </script>
     <p class="preview-note reveal"><strong>Every day looks like this.</strong> Check things off. Write things down. Actually move forward.</p>
   </div>
 </section>
