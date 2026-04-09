@@ -157,6 +157,8 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
 .upsell-card .upsell-math{font-size:15px;color:rgba(255,255,255,0.85);margin-bottom:20px;line-height:1.6}
 .upsell-cta{display:inline-block;padding:14px 28px;background:var(--pink);color:var(--white);border:none;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;transition:all 0.2s;font-family:inherit}
 .upsell-cta:hover{background:var(--pink-dark);transform:translateY(-1px)}
+.upsell-preview{display:block;margin-top:12px;font-size:12px;color:rgba(255,255,255,0.45);text-decoration:none;transition:color 0.2s}
+.upsell-preview:hover{color:rgba(255,255,255,0.7)}
 
 /* Share card */
 .share-card{background:var(--white);border:1.5px dashed var(--pink-light);border-radius:16px;padding:20px;margin-bottom:16px;text-align:center}
@@ -267,7 +269,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     if(hasLifetime){
       h+=`<div class="trial-banner lifetime">Lifetime access unlocked</div>`;
     } else if(daysLeft !== null){
-      h+=`<div class="trial-banner">${daysLeft} day${daysLeft!==1?"s":""} left in free trial <a href="pay.html">Upgrade — $7</a></div>`;
+      h+=`<div class="trial-banner">${daysLeft} day${daysLeft!==1?"s":""} left in free trial <a href="pay.html">Upgrade \u2014 $7</a></div>`;
     }
 
     // Header
@@ -441,18 +443,39 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
       h+=`</div>`;
     }
 
-    // ── Upsell card ──
+    // ── Upsell card — ALWAYS shows on summary ──
+    const hr = state.hourlyRate;
+    // Compute a representative monthly figure based on what models they picked
+    let monthlyEst = 0;
+    let monthlyLabel = "";
     if(state.pricingModels.includes("hourly")){
-      const hr=state.hourlyRate;
-      const clientsNeeded = Math.ceil(4000/(hr*20));
-      h+=`<div class="upsell-card">
-        <h3>Ready to land clients at this rate?</h3>
-        <div class="upsell-highlight">$${hr}/hr</div>
-        <div class="upsell-sub">Your recommended rate</div>
-        <div class="upsell-math">At this rate, you only need<br><strong>${clientsNeeded} client${clientsNeeded!==1?"s":""} at $${Math.round(hr*20).toLocaleString()}/mo each</strong><br>to hit $${(hr*20*clientsNeeded).toLocaleString()}/mo</div>
-        <a class="upsell-cta" href="https://virtueasy.com" target="_blank">Learn how to land those clients \u2192<br><span style="font-size:12px;font-weight:500;opacity:0.8">The VA Blueprint \u2014 $27</span></a>
-      </div>`;
+      monthlyEst = hr * 20 * 4;
+      monthlyLabel = `$${hr}/hr x 20 hrs/week`;
+    } else if(state.pricingModels.includes("package")){
+      // Use the middle (Growth) package price
+      const growthPkg = state.packages[1];
+      monthlyEst = Math.round(hr * growthPkg.hours * (1 - growthPkg.discount/100));
+      monthlyLabel = `Your ${esc(growthPkg.name)} package`;
+    } else if(state.pricingModels.includes("project") && state.projects.length){
+      // Average project price
+      const avg = Math.round(state.projects.reduce((sum,p)=>sum+p.price,0) / state.projects.length);
+      monthlyEst = avg * 2;
+      monthlyLabel = `~2 projects/month at $${avg} avg`;
+    } else {
+      monthlyEst = hr * 20 * 4;
+      monthlyLabel = `$${hr}/hr x 20 hrs/week`;
     }
+    const clientsNeeded = Math.ceil(4000 / monthlyEst) || 1;
+    const totalMonthly = monthlyEst * clientsNeeded;
+
+    h+=`<div class="upsell-card">
+      <h3>Ready to land clients at these rates?</h3>
+      <div class="upsell-highlight">$${totalMonthly.toLocaleString()}/mo</div>
+      <div class="upsell-sub">${monthlyLabel}</div>
+      <div class="upsell-math">You only need <strong>${clientsNeeded} client${clientsNeeded!==1?"s":""}</strong> at <strong>$${monthlyEst.toLocaleString()}/mo each</strong><br>to hit $${totalMonthly.toLocaleString()}/mo</div>
+      <a class="upsell-cta" href="https://virtueasy.com" target="_blank">Learn how to land those clients \u2192<br><span style="font-size:12px;font-weight:500;opacity:0.8">The VA Blueprint \u2014 $27</span></a>
+      <a class="upsell-preview" href="https://virtueasyproducts-cmd.github.io/va-blueprint-preview/" target="_blank">Preview the Blueprint first \u2192</a>
+    </div>`;
 
     // ── Share card ──
     h+=`<div class="share-card">
