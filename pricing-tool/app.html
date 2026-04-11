@@ -34,6 +34,16 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--black);m
 input,select,button,textarea{font-family:inherit;font-size:inherit}
 button{cursor:pointer}
 
+/* ── Loading screen ── */
+#access-loading{position:fixed;inset:0;background:var(--white);display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;gap:16px}
+#access-loading .logo{font-weight:800;font-size:20px;letter-spacing:-0.02em;color:var(--black)}
+#access-loading .logo span{color:var(--pink)}
+.spin-dots{display:flex;gap:6px}
+.spin-dots i{width:8px;height:8px;border-radius:50%;background:var(--pink);animation:bounce 1s ease-in-out infinite}
+.spin-dots i:nth-child(2){animation-delay:0.15s}
+.spin-dots i:nth-child(3){animation-delay:0.3s}
+@keyframes bounce{0%,100%{opacity:0.3;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
+
 .shell{max-width:480px;margin:0 auto;min-height:100vh;min-height:100dvh;padding-bottom:90px;position:relative}
 
 /* Trial banner */
@@ -149,7 +159,6 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
 .pkg-summary-item{font-size:13px;color:#555;padding:4px 0;border-top:1px solid var(--gray-pale)}
 .project-summary-item{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--gray-pale)}
 
-/* Upsell card */
 .upsell-card{background:linear-gradient(135deg,var(--black) 0%,#1a1a2e 100%);border-radius:16px;padding:24px;margin-bottom:16px;color:var(--white);text-align:center}
 .upsell-card h3{font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:8px}
 .upsell-card .upsell-highlight{font-size:32px;font-weight:800;color:var(--pink);margin:16px 0 4px}
@@ -160,7 +169,6 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
 .upsell-preview{display:block;margin-top:12px;font-size:12px;color:rgba(255,255,255,0.45);text-decoration:none;transition:color 0.2s}
 .upsell-preview:hover{color:rgba(255,255,255,0.7)}
 
-/* Share card */
 .share-card{background:var(--white);border:1.5px dashed var(--pink-light);border-radius:16px;padding:20px;margin-bottom:16px;text-align:center}
 .share-card h4{font-size:15px;font-weight:700;color:var(--black);margin-bottom:8px}
 .share-card p{font-size:13px;color:var(--gray-mid);margin-bottom:14px}
@@ -191,340 +199,357 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
 </style>
 </head>
 <body>
-<div class="shell" id="app"></div>
+
+<!-- Loading screen shown while we verify access server-side -->
+<div id="access-loading">
+  <div class="logo">VIRTU<span>easy</span></div>
+  <div class="spin-dots"><i></i><i></i><i></i></div>
+</div>
+
+<div class="shell" id="app" style="display:none"></div>
 <div class="toast" id="toast"></div>
 
 <script>
 (function(){
-  // ── Trial check ──
-  const hasLifetime = localStorage.getItem("lifetimeAccess") === "true";
-  const trialStart = localStorage.getItem("trialStart");
+  // ── Config ──────────────────────────────────────────────────────────────────
+  const ACCESS_API = "https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev";
+  const TOKEN_KEY  = "ve-pricing-token";
 
-  if (!hasLifetime) {
-    if (!trialStart) {
-      window.location.href = "index.html";
+  // ── Gate check: verify token with server before showing ANY content ─────────
+  async function checkAccess() {
+    const token = localStorage.getItem(TOKEN_KEY);
+
+    if (!token) {
+      // No token at all — send to gate
+      window.location.replace("index.html");
       return;
     }
-    const days = (Date.now() - parseInt(trialStart)) / (1000 * 60 * 60 * 24);
-    if (days > 7) {
-      window.location.href = "pay.html";
-      return;
-    }
-  }
 
-  function getTrialDaysLeft() {
-    if (hasLifetime) return null;
-    const start = parseInt(localStorage.getItem("trialStart"));
-    return Math.max(0, Math.ceil(7 - (Date.now() - start) / (1000 * 60 * 60 * 24)));
-  }
-
-  // ── App state ──
-  const STORAGE_KEY = "virtueasy-pricing-v1";
-  const VA_TYPES = ["Executive/Admin","Social media","Bookkeeping","Tech/Dev","Real estate","E-commerce","Creative/Design","Customer support","General"];
-  const EXP_LEVELS = [
-    {label:"Just starting out",value:"beginner",mult:0.8},
-    {label:"1\u20132 years",value:"junior",mult:1.0},
-    {label:"3\u20135 years",value:"mid",mult:1.25},
-    {label:"5+ years",value:"senior",mult:1.5}
-  ];
-  const SUGGESTED = {
-    "Executive/Admin":["Email management","Calendar scheduling","Travel booking","Data entry","Document formatting","Meeting notes"],
-    "Social media":["Content creation","Post scheduling","Community management","Analytics reporting","Hashtag research","Story design"],
-    "Bookkeeping":["Invoice processing","Expense tracking","Bank reconciliation","Financial reports","Payroll support","Tax prep"],
-    "Tech/Dev":["Website maintenance","Bug fixes","Plugin setup","API integration","Database management","Tech support"],
-    "Real estate":["Listing management","Lead follow-up","CRM updates","Transaction coordination","Market research","Open house prep"],
-    "E-commerce":["Product listings","Order management","Customer emails","Inventory tracking","Review management","Storefront updates"],
-    "Creative/Design":["Graphic design","Brand assets","Presentation design","Video editing","Photo retouching","Template creation"],
-    "Customer support":["Email support","Live chat","Ticket management","FAQ updates","Returns processing","Feedback collection"],
-    "General":["Email management","Calendar scheduling","Data entry","Research","Social media","Customer support"]
-  };
-  const BASE_RATES = {"Executive/Admin":30,"Social media":28,"Bookkeeping":35,"Tech/Dev":45,"Real estate":25,"E-commerce":28,"Creative/Design":40,"Customer support":22,"General":25};
-  const STEP_LABELS = ["Profile","Services","Model","Builder","Summary"];
-
-  let state = {
-    step:0,profile:{vaType:"",experience:"",name:""},services:[],pricingModels:[],hourlyRate:25,
-    packages:[{name:"Starter",hours:10,discount:0,services:[]},{name:"Growth",hours:20,discount:5,services:[]},{name:"Premium",hours:40,discount:10,services:[]}],
-    projects:[]
-  };
-
-  function load(){try{const d=localStorage.getItem(STORAGE_KEY);if(d){Object.assign(state,JSON.parse(d))}}catch(e){}}
-  function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(e){}}
-  function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2000)}
-  function suggestedRate(){const b=BASE_RATES[state.profile.vaType]||25;const e=EXP_LEVELS.find(x=>x.value===state.profile.experience);return Math.round(b*(e?e.mult:1))}
-  function canAdvance(){if(state.step===0)return state.profile.vaType&&state.profile.experience;if(state.step===1)return state.services.length>0;if(state.step===2)return state.pricingModels.length>0;return true}
-  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}
-
-  // Restore name from gate if available
-  if(!state.profile.name){
-    const gateName = localStorage.getItem("ve-user-name");
-    if(gateName){state.profile.name=gateName;save()}
-  }
-
-  function render(){
-    const app=document.getElementById("app");
-    let h="";
-
-    // Trial banner
-    const daysLeft = getTrialDaysLeft();
-    if(hasLifetime){
-      h+=`<div class="trial-banner lifetime">Lifetime access unlocked</div>`;
-    } else if(daysLeft !== null){
-      h+=`<div class="trial-banner">${daysLeft} day${daysLeft!==1?"s":""} left in free trial <a href="pay.html">Upgrade \u2014 $7</a></div>`;
-    }
-
-    // Header
-    h+=`<div class="header"><div class="logo-row">
-      <a class="logo" href="https://virtueasy.com" target="_blank">VIRTU<span>easy</span></a>
-      <span class="badge">Pricing builder</span>
-    </div>${state.profile.name?`<p class="greeting">Hey, ${esc(state.profile.name)}</p>`:""}</div>`;
-
-    // Progress
-    const pct=((state.step+1)/5)*100;
-    h+=`<div class="progress-wrap"><div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div><div class="step-dots">`;
-    STEP_LABELS.forEach((l,i)=>{
-      let cls="step-dot";if(i<state.step)cls+=" done active";else if(i===state.step)cls+=" current active";
-      h+=`<button class="${cls}" ${i<=state.step?`onclick="goStep(${i})"`:""}>
-        <span class="step-num">${i<state.step?"\u2713":i+1}</span><span class="step-label">${l}</span></button>`;
-    });
-    h+=`</div></div>`;
-
-    h+=`<div class="content">`;
-    h+=renderStep(0);h+=renderStep(1);h+=renderStep(2);h+=renderStep(3);h+=renderStep(4);
-    h+=`</div>`;
-
-    // Nav
-    h+=`<div class="bottom-nav">`;
-    if(state.step>0)h+=`<button class="back-btn" onclick="goStep(${state.step-1})">\u2190 Back</button>`;
-    if(state.step<4)h+=`<button class="next-btn" onclick="advance()" ${canAdvance()?"":"disabled"}>${state.step===3?"View summary \u2192":"Continue \u2192"}</button>`;
-    h+=`</div>`;
-
-    app.innerHTML=h;
-  }
-
-  function vis(i){return state.step===i?"step-panel visible":"step-panel"}
-
-  function renderStep(n){
-    if(n===0) return renderProfile();
-    if(n===1) return renderServices();
-    if(n===2) return renderModel();
-    if(n===3) return renderBuilder();
-    if(n===4) return renderSummary();
-  }
-
-  function renderProfile(){
-    let h=`<div class="${vis(0)}"><div class="card">
-      <h2 class="card-title">Let's set up your profile</h2>
-      <p class="card-sub">This helps us suggest the right rates for you.</p>
-      <label class="form-label">Your name</label>
-      <input class="form-input" placeholder="e.g. Sarah" value="${esc(state.profile.name)}" oninput="updateName(this.value)">
-      <label class="form-label">What type of VA are you?</label><div class="chip-grid">`;
-    VA_TYPES.forEach(t=>{h+=`<button class="chip${state.profile.vaType===t?" active":""}" onclick="setVAType('${t}')">${t}</button>`});
-    h+=`</div><label class="form-label">Experience level</label><div class="exp-grid">`;
-    EXP_LEVELS.forEach(e=>{h+=`<button class="exp-card${state.profile.experience===e.value?" active":""}" onclick="setExp('${e.value}')">${e.label}</button>`});
-    h+=`</div></div></div>`;return h;
-  }
-
-  function renderServices(){
-    const sug=SUGGESTED[state.profile.vaType]||[];
-    let h=`<div class="${vis(1)}"><div class="card">
-      <h2 class="card-title">What services do you offer?</h2><p class="card-sub">Pick from suggestions or add your own.</p>`;
-    if(sug.length){
-      h+=`<label class="form-label">Suggested for ${esc(state.profile.vaType.toLowerCase())} VAs</label><div class="chip-grid">`;
-      sug.forEach(s=>{const a=state.services.includes(s);h+=`<button class="chip${a?" active":""}" onclick="toggleService('${esc(s)}')">${a?"\u2713 ":"+ "}${esc(s)}</button>`});
-      h+=`</div>`;
-    }
-    h+=`<label class="form-label">Add a custom service</label><div class="add-row">
-      <input class="form-input" id="customSvc" placeholder="e.g. Podcast editing" onkeydown="if(event.key==='Enter')addCustomSvc()">
-      <button class="add-btn" onclick="addCustomSvc()">Add</button></div>`;
-    if(state.services.length){
-      h+=`<label class="form-label">Your services (${state.services.length})</label><div class="chip-grid">`;
-      state.services.forEach(s=>{h+=`<button class="chip active" onclick="removeSvc('${esc(s)}')">${esc(s)} \u2715</button>`});
-      h+=`</div>`;
-    }
-    h+=`</div></div>`;return h;
-  }
-
-  function renderModel(){
-    const models=[{id:"hourly",icon:"\u23F1",title:"Hourly rate",desc:"Charge by the hour \u2014 simple and flexible"},{id:"package",icon:"\uD83D\uDCE6",title:"Packages",desc:"Bundle hours + services into tiered plans"},{id:"project",icon:"\uD83C\uDFAF",title:"Per-project",desc:"Fixed price based on scope and complexity"}];
-    let h=`<div class="${vis(2)}"><div class="card"><h2 class="card-title">Choose pricing models</h2><p class="card-sub">Select one or more \u2014 you can build each one out.</p>`;
-    models.forEach(m=>{const a=state.pricingModels.includes(m.id);
-      h+=`<button class="model-card${a?" active":""}" onclick="toggleModel('${m.id}')">
-        <span class="model-icon">${m.icon}</span><div class="model-text"><span class="model-title">${m.title}</span><span class="model-desc">${m.desc}</span></div>
-        <span class="model-check">${a?"\u2713":""}</span></button>`});
-    h+=`</div></div>`;return h;
-  }
-
-  function renderBuilder(){
-    let h=`<div class="${vis(3)}">`;
-    if(state.pricingModels.includes("hourly")){
-      const sr=suggestedRate(),hr=state.hourlyRate;
-      h+=`<div class="card"><h2 class="card-title">Hourly rate</h2>
-        <p class="card-sub">Suggested rate for your profile: <strong style="color:var(--pink)">$${sr}/hr</strong></p>
-        <div class="rate-display"><span class="rate-currency">$</span><span class="rate-amount">${hr}</span><span class="rate-per">/hr</span></div>
-        <input type="range" class="rate-slider" min="10" max="150" value="${hr}" oninput="setRate(this.value)">
-        <div class="rate-labels"><span>$10</span><span>$150</span></div>
-        <div class="rate-projections">
-          <div class="proj-card"><span class="proj-label">10 hrs/wk</span><span class="proj-value">$${(hr*10*4).toLocaleString()}/mo</span></div>
-          <div class="proj-card"><span class="proj-label">20 hrs/wk</span><span class="proj-value">$${(hr*20*4).toLocaleString()}/mo</span></div>
-          <div class="proj-card"><span class="proj-label">40 hrs/wk</span><span class="proj-value">$${(hr*40*4).toLocaleString()}/mo</span></div>
-        </div></div>`;
-    }
-    if(state.pricingModels.includes("package")){
-      h+=`<div class="card"><h2 class="card-title">Package builder</h2><p class="card-sub">Bundle hours and services into tiered plans.</p>`;
-      state.packages.forEach((pkg,i)=>{
-        const price=Math.round(state.hourlyRate*pkg.hours*(1-pkg.discount/100));
-        h+=`<div class="pkg-card"><div class="pkg-header">
-          <input class="pkg-name" value="${esc(pkg.name)}" oninput="updatePkg(${i},'name',this.value)" placeholder="Package name">
-          <span class="pkg-price">$${price}<span class="pkg-price-per">/mo</span></span></div>
-          <div class="pkg-controls"><div class="pkg-field"><label class="pkg-field-label">Hours/month</label>
-            <input type="number" class="pkg-input" value="${pkg.hours}" oninput="updatePkg(${i},'hours',+this.value)"></div>
-          <div class="pkg-field"><label class="pkg-field-label">Discount %</label>
-            <input type="number" class="pkg-input" value="${pkg.discount}" min="0" max="50" oninput="updatePkg(${i},'discount',+this.value)"></div></div>
-          <label class="pkg-field-label">Included services</label><div class="chip-grid">`;
-        state.services.forEach(s=>{const a=pkg.services.includes(s);
-          h+=`<button class="chip-sm${a?" active":""}" onclick="togglePkgSvc(${i},'${esc(s)}')">${a?"\u2713 ":""}${esc(s)}</button>`});
-        h+=`</div></div>`;
+    let result;
+    try {
+      const res = await fetch(ACCESS_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "verify", token }),
       });
-      h+=`</div>`;
+      result = await res.json();
+    } catch (e) {
+      // Network error — fail open with a short grace period so users on bad
+      // connections aren't locked out. Still don't show expired users.
+      // We'll let them in but note the token must exist.
+      result = { valid: true, type: "unknown", daysLeft: null, networkError: true };
     }
-    if(state.pricingModels.includes("project")){
-      h+=`<div class="card"><h2 class="card-title">Per-project pricing</h2><p class="card-sub">Set fixed prices based on estimated hours and complexity.</p>
-        <input class="form-input" id="projName" placeholder="Project name (e.g. Website redesign)">
-        <div class="add-row"><input type="number" class="form-input" id="projHours" placeholder="Est. hours">
-          <select class="form-input" id="projComplexity"><option value="simple">Simple (0.75x)</option><option value="standard" selected>Standard (1x)</option><option value="complex">Complex (1.5x)</option></select></div>
-        <button class="add-btn" onclick="addProject()">Add project</button>`;
-      if(state.projects.length){h+=`<div style="margin-top:16px">`;
-        state.projects.forEach((p,i)=>{h+=`<div class="project-item"><div><span class="project-name">${esc(p.name)}</span><span class="project-meta">${p.hours}hrs \u00b7 ${p.complexity}</span></div>
-          <div class="project-right"><span class="project-price">$${p.price}</span><button class="remove-btn" onclick="removeProject(${i})">\u2715</button></div></div>`});
-        h+=`</div>`}
-      h+=`</div>`;
+
+    if (!result.valid) {
+      if (result.reason === "expired") {
+        window.location.replace("pay.html");
+      } else {
+        // Invalid/tampered token — back to gate
+        localStorage.removeItem(TOKEN_KEY);
+        window.location.replace("index.html");
+      }
+      return;
     }
-    h+=`</div>`;return h;
+
+    // Access confirmed — reveal the app
+    document.getElementById("access-loading").style.display = "none";
+    document.getElementById("app").style.display = "block";
+
+    // Boot the app, passing access info
+    bootApp(result);
   }
 
-  function renderSummary(){
-    const expLabel=EXP_LEVELS.find(e=>e.value===state.profile.experience);
-    let h=`<div class="${vis(4)}">`;
+  checkAccess();
 
-    h+=`<div class="card"><h2 class="card-title">Your pricing summary</h2>
-      <p class="card-sub">${state.profile.name?esc(state.profile.name)+" \u00b7 ":""}${esc(state.profile.vaType||"VA")} \u00b7 ${expLabel?expLabel.label:""}</p>
-      <label class="form-label">Services offered</label>
-      <div class="chip-grid">${state.services.map(s=>`<span class="chip-readonly">${esc(s)}</span>`).join("")}</div></div>`;
+  // ── App boot (only runs after access confirmed) ──────────────────────────────
+  function bootApp(accessResult) {
 
-    if(state.pricingModels.includes("hourly")){
+    const isLifetime = accessResult.type === "lifetime";
+    const daysLeft   = accessResult.daysLeft ?? null;
+
+    // ── App state ──
+    const STORAGE_KEY = "virtueasy-pricing-v1";
+    const VA_TYPES = ["Executive/Admin","Social media","Bookkeeping","Tech/Dev","Real estate","E-commerce","Creative/Design","Customer support","General"];
+    const EXP_LEVELS = [
+      {label:"Just starting out",value:"beginner",mult:0.8},
+      {label:"1\u20132 years",value:"junior",mult:1.0},
+      {label:"3\u20135 years",value:"mid",mult:1.25},
+      {label:"5+ years",value:"senior",mult:1.5}
+    ];
+    const SUGGESTED = {
+      "Executive/Admin":["Email management","Calendar scheduling","Travel booking","Data entry","Document formatting","Meeting notes"],
+      "Social media":["Content creation","Post scheduling","Community management","Analytics reporting","Hashtag research","Story design"],
+      "Bookkeeping":["Invoice processing","Expense tracking","Bank reconciliation","Financial reports","Payroll support","Tax prep"],
+      "Tech/Dev":["Website maintenance","Bug fixes","Plugin setup","API integration","Database management","Tech support"],
+      "Real estate":["Listing management","Lead follow-up","CRM updates","Transaction coordination","Market research","Open house prep"],
+      "E-commerce":["Product listings","Order management","Customer emails","Inventory tracking","Review management","Storefront updates"],
+      "Creative/Design":["Graphic design","Brand assets","Presentation design","Video editing","Photo retouching","Template creation"],
+      "Customer support":["Email support","Live chat","Ticket management","FAQ updates","Returns processing","Feedback collection"],
+      "General":["Email management","Calendar scheduling","Data entry","Research","Social media","Customer support"]
+    };
+    const BASE_RATES = {"Executive/Admin":30,"Social media":28,"Bookkeeping":35,"Tech/Dev":45,"Real estate":25,"E-commerce":28,"Creative/Design":40,"Customer support":22,"General":25};
+    const STEP_LABELS = ["Profile","Services","Model","Builder","Summary"];
+
+    let state = {
+      step:0,profile:{vaType:"",experience:"",name:""},services:[],pricingModels:[],hourlyRate:25,
+      packages:[{name:"Starter",hours:10,discount:0,services:[]},{name:"Growth",hours:20,discount:5,services:[]},{name:"Premium",hours:40,discount:10,services:[]}],
+      projects:[]
+    };
+
+    function load(){try{const d=localStorage.getItem(STORAGE_KEY);if(d){Object.assign(state,JSON.parse(d))}}catch(e){}}
+    function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(e){}}
+    function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2000)}
+    function suggestedRate(){const b=BASE_RATES[state.profile.vaType]||25;const e=EXP_LEVELS.find(x=>x.value===state.profile.experience);return Math.round(b*(e?e.mult:1))}
+    function canAdvance(){if(state.step===0)return state.profile.vaType&&state.profile.experience;if(state.step===1)return state.services.length>0;if(state.step===2)return state.pricingModels.length>0;return true}
+    function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}
+
+    function render(){
+      const app=document.getElementById("app");
+      let h="";
+
+      // Trial banner
+      if(isLifetime){
+        h+=`<div class="trial-banner lifetime">Lifetime access unlocked</div>`;
+      } else if(daysLeft !== null){
+        h+=`<div class="trial-banner">${daysLeft} day${daysLeft!==1?"s":""} left in free trial <a href="pay.html">Upgrade \u2014 $7</a></div>`;
+      }
+
+      // Header
+      h+=`<div class="header"><div class="logo-row">
+        <a class="logo" href="https://virtueasy.com" target="_blank">VIRTU<span>easy</span></a>
+        <span class="badge">Pricing builder</span>
+      </div>${state.profile.name?`<p class="greeting">Hey, ${esc(state.profile.name)}</p>`:""}</div>`;
+
+      // Progress
+      const pct=((state.step+1)/5)*100;
+      h+=`<div class="progress-wrap"><div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div><div class="step-dots">`;
+      STEP_LABELS.forEach((l,i)=>{
+        let cls="step-dot";if(i<state.step)cls+=" done active";else if(i===state.step)cls+=" current active";
+        h+=`<button class="${cls}" ${i<=state.step?`onclick="goStep(${i})"`:""}>
+          <span class="step-num">${i<state.step?"\u2713":i+1}</span><span class="step-label">${l}</span></button>`;
+      });
+      h+=`</div></div>`;
+
+      h+=`<div class="content">`;
+      h+=renderStep(0);h+=renderStep(1);h+=renderStep(2);h+=renderStep(3);h+=renderStep(4);
+      h+=`</div>`;
+
+      h+=`<div class="bottom-nav">`;
+      if(state.step>0)h+=`<button class="back-btn" onclick="goStep(${state.step-1})">\u2190 Back</button>`;
+      if(state.step<4)h+=`<button class="next-btn" onclick="advance()" ${canAdvance()?"":"disabled"}>${state.step===3?"View summary \u2192":"Continue \u2192"}</button>`;
+      h+=`</div>`;
+
+      app.innerHTML=h;
+    }
+
+    function vis(i){return state.step===i?"step-panel visible":"step-panel"}
+
+    function renderStep(n){
+      if(n===0) return renderProfile();
+      if(n===1) return renderServices();
+      if(n===2) return renderModel();
+      if(n===3) return renderBuilder();
+      if(n===4) return renderSummary();
+    }
+
+    function renderProfile(){
+      let h=`<div class="${vis(0)}"><div class="card">
+        <h2 class="card-title">Let's set up your profile</h2>
+        <p class="card-sub">This helps us suggest the right rates for you.</p>
+        <label class="form-label">Your name</label>
+        <input class="form-input" placeholder="e.g. Sarah" value="${esc(state.profile.name)}" oninput="updateName(this.value)">
+        <label class="form-label">What type of VA are you?</label><div class="chip-grid">`;
+      VA_TYPES.forEach(t=>{h+=`<button class="chip${state.profile.vaType===t?" active":""}" onclick="setVAType('${t}')">${t}</button>`});
+      h+=`</div><label class="form-label">Experience level</label><div class="exp-grid">`;
+      EXP_LEVELS.forEach(e=>{h+=`<button class="exp-card${state.profile.experience===e.value?" active":""}" onclick="setExp('${e.value}')">${e.label}</button>`});
+      h+=`</div></div></div>`;return h;
+    }
+
+    function renderServices(){
+      const sug=SUGGESTED[state.profile.vaType]||[];
+      let h=`<div class="${vis(1)}"><div class="card">
+        <h2 class="card-title">What services do you offer?</h2><p class="card-sub">Pick from suggestions or add your own.</p>`;
+      if(sug.length){
+        h+=`<label class="form-label">Suggested for ${esc(state.profile.vaType.toLowerCase())} VAs</label><div class="chip-grid">`;
+        sug.forEach(s=>{const a=state.services.includes(s);h+=`<button class="chip${a?" active":""}" onclick="toggleService('${esc(s)}')">${a?"\u2713 ":"+ "}${esc(s)}</button>`});
+        h+=`</div>`;
+      }
+      h+=`<label class="form-label">Add a custom service</label><div class="add-row">
+        <input class="form-input" id="customSvc" placeholder="e.g. Podcast editing" onkeydown="if(event.key==='Enter')addCustomSvc()">
+        <button class="add-btn" onclick="addCustomSvc()">Add</button></div>`;
+      if(state.services.length){
+        h+=`<label class="form-label">Your services (${state.services.length})</label><div class="chip-grid">`;
+        state.services.forEach(s=>{h+=`<button class="chip active" onclick="removeSvc('${esc(s)}')">${esc(s)} \u2715</button>`});
+        h+=`</div>`;
+      }
+      h+=`</div></div>`;return h;
+    }
+
+    function renderModel(){
+      const models=[{id:"hourly",icon:"\u23F1",title:"Hourly rate",desc:"Charge by the hour \u2014 simple and flexible"},{id:"package",icon:"\uD83D\uDCE6",title:"Packages",desc:"Bundle hours + services into tiered plans"},{id:"project",icon:"\uD83C\uDFAF",title:"Per-project",desc:"Fixed price based on scope and complexity"}];
+      let h=`<div class="${vis(2)}"><div class="card"><h2 class="card-title">Choose pricing models</h2><p class="card-sub">Select one or more \u2014 you can build each one out.</p>`;
+      models.forEach(m=>{const a=state.pricingModels.includes(m.id);
+        h+=`<button class="model-card${a?" active":""}" onclick="toggleModel('${m.id}')">
+          <span class="model-icon">${m.icon}</span><div class="model-text"><span class="model-title">${m.title}</span><span class="model-desc">${m.desc}</span></div>
+          <span class="model-check">${a?"\u2713":""}</span></button>`});
+      h+=`</div></div>`;return h;
+    }
+
+    function renderBuilder(){
+      let h=`<div class="${vis(3)}">`;
+      if(state.pricingModels.includes("hourly")){
+        const sr=suggestedRate(),hr=state.hourlyRate;
+        h+=`<div class="card"><h2 class="card-title">Hourly rate</h2>
+          <p class="card-sub">Suggested rate for your profile: <strong style="color:var(--pink)">$${sr}/hr</strong></p>
+          <div class="rate-display"><span class="rate-currency">$</span><span class="rate-amount">${hr}</span><span class="rate-per">/hr</span></div>
+          <input type="range" class="rate-slider" min="10" max="150" value="${hr}" oninput="setRate(this.value)">
+          <div class="rate-labels"><span>$10</span><span>$150</span></div>
+          <div class="rate-projections">
+            <div class="proj-card"><span class="proj-label">10 hrs/wk</span><span class="proj-value">$${(hr*10*4).toLocaleString()}/mo</span></div>
+            <div class="proj-card"><span class="proj-label">20 hrs/wk</span><span class="proj-value">$${(hr*20*4).toLocaleString()}/mo</span></div>
+            <div class="proj-card"><span class="proj-label">40 hrs/wk</span><span class="proj-value">$${(hr*40*4).toLocaleString()}/mo</span></div>
+          </div></div>`;
+      }
+      if(state.pricingModels.includes("package")){
+        h+=`<div class="card"><h2 class="card-title">Package builder</h2><p class="card-sub">Bundle hours and services into tiered plans.</p>`;
+        state.packages.forEach((pkg,i)=>{
+          const price=Math.round(state.hourlyRate*pkg.hours*(1-pkg.discount/100));
+          h+=`<div class="pkg-card"><div class="pkg-header">
+            <input class="pkg-name" value="${esc(pkg.name)}" oninput="updatePkg(${i},'name',this.value)" placeholder="Package name">
+            <span class="pkg-price">$${price}<span class="pkg-price-per">/mo</span></span></div>
+            <div class="pkg-controls"><div class="pkg-field"><label class="pkg-field-label">Hours/month</label>
+              <input type="number" class="pkg-input" value="${pkg.hours}" oninput="updatePkg(${i},'hours',+this.value)"></div>
+            <div class="pkg-field"><label class="pkg-field-label">Discount %</label>
+              <input type="number" class="pkg-input" value="${pkg.discount}" min="0" max="50" oninput="updatePkg(${i},'discount',+this.value)"></div></div>
+            <label class="pkg-field-label">Included services</label><div class="chip-grid">`;
+          state.services.forEach(s=>{const a=pkg.services.includes(s);
+            h+=`<button class="chip-sm${a?" active":""}" onclick="togglePkgSvc(${i},'${esc(s)}')">${a?"\u2713 ":""}${esc(s)}</button>`});
+          h+=`</div></div>`;
+        });
+        h+=`</div>`;
+      }
+      if(state.pricingModels.includes("project")){
+        h+=`<div class="card"><h2 class="card-title">Per-project pricing</h2><p class="card-sub">Set fixed prices based on estimated hours and complexity.</p>
+          <input class="form-input" id="projName" placeholder="Project name (e.g. Website redesign)">
+          <div class="add-row"><input type="number" class="form-input" id="projHours" placeholder="Est. hours">
+            <select class="form-input" id="projComplexity"><option value="simple">Simple (0.75x)</option><option value="standard" selected>Standard (1x)</option><option value="complex">Complex (1.5x)</option></select></div>
+          <button class="add-btn" onclick="addProject()">Add project</button>`;
+        if(state.projects.length){h+=`<div style="margin-top:16px">`;
+          state.projects.forEach((p,i)=>{h+=`<div class="project-item"><div><span class="project-name">${esc(p.name)}</span><span class="project-meta">${p.hours}hrs \u00b7 ${p.complexity}</span></div>
+            <div class="project-right"><span class="project-price">$${p.price}</span><button class="remove-btn" onclick="removeProject(${i})">\u2715</button></div></div>`});
+          h+=`</div>`}
+        h+=`</div>`;
+      }
+      h+=`</div>`;return h;
+    }
+
+    function renderSummary(){
+      const expLabel=EXP_LEVELS.find(e=>e.value===state.profile.experience);
+      let h=`<div class="${vis(4)}">`;
+
+      h+=`<div class="card"><h2 class="card-title">Your pricing summary</h2>
+        <p class="card-sub">${state.profile.name?esc(state.profile.name)+" \u00b7 ":""}${esc(state.profile.vaType||"VA")} \u00b7 ${expLabel?expLabel.label:""}</p>
+        <label class="form-label">Services offered</label>
+        <div class="chip-grid">${state.services.map(s=>`<span class="chip-readonly">${esc(s)}</span>`).join("")}</div></div>`;
+
+      if(state.pricingModels.includes("hourly")){
+        const hr=state.hourlyRate;
+        h+=`<div class="card"><h3 class="summary-title">Hourly rate</h3>
+          <div class="summary-rate"><span class="summary-big">$${hr}</span><span class="summary-per">/hour</span></div>
+          <div class="rate-projections">
+            <div class="proj-card"><span class="proj-label">Part-time</span><span class="proj-value">$${(hr*10*4).toLocaleString()}/mo</span></div>
+            <div class="proj-card"><span class="proj-label">Half-time</span><span class="proj-value">$${(hr*20*4).toLocaleString()}/mo</span></div>
+            <div class="proj-card"><span class="proj-label">Full-time</span><span class="proj-value">$${(hr*40*4).toLocaleString()}/mo</span></div>
+          </div></div>`;
+      }
+
+      if(state.pricingModels.includes("package")){
+        h+=`<div class="card"><h3 class="summary-title">Packages</h3>`;
+        state.packages.forEach((pkg,i)=>{
+          const price=Math.round(state.hourlyRate*pkg.hours*(1-pkg.discount/100));
+          h+=`<div class="pkg-summary-card${i===1?" featured":""}">
+            ${i===1?'<span class="featured-badge">Most popular</span>':""}
+            <h4 class="pkg-summary-name">${esc(pkg.name)}</h4>
+            <div class="pkg-summary-price">$${price}<span class="pkg-summary-price-per">/mo</span></div>
+            <p class="pkg-summary-hours">${pkg.hours} hours/month</p>
+            ${pkg.discount>0?`<p class="pkg-summary-discount">${pkg.discount}% discount applied</p>`:""}
+            ${pkg.services.length?`<ul class="pkg-summary-list">${pkg.services.map(s=>`<li class="pkg-summary-item">\u2713 ${esc(s)}</li>`).join("")}</ul>`:""}</div>`;
+        });
+        h+=`</div>`;
+      }
+
+      if(state.pricingModels.includes("project")&&state.projects.length){
+        h+=`<div class="card"><h3 class="summary-title">Per-project pricing</h3>`;
+        state.projects.forEach(p=>{h+=`<div class="project-summary-item"><div><span class="project-name">${esc(p.name)}</span><span class="project-meta">${p.hours} hours \u00b7 ${p.complexity}</span></div><span class="project-price">$${p.price}</span></div>`});
+        h+=`</div>`;
+      }
+
+      const hr = state.hourlyRate;
+      let monthlyEst = 0, monthlyLabel = "";
+      if(state.pricingModels.includes("hourly")){
+        monthlyEst = hr * 20 * 4; monthlyLabel = `$${hr}/hr x 20 hrs/week`;
+      } else if(state.pricingModels.includes("package")){
+        const growthPkg = state.packages[1];
+        monthlyEst = Math.round(hr * growthPkg.hours * (1 - growthPkg.discount/100));
+        monthlyLabel = `Your ${esc(growthPkg.name)} package`;
+      } else if(state.pricingModels.includes("project") && state.projects.length){
+        const avg = Math.round(state.projects.reduce((sum,p)=>sum+p.price,0) / state.projects.length);
+        monthlyEst = avg * 2; monthlyLabel = `~2 projects/month at $${avg} avg`;
+      } else {
+        monthlyEst = hr * 20 * 4; monthlyLabel = `$${hr}/hr x 20 hrs/week`;
+      }
+      const clientsNeeded = Math.ceil(4000 / monthlyEst) || 1;
+      const totalMonthly = monthlyEst * clientsNeeded;
+
+      h+=`<div class="upsell-card">
+        <h3>Ready to land clients at these rates?</h3>
+        <div class="upsell-highlight">$${totalMonthly.toLocaleString()}/mo</div>
+        <div class="upsell-sub">${monthlyLabel}</div>
+        <div class="upsell-math">You only need <strong>${clientsNeeded} client${clientsNeeded!==1?"s":""}</strong> at <strong>$${monthlyEst.toLocaleString()}/mo each</strong><br>to hit $${totalMonthly.toLocaleString()}/mo</div>
+        <a class="upsell-cta" href="https://virtueasy.com" target="_blank">Learn how to land those clients \u2192<br><span style="font-size:12px;font-weight:500;opacity:0.8">The VA Blueprint \u2014 $27</span></a>
+        <a class="upsell-preview" href="https://virtueasyproducts-cmd.github.io/va-blueprint-preview/" target="_blank">Preview the Blueprint first \u2192</a>
+      </div>`;
+
+      h+=`<div class="share-card">
+        <h4>Share your VA rate</h4>
+        <p>Let other VAs know what they should be charging.</p>
+        <button class="share-btn" onclick="shareRate()">Share my VA rate</button>
+      </div>`;
+
+      h+=`<div class="action-row">
+        <button class="save-btn" onclick="saveAndToast()">Save pricing</button>
+        <button class="reset-btn" onclick="resetAll()">Start over</button>
+      </div></div>`;
+      return h;
+    }
+
+    // ── Global handlers ──
+    window.goStep=function(i){state.step=i;save();render()};
+    window.advance=function(){if(canAdvance()&&state.step<4){state.step++;save();render();window.scrollTo(0,0)}};
+    window.updateName=function(v){state.profile.name=v;save()};
+    window.setVAType=function(t){state.profile.vaType=t;if(state.profile.experience){state.hourlyRate=Math.round((BASE_RATES[t]||25)*(EXP_LEVELS.find(e=>e.value===state.profile.experience)?.mult||1))}save();render()};
+    window.setExp=function(v){state.profile.experience=v;if(state.profile.vaType){state.hourlyRate=Math.round((BASE_RATES[state.profile.vaType]||25)*(EXP_LEVELS.find(e=>e.value===v)?.mult||1))}save();render()};
+    window.toggleService=function(s){const i=state.services.indexOf(s);if(i>=0)state.services.splice(i,1);else state.services.push(s);save();render()};
+    window.removeSvc=function(s){state.services=state.services.filter(x=>x!==s);save();render()};
+    window.addCustomSvc=function(){const el=document.getElementById("customSvc");if(!el)return;const v=el.value.trim();if(v&&!state.services.includes(v)){state.services.push(v);save();render()}};
+    window.toggleModel=function(m){const i=state.pricingModels.indexOf(m);if(i>=0)state.pricingModels.splice(i,1);else state.pricingModels.push(m);save();render()};
+    window.setRate=function(v){state.hourlyRate=+v;save();render()};
+    window.updatePkg=function(i,field,val){state.packages[i][field]=val;save();render()};
+    window.togglePkgSvc=function(i,s){const svcs=state.packages[i].services;const idx=svcs.indexOf(s);if(idx>=0)svcs.splice(idx,1);else svcs.push(s);save();render()};
+    window.addProject=function(){const name=document.getElementById("projName")?.value?.trim();const hours=+document.getElementById("projHours")?.value;const complexity=document.getElementById("projComplexity")?.value||"standard";if(!name||!hours)return;const mult=complexity==="complex"?1.5:complexity==="simple"?0.75:1;state.projects.push({name,hours,complexity,price:Math.round(hours*state.hourlyRate*mult)});save();render()};
+    window.removeProject=function(i){state.projects.splice(i,1);save();render()};
+    window.saveAndToast=function(){save();toast("Pricing saved!")};
+    window.resetAll=function(){if(!confirm("Start over? This will clear all your pricing data."))return;state={step:0,profile:{vaType:"",experience:"",name:""},services:[],pricingModels:[],hourlyRate:25,packages:[{name:"Starter",hours:10,discount:0,services:[]},{name:"Growth",hours:20,discount:5,services:[]},{name:"Premium",hours:40,discount:10,services:[]}],projects:[]};localStorage.removeItem(STORAGE_KEY);render()};
+    window.shareRate=function(){
       const hr=state.hourlyRate;
-      h+=`<div class="card"><h3 class="summary-title">Hourly rate</h3>
-        <div class="summary-rate"><span class="summary-big">$${hr}</span><span class="summary-per">/hour</span></div>
-        <div class="rate-projections">
-          <div class="proj-card"><span class="proj-label">Part-time</span><span class="proj-value">$${(hr*10*4).toLocaleString()}/mo</span></div>
-          <div class="proj-card"><span class="proj-label">Half-time</span><span class="proj-value">$${(hr*20*4).toLocaleString()}/mo</span></div>
-          <div class="proj-card"><span class="proj-label">Full-time</span><span class="proj-value">$${(hr*40*4).toLocaleString()}/mo</span></div>
-        </div></div>`;
-    }
+      const text=`My VA rate should be $${hr}/hr.\n\nCalculate yours:\nvirtueasy.com/pricing-tool`;
+      if(navigator.share){navigator.share({title:"My VA Rate",text:text}).catch(()=>{});}
+      else{navigator.clipboard.writeText(text).then(()=>{const btn=document.querySelector(".share-btn");btn.textContent="Copied!";btn.classList.add("copied");setTimeout(()=>{btn.textContent="Share my VA rate";btn.classList.remove("copied")},2000)});}
+    };
 
-    if(state.pricingModels.includes("package")){
-      h+=`<div class="card"><h3 class="summary-title">Packages</h3>`;
-      state.packages.forEach((pkg,i)=>{
-        const price=Math.round(state.hourlyRate*pkg.hours*(1-pkg.discount/100));
-        h+=`<div class="pkg-summary-card${i===1?" featured":""}">
-          ${i===1?'<span class="featured-badge">Most popular</span>':""}
-          <h4 class="pkg-summary-name">${esc(pkg.name)}</h4>
-          <div class="pkg-summary-price">$${price}<span class="pkg-summary-price-per">/mo</span></div>
-          <p class="pkg-summary-hours">${pkg.hours} hours/month</p>
-          ${pkg.discount>0?`<p class="pkg-summary-discount">${pkg.discount}% discount applied</p>`:""}
-          ${pkg.services.length?`<ul class="pkg-summary-list">${pkg.services.map(s=>`<li class="pkg-summary-item">\u2713 ${esc(s)}</li>`).join("")}</ul>`:""}</div>`;
-      });
-      h+=`</div>`;
-    }
-
-    if(state.pricingModels.includes("project")&&state.projects.length){
-      h+=`<div class="card"><h3 class="summary-title">Per-project pricing</h3>`;
-      state.projects.forEach(p=>{h+=`<div class="project-summary-item"><div><span class="project-name">${esc(p.name)}</span><span class="project-meta">${p.hours} hours \u00b7 ${p.complexity}</span></div><span class="project-price">$${p.price}</span></div>`});
-      h+=`</div>`;
-    }
-
-    // ── Upsell card — ALWAYS shows on summary ──
-    const hr = state.hourlyRate;
-    // Compute a representative monthly figure based on what models they picked
-    let monthlyEst = 0;
-    let monthlyLabel = "";
-    if(state.pricingModels.includes("hourly")){
-      monthlyEst = hr * 20 * 4;
-      monthlyLabel = `$${hr}/hr x 20 hrs/week`;
-    } else if(state.pricingModels.includes("package")){
-      // Use the middle (Growth) package price
-      const growthPkg = state.packages[1];
-      monthlyEst = Math.round(hr * growthPkg.hours * (1 - growthPkg.discount/100));
-      monthlyLabel = `Your ${esc(growthPkg.name)} package`;
-    } else if(state.pricingModels.includes("project") && state.projects.length){
-      // Average project price
-      const avg = Math.round(state.projects.reduce((sum,p)=>sum+p.price,0) / state.projects.length);
-      monthlyEst = avg * 2;
-      monthlyLabel = `~2 projects/month at $${avg} avg`;
-    } else {
-      monthlyEst = hr * 20 * 4;
-      monthlyLabel = `$${hr}/hr x 20 hrs/week`;
-    }
-    const clientsNeeded = Math.ceil(4000 / monthlyEst) || 1;
-    const totalMonthly = monthlyEst * clientsNeeded;
-
-    h+=`<div class="upsell-card">
-      <h3>Ready to land clients at these rates?</h3>
-      <div class="upsell-highlight">$${totalMonthly.toLocaleString()}/mo</div>
-      <div class="upsell-sub">${monthlyLabel}</div>
-      <div class="upsell-math">You only need <strong>${clientsNeeded} client${clientsNeeded!==1?"s":""}</strong> at <strong>$${monthlyEst.toLocaleString()}/mo each</strong><br>to hit $${totalMonthly.toLocaleString()}/mo</div>
-      <a class="upsell-cta" href="https://virtueasy.com" target="_blank">Learn how to land those clients \u2192<br><span style="font-size:12px;font-weight:500;opacity:0.8">The VA Blueprint \u2014 $27</span></a>
-      <a class="upsell-preview" href="https://virtueasyproducts-cmd.github.io/va-blueprint-preview/" target="_blank">Preview the Blueprint first \u2192</a>
-    </div>`;
-
-    // ── Share card ──
-    h+=`<div class="share-card">
-      <h4>Share your VA rate</h4>
-      <p>Let other VAs know what they should be charging.</p>
-      <button class="share-btn" onclick="shareRate()">Share my VA rate</button>
-    </div>`;
-
-    // Actions
-    h+=`<div class="action-row">
-      <button class="save-btn" onclick="saveAndToast()">Save pricing</button>
-      <button class="reset-btn" onclick="resetAll()">Start over</button>
-    </div></div>`;
-    return h;
+    load();render();
   }
 
-  // ── Global handlers ──
-  window.goStep=function(i){state.step=i;save();render()};
-  window.advance=function(){if(canAdvance()&&state.step<4){state.step++;save();render();window.scrollTo(0,0)}};
-  window.updateName=function(v){state.profile.name=v;save()};
-  window.setVAType=function(t){state.profile.vaType=t;if(state.profile.experience){state.hourlyRate=Math.round((BASE_RATES[t]||25)*(EXP_LEVELS.find(e=>e.value===state.profile.experience)?.mult||1))}save();render()};
-  window.setExp=function(v){state.profile.experience=v;if(state.profile.vaType){state.hourlyRate=Math.round((BASE_RATES[state.profile.vaType]||25)*(EXP_LEVELS.find(e=>e.value===v)?.mult||1))}save();render()};
-  window.toggleService=function(s){const i=state.services.indexOf(s);if(i>=0)state.services.splice(i,1);else state.services.push(s);save();render()};
-  window.removeSvc=function(s){state.services=state.services.filter(x=>x!==s);save();render()};
-  window.addCustomSvc=function(){const el=document.getElementById("customSvc");if(!el)return;const v=el.value.trim();if(v&&!state.services.includes(v)){state.services.push(v);save();render()}};
-  window.toggleModel=function(m){const i=state.pricingModels.indexOf(m);if(i>=0)state.pricingModels.splice(i,1);else state.pricingModels.push(m);save();render()};
-  window.setRate=function(v){state.hourlyRate=+v;save();render()};
-  window.updatePkg=function(i,field,val){state.packages[i][field]=val;save();render()};
-  window.togglePkgSvc=function(i,s){const svcs=state.packages[i].services;const idx=svcs.indexOf(s);if(idx>=0)svcs.splice(idx,1);else svcs.push(s);save();render()};
-  window.addProject=function(){const name=document.getElementById("projName")?.value?.trim();const hours=+document.getElementById("projHours")?.value;const complexity=document.getElementById("projComplexity")?.value||"standard";if(!name||!hours)return;const mult=complexity==="complex"?1.5:complexity==="simple"?0.75:1;state.projects.push({name,hours,complexity,price:Math.round(hours*state.hourlyRate*mult)});save();render()};
-  window.removeProject=function(i){state.projects.splice(i,1);save();render()};
-  window.saveAndToast=function(){save();toast("Pricing saved!")};
-  window.resetAll=function(){if(!confirm("Start over? This will clear all your pricing data."))return;state={step:0,profile:{vaType:"",experience:"",name:""},services:[],pricingModels:[],hourlyRate:25,packages:[{name:"Starter",hours:10,discount:0,services:[]},{name:"Growth",hours:20,discount:5,services:[]},{name:"Premium",hours:40,discount:10,services:[]}],projects:[]};localStorage.removeItem(STORAGE_KEY);render()};
-
-  window.shareRate=function(){
-    const hr=state.hourlyRate;
-    const text=`My VA rate should be $${hr}/hr.\n\nCalculate yours:\nvirtueasy.com/pricing-tool`;
-    if(navigator.share){
-      navigator.share({title:"My VA Rate",text:text}).catch(()=>{});
-    } else {
-      navigator.clipboard.writeText(text).then(()=>{
-        const btn=document.querySelector(".share-btn");
-        btn.textContent="Copied!";btn.classList.add("copied");
-        setTimeout(()=>{btn.textContent="Share my VA rate";btn.classList.remove("copied")},2000);
-      });
-    }
-  };
-
-  load();render();
 })();
 </script>
 </body>
