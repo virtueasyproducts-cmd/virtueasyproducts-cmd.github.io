@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Access Unlocked — VIRTUeasy</title>
+<title>Access Unlocked — VIRTUEASY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -38,7 +38,7 @@ p{font-size:15px;color:var(--gray-mid);line-height:1.6;max-width:360px;margin:0 
 </head>
 <body>
 
-<div class="logo">VIRTU<span>easy</span></div>
+<div class="logo">VIRTU<span>EASY</span></div>
 
 <div class="success-icon">✓</div>
 
@@ -51,13 +51,41 @@ p{font-size:15px;color:var(--gray-mid);line-height:1.6;max-width:360px;margin:0 
 <div class="dots"><i></i><i></i><i></i></div>
 
 <script>
-// Grant lifetime access
-localStorage.setItem("lifetimeAccess", "true");
+(async function() {
+  const ACCESS_API = "https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev";
+  const TOKEN_KEY  = "ve-pricing-token";
 
-// Redirect to the app after a brief moment
-setTimeout(function() {
-  window.location.href = "app.html";
-}, 2500);
+  const existingToken = localStorage.getItem(TOKEN_KEY);
+
+  try {
+    // Upgrade existing token to lifetime, or mint a fresh lifetime token
+    const res = await fetch(ACCESS_API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "lifetime",
+        token: existingToken || "",
+        // email is only used if there's no existing token to extract it from
+        email: ""
+      }),
+    });
+    const data = await res.json();
+    if (data.token) {
+      localStorage.setItem(TOKEN_KEY, data.token);
+      // Clean up legacy keys
+      localStorage.removeItem("lifetimeAccess");
+      localStorage.removeItem("trialStart");
+    }
+  } catch (e) {
+    // Network error — as a fallback, keep whatever token they have.
+    // app.html will handle gracefully on next load.
+    console.error("Lifetime upgrade failed:", e);
+  }
+
+  setTimeout(function() {
+    window.location.href = "app.html";
+  }, 2500);
+})();
 </script>
 </body>
 </html>
