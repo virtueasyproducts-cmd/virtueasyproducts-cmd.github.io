@@ -219,10 +219,29 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
   async function checkAccess() {
     const token = localStorage.getItem(TOKEN_KEY);
 
-    if (!token) {
-      // No token at all — send to gate
+    // Also support legacy trialStart fallback
+    const trialStart = localStorage.getItem("trialStart");
+    const lifetimeAccess = localStorage.getItem("lifetimeAccess");
+
+    if (!token && !trialStart && !lifetimeAccess) {
       window.location.replace("index.html");
       return;
+    }
+
+    // Legacy fallback: no token but has old localStorage trial
+    if (!token && (trialStart || lifetimeAccess)) {
+      const isLifetime = lifetimeAccess === "true";
+      const days = trialStart ? (Date.now() - parseInt(trialStart)) / (1000 * 60 * 60 * 24) : 0;
+      if (isLifetime || days <= 7) {
+        document.getElementById("access-loading").style.display = "none";
+        document.getElementById("app").style.display = "block";
+        const daysLeft = isLifetime ? null : Math.max(0, Math.ceil(7 - days));
+        bootApp({ valid: true, type: isLifetime ? "lifetime" : "trial", daysLeft });
+        return;
+      } else {
+        window.location.replace("pay.html");
+        return;
+      }
     }
 
     let result;
