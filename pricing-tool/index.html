@@ -191,9 +191,8 @@ const ACCESS_API = "https://virtueasy-pricing-tool-verification.morgan-2bf.worke
 // ─── MailerLite success callback ─────────────────────────────────────────────
 // MailerLite calls this function by name when the form submits successfully.
 async function ml_webform_success_39513813() {
-  // Grab the email the user typed before MailerLite clears the form
-  const emailEl = document.getElementById("ml-email-input");
-  const email = (emailEl ? emailEl.value : "") || "";
+  // Use email captured during typing — MailerLite clears the field before this fires
+  const email = window._capturedEmail || "";
 
   try {
     // Request a signed token from the server
@@ -246,5 +245,14 @@ async function ml_webform_success_39513813() {
 <!-- MailerLite JS -->
 <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v95037e5bac78f29ed026832ca21a7c7b" type="text/javascript"></script>
 <script>fetch("https://assets.mailerlite.com/jsonp/2199748/forms/184021092538517454/takel")</script>
+
+<script>
+// Capture email as user types — before MailerLite clears the field
+document.addEventListener("input", function(e) {
+  if (e.target && e.target.type === "email") {
+    window._capturedEmail = e.target.value;
+  }
+});
+</script>
 </body>
 </html>
