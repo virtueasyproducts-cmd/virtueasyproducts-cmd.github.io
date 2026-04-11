@@ -184,75 +184,70 @@ body{font-family:var(--font-body);background:var(--white);color:var(--black);min
   <p class="bottom-note">A free tool by <a href="https://virtueasy.com">VIRTUeasy</a></p>
 </div>
 
-<script>
-// ─── Edge function URL ────────────────────────────────────────────────────────
-const ACCESS_API = "https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev";
-
-// ─── MailerLite success callback ─────────────────────────────────────────────
-// MailerLite calls this function by name when the form submits successfully.
-async function ml_webform_success_39513813() {
-  // Use email captured during typing — MailerLite clears the field before this fires
-  const email = window._capturedEmail || "";
-
-  try {
-    // Request a signed token from the server
-    const res = await fetch(ACCESS_API, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "grant", email }),
-    });
-    const data = await res.json();
-    if (data.token) {
-      // Store the server-signed token — NOT a plain timestamp
-      localStorage.setItem("ve-pricing-token", data.token);
-      localStorage.removeItem("trialStart");       // clean up old key if present
-      localStorage.removeItem("lifetimeAccess");   // clean up old key if present
-    }
-  } catch (e) {
-    // Network failure fallback: store email so app.html can show a friendly error
-    console.error("Token grant failed:", e);
-  }
-
-  try {
-    window.top.location.href = "https://virtueasy.com/pricing-tool/app.html";
-  } catch (e) {
-    window.location.href = "https://virtueasy.com/pricing-tool/app.html";
-  }
-}
-
-// ─── Skip gate if already have a valid token ─────────────────────────────────
-(async function() {
-  const token = localStorage.getItem("ve-pricing-token");
-  if (!token) return; // no token, stay on gate
-
-  try {
-    const res = await fetch(ACCESS_API, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "verify", token }),
-    });
-    const data = await res.json();
-    if (data.valid) {
-      window.location.href = "app.html";
-    }
-    // If invalid/expired, stay on gate so they re-subscribe
-  } catch (e) {
-    // Network error — let them through to gate, don't block
-  }
-})();
-</script>
-
 <!-- MailerLite JS -->
 <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v95037e5bac78f29ed026832ca21a7c7b" type="text/javascript"></script>
 <script>fetch("https://assets.mailerlite.com/jsonp/2199748/forms/184021092538517454/takel")</script>
 
 <script>
-// Capture email as user types — before MailerLite clears the field
+const ACCESS_API = "https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev";
+
+// Capture email as user types
 document.addEventListener("input", function(e) {
   if (e.target && e.target.type === "email") {
     window._capturedEmail = e.target.value;
   }
 });
+
+// MailerLite calls this on successful form submit
+function ml_webform_success_39513813() {
+  const email = window._capturedEmail || "";
+
+  // Always redirect — token grant happens in background
+  // Store a temporary flag so app.html knows to wait for the token
+  localStorage.setItem("ve-pricing-pending", "1");
+
+  fetch(ACCESS_API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action: "grant", email }),
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (data.token) {
+      localStorage.setItem("ve-pricing-token", data.token);
+      localStorage.removeItem("trialStart");
+      localStorage.removeItem("lifetimeAccess");
+    }
+    localStorage.removeItem("ve-pricing-pending");
+    window.location.href = "https://virtueasy.com/pricing-tool/app.html";
+  })
+  .catch(function() {
+    // Worker unreachable — fall back to localStorage trial so users aren't blocked
+    if (!localStorage.getItem("trialStart")) {
+      localStorage.setItem("trialStart", Date.now().toString());
+    }
+    localStorage.removeItem("ve-pricing-pending");
+    window.location.href = "https://virtueasy.com/pricing-tool/app.html";
+  });
+}
+
+// Skip gate if already have a valid token
+(function() {
+  var token = localStorage.getItem("ve-pricing-token");
+  if (!token) return;
+
+  fetch(ACCESS_API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action: "verify", token }),
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (data.valid) window.location.href = "app.html";
+  })
+  .catch(function() {});
+})();
 </script>
+
 </body>
 </html>
