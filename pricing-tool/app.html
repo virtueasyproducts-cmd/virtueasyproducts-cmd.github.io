@@ -224,7 +224,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     const lifetimeAccess = localStorage.getItem("lifetimeAccess");
 
     if (!token && !trialStart && !lifetimeAccess) {
-      window.location.replace("index.html");
+      window.location.replace("get-access.html");
       return;
     }
 
@@ -265,7 +265,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
       } else {
         // Invalid/tampered token — back to gate
         localStorage.removeItem(TOKEN_KEY);
-        window.location.replace("index.html");
+        window.location.replace("get-access.html");
       }
       return;
     }
