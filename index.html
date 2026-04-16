@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Meta Pixel Code -->
+  <!-- Meta Pixel Code (stub — fbevents.js deferred to after load) -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1552355892525925');
-fbq('track', 'PageView');
+n.queue=[]}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1552355892525925');
+fbq('track','PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
@@ -29,7 +26,8 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 <title>The VA Blueprint: Virtual Assistant Course to Land Your First Client in 30 Days.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap"></noscript>
 <style>
   :root {
     --pink: #FF1F7A;
@@ -2922,6 +2920,14 @@ setTimeout(function() {
   setInterval(function() { showToast(); }, 4000 + Math.random() * 2000);
 }, 3000);
 })();
+</script>
+<!-- Deferred Facebook Pixel loader — keeps fbevents.js out of critical path -->
+<script>
+(window.requestIdleCallback||function(fn){setTimeout(fn,200);})(function(){
+  var t=document.createElement('script');t.async=true;
+  t.src='https://connect.facebook.net/en_US/fbevents.js';
+  document.head.appendChild(t);
+});
 </script>
 </body>
 </html>
