@@ -2784,13 +2784,14 @@ var ph='';quizAnswers.forEach(function(a,i){if(a)ph+='<span class="badge-skill-p
   });
 
   // Scroll trigger -- fires at 50% page scroll
+  // scrollHeight cached once to avoid forced reflow on every scroll event
+  var _cachedScrollHeight = document.documentElement.scrollHeight;
   window.addEventListener('scroll', function() {
     if (veModalShown) return;
     if (sessionStorage.getItem('ve_modal_dismissed')) return;
 
     var scrolled = window.scrollY + window.innerHeight;
-    var total = document.documentElement.scrollHeight;
-    var pct = scrolled / total;
+    var pct = scrolled / _cachedScrollHeight;
 
     if (pct >= 0.5) {
       veModalShown = true;
