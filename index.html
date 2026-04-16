@@ -13,11 +13,6 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1552355892525925');
 fbq('track', 'PageView');
-  fbq('init', '1552355892525925', {
-  em: 'email@email.com',   // Values will be hashed automatically by the pixel using SHA-256
-  ph: '1234567890',
-  ...
-});
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
@@ -30,7 +25,10 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 <meta property="og:type" content="website" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The VA Blueprint is a 30-day interactive system that helps virtual assistants land their first high-paying client. Try it free.">
 <title>The VA Blueprint: Virtual Assistant Course to Land Your First Client in 30 Days.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -1222,12 +1220,21 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
   /* ── PULSE ON CTA ── */
   @keyframes pulse-ring {
-    0%   { box-shadow: 0 0 0 0 rgba(255,31,122,0.5); }
-    70%  { box-shadow: 0 0 0 14px rgba(255,31,122,0); }
-    100% { box-shadow: 0 0 0 0 rgba(255,31,122,0); }
+    0%   { transform: scale(1); opacity: 0.7; }
+    70%  { transform: scale(1.5); opacity: 0; }
+    100% { transform: scale(1.5); opacity: 0; }
   }
 
-  .btn-primary.pulse { animation: pulse-ring 2.2s ease infinite; }
+  .btn-primary.pulse { position: relative; }
+  .btn-primary.pulse::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: rgba(255,31,122,0.45);
+    animation: pulse-ring 2.2s ease infinite;
+    pointer-events: none;
+  }
 
   /* ── ANIMATED STAT NUMBERS ── */
   .stat-row {
@@ -1748,8 +1755,8 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
  <div class="ipad-frame reveal" id="previewBrowser" style="background: #0A0A0A;">
       <div class="ipad-camera"></div>
       <div class="ipad-screen">
-        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" id="previewVideo">
-          <source src="BlueprintDemo(1).mp4" type="video/mp4">
+        <video muted loop playsinline preload="none" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" id="previewVideo">
+          <source data-src="BlueprintDemo(1).mp4" type="video/mp4">
           <p>Your browser doesn't support HTML5 video. <a href="https://subscribepage.io/blueprint-preview">Try the preview here</a>.</p>
         </video>
         <div class="cta-container">
@@ -1761,10 +1768,20 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     </div>
 
     <script>
-      const video = document.getElementById('previewVideo');
-      if (video) {
-        video.playbackRate = 2.0;
-      }
+      (function() {
+        var video = document.getElementById('previewVideo');
+        if (!video) return;
+        var obs = new IntersectionObserver(function(entries) {
+          if (!entries[0].isIntersecting) return;
+          var source = video.querySelector('source');
+          source.src = source.dataset.src;
+          video.load();
+          video.playbackRate = 2.0;
+          video.play();
+          obs.disconnect();
+        }, { threshold: 0.1 });
+        obs.observe(video);
+      })();
     </script>
     <p class="preview-note reveal"><strong>Every day looks like this.</strong> Check things off. Write things down. Actually move forward.</p>
   </div>
@@ -1879,7 +1896,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   </div>
 </section>
 <style>
-.quiz-powerbar{max-width:600px;margin:0 auto 28px}.qpb-track{height:16px;background:rgba(0,0,0,0.06);border-radius:100px;overflow:hidden;position:relative}.qpb-fill{height:100%;width:0%;background:linear-gradient(90deg,#FF1F7A,#FF6BAB,#FF1F7A);background-size:200% 100%;border-radius:100px;transition:width .6s cubic-bezier(.34,1.56,.64,1);position:relative;z-index:2;animation:barShine 2s linear infinite}@keyframes barShine{0%{background-position:0% 0}100%{background-position:200% 0}}.qpb-glow{position:absolute;top:-4px;bottom:-4px;left:0;width:0%;background:rgba(255,31,122,0.3);border-radius:100px;filter:blur(8px);transition:width .6s cubic-bezier(.34,1.56,.64,1);z-index:1}.qpb-segments{position:absolute;inset:0;display:flex;z-index:3;pointer-events:none}.qpb-seg{flex:1;border-right:3px solid rgba(255,255,255,0.8)}.qpb-seg:last-child{border-right:none}.qpb-label{text-align:center;font-size:.82rem;font-weight:700;color:var(--gray);margin-top:10px;transition:all .3s}.qpb-label.glow{color:var(--pink);text-shadow:0 0 12px rgba(255,31,122,0.4)}
+.quiz-powerbar{max-width:600px;margin:0 auto 28px}.qpb-track{height:16px;background:rgba(0,0,0,0.06);border-radius:100px;overflow:hidden;position:relative}.qpb-fill{height:100%;width:0%;background:linear-gradient(90deg,#FF1F7A,#FF6BAB);border-radius:100px;transition:width .6s cubic-bezier(.34,1.56,.64,1);position:relative;z-index:2;overflow:hidden}.qpb-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.35) 50%,transparent 100%);transform:translateX(-100%);animation:barShine 2s linear infinite;pointer-events:none}@keyframes barShine{to{transform:translateX(300%)}}.qpb-glow{position:absolute;top:-4px;bottom:-4px;left:0;width:0%;background:rgba(255,31,122,0.3);border-radius:100px;filter:blur(8px);transition:width .6s cubic-bezier(.34,1.56,.64,1);z-index:1}.qpb-segments{position:absolute;inset:0;display:flex;z-index:3;pointer-events:none}.qpb-seg{flex:1;border-right:3px solid rgba(255,255,255,0.8)}.qpb-seg:last-child{border-right:none}.qpb-label{text-align:center;font-size:.82rem;font-weight:700;color:var(--gray);margin-top:10px;transition:all .3s}.qpb-label.glow{color:var(--pink);text-shadow:0 0 12px rgba(255,31,122,0.4)}
 .quiz-particles{position:fixed;inset:0;pointer-events:none;z-index:9990;overflow:hidden}.q-particle{position:absolute;border-radius:50%;pointer-events:none}
 .quiz-flash{position:fixed;inset:0;background:rgba(255,31,122,0.12);pointer-events:none;z-index:9989;opacity:0;transition:opacity .1s}.quiz-flash.fire{opacity:1;transition:opacity .05s}
 .float-plus{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--pink);pointer-events:none;z-index:100;animation:floatUp 1s ease-out forwards;text-shadow:0 2px 8px rgba(255,31,122,0.4)}@keyframes floatUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-60px) scale(1.3)}}
@@ -2715,7 +2732,7 @@ var ph='';quizAnswers.forEach(function(a,i){if(a)ph+='<span class="badge-skill-p
 </button>
 
 <!-- Pop-up Overlay -->
-<div class="ve-overlay" id="veOverlay" role="dialog" aria-modal="true">
+<div class="ve-overlay" id="veOverlay" role="dialog" aria-modal="true" aria-labelledby="veDialogTitle">
   <div class="ve-modal">
     <button class="ve-close" onclick="veCloseModal()" aria-label="Close">&times;</button>
 
@@ -2724,7 +2741,7 @@ var ph='';quizAnswers.forEach(function(a,i){if(a)ph+='<span class="badge-skill-p
       <span>Free Download</span>
     </div>
 
-    <h2>260 ChatGPT<br><span>Prompts.</span></h2>
+    <h2 id="veDialogTitle">260 ChatGPT<br><span>Prompts.</span></h2>
     <p>Ready-to-use prompts for every part of your VA business. Client pitches, onboarding, service descriptions, difficult emails. All of it, free.</p>
 
     <a class="ve-modal-btn" href="https://subscribepage.io/260-chatgpt-prompts" target="_blank" rel="noopener">
