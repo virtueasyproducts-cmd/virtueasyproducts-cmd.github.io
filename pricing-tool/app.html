@@ -306,7 +306,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     let state = {
       step:0,profile:{vaType:"",experience:"",name:""},services:[],pricingModels:[],hourlyRate:25,
       packages:[{name:"Starter",hours:10,discount:0,services:[]},{name:"Growth",hours:20,discount:5,services:[]},{name:"Premium",hours:40,discount:10,services:[]}],
-      projects:[],useCounted:null
+      projects:[]
     };
 
     function load(){try{const d=localStorage.getItem(STORAGE_KEY);if(d){Object.assign(state,JSON.parse(d))}}catch(e){}}
@@ -545,11 +545,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     window.advance=function(){
       if(!canAdvance()||state.step>=4)return;
       if(state.step===3&&!isLifetime){
-        const today=todayKey();
-        if(state.useCounted!==today){
-          if(!recordUse()){window.location.replace("pay.html");return;}
-          state.useCounted=today;
-        }
+        if(!recordUse()){window.location.replace("pay.html");return;}
       }
       state.step++;save();render();window.scrollTo(0,0);
     };
@@ -579,7 +575,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     window.addProject=function(){const name=document.getElementById("projName")?.value?.trim();const hours=+document.getElementById("projHours")?.value;const complexity=document.getElementById("projComplexity")?.value||"standard";if(!name||!hours)return;const mult=complexity==="complex"?1.5:complexity==="simple"?0.75:1;state.projects.push({name,hours,complexity,price:Math.round(hours*state.hourlyRate*mult)});save();render()};
     window.removeProject=function(i){state.projects.splice(i,1);save();render()};
     window.saveAndToast=function(){save();toast("Pricing saved!")};
-    window.resetAll=function(){if(!confirm("Start over? This will clear all your pricing data."))return;state={step:0,profile:{vaType:"",experience:"",name:""},services:[],pricingModels:[],hourlyRate:25,packages:[{name:"Starter",hours:10,discount:0,services:[]},{name:"Growth",hours:20,discount:5,services:[]},{name:"Premium",hours:40,discount:10,services:[]}],projects:[],useCounted:null};localStorage.removeItem(STORAGE_KEY);render()};
+    window.resetAll=function(){if(!confirm("Start over? This will clear all your pricing data."))return;state={step:0,profile:{vaType:"",experience:"",name:""},services:[],pricingModels:[],hourlyRate:25,packages:[{name:"Starter",hours:10,discount:0,services:[]},{name:"Growth",hours:20,discount:5,services:[]},{name:"Premium",hours:40,discount:10,services:[]}],projects:[]};localStorage.removeItem(STORAGE_KEY);render()};
     window.shareRate=function(){
       const hr=state.hourlyRate;
       const text=`My VA rate should be $${hr}/hr.\n\nCalculate yours:\nvirtueasy.com/pricing-tool`;
