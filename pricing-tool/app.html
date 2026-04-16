@@ -107,7 +107,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
 .rate-currency{font-size:28px;font-weight:700;color:var(--pink)}
 .rate-amount{font-size:56px;font-weight:800;color:var(--black);letter-spacing:-0.03em;line-height:1}
 .rate-per{font-size:18px;font-weight:500;color:#AAA}
-.rate-slider{width:100%;height:6px;-webkit-appearance:none;appearance:none;background:linear-gradient(90deg,var(--pink-pale),var(--pink));border-radius:6px;outline:none;margin-bottom:8px}
+.rate-slider{width:100%;height:6px;-webkit-appearance:none;appearance:none;background:#E8E8E8;border-radius:6px;outline:none;margin-bottom:8px;transition:none}
 .rate-slider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--pink);border:3px solid var(--white);box-shadow:0 2px 6px rgba(255,31,122,0.35);cursor:pointer}
 .rate-slider::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--pink);border:3px solid var(--white);box-shadow:0 2px 6px rgba(255,31,122,0.35);cursor:pointer}
 .rate-labels{display:flex;justify-content:space-between;font-size:11px;color:#BBB;margin-bottom:20px}
@@ -231,17 +231,10 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     // Legacy fallback: no token but has old localStorage trial
     if (!token && (trialStart || lifetimeAccess)) {
       const isLifetime = lifetimeAccess === "true";
-      const days = trialStart ? (Date.now() - parseInt(trialStart)) / (1000 * 60 * 60 * 24) : 0;
-      if (isLifetime || days <= 7) {
-        document.getElementById("access-loading").style.display = "none";
-        document.getElementById("app").style.display = "block";
-        const daysLeft = isLifetime ? null : Math.max(0, Math.ceil(7 - days));
-        bootApp({ valid: true, type: isLifetime ? "lifetime" : "trial", daysLeft });
-        return;
-      } else {
-        window.location.replace("pay.html");
-        return;
-      }
+      document.getElementById("access-loading").style.display = "none";
+      document.getElementById("app").style.display = "block";
+      bootApp({ valid: true, type: isLifetime ? "lifetime" : "trial" });
+      return;
     }
 
     let result;
@@ -256,7 +249,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
       // Network error — fail open with a short grace period so users on bad
       // connections aren't locked out. Still don't show expired users.
       // We'll let them in but note the token must exist.
-      result = { valid: true, type: "unknown", daysLeft: null, networkError: true };
+      result = { valid: true, type: "unknown", networkError: true };
     }
 
     if (!result.valid) {
@@ -283,8 +276,9 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
   // ── App boot (only runs after access confirmed) ──────────────────────────────
   function bootApp(accessResult) {
 
-    const isLifetime = accessResult.type === "lifetime";
-    const daysLeft   = accessResult.daysLeft ?? null;
+    const isLifetime     = accessResult.type === "lifetime";
+    const userEmail      = accessResult.email || localStorage.getItem("ve-pricing-email") || "";
+    const MAX_DAILY_USES = 3;
 
     // ── App state ──
     const STORAGE_KEY = "virtueasy-pricing-v1";
@@ -312,13 +306,16 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     let state = {
       step:0,profile:{vaType:"",experience:"",name:""},services:[],pricingModels:[],hourlyRate:25,
       packages:[{name:"Starter",hours:10,discount:0,services:[]},{name:"Growth",hours:20,discount:5,services:[]},{name:"Premium",hours:40,discount:10,services:[]}],
-      projects:[]
+      projects:[],useCounted:null
     };
 
     function load(){try{const d=localStorage.getItem(STORAGE_KEY);if(d){Object.assign(state,JSON.parse(d))}}catch(e){}}
     function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(e){}}
     function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2000)}
     function suggestedRate(){const b=BASE_RATES[state.profile.vaType]||25;const e=EXP_LEVELS.find(x=>x.value===state.profile.experience);return Math.round(b*(e?e.mult:1))}
+    function todayKey(){return new Date().toISOString().slice(0,10)}
+    function getLocalUsesLeft(){const k=`ve-uses-${userEmail||"anon"}-${todayKey()}`;return Math.max(0,MAX_DAILY_USES-parseInt(localStorage.getItem(k)||"0"))}
+    function recordUse(){const k=`ve-uses-${userEmail||"anon"}-${todayKey()}`;const used=parseInt(localStorage.getItem(k)||"0");if(used>=MAX_DAILY_USES)return false;localStorage.setItem(k,(used+1).toString());fetch(ACCESS_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"track-use",token:localStorage.getItem(TOKEN_KEY),email:userEmail})}).catch(()=>{});return true}
     function canAdvance(){if(state.step===0)return state.profile.vaType&&state.profile.experience;if(state.step===1)return state.services.length>0;if(state.step===2)return state.pricingModels.length>0;return true}
     function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}
 
@@ -326,11 +323,12 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
       const app=document.getElementById("app");
       let h="";
 
-      // Trial banner
+      // Usage banner
       if(isLifetime){
         h+=`<div class="trial-banner lifetime">Lifetime access unlocked</div>`;
-      } else if(daysLeft !== null){
-        h+=`<div class="trial-banner">${daysLeft} day${daysLeft!==1?"s":""} left in free trial <a href="pay.html">Upgrade \u2014 $7</a></div>`;
+      } else {
+        const ul=getLocalUsesLeft();
+        h+=`<div class="trial-banner">${ul} free use${ul!==1?"s":""} left today <a href="pay.html">Upgrade \u2014 $7</a></div>`;
       }
 
       // Header
@@ -421,7 +419,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
         h+=`<div class="card"><h2 class="card-title">Hourly rate</h2>
           <p class="card-sub">Suggested rate for your profile: <strong style="color:var(--pink)">$${sr}/hr</strong></p>
           <div class="rate-display"><span class="rate-currency">$</span><span class="rate-amount">${hr}</span><span class="rate-per">/hr</span></div>
-          <input type="range" class="rate-slider" min="10" max="150" value="${hr}" oninput="setRate(this.value)">
+          <input type="range" class="rate-slider" id="rate-slider-input" min="10" max="150" value="${hr}" style="background:linear-gradient(90deg,var(--pink) ${((hr-10)/140*100).toFixed(1)}%,#E8E8E8 ${((hr-10)/140*100).toFixed(1)}%)" oninput="slideRate(this.value)" onchange="setRate(this.value)">
           <div class="rate-labels"><span>$10</span><span>$150</span></div>
           <div class="rate-projections">
             <div class="proj-card"><span class="proj-label">10 hrs/wk</span><span class="proj-value">$${(hr*10*4).toLocaleString()}/mo</span></div>
@@ -544,7 +542,17 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
 
     // ── Global handlers ──
     window.goStep=function(i){state.step=i;save();render()};
-    window.advance=function(){if(canAdvance()&&state.step<4){state.step++;save();render();window.scrollTo(0,0)}};
+    window.advance=function(){
+      if(!canAdvance()||state.step>=4)return;
+      if(state.step===3&&!isLifetime){
+        const today=todayKey();
+        if(state.useCounted!==today){
+          if(!recordUse()){window.location.replace("pay.html");return;}
+          state.useCounted=today;
+        }
+      }
+      state.step++;save();render();window.scrollTo(0,0);
+    };
     window.updateName=function(v){state.profile.name=v;save()};
     window.setVAType=function(t){state.profile.vaType=t;if(state.profile.experience){state.hourlyRate=Math.round((BASE_RATES[t]||25)*(EXP_LEVELS.find(e=>e.value===state.profile.experience)?.mult||1))}save();render()};
     window.setExp=function(v){state.profile.experience=v;if(state.profile.vaType){state.hourlyRate=Math.round((BASE_RATES[state.profile.vaType]||25)*(EXP_LEVELS.find(e=>e.value===v)?.mult||1))}save();render()};
@@ -552,13 +560,26 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     window.removeSvc=function(s){state.services=state.services.filter(x=>x!==s);save();render()};
     window.addCustomSvc=function(){const el=document.getElementById("customSvc");if(!el)return;const v=el.value.trim();if(v&&!state.services.includes(v)){state.services.push(v);save();render()}};
     window.toggleModel=function(m){const i=state.pricingModels.indexOf(m);if(i>=0)state.pricingModels.splice(i,1);else state.pricingModels.push(m);save();render()};
+    window.slideRate=function(v){
+      const hr=+v;
+      state.hourlyRate=hr;
+      const pct=((hr-10)/140*100).toFixed(1);
+      const sl=document.getElementById("rate-slider-input");
+      if(sl)sl.style.background=`linear-gradient(90deg,var(--pink) ${pct}%,#E8E8E8 ${pct}%)`;
+      const amt=document.querySelector(".rate-amount");
+      if(amt)amt.textContent=hr;
+      const pvs=document.querySelectorAll(".proj-value");
+      if(pvs[0])pvs[0].textContent=`$${(hr*10*4).toLocaleString()}/mo`;
+      if(pvs[1])pvs[1].textContent=`$${(hr*20*4).toLocaleString()}/mo`;
+      if(pvs[2])pvs[2].textContent=`$${(hr*40*4).toLocaleString()}/mo`;
+    };
     window.setRate=function(v){state.hourlyRate=+v;save();render()};
     window.updatePkg=function(i,field,val){state.packages[i][field]=val;save();render()};
     window.togglePkgSvc=function(i,s){const svcs=state.packages[i].services;const idx=svcs.indexOf(s);if(idx>=0)svcs.splice(idx,1);else svcs.push(s);save();render()};
     window.addProject=function(){const name=document.getElementById("projName")?.value?.trim();const hours=+document.getElementById("projHours")?.value;const complexity=document.getElementById("projComplexity")?.value||"standard";if(!name||!hours)return;const mult=complexity==="complex"?1.5:complexity==="simple"?0.75:1;state.projects.push({name,hours,complexity,price:Math.round(hours*state.hourlyRate*mult)});save();render()};
     window.removeProject=function(i){state.projects.splice(i,1);save();render()};
     window.saveAndToast=function(){save();toast("Pricing saved!")};
-    window.resetAll=function(){if(!confirm("Start over? This will clear all your pricing data."))return;state={step:0,profile:{vaType:"",experience:"",name:""},services:[],pricingModels:[],hourlyRate:25,packages:[{name:"Starter",hours:10,discount:0,services:[]},{name:"Growth",hours:20,discount:5,services:[]},{name:"Premium",hours:40,discount:10,services:[]}],projects:[]};localStorage.removeItem(STORAGE_KEY);render()};
+    window.resetAll=function(){if(!confirm("Start over? This will clear all your pricing data."))return;state={step:0,profile:{vaType:"",experience:"",name:""},services:[],pricingModels:[],hourlyRate:25,packages:[{name:"Starter",hours:10,discount:0,services:[]},{name:"Growth",hours:20,discount:5,services:[]},{name:"Premium",hours:40,discount:10,services:[]}],projects:[],useCounted:null};localStorage.removeItem(STORAGE_KEY);render()};
     window.shareRate=function(){
       const hr=state.hourlyRate;
       const text=`My VA rate should be $${hr}/hr.\n\nCalculate yours:\nvirtueasy.com/pricing-tool`;

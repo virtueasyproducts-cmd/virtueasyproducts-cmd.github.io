@@ -18,7 +18,7 @@ fbq('track', 'PageView');
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Free VA Pricing Calculator — VIRTUEASY</title>
-<meta name="description" content="Calculate your ideal VA rate in minutes. Free 7-day access to the VIRTUEASY Pricing Calculator.">
+<meta name="description" content="Calculate your ideal VA rate in minutes. 3 free uses per day — no credit card required.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style type="text/css">@import url("https://assets.mlcdn.com/fonts.css?version=1775464");</style>
@@ -98,9 +98,9 @@ body{font-family:var(--font-body);background:var(--white);color:var(--black);min
 
   <div class="dots"><i></i><i></i><i></i></div>
 
-  <h1>Free VA <em>Pricing</em> Calculator</h1>
+  <h1>Know <em>Exactly</em> What to Charge</h1>
 
-  <p class="subtitle">Stop guessing what to charge. Build your personalized pricing in minutes — hourly rates, packages, and project quotes.</p>
+  <p class="subtitle">Enter your niche and experience — get your personalized hourly rate, packages, and project quotes in minutes. Free to use, 3 generations per day.</p>
 
   <div class="features">
     <div class="feature">
@@ -138,8 +138,8 @@ body{font-family:var(--font-body);background:var(--white);color:var(--black);min
         <div class="ml-form-embedWrapper embedForm">
           <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
             <div class="ml-form-embedContent" style="">
-              <h4>Most New VAs Undercharge by 40%</h4>
-              <p>This calculator shows the rate you actually need to make the money you want.<strong><br><br>Try it free for 7 days</strong>.</p>
+              <h4>Get Your Personalized VA Rate</h4>
+              <p>Enter your email to access the calculator. <strong>Free — 3 price generations per day.</strong> Resets daily, no credit card needed.</p>
             </div>
             <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/2199748/forms/184021092538517454/subscribe" data-code="" method="post" target="_blank">
               <div class="ml-form-formContent">
@@ -151,7 +151,7 @@ body{font-family:var(--font-body);background:var(--white);color:var(--black);min
               </div>
               <input type="hidden" name="ml-submit" value="1">
               <div class="ml-form-embedSubmit">
-                <button type="submit" class="primary">Unlock My Pricing Calculator</button>
+                <button type="submit" class="primary">Get My Free Access →</button>
                 <button disabled="disabled" style="display:none" type="button" class="loading">
                   <div class="ml-form-embedSubmitLoad"></div>
                   <span class="sr-only">Loading...</span>
@@ -170,16 +170,16 @@ body{font-family:var(--font-body);background:var(--white);color:var(--black);min
       </div>
     </div>
 
-    <p class="terms">No spam, ever. Unsubscribe anytime. By signing up you agree to our <a href="#">terms</a>.</p>
+    <p class="terms">No spam, ever. Unsubscribe anytime. 3 free uses per day — resets at midnight.</p>
   </div>
 
   <div class="trust">
-    <span class="trust-item">✓ Free for 7 days</span>
+    <span class="trust-item">✓ 3 free uses daily</span>
     <span class="trust-item">✓ No credit card</span>
-    <span class="trust-item">✓ Cancel anytime</span>
+    <span class="trust-item">✓ Resets every day</span>
   </div>
 
-  <p class="already">Already have access? <a href="app.html">Go to calculator →</a></p>
+  <p class="already">Used it before? <a href="app.html">Go to calculator →</a></p>
 
   <p class="bottom-note">A free tool by <a href="https://virtueasy.com">VIRTUeasy</a></p>
 </div>
@@ -215,6 +215,7 @@ function ml_webform_success_39513813() {
   .then(function(data) {
     if (data.token) {
       localStorage.setItem("ve-pricing-token", data.token);
+      localStorage.setItem("ve-pricing-email", email);
       localStorage.removeItem("trialStart");
       localStorage.removeItem("lifetimeAccess");
     }
@@ -222,7 +223,8 @@ function ml_webform_success_39513813() {
     window.location.href = "https://virtueasy.com/pricing-tool/app.html";
   })
   .catch(function() {
-    // Worker unreachable — fall back to localStorage trial so users aren't blocked
+    // Worker unreachable — fall back so users aren't blocked
+    if (email) localStorage.setItem("ve-pricing-email", email);
     if (!localStorage.getItem("trialStart")) {
       localStorage.setItem("trialStart", Date.now().toString());
     }
