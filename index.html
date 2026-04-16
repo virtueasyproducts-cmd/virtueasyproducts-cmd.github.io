@@ -33,6 +33,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 <style>
   :root {
     --pink: #FF1F7A;
+    --pink-dark: #D91565;
     --pink-light: #FF6BAB;
     --pink-pale: #FFF0F6;
     --black: #0A0A0A;
@@ -118,7 +119,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
   .hero-eyebrow {
     display: inline-block;
-    background: var(--pink);
+    background: var(--pink-dark);
     color: var(--white);
     font-size: 0.72rem;
     font-weight: 700;
@@ -162,7 +163,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   /* ── BUTTONS ── */
   .btn-primary {
     display: inline-block;
-    background: var(--pink);
+    background: var(--pink-dark);
     color: var(--white);
     font-family: 'Barlow', sans-serif;
     font-weight: 700;
@@ -749,11 +750,11 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
   footer p {
     font-size: 0.78rem;
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.55);
     line-height: 1.7;
   }
 
-  footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+  footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
   footer a:hover { color: var(--pink); }
 
   /* ── STICKY CTA BAR ── */
@@ -1575,8 +1576,8 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   }
   .metricool-banner{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0.35em;width:100%;padding:0.65rem 1.5rem;background:#ffffff;border-top:1px solid #ffe0ef;border-bottom:3px solid #FF1F7A;text-decoration:none;font-family:'Barlow',sans-serif;font-size:0.9rem;font-weight:500;color:#0a0a0a;text-align:center;letter-spacing:0.01em;transition:background 0.2s ease;}
 .metricool-banner:hover{background:#fff5f9;}
-.banner-brand{color:#FF1F7A;font-weight:700;}
-.banner-code{color:#ffffff;background:#FF1F7A;font-weight:700;font-size:0.82rem;padding:0.15em 0.6em;border-radius:4px;letter-spacing:0.06em;}
+.banner-brand{color:#D91565;font-weight:700;}
+.banner-code{color:#ffffff;background:#D91565;font-weight:700;font-size:0.82rem;padding:0.15em 0.6em;border-radius:4px;letter-spacing:0.06em;}
 </style>
 </head>
 <body>
@@ -1924,9 +1925,10 @@ function flash(){var f=document.getElementById('quizFlash');f.classList.add('fir
 function floatPlus(card){var p=document.createElement('div');p.className='float-plus';p.textContent='+1 SKILL';p.style.left='50%';p.style.top='10px';p.style.transform='translateX(-50%)';card.style.position='relative';card.appendChild(p);setTimeout(function(){p.remove()},1000)}
 window.answerQuiz=function(qIndex,isYes,evt){
 quizAnswers[qIndex]=isYes;var card=document.querySelector('.quiz-card[data-q="'+qIndex+'"]');
-card.querySelectorAll('.quiz-option').forEach(function(b){b.disabled=true;b.classList.remove('selected')});
-var btn=evt.target.closest('.quiz-option')||evt.target;btn.classList.add('selected');
+var btn=evt.target.closest('.quiz-option')||evt.target;
 var rect=btn.getBoundingClientRect(),cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
+card.querySelectorAll('.quiz-option').forEach(function(b){b.disabled=true;b.classList.remove('selected')});
+btn.classList.add('selected');
 if(isYes){flash();spawnParticles(cx,cy,'#FF1F7A',12);spawnParticles(cx,cy,'#FF6BAB',8);spawnParticles(cx,cy,'#FFD700',4);floatPlus(card);
 card.classList.add('answered');document.getElementById('unlock'+qIndex).classList.add('visible');
 var yc=quizAnswers.filter(function(a){return a===true}).length;document.getElementById('qpbFill').style.width=(yc*25)+'%';document.getElementById('qpbGlow').style.width=(yc*25)+'%';document.getElementById('qpbCount').textContent=yc;
