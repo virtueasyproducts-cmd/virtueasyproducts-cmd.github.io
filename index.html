@@ -1916,6 +1916,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 @media(max-width:640px){.badge-svg{width:120px;height:138px}.qpb-track{height:12px}.quiz-q-num{font-size:2rem}.float-plus{font-size:1.5rem}}
 </style>
 <script>
+(window.requestIdleCallback||function(fn){setTimeout(fn,200);})(function(){
 (function(){
 var quizAnswers=[],currentQ=0,skillNames=['Admin & Organization','Social Media Management','Research & Data Entry','Client Support & Communication'];
 function spawnParticles(x,y,color,count){var c=document.getElementById('quizParticles');for(var i=0;i<count;i++){var p=document.createElement('div');p.className='q-particle';var size=4+Math.random()*8,angle=Math.random()*Math.PI*2,dist=30+Math.random()*80,tx=Math.cos(angle)*dist,ty=Math.sin(angle)*dist;p.style.cssText='left:'+x+'px;top:'+y+'px;width:'+size+'px;height:'+size+'px;background:'+color+';';c.appendChild(p);p.animate([{opacity:1,transform:'scale(1) translate(0,0)'},{opacity:0,transform:'scale(0.2) translate('+tx+'px,'+ty+'px)'}],{duration:600+Math.random()*400,easing:'cubic-bezier(0.34,1.56,0.64,1)',fill:'forwards'});(function(el){setTimeout(function(){el.remove()},1200)})(p)}}
@@ -1946,6 +1947,7 @@ setTimeout(function(){document.getElementById('badgeWrap').classList.add('pop');
 if(yc>=3){title.innerHTML='You Already Have <span class="pink">'+yc+' Out of 4</span> VA Skills.';body.textContent="You're not starting from scratch. The skills you already use every day are the same ones businesses pay $1,000+/month for. You just need the roadmap to turn them into income."}else if(yc>=1){title.innerHTML="You're Not Starting From <span class=\"pink\">Zero.</span>";body.textContent="You already have real, billable skills. The VA Blueprint is built for exactly where you are right now. No experience required."}else{title.innerHTML="That's Exactly Why <span class=\"pink\">This Exists.</span>";body.textContent="You don't need to walk in with a skillset. The VA Blueprint starts at absolute zero and builds you up -- one simple task per day, no assumptions, no jargon."}
 var ph='';quizAnswers.forEach(function(a,i){if(a)ph+='<span class="badge-skill-pill" style="animation-delay:'+(0.8+i*.18)+'s">'+skillNames[i]+'</span>'});if(ph==='')ph='<span class="badge-skill-pill" style="animation-delay:0.8s">Ready to learn all 4</span>';skills.innerHTML=ph;setTimeout(function(){skills.querySelectorAll('.badge-skill-pill').forEach(function(p){p.classList.add('pop')})},100)},400)};
 })();
+});
 </script>
 
 <!-- PRICING TOOL SECTION -->
@@ -2466,6 +2468,7 @@ var ph='';quizAnswers.forEach(function(a,i){if(a)ph+='<span class="badge-skill-p
   <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn-primary">Get Access Now</a>
 </div>
 <script>
+(window.requestIdleCallback||function(fn){setTimeout(fn,200);})(function(){
 
   // Count-up animation
   function countUp(el) {
@@ -2514,6 +2517,7 @@ var ph='';quizAnswers.forEach(function(a,i){if(a)ph+='<span class="badge-skill-p
     stickyBar.classList.toggle('visible', window.scrollY > 500);
   });
 
+});
 </script>
   <div style="text-align:center; padding:12px 0; font-size:13px; color:#888; font-family:Jost, sans-serif;">
   Owned and Operated by <a href="https://messickmarketing.com" target="_blank" rel="noopener" style="color:#5a9ab8; text-decoration:none;">Messick Marketing LLC</a>
@@ -2820,6 +2824,7 @@ var ph='';quizAnswers.forEach(function(a,i){if(a)ph+='<span class="badge-skill-p
 <div class="sp-toast-wrap" id="spToastWrap"></div>
 
 <script>
+(window.requestIdleCallback||function(fn){setTimeout(fn,200);})(function(){
 (function(){
 // ── HERO COUNTER ──
 var heroCount = 247;
@@ -2920,6 +2925,7 @@ setTimeout(function() {
   setInterval(function() { showToast(); }, 4000 + Math.random() * 2000);
 }, 3000);
 })();
+});
 </script>
 <!-- Deferred Facebook Pixel loader — keeps fbevents.js out of critical path -->
 <script>
