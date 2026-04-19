@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The VA Blueprint: Land Your First Client in 30 Days — Virtueasy</title>
+  <meta name="description" content="A 30-day interactive system that helps virtual assistants land their first high-paying client. No experience required. $27, instant access.">
+  <meta property="og:title" content="The VA Blueprint: Land Your First Client in 30 Days">
+  <meta property="og:description" content="A 30-day interactive system built for virtual assistants. No experience required. $27, instant access.">
+  <meta property="og:image" content="https://virtueasy.com/og-image.jpg">
+  <meta property="og:url" content="https://virtueasy.com/va-blueprint/">
+  <meta property="og:type" content="website">
+
+  <!-- Meta Pixel -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+  (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','1552355892525925');fbq('track','PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"/></noscript>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"></noscript>
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <style>
+
+    /* ── PAGE OVERRIDES ── */
+
+    body { overflow-x: hidden; }
+
+    /* ── STICKY BAR ── */
+
+    .sticky-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 0.85rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .sticky-bar.visible { transform: translateY(0); }
+
+    .sticky-bar-text {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .sticky-bar-text span { color: var(--pink); }
+
+    @media (max-width: 600px) {
+      .sticky-bar { flex-direction: column; padding: 1rem 1.25rem; text-align: center; }
+      .sticky-bar .btn { width: 100%; justify-content: center; }
+    }
+
+    /* ── HERO ── */
+
+    .sales-hero {
+      position: relative;
+      min-height: 96vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 7rem;
+      overflow: hidden;
+    }
+
+    .sales-hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255,31,122,0.15) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 20% 90%, rgba(255,31,122,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .sales-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+
+    .sales-hero-inner {
+      position: relative;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .hero-enrolled {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,31,122,0.12);
+      border: 1px solid rgba(255,31,122,0.3);
+      border-radius: 99px;
+      padding: 0.4rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 2rem;
+    }
+
+    .hero-enrolled-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--pink);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .sales-hero h1 {
+      font-size: clamp(3.2rem, 9vw, 7.5rem);
+      line-height: 0.92;
+      margin-bottom: 1.75rem;
+      color: var(--white);
+    }
+
+    .sales-hero h1 em {
+      font-style: normal;
+      color: var(--pink);
+      display: block;
+    }
+
+    .sales-hero-sub {
+      font-size: 1.1rem;
+      line-height: 1.65;
+      color: rgba(248,248,248,0.65);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-cta-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .hero-trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+    }
+
+    .trust-item {
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* ── PROOF BAR ── */
+
+    .proof-bar {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem;
+    }
+
+    .proof-bar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .proof-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .proof-number {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      letter-spacing: 0.02em;
+      color: var(--pink);
+      line-height: 1;
+    }
+
+    .proof-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── WHAT IS A VA ── */
+
+    .what-section {
+      padding: 6rem 2rem;
+      background: var(--black);
+    }
+
+    .what-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .what-content h2 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      margin-bottom: 1.5rem;
+    }
+
+    .what-content p {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: rgba(248,248,248,0.65);
+      margin-bottom: 1rem;
+    }
+
+    .income-range {
+      display: inline-block;
+      background: rgba(255,31,122,0.1);
+      border: 1px solid rgba(255,31,122,0.25);
+      border-radius: 4px;
+      padding: 0.2rem 0.6rem;
+      color: var(--pink);
+      font-weight: 700;
+    }
+
+    .what-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .what-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--pink), transparent);
+    }
+
+    .what-card-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .what-card-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: rgba(248,248,248,0.75);
+    }
+
+    .what-card-list li .check {
+      color: var(--pink);
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    /* ── NOT A PDF ── */
+
+    .not-pdf-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 6rem 2rem;
+    }
+
+    .not-pdf-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .not-pdf-content h2 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      margin-bottom: 1.25rem;
+    }
+
+    .not-pdf-content p {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: rgba(248,248,248,0.65);
+      margin-bottom: 1.5rem;
+    }
+
+    .day-preview {
+      background: var(--black);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.75rem;
+    }
+
+    .day-preview-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 0.75rem;
+    }
+
+    .day-preview-title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 1.25rem;
+    }
+
+    .day-task-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .day-task-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      color: rgba(248,248,248,0.7);
+    }
+
+    .task-check {
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      border-radius: 3px;
+    }
+
+    .task-check.done {
+      background: var(--pink);
+      border-color: var(--pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .task-check.done::after {
+      content: '';
+      display: block;
+      width: 8px;
+      height: 5px;
+      border-left: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      transform: rotate(-45deg) translateY(-1px);
+    }
+
+    .day-progress {
+      height: 4px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .day-progress-fill {
+      height: 100%;
+      width: 60%;
+      background: var(--pink);
+      border-radius: 2px;
+    }
+
+    /* ── TESTIMONIALS ── */
+
+    .testimonials-section {
+      padding: 6rem 2rem;
+      background: var(--black);
+    }
+
+    .testimonials-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .testimonials-header h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-top: 0.5rem;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .testimonial-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .testimonial-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--pink);
+    }
+
+    .testimonial-quote {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(248,248,248,0.8);
+      font-style: italic;
+      flex: 1;
+    }
+
+    .testimonial-stars {
+      color: var(--pink);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── FOR YOU IF ── */
+
+    .fit-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 6rem 2rem;
+    }
+
+    .fit-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .fit-col h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 1.75rem;
+    }
+
+    .fit-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .fit-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: rgba(248,248,248,0.75);
+    }
+
+    .fit-icon {
+      flex-shrink: 0;
+      font-size: 1rem;
+      margin-top: 0.05rem;
+    }
+
+    /* ── CURRICULUM ── */
+
+    .curriculum-section {
+      padding: 6rem 2rem;
+      background: var(--black);
+    }
+
+    .curriculum-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .curriculum-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .curriculum-header h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-top: 0.5rem;
+    }
+
+    .curriculum-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .week-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .week-card:hover { border-color: rgba(255,31,122,0.4); }
+
+    .week-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--pink), transparent);
+    }
+
+    .week-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 0.5rem;
+    }
+
+    .week-title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.75rem;
+    }
+
+    .week-desc {
+      font-size: 0.875rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .curriculum-bonus {
+      background: rgba(255,31,122,0.06);
+      border: 1px solid rgba(255,31,122,0.2);
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: rgba(248,248,248,0.7);
+    }
+
+    .curriculum-bonus strong { color: var(--white); }
+
+    /* ── FINAL CTA ── */
+
+    .final-cta-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 7rem 2rem;
+      text-align: center;
+    }
+
+    .final-cta-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .final-cta-inner h2 {
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.93;
+      margin-bottom: 1.5rem;
+    }
+
+    .final-cta-inner h2 em {
+      font-style: normal;
+      color: var(--pink);
+    }
+
+    .final-cta-inner p {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 2.5rem;
+    }
+
+    .final-cta-sub {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .price-tag {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.35rem;
+      margin-bottom: 2rem;
+    }
+
+    .price-amount {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    .price-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* ── RESPONSIVE ── */
+
+    @media (max-width: 960px) {
+      .what-inner, .not-pdf-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .fit-inner { grid-template-columns: 1fr; }
+      .curriculum-grid { grid-template-columns: 1fr; }
+      .proof-bar-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 600px) {
+      .sales-hero { padding: 5rem 1.25rem 6rem; }
+      .what-section, .not-pdf-section, .testimonials-section,
+      .fit-section, .curriculum-section, .final-cta-section { padding: 4rem 1.25rem; }
+      .proof-bar { padding: 2rem 1.25rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="/">
+      <img src="/assets/virtueasy-logo.png" alt="Virtueasy" onerror="this.style.display='none'">
+      <span class="nav-logo-text">VIRTUEASY</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/resources/">Resources</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/va-blueprint/" class="active">Blueprint</a></li>
+      <li><a href="/pricing-tool/">Pricing Tool</a></li>
+      <li class="nav-cta"><a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" target="_blank" rel="noopener">Get It - $27</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="sales-hero" aria-label="Hero">
+      <div class="sales-hero-bg" aria-hidden="true"></div>
+      <div class="sales-hero-grid" aria-hidden="true"></div>
+      <div class="sales-hero-inner">
+
+        <div class="hero-enrolled">
+          <span class="hero-enrolled-dot" aria-hidden="true"></span>
+          247+ VAs enrolled and counting
+        </div>
+
+        <h1>
+          Your first high-paying client.
+          <em>30 days.</em>
+        </h1>
+
+        <p class="sales-hero-sub">
+          Leverage the skills you already have to help business owners with tasks they hate. No experience required. No guessing.
+        </p>
+
+        <div class="hero-cta-stack">
+          <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn btn-primary" target="_blank" rel="noopener">
+            Get Instant Access - $27
+          </a>
+          <a href="https://virtueasyproducts-cmd.github.io/va-blueprint-preview" class="btn-ghost" target="_blank" rel="noopener">
+            Try the preview free first
+          </a>
+        </div>
+
+        <div class="hero-trust">
+          <span class="trust-item">&#x26A1; Opens instantly in your browser</span>
+          <span class="trust-item">&#x1F512; Secure checkout via Stripe</span>
+          <span class="trust-item">&#x2705; No app, no subscription</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROOF BAR -->
+    <section class="proof-bar" aria-label="Results">
+      <div class="proof-bar-inner">
+        <div class="proof-stat">
+          <span class="proof-number">247+</span>
+          <span class="proof-label">Students Enrolled</span>
+        </div>
+        <div class="proof-stat">
+          <span class="proof-number">18</span>
+          <span class="proof-label">Avg. Days to First Client</span>
+        </div>
+        <div class="proof-stat">
+          <span class="proof-number">$27</span>
+          <span class="proof-label">One-time. That's it.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT IS A VA -->
+    <section class="what-section" aria-label="What is a virtual assistant">
+      <div class="what-inner">
+
+        <div class="what-content">
+          <span class="label">The opportunity</span>
+          <h2>What Is a Virtual Assistant?</h2>
+          <p>
+            A virtual assistant works remotely to help business owners with tasks they do not have time for. Email. Scheduling. Social media. Client follow-ups.
+          </p>
+          <p>
+            Business owners are drowning in work they hate and will pay <span class="income-range">$500 to $1,500 per month</span> or more to take it off their plate.
+          </p>
+          <p>
+            That someone could be you. You do not need a degree. You do not need an office. You do not need experience.
+          </p>
+          <p>
+            What you need is a plan for landing the first one.
+          </p>
+          <div style="margin-top:2rem;">
+            <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn btn-primary" target="_blank" rel="noopener">
+              I'm Ready - $27
+            </a>
+          </div>
+        </div>
+
+        <div class="what-card">
+          <ul class="what-card-list">
+            <li>
+              <span class="check">&#x2713;</span>
+              Work from anywhere with a laptop and Wi-Fi
+            </li>
+            <li>
+              <span class="check">&#x2713;</span>
+              Use skills you already have: email, scheduling, research, social media
+            </li>
+            <li>
+              <span class="check">&#x2713;</span>
+              Set your own rates and work with clients you choose
+            </li>
+            <li>
+              <span class="check">&#x2713;</span>
+              Clients pay monthly retainers, not per task
+            </li>
+            <li>
+              <span class="check">&#x2713;</span>
+              No certification, degree, or prior VA experience required
+            </li>
+            <li>
+              <span class="check">&#x2713;</span>
+              Start part-time while keeping your current income
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- NOT A PDF -->
+    <section class="not-pdf-section" aria-label="How the Blueprint works">
+      <div class="not-pdf-inner">
+
+        <div class="day-preview" aria-hidden="true">
+          <div class="day-preview-label">Day 11 of 30</div>
+          <div class="day-preview-title">Your First Cold DM</div>
+          <ul class="day-task-list">
+            <li>
+              <span class="task-check done" aria-hidden="true"></span>
+              Identify 10 target businesses in your niche
+            </li>
+            <li>
+              <span class="task-check done" aria-hidden="true"></span>
+              Write your outreach message using the script
+            </li>
+            <li>
+              <span class="task-check" aria-hidden="true"></span>
+              Send your first 3 DMs today
+            </li>
+            <li>
+              <span class="task-check" aria-hidden="true"></span>
+              Log results in your tracking sheet
+            </li>
+          </ul>
+          <div class="day-progress">
+            <div class="day-progress-fill"></div>
+          </div>
+          <div style="font-size:0.75rem;color:var(--muted);margin-top:0.5rem;">Day 11 of 30 complete</div>
+        </div>
+
+        <div class="not-pdf-content">
+          <span class="label">How it works</span>
+          <h2>This Is Not a PDF You Will Never Open</h2>
+          <p>
+            It is a live, interactive 30-day system that runs right in your browser. Every day has a task list, a journal prompt, and a clear outcome. You check things off. You write things down. You actually move forward.
+          </p>
+          <p>
+            No app. No subscription. No waiting for the next module to unlock. Open it today and start Day 1.
+          </p>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;">
+            <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn btn-primary" target="_blank" rel="noopener">
+              Get Instant Access - $27
+            </a>
+            <a href="https://virtueasyproducts-cmd.github.io/va-blueprint-preview" class="btn btn-secondary" target="_blank" rel="noopener">
+              Try Days 10&#x2013;12 Free
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials-section" aria-label="Student results">
+      <div class="testimonials-inner">
+
+        <div class="testimonials-header">
+          <span class="label">Real results</span>
+          <h2>If They Did It, You Can Too</h2>
+        </div>
+
+        <div class="testimonials-grid">
+
+          <div class="testimonial-card">
+            <span class="testimonial-badge">&#x1F3C6; First client: Day 18</span>
+            <p class="testimonial-quote">
+              "I landed my first client on Day 18. I had been getting ready for months before this. The daily tasks made it impossible to stay stuck."
+            </p>
+            <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+
+          <div class="testimonial-card">
+            <span class="testimonial-badge">&#x1F4B0; Closed $1,200/mo client</span>
+            <p class="testimonial-quote">
+              "The discovery call script alone was worth 10x the price. I closed a $1,200 per month client on my second call ever. I was shaking."
+            </p>
+            <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+
+          <div class="testimonial-card">
+            <span class="testimonial-badge">&#x2705; Finally took action</span>
+            <p class="testimonial-quote">
+              "I have bought three VA courses. This is the only one that made me actually do the work instead of just feel inspired. Big difference."
+            </p>
+            <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOR YOU IF -->
+    <section class="fit-section" aria-label="Who this is for">
+      <div class="fit-inner">
+
+        <div class="fit-col">
+          <h2>This Is for You If...</h2>
+          <ul class="fit-list">
+            <li>
+              <span class="fit-icon">&#x2714;</span>
+              You want real income without going back to school
+            </li>
+            <li>
+              <span class="fit-icon">&#x2714;</span>
+              You are tired of free content that gets you nowhere
+            </li>
+            <li>
+              <span class="fit-icon">&#x2714;</span>
+              You are ready to stop researching and start earning
+            </li>
+            <li>
+              <span class="fit-icon">&#x2714;</span>
+              You want a step-by-step plan, not another pile of mismatched information
+            </li>
+            <li>
+              <span class="fit-icon">&#x2714;</span>
+              You have been holding it together for everyone else and you need something that is finally for you
+            </li>
+          </ul>
+        </div>
+
+        <div class="fit-col">
+          <h2>Not for You If...</h2>
+          <ul class="fit-list">
+            <li>
+              <span class="fit-icon" style="color:var(--muted)">&#x2715;</span>
+              You are looking for a get-rich-quick scheme
+            </li>
+            <li>
+              <span class="fit-icon" style="color:var(--muted)">&#x2715;</span>
+              You are not willing to do the daily work
+            </li>
+            <li>
+              <span class="fit-icon" style="color:var(--muted)">&#x2715;</span>
+              You already have three clients and a full pipeline
+            </li>
+          </ul>
+          <p style="font-size:0.875rem;color:var(--muted);line-height:1.65;margin-top:1.5rem;">
+            The Blueprint is built for beginners who are serious. The answer is not more research. It is the right system.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CURRICULUM -->
+    <section class="curriculum-section" aria-label="What is inside">
+      <div class="curriculum-inner">
+
+        <div class="curriculum-header">
+          <span class="label">The full 30 days</span>
+          <h2>What You Are Getting</h2>
+        </div>
+
+        <div class="curriculum-grid">
+
+          <div class="week-card">
+            <div class="week-label">Week 1</div>
+            <div class="week-title">Foundation</div>
+            <p class="week-desc">Nail your niche, build your offer, price yourself correctly, and create your first portfolio piece. All without a single client yet.</p>
+          </div>
+
+          <div class="week-card">
+            <div class="week-label">Week 2</div>
+            <div class="week-title">Outreach</div>
+            <p class="week-desc">Set up your backend systems, write cold DMs that actually get replies, and master the discovery call framework that closes.</p>
+          </div>
+
+          <div class="week-card">
+            <div class="week-label">Week 3</div>
+            <div class="week-title">Presence</div>
+            <p class="week-desc">Build your website, gather your first testimonials, create a signature package, and batch a week of content in one sitting.</p>
+          </div>
+
+          <div class="week-card">
+            <div class="week-label">Week 4</div>
+            <div class="week-title">Close and Keep</div>
+            <p class="week-desc">Send proposals that close, handle post-proposal silence, sign your first client, and build the system to keep them long-term.</p>
+          </div>
+
+        </div>
+
+        <div class="curriculum-bonus">
+          <strong>Plus:</strong> daily journal prompts, checkable task lists, and downloadable notes for every single day.
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta-section" aria-label="Get the Blueprint">
+      <div class="final-cta-inner">
+
+        <span class="label">Ready when you are</span>
+        <h2>
+          The only thing left is
+          <em>deciding you are worth the shot.</em>
+        </h2>
+
+        <div class="price-tag">
+          <span class="price-amount">$27</span>
+          <span class="price-note">one-time</span>
+        </div>
+
+        <p>
+          The same system 247+ brand-new VAs used to sign their first paying client. Instant access. Works in any browser. No subscriptions.
+        </p>
+
+        <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn btn-primary" target="_blank" rel="noopener" style="font-size:1rem;padding:1.1rem 2.5rem;">
+          Get Instant Access - $27
+        </a>
+
+        <p class="final-cta-sub">
+          Instant access &nbsp;&#xB7;&nbsp; No subscriptions &nbsp;&#xB7;&nbsp; Works in any browser
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand">VIRTUEASY</div>
+          <p class="footer-tagline">Everything you need to build your VA business.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <div class="footer-nav-col">
+            <h4>Hub</h4>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/resources/">Resources</a></li>
+              <li><a href="/blog/">Blog</a></li>
+            </ul>
+          </div>
+          <div class="footer-nav-col">
+            <h4>Tools</h4>
+            <ul>
+              <li><a href="/va-blueprint/">Blueprint</a></li>
+              <li><a href="/pricing-tool/">Pricing Tool</a></li>
+              <li><a href="/260-prompts/">260 Prompts</a></li>
+            </ul>
+          </div>
+          <div class="footer-nav-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="footer-year"></span> Virtueasy. A Virtueasy product.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- STICKY BAR -->
+  <div class="sticky-bar" id="stickyBar" role="complementary" aria-label="Purchase prompt">
+    <span class="sticky-bar-text">The VA Blueprint &nbsp;&#xB7;&nbsp; <span>$27 - Instant Access</span></span>
+    <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn btn-primary" target="_blank" rel="noopener">
+      Get Access Now
+    </a>
+  </div>
+
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    // Show sticky bar after scrolling past hero
+    const stickyBar = document.getElementById('stickyBar');
+    const hero = document.querySelector('.sales-hero');
+
+    const observer = new IntersectionObserver(([entry]) => {
+      stickyBar.classList.toggle('visible', !entry.isIntersecting);
+    }, { threshold: 0 });
+
+    observer.observe(hero);
+  </script>
+
+</body>
+</html>

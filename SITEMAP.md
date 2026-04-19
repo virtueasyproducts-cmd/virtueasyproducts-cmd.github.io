@@ -15,6 +15,7 @@
 | `virtueasy.com/blog/` | `/blog/index.html` | Stub | Blog index |
 | `virtueasy.com/pricing-tool/` | `/pricing-tool/index.html` | Live | VA Pricing Calculator (full app) |
 | `virtueasy.com/260-prompts/` | `/260-prompts/index.html` | Live | Prompts landing + download link |
+| `virtueasy.com/va-blueprint/` | `/va-blueprint/index.html` | Live | Blueprint sales page |
 | `virtueasy.com/260-prompts-download.html` | `/260-prompts-download.html` | Live | Existing download/opt-in page |
 | `virtueasy.com/privacy-policy.html` | `/privacy-policy.html` | Live | Existing privacy policy |
 
