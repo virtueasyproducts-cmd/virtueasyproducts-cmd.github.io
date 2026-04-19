@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Virtueasy</title>
+  <meta name="description" content="Tips, guides, and resources for virtual assistants. Practical content to help you build and grow your VA business.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <style>
+    .blog-coming {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+      text-align: center;
+    }
+
+    .blog-coming-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3rem 2rem;
+    }
+
+    .blog-coming-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.25rem;
+      opacity: 0.4;
+    }
+
+    .blog-coming h2 {
+      font-size: 2.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .blog-coming p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+
+    .blog-topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .topic-tag {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @media (max-width: 600px) {
+      .blog-coming { padding: 0 1.25rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="/">
+      <img src="/assets/virtueasy-logo.png" alt="Virtueasy" onerror="this.style.display='none'">
+      <span class="nav-logo-text">VIRTUEASY</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/resources/">Resources</a></li>
+      <li><a href="/blog/" class="active">Blog</a></li>
+      <li><a href="https://blueprint.virtueasy.com" target="_blank" rel="noopener">Blueprint &#x2197;</a></li>
+      <li><a href="/pricing-tool/">Pricing Tool</a></li>
+      <li class="nav-cta"><a href="https://blueprint.virtueasy.com" target="_blank" rel="noopener">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <div class="stub-hero">
+      <span class="label">Practical content</span>
+      <h1>The Blog</h1>
+      <p>No opinion pieces. No hustle content. Just useful guides for VAs who are building something real.</p>
+    </div>
+
+    <div class="blog-coming">
+      <div class="blog-coming-card">
+        <div class="blog-coming-icon">&#x270F;&#xFE0F;</div>
+        <h2>Coming Soon</h2>
+        <p>
+          Content is in progress. Subscribe below to get notified when the first posts go live.
+        </p>
+        <a href="/#newsletter" class="btn btn-primary">Get Notified</a>
+        <div class="blog-topics">
+          <span class="topic-tag">Pricing</span>
+          <span class="topic-tag">Finding Clients</span>
+          <span class="topic-tag">Niche Selection</span>
+          <span class="topic-tag">Tools</span>
+          <span class="topic-tag">AI for VAs</span>
+          <span class="topic-tag">Onboarding</span>
+          <span class="topic-tag">Proposals</span>
+          <span class="topic-tag">Services</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand">VIRTUEASY</div>
+          <p class="footer-tagline">Everything you need to build your VA business.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <div class="footer-nav-col">
+            <h4>Hub</h4>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/resources/">Resources</a></li>
+              <li><a href="/blog/">Blog</a></li>
+            </ul>
+          </div>
+          <div class="footer-nav-col">
+            <h4>Tools</h4>
+            <ul>
+              <li><a href="https://blueprint.virtueasy.com" target="_blank" rel="noopener">Blueprint &#x2197;</a></li>
+              <li><a href="/pricing-tool/">Pricing Tool</a></li>
+              <li><a href="/260-prompts/">260 Prompts</a></li>
+            </ul>
+          </div>
+          <div class="footer-nav-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="footer-year"></span> Virtueasy. A Virtueasy product.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
+
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resources — Virtueasy</title>
+  <meta name="description" content="Free tools, templates, and resources for virtual assistants. Pricing tools, prompt packs, frameworks, and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <style>
+    .stub-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    .stub-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .stub-card:hover {
+      border-color: rgba(255,31,122,0.4);
+      transform: translateY(-2px);
+    }
+
+    .stub-card-coming {
+      border-style: dashed;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 160px;
+      cursor: default;
+    }
+
+    .stub-card-coming:hover {
+      border-color: var(--border);
+      transform: none;
+    }
+
+    .stub-card-icon {
+      font-size: 1.5rem;
+    }
+
+    .stub-card-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.03em;
+      color: var(--white);
+    }
+
+    .stub-card-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .stub-card-link {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pink);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .coming-icon {
+      font-size: 1.5rem;
+      opacity: 0.25;
+      margin-bottom: 0.5rem;
+    }
+
+    .coming-text {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @media (max-width: 960px) {
+      .stub-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .stub-grid { grid-template-columns: 1fr; padding: 0 1.25rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="/">
+      <img src="/assets/virtueasy-logo.png" alt="Virtueasy" onerror="this.style.display='none'">
+      <span class="nav-logo-text">VIRTUEASY</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/resources/" class="active">Resources</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="https://blueprint.virtueasy.com" target="_blank" rel="noopener">Blueprint &#x2197;</a></li>
+      <li><a href="/pricing-tool/">Pricing Tool</a></li>
+      <li class="nav-cta"><a href="https://blueprint.virtueasy.com" target="_blank" rel="noopener">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <div class="stub-hero">
+      <span class="label">Free and paid</span>
+      <h1>Resource Library</h1>
+      <p>Everything Virtueasy has built for VAs, in one place. Updated regularly.</p>
+    </div>
+
+    <div class="stub-grid">
+
+      <a href="https://blueprint.virtueasy.com" class="stub-card" target="_blank" rel="noopener">
+        <div class="stub-card-icon">&#x1F4CB;</div>
+        <div class="stub-card-title">VA Blueprint</div>
+        <p class="stub-card-desc">The 30-day system to land your first client. Structured, interactive, and built around real action.</p>
+        <span class="stub-card-link"><span class="badge" style="margin-right:0.5rem;">$27</span> Get it &#x2192;</span>
+      </a>
+
+      <a href="https://virtueasyproducts-cmd.github.io/va-blueprint-preview" class="stub-card" target="_blank" rel="noopener">
+        <div class="stub-card-icon">&#x1F440;</div>
+        <div class="stub-card-title">Blueprint Preview</div>
+        <p class="stub-card-desc">Try Days 10&#x2013;12 of the Blueprint for free before you commit to buying.</p>
+        <span class="stub-card-link"><span class="badge badge-free" style="margin-right:0.5rem;">Free</span> Preview &#x2192;</span>
+      </a>
+
+      <a href="/pricing-tool/" class="stub-card">
+        <div class="stub-card-icon">&#x1F4B0;</div>
+        <div class="stub-card-title">VA Pricing Tool</div>
+        <p class="stub-card-desc">Enter your income goals and expenses and get a clear hourly and project rate to charge clients.</p>
+        <span class="stub-card-link"><span class="badge badge-free" style="margin-right:0.5rem;">Free</span> Use it &#x2192;</span>
+      </a>
+
+      <a href="/260-prompts/" class="stub-card">
+        <div class="stub-card-icon">&#x1F916;</div>
+        <div class="stub-card-title">260 ChatGPT Prompts</div>
+        <p class="stub-card-desc">A full pack of ready-to-use prompts for VA work: content, client communication, proposals, and admin.</p>
+        <span class="stub-card-link"><span class="badge badge-free" style="margin-right:0.5rem;">Free</span> Download &#x2192;</span>
+      </a>
+
+      <div class="stub-card stub-card-coming">
+        <div class="coming-icon">&#x2795;</div>
+        <div class="coming-text">New resource coming soon</div>
+      </div>
+
+      <div class="stub-card stub-card-coming">
+        <div class="coming-icon">&#x2795;</div>
+        <div class="coming-text">New resource coming soon</div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand">VIRTUEASY</div>
+          <p class="footer-tagline">Everything you need to build your VA business.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <div class="footer-nav-col">
+            <h4>Hub</h4>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/resources/">Resources</a></li>
+              <li><a href="/blog/">Blog</a></li>
+            </ul>
+          </div>
+          <div class="footer-nav-col">
+            <h4>Tools</h4>
+            <ul>
+              <li><a href="https://blueprint.virtueasy.com" target="_blank" rel="noopener">Blueprint &#x2197;</a></li>
+              <li><a href="/pricing-tool/">Pricing Tool</a></li>
+              <li><a href="/260-prompts/">260 Prompts</a></li>
+            </ul>
+          </div>
+          <div class="footer-nav-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="footer-year"></span> Virtueasy. A Virtueasy product.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
+
+</body>
+</html>
