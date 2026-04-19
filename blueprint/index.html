@@ -173,6 +173,14 @@
       margin-top: 0.75rem;
     }
 
+    .hero-video-wrap {
+      position: relative;
+      margin-top: 3.5rem;
+      max-width: 780px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     .trust-item {
       font-size: 0.78rem;
       color: var(--muted);
@@ -728,6 +736,32 @@
           <span class="trust-item">&#x26A1; Opens instantly in your browser</span>
           <span class="trust-item">&#x1F512; Secure checkout via Stripe</span>
           <span class="trust-item">&#x2705; No app, no subscription</span>
+        </div>
+
+        <div class="hero-video-wrap">
+          <div class="video-frame">
+            <div class="video-frame-bar">
+              <div class="browser-dots">
+                <span class="browser-dot browser-dot-r"></span>
+                <span class="browser-dot browser-dot-y"></span>
+                <span class="browser-dot browser-dot-g"></span>
+              </div>
+              <span class="video-frame-title">VA Blueprint — Live Demo</span>
+            </div>
+            <video
+              id="blueprintVideoHero"
+              class="feature-video"
+              autoplay
+              muted
+              loop
+              playsinline
+              oncanplay="this.playbackRate=3"
+              aria-label="VA Blueprint product demo video"
+            >
+              <source src="/BlueprintDemo(1).mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-glow" aria-hidden="true"></div>
         </div>
 
       </div>
