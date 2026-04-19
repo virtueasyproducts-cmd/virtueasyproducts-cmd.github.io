@@ -16,11 +16,27 @@
   <link rel="stylesheet" href="/assets/css/main.css">
   <style>
 
+    /* ── GLOBAL WARMTH OVERRIDES ── */
+
+    :root {
+      --surface: #141214;
+      --surface-2: #1e1a1e;
+      --border: rgba(255, 31, 122, 0.1);
+      --border-subtle: rgba(255,255,255,0.06);
+      --pink-soft: rgba(255,31,122,0.08);
+    }
+
+    body { overflow-x: hidden; }
+
+    /* ── NAV LOGO FIX ── */
+
+    .nav-logo-text { display: none; }
+
     /* ── HERO ── */
 
     .hero {
       position: relative;
-      min-height: 92vh;
+      min-height: 96vh;
       display: flex;
       align-items: center;
       padding: 5rem 2rem 6rem;
@@ -31,8 +47,9 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(255,31,122,0.12) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 30% at 20% 80%, rgba(255,31,122,0.06) 0%, transparent 60%);
+        radial-gradient(ellipse 70% 60% at 65% 35%, rgba(255,31,122,0.22) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 15% 75%, rgba(255,31,122,0.1) 0%, transparent 55%),
+        radial-gradient(ellipse 30% 30% at 85% 80%, rgba(180,20,90,0.08) 0%, transparent 50%);
       pointer-events: none;
     }
 
@@ -40,24 +57,65 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+        linear-gradient(rgba(255,31,122,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,31,122,0.04) 1px, transparent 1px);
       background-size: 80px 80px;
       pointer-events: none;
     }
 
+    /* floating decorative blobs */
+    .hero-blob-1 {
+      position: absolute;
+      top: 10%;
+      right: 5%;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(255,31,122,0.12) 0%, transparent 70%);
+      border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+      pointer-events: none;
+      animation: blobFloat 8s ease-in-out infinite;
+    }
+
+    .hero-blob-2 {
+      position: absolute;
+      bottom: 15%;
+      left: 2%;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255,31,122,0.08) 0%, transparent 70%);
+      border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%;
+      pointer-events: none;
+      animation: blobFloat 11s ease-in-out infinite reverse;
+    }
+
+    @keyframes blobFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(8px, -12px) scale(1.03); }
+      66% { transform: translate(-6px, 8px) scale(0.97); }
+    }
+
     .hero-inner {
       position: relative;
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
     }
+
+    .hero-content { z-index: 2; }
 
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      margin-bottom: 1.5rem;
+      background: rgba(255,31,122,0.1);
+      border: 1px solid rgba(255,31,122,0.25);
+      border-radius: 99px;
+      padding: 0.35rem 0.9rem;
+      margin-bottom: 1.75rem;
     }
 
     .hero-eyebrow-dot {
@@ -74,7 +132,7 @@
     }
 
     .hero-eyebrow span {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -83,25 +141,25 @@
 
     .hero-headline {
       font-family: var(--font-display);
-      font-size: clamp(3.5rem, 10vw, 8.5rem);
+      font-size: clamp(3.5rem, 8vw, 7.5rem);
       line-height: 0.92;
       letter-spacing: 0.01em;
       color: var(--white);
       margin-bottom: 1.75rem;
-      max-width: 820px;
     }
 
     .hero-headline em {
       font-style: normal;
       color: var(--pink);
       display: block;
+      text-shadow: 0 0 40px rgba(255,31,122,0.4);
     }
 
     .hero-sub {
       font-size: 1.05rem;
-      line-height: 1.65;
-      color: rgba(248,248,248,0.65);
-      max-width: 420px;
+      line-height: 1.7;
+      color: rgba(248,248,248,0.7);
+      max-width: 400px;
       margin-bottom: 2.5rem;
     }
 
@@ -111,20 +169,198 @@
       flex-wrap: wrap;
     }
 
-    .hero-scroll-hint {
+    /* ── HERO VISUAL (right column) ── */
+
+    .hero-visual {
+      position: relative;
+      height: 520px;
+      z-index: 2;
+    }
+
+    /* browser mockup */
+    .mockup-browser {
       position: absolute;
-      bottom: 2.5rem;
+      top: 0;
       left: 0;
       right: 0;
+      background: #1a141a;
+      border: 1px solid rgba(255,31,122,0.2);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow:
+        0 24px 60px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(255,31,122,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    .mockup-browser-bar {
+      background: #120f12;
+      padding: 0.7rem 1rem;
       display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid rgba(255,31,122,0.12);
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .browser-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .browser-dot-r { background: #ff5f57; }
+    .browser-dot-y { background: #febc2e; }
+    .browser-dot-g { background: #28c840; }
+
+    .browser-url {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 4px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.7rem;
+      color: rgba(248,248,248,0.35);
+      margin-left: 0.5rem;
+      font-family: monospace;
+    }
+
+    .mockup-content {
+      padding: 1.5rem;
+    }
+
+    .mockup-day-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 0.4rem;
+    }
+
+    .mockup-day-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 1.1rem;
+    }
+
+    .mockup-tasks {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .mockup-task {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.78rem;
+      color: rgba(248,248,248,0.65);
+    }
+
+    .mockup-cb {
+      width: 14px;
+      height: 14px;
+      min-width: 14px;
+      border-radius: 3px;
+      border: 1.5px solid rgba(255,255,255,0.15);
+    }
+
+    .mockup-cb.checked {
+      background: var(--pink);
+      border-color: var(--pink);
+      display: flex;
+      align-items: center;
       justify-content: center;
     }
 
-    .scroll-line {
-      width: 1px;
-      height: 48px;
-      background: linear-gradient(to bottom, rgba(255,31,122,0.8), transparent);
+    .mockup-cb.checked::after {
+      content: '';
+      display: block;
+      width: 7px;
+      height: 4px;
+      border-left: 1.5px solid #fff;
+      border-bottom: 1.5px solid #fff;
+      transform: rotate(-45deg) translateY(-1px);
     }
+
+    .mockup-progress-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: rgba(248,248,248,0.4);
+      margin-bottom: 0.4rem;
+    }
+
+    .mockup-progress-bar {
+      height: 4px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .mockup-progress-fill {
+      height: 100%;
+      width: 37%;
+      background: linear-gradient(90deg, var(--pink), #ff6bab);
+      border-radius: 2px;
+    }
+
+    /* floating cards */
+    .float-card {
+      position: absolute;
+      background: #1e191e;
+      border: 1px solid rgba(255,31,122,0.25);
+      border-radius: 10px;
+      padding: 0.9rem 1.1rem;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,31,122,0.06);
+    }
+
+    .float-card-win {
+      bottom: 60px;
+      left: -30px;
+      min-width: 175px;
+      animation: floatUp 6s ease-in-out infinite;
+    }
+
+    .float-card-stars {
+      bottom: 0;
+      right: -20px;
+      animation: floatUp 7s ease-in-out infinite 1.5s;
+    }
+
+    @keyframes floatUp {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .float-card-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 0.25rem;
+    }
+
+    .float-card-value {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.03em;
+      color: var(--white);
+    }
+
+    .float-stars { color: var(--pink); font-size: 0.8rem; letter-spacing: 0.08em; }
+    .float-rating { font-size: 0.75rem; color: rgba(248,248,248,0.6); margin-top: 0.2rem; }
 
     /* ── ORIENTATION STRIP ── */
 
@@ -136,29 +372,32 @@
     }
 
     .orientation-inner {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
     }
 
     .orientation-item {
-      padding: 2.25rem 2rem;
+      padding: 2.5rem 2rem;
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
       border-right: 1px solid var(--border);
-      transition: background 0.2s;
+      transition: background 0.25s;
     }
 
     .orientation-item:last-child { border-right: none; }
 
-    .orientation-item:hover {
-      background: rgba(255,31,122,0.04);
+    .orientation-item:hover { background: var(--pink-soft); }
+
+    .orientation-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.25rem;
     }
 
     .orientation-q {
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -167,18 +406,18 @@
 
     .orientation-a {
       font-family: var(--font-display);
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       letter-spacing: 0.04em;
       color: var(--white);
     }
 
     .orientation-link {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
       color: var(--pink);
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      margin-top: 0.25rem;
+      margin-top: 0.35rem;
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
@@ -186,17 +425,17 @@
       text-decoration: none;
     }
 
-    .orientation-item:hover .orientation-link { gap: 0.6rem; }
+    .orientation-item:hover .orientation-link { gap: 0.65rem; }
 
     /* ── FEATURED BLUEPRINT ── */
 
     .feature-section {
       padding: 7rem 2rem;
-      background: var(--black);
+      background: linear-gradient(160deg, #0d0a0d 0%, #130d11 50%, #0a0a0a 100%);
     }
 
     .feature-inner {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -219,8 +458,8 @@
 
     .feature-content p {
       font-size: 1rem;
-      line-height: 1.7;
-      color: rgba(248,248,248,0.65);
+      line-height: 1.75;
+      color: rgba(248,248,248,0.68);
       margin-bottom: 1rem;
       max-width: 480px;
     }
@@ -230,7 +469,7 @@
       margin: 1.5rem 0 2rem;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: 0.7rem;
     }
 
     .feature-outcomes li {
@@ -238,18 +477,19 @@
       align-items: flex-start;
       gap: 0.75rem;
       font-size: 0.9rem;
-      color: rgba(248,248,248,0.75);
+      color: rgba(248,248,248,0.78);
     }
 
     .feature-outcomes li::before {
       content: '';
       display: block;
-      width: 6px;
-      height: 6px;
-      min-width: 6px;
+      width: 7px;
+      height: 7px;
+      min-width: 7px;
       background: var(--pink);
       border-radius: 50%;
-      margin-top: 0.45rem;
+      margin-top: 0.42rem;
+      box-shadow: 0 0 8px rgba(255,31,122,0.5);
     }
 
     .feature-ctas {
@@ -259,73 +499,74 @@
       flex-wrap: wrap;
     }
 
-    .feature-visual {
+    /* ── VIDEO MOCKUP ── */
+
+    .feature-video-wrap {
       position: relative;
     }
 
-    .feature-card-display {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 2.5rem;
-      position: relative;
+    .video-frame {
+      background: #120f12;
+      border: 1px solid rgba(255,31,122,0.2);
+      border-radius: 12px;
       overflow: hidden;
+      box-shadow:
+        0 32px 80px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(255,31,122,0.06);
     }
 
-    .feature-card-display::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--pink), transparent);
+    .video-frame-bar {
+      background: #0e0b0e;
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid rgba(255,31,122,0.1);
     }
 
-    .feature-card-glow {
+    .video-frame-bar .browser-dots { display: flex; gap: 5px; }
+
+    .video-frame-title {
+      font-size: 0.7rem;
+      color: rgba(248,248,248,0.35);
+      margin-left: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    .feature-video {
+      width: 100%;
+      display: block;
+      max-height: 340px;
+      object-fit: cover;
+      background: #0a0a0a;
+    }
+
+    .video-glow {
       position: absolute;
-      top: -40px;
-      right: -40px;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, rgba(255,31,122,0.2) 0%, transparent 70%);
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70%;
+      height: 60px;
+      background: rgba(255,31,122,0.18);
+      filter: blur(24px);
+      border-radius: 50%;
       pointer-events: none;
     }
 
-    .feature-card-price {
-      font-family: var(--font-display);
-      font-size: 4.5rem;
-      letter-spacing: 0.02em;
-      color: var(--white);
-      line-height: 1;
-      margin-bottom: 0.25rem;
-    }
-
-    .feature-card-price-note {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 1.75rem;
-    }
-
-    .feature-card-points {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-      margin-bottom: 2rem;
-    }
-
-    .feature-card-points li {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.85rem;
-      color: rgba(248,248,248,0.7);
-    }
-
-    .feature-card-points li svg {
-      flex-shrink: 0;
-      color: var(--pink);
+    .video-badge {
+      position: absolute;
+      top: 50px;
+      right: -20px;
+      background: var(--pink);
+      color: #fff;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1.3;
+      box-shadow: 0 8px 24px rgba(255,31,122,0.4);
+      animation: floatUp 6s ease-in-out infinite;
     }
 
     /* ── RESOURCE GRID ── */
@@ -343,105 +584,380 @@
 
     .resource-card {
       background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1.75rem;
+      border: 1px solid rgba(255,31,122,0.1);
+      border-radius: 10px;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      transition: border-color 0.2s, transform 0.2s;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
       text-decoration: none;
       color: inherit;
     }
 
     .resource-card:hover {
-      border-color: rgba(255,31,122,0.4);
-      transform: translateY(-2px);
+      border-color: rgba(255,31,122,0.45);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,31,122,0.12);
     }
 
     .resource-card.placeholder {
       border-style: dashed;
+      border-color: rgba(255,255,255,0.08);
       justify-content: center;
       align-items: center;
       text-align: center;
-      min-height: 180px;
+      min-height: 220px;
       cursor: default;
+      border-radius: 10px;
     }
 
     .resource-card.placeholder:hover {
-      border-color: var(--border);
+      border-color: rgba(255,255,255,0.08);
       transform: none;
+      box-shadow: none;
+    }
+
+    /* card thumbnail */
+    .resource-thumb {
+      width: 100%;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .thumb-blueprint {
+      background: linear-gradient(135deg, #1a0d14 0%, #2a1020 100%);
+    }
+
+    .thumb-preview {
+      background: linear-gradient(135deg, #0f0d1a 0%, #1a1428 100%);
+    }
+
+    .thumb-pricing {
+      background: linear-gradient(135deg, #0a130a 0%, #0f1f10 100%);
+    }
+
+    .thumb-prompts {
+      background: linear-gradient(135deg, #0d0a16 0%, #18122a 100%);
+    }
+
+    .thumb-inner {
+      padding: 1rem;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Blueprint mini-mockup */
+    .mini-browser {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,31,122,0.2);
+      border-radius: 6px;
+      width: 85%;
+      overflow: hidden;
+    }
+
+    .mini-bar {
+      background: rgba(0,0,0,0.5);
+      padding: 0.35rem 0.6rem;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,31,122,0.1);
+    }
+
+    .mini-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
+
+    .mini-body {
+      padding: 0.6rem 0.75rem;
+    }
+
+    .mini-tag {
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 0.2rem;
+    }
+
+    .mini-title {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 0.35rem;
+    }
+
+    .mini-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .mini-line {
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+    }
+
+    .mini-line.pink { background: rgba(255,31,122,0.5); width: 60%; }
+    .mini-line.short { width: 45%; }
+
+    /* Pricing tool mini-mockup */
+    .mini-calc {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(50,200,50,0.15);
+      border-radius: 6px;
+      padding: 0.75rem;
+      width: 80%;
+    }
+
+    .mini-rate {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: #4ade80;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.4rem;
+    }
+
+    .mini-rate-label {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(74,222,128,0.6);
+      margin-bottom: 0.5rem;
+    }
+
+    .mini-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.55rem;
+      color: rgba(248,248,248,0.4);
+      margin-bottom: 0.2rem;
+    }
+
+    /* Prompts mini-mockup */
+    .mini-prompts {
+      width: 80%;
+    }
+
+    .mini-prompt-tag {
+      background: rgba(255,31,122,0.15);
+      border: 1px solid rgba(255,31,122,0.25);
+      border-radius: 3px;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.55rem;
+      font-weight: 600;
+      color: var(--pink);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    .mini-prompt-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .mini-prompt-line {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .mini-prompt-icon {
+      font-size: 0.7rem;
+    }
+
+    .mini-prompt-text {
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.12);
+      flex: 1;
+    }
+
+    /* card body */
+    .resource-body {
+      padding: 1.25rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      flex: 1;
     }
 
     .resource-card-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 0.25rem;
-    }
-
-    .resource-icon {
-      font-size: 1.5rem;
-      line-height: 1;
     }
 
     .resource-title {
       font-family: var(--font-display);
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       letter-spacing: 0.03em;
       color: var(--white);
       line-height: 1.1;
     }
 
     .resource-desc {
-      font-size: 0.85rem;
-      line-height: 1.55;
-      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.6;
+      color: rgba(248,248,248,0.55);
       flex: 1;
     }
 
     .resource-cta {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--pink);
-      margin-top: 0.5rem;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
       transition: gap 0.2s;
+      margin-top: 0.25rem;
     }
 
     .resource-card:hover .resource-cta { gap: 0.65rem; }
 
     .placeholder-icon {
       font-size: 2rem;
+      opacity: 0.2;
       margin-bottom: 0.5rem;
-      opacity: 0.3;
     }
 
     .placeholder-text {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--muted);
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
 
+    /* ── SOCIAL PROOF STRIP ── */
+
+    .proof-strip {
+      background: linear-gradient(90deg, #120a10 0%, #180d15 50%, #120a10 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 2rem;
+      overflow: hidden;
+    }
+
+    .proof-strip-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .proof-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .proof-number {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      letter-spacing: 0.02em;
+      color: var(--pink);
+      line-height: 1;
+      text-shadow: 0 0 30px rgba(255,31,122,0.4);
+    }
+
+    .proof-label {
+      font-size: 0.82rem;
+      color: rgba(248,248,248,0.55);
+      letter-spacing: 0.05em;
+    }
+
     /* ── NEWSLETTER ── */
 
     .newsletter-section {
-      background: var(--black);
+      background: linear-gradient(160deg, #0d0a0d 0%, #130d11 100%);
       border-top: 1px solid var(--border);
     }
 
     .newsletter-inner {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 5rem;
       align-items: center;
+    }
+
+    .newsletter-visual {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .nl-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: transform 0.3s;
+    }
+
+    .nl-card:hover { transform: translateX(4px); }
+
+    .nl-card-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .nl-card-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+
+    .nl-card-desc {
+      font-size: 0.78rem;
+      color: rgba(248,248,248,0.5);
+      line-height: 1.5;
+    }
+
+    .nl-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255,31,122,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .newsletter-form-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
     }
 
     .newsletter-content h2 {
@@ -451,8 +967,9 @@
 
     .newsletter-content p {
       font-size: 0.95rem;
-      color: var(--muted);
+      color: rgba(248,248,248,0.55);
       line-height: 1.65;
+      margin-bottom: 2rem;
     }
 
     .newsletter-form {
@@ -469,10 +986,10 @@
     .form-input {
       flex: 1;
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid rgba(255,31,122,0.15);
       border-right: none;
-      border-radius: 3px 0 0 3px;
-      padding: 0.85rem 1.25rem;
+      border-radius: 5px 0 0 5px;
+      padding: 0.9rem 1.25rem;
       font-family: var(--font-body);
       font-size: 0.9rem;
       color: var(--white);
@@ -480,17 +997,15 @@
       transition: border-color 0.2s;
     }
 
-    .form-input::placeholder { color: var(--muted); }
+    .form-input::placeholder { color: rgba(248,248,248,0.3); }
 
-    .form-input:focus {
-      border-color: var(--pink);
-    }
+    .form-input:focus { border-color: var(--pink); }
 
     .form-submit {
       background: var(--pink);
       border: none;
-      border-radius: 0 3px 3px 0;
-      padding: 0.85rem 1.5rem;
+      border-radius: 0 5px 5px 0;
+      padding: 0.9rem 1.5rem;
       font-family: var(--font-body);
       font-size: 0.8rem;
       font-weight: 700;
@@ -498,69 +1013,49 @@
       text-transform: uppercase;
       color: #fff;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.2s, box-shadow 0.2s;
       white-space: nowrap;
     }
 
-    .form-submit:hover { background: var(--pink-dark); }
+    .form-submit:hover {
+      background: var(--pink-dark);
+      box-shadow: 0 0 20px rgba(255,31,122,0.3);
+    }
 
     .form-note {
-      font-size: 0.75rem;
-      color: var(--muted);
+      font-size: 0.73rem;
+      color: rgba(248,248,248,0.35);
     }
 
     /* ── RESPONSIVE ── */
 
+    @media (max-width: 1100px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        max-width: 720px;
+      }
+      .hero-visual { display: none; }
+    }
+
     @media (max-width: 960px) {
-      .feature-inner {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-
-      .feature-visual { order: -1; }
-
-      .resources-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .newsletter-inner {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-
-      .orientation-inner {
-        grid-template-columns: 1fr;
-      }
-
+      .feature-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .resources-grid { grid-template-columns: repeat(2, 1fr); }
+      .newsletter-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .orientation-inner { grid-template-columns: 1fr; }
       .orientation-item {
         border-right: none;
         border-bottom: 1px solid var(--border);
       }
-
       .orientation-item:last-child { border-bottom: none; }
+      .proof-strip-inner { grid-template-columns: 1fr; gap: 2rem; }
     }
 
     @media (max-width: 600px) {
-      .hero { min-height: 80vh; padding: 4rem 1.25rem 5rem; }
-
-      .resources-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-row {
-        flex-direction: column;
-      }
-
-      .form-input {
-        border-right: 1px solid var(--border);
-        border-radius: 3px;
-      }
-
-      .form-submit {
-        border-radius: 3px;
-        width: 100%;
-        padding: 0.9rem;
-      }
+      .hero { min-height: 85vh; padding: 4rem 1.25rem 5rem; }
+      .resources-grid { grid-template-columns: 1fr; }
+      .form-row { flex-direction: column; }
+      .form-input { border-right: 1px solid rgba(255,31,122,0.15); border-radius: 5px; }
+      .form-submit { border-radius: 5px; width: 100%; padding: 0.9rem; }
     }
 
   </style>
@@ -570,7 +1065,7 @@
   <!-- NAV -->
   <nav class="site-nav" role="navigation" aria-label="Main navigation">
     <a class="nav-logo" href="/">
-      <img src="/assets/virtueasy-logo.png" alt="Virtueasy" onerror="this.style.display='none'">
+      <img src="/assets/virtueasy-logo.png" alt="Virtueasy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
       <span class="nav-logo-text">VIRTUEASY</span>
     </a>
     <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
@@ -580,9 +1075,9 @@
       <li><a href="/" class="active">Home</a></li>
       <li><a href="/resources/">Resources</a></li>
       <li><a href="/blog/">Blog</a></li>
-      <li><a href="https://blueprint.virtueasy.com" target="_blank" rel="noopener">Blueprint &#x2197;</a></li>
+      <li><a href="/va-blueprint/">Blueprint</a></li>
       <li><a href="/pricing-tool/">Pricing Tool</a></li>
-      <li class="nav-cta"><a href="https://blueprint.virtueasy.com" target="_blank" rel="noopener">Get Started</a></li>
+      <li class="nav-cta"><a href="/va-blueprint/">Get Started</a></li>
     </ul>
   </nav>
 
@@ -592,34 +1087,91 @@
     <section class="hero" aria-label="Hero">
       <div class="hero-bg" aria-hidden="true"></div>
       <div class="hero-grid-lines" aria-hidden="true"></div>
+      <div class="hero-blob-1" aria-hidden="true"></div>
+      <div class="hero-blob-2" aria-hidden="true"></div>
+
       <div class="hero-inner">
 
-        <div class="hero-eyebrow">
-          <span class="hero-eyebrow-dot" aria-hidden="true"></span>
-          <span>The VA Resource Hub</span>
+        <div class="hero-content">
+          <div class="hero-eyebrow">
+            <span class="hero-eyebrow-dot" aria-hidden="true"></span>
+            <span>The VA Resource Hub</span>
+          </div>
+
+          <h1 class="hero-headline">
+            Your VA business
+            <em>starts here.</em>
+          </h1>
+
+          <p class="hero-sub">
+            Tools, templates, and frameworks built for virtual assistants who are ready to work. No fluff, no gatekeeping.
+          </p>
+
+          <div class="hero-ctas">
+            <a href="/va-blueprint/" class="btn btn-primary">
+              Get the Blueprint
+            </a>
+            <a href="/resources/" class="btn btn-secondary">
+              Browse Resources
+            </a>
+          </div>
         </div>
 
-        <h1 class="hero-headline">
-          Your VA business
-          <em>starts here.</em>
-        </h1>
+        <!-- right column: product UI mockup -->
+        <div class="hero-visual" aria-hidden="true">
 
-        <p class="hero-sub">
-          Tools, templates, and frameworks built for virtual assistants who are ready to work. No fluff, no gatekeeping.
-        </p>
+          <div class="mockup-browser">
+            <div class="mockup-browser-bar">
+              <div class="browser-dots">
+                <span class="browser-dot browser-dot-r"></span>
+                <span class="browser-dot browser-dot-y"></span>
+                <span class="browser-dot browser-dot-g"></span>
+              </div>
+              <div class="browser-url">virtueasy.com/blueprint</div>
+            </div>
+            <div class="mockup-content">
+              <div class="mockup-day-label">Day 11 of 30</div>
+              <div class="mockup-day-title">Your First Cold DM</div>
+              <ul class="mockup-tasks">
+                <li class="mockup-task">
+                  <span class="mockup-cb checked"></span>
+                  Identify 10 target businesses in your niche
+                </li>
+                <li class="mockup-task">
+                  <span class="mockup-cb checked"></span>
+                  Write your outreach message using the script
+                </li>
+                <li class="mockup-task">
+                  <span class="mockup-cb"></span>
+                  Send your first 3 DMs today
+                </li>
+                <li class="mockup-task">
+                  <span class="mockup-cb"></span>
+                  Log results in your tracking sheet
+                </li>
+              </ul>
+              <div class="mockup-progress-row">
+                <span>11 / 30 days</span>
+                <span>37%</span>
+              </div>
+              <div class="mockup-progress-bar">
+                <div class="mockup-progress-fill"></div>
+              </div>
+            </div>
+          </div>
 
-        <div class="hero-ctas">
-          <a href="https://blueprint.virtueasy.com" class="btn btn-primary" target="_blank" rel="noopener">
-            Get the Blueprint
-          </a>
-          <a href="/resources/" class="btn btn-secondary">
-            Browse Resources
-          </a>
+          <div class="float-card float-card-win">
+            <div class="float-card-badge">&#x1F3C6; Student win</div>
+            <div class="float-card-value">First client Day 18</div>
+          </div>
+
+          <div class="float-card float-card-stars">
+            <div class="float-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="float-rating">4.9 from 247+ students</div>
+          </div>
+
         </div>
 
-      </div>
-      <div class="hero-scroll-hint" aria-hidden="true">
-        <div class="scroll-line"></div>
       </div>
     </section>
 
@@ -628,14 +1180,16 @@
       <div class="orientation-inner">
 
         <div class="orientation-item">
+          <div class="orientation-icon">&#x1F331;</div>
           <span class="orientation-q">Just starting out?</span>
           <span class="orientation-a">The VA Blueprint</span>
-          <a href="https://blueprint.virtueasy.com" class="orientation-link" target="_blank" rel="noopener">
+          <a href="/va-blueprint/" class="orientation-link">
             Start here <span aria-hidden="true">&#x2192;</span>
           </a>
         </div>
 
         <div class="orientation-item">
+          <div class="orientation-icon">&#x1F4B0;</div>
           <span class="orientation-q">Need to price your services?</span>
           <span class="orientation-a">VA Pricing Tool</span>
           <a href="/pricing-tool/" class="orientation-link">
@@ -644,6 +1198,7 @@
         </div>
 
         <div class="orientation-item">
+          <div class="orientation-icon">&#x2728;</div>
           <span class="orientation-q">Want free tools?</span>
           <span class="orientation-a">260 Prompts + More</span>
           <a href="/resources/" class="orientation-link">
@@ -678,7 +1233,7 @@
           </ul>
 
           <div class="feature-ctas">
-            <a href="https://blueprint.virtueasy.com" class="btn btn-primary" target="_blank" rel="noopener">
+            <a href="/va-blueprint/" class="btn btn-primary">
               Get the Blueprint - $27
             </a>
             <a href="https://virtueasyproducts-cmd.github.io/va-blueprint-preview" class="btn btn-secondary" target="_blank" rel="noopener">
@@ -687,54 +1242,55 @@
           </div>
         </div>
 
-        <div class="feature-visual" aria-hidden="true">
-          <div class="feature-card-display">
-            <div class="feature-card-glow"></div>
-            <div class="feature-card-price">$27</div>
-            <div class="feature-card-price-note">One-time. Yours to keep.</div>
-            <ul class="feature-card-points">
-              <li>
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <circle cx="7" cy="7" r="6.5" stroke="currentColor"/>
-                  <path d="M4 7l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                30-day structured roadmap
-              </li>
-              <li>
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <circle cx="7" cy="7" r="6.5" stroke="currentColor"/>
-                  <path d="M4 7l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Client outreach scripts
-              </li>
-              <li>
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <circle cx="7" cy="7" r="6.5" stroke="currentColor"/>
-                  <path d="M4 7l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Niche and pricing frameworks
-              </li>
-              <li>
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <circle cx="7" cy="7" r="6.5" stroke="currentColor"/>
-                  <path d="M4 7l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Interactive daily format
-              </li>
-              <li>
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <circle cx="7" cy="7" r="6.5" stroke="currentColor"/>
-                  <path d="M4 7l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Preview free before you buy
-              </li>
-            </ul>
-            <a href="https://blueprint.virtueasy.com" class="btn btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
-              Get Instant Access
-            </a>
+        <div class="feature-video-wrap">
+          <div class="video-frame">
+            <div class="video-frame-bar">
+              <div class="browser-dots">
+                <span class="browser-dot browser-dot-r"></span>
+                <span class="browser-dot browser-dot-y"></span>
+                <span class="browser-dot browser-dot-g"></span>
+              </div>
+              <span class="video-frame-title">VA Blueprint Demo</span>
+            </div>
+            <video
+              class="feature-video"
+              autoplay
+              muted
+              loop
+              playsinline
+              src="/BlueprintDemo(1).mp4"
+              aria-label="VA Blueprint product demo video"
+            >
+              <p style="padding:2rem;text-align:center;color:var(--muted);font-size:0.85rem;">
+                Your browser does not support video.
+                <a href="https://virtueasyproducts-cmd.github.io/va-blueprint-preview" target="_blank" rel="noopener" style="color:var(--pink)">Try the preview here.</a>
+              </p>
+            </video>
+          </div>
+          <div class="video-glow" aria-hidden="true"></div>
+          <div class="video-badge" aria-hidden="true">
+            &#x26A1; Opens in<br>your browser
           </div>
         </div>
 
+      </div>
+    </section>
+
+    <!-- PROOF STRIP -->
+    <section class="proof-strip" aria-label="Results">
+      <div class="proof-strip-inner">
+        <div class="proof-item">
+          <span class="proof-number">247+</span>
+          <span class="proof-label">VAs enrolled</span>
+        </div>
+        <div class="proof-item">
+          <span class="proof-number">18</span>
+          <span class="proof-label">Avg. days to first client</span>
+        </div>
+        <div class="proof-item">
+          <span class="proof-number">4.9&#x2605;</span>
+          <span class="proof-label">Student rating</span>
+        </div>
       </div>
     </section>
 
@@ -749,47 +1305,122 @@
 
         <div class="resources-grid">
 
-          <a href="https://blueprint.virtueasy.com" class="resource-card" target="_blank" rel="noopener">
-            <div class="resource-card-top">
-              <span class="resource-icon" aria-hidden="true">&#x1F4CB;</span>
-              <span class="badge">$27</span>
+          <!-- Blueprint -->
+          <a href="/va-blueprint/" class="resource-card">
+            <div class="resource-thumb thumb-blueprint">
+              <div class="thumb-inner">
+                <div class="mini-browser">
+                  <div class="mini-bar">
+                    <span class="mini-dot" style="background:#ff5f57"></span>
+                    <span class="mini-dot" style="background:#febc2e"></span>
+                    <span class="mini-dot" style="background:#28c840"></span>
+                  </div>
+                  <div class="mini-body">
+                    <div class="mini-tag">Day 11 of 30</div>
+                    <div class="mini-title">Your First Cold DM</div>
+                    <div class="mini-lines">
+                      <div class="mini-line pink"></div>
+                      <div class="mini-line"></div>
+                      <div class="mini-line short"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="resource-title">VA Blueprint</div>
-            <p class="resource-desc">The 30-day system to land your first client. Structured, interactive, and built to get you into action fast.</p>
-            <span class="resource-cta">Get the Blueprint <span aria-hidden="true">&#x2192;</span></span>
+            <div class="resource-body">
+              <div class="resource-card-top">
+                <div class="resource-title">VA Blueprint</div>
+                <span class="badge">$27</span>
+              </div>
+              <p class="resource-desc">The 30-day system to land your first client. Structured, interactive, and built to get you into action fast.</p>
+              <span class="resource-cta">Get the Blueprint <span aria-hidden="true">&#x2192;</span></span>
+            </div>
           </a>
 
+          <!-- Blueprint Preview -->
           <a href="https://virtueasyproducts-cmd.github.io/va-blueprint-preview" class="resource-card" target="_blank" rel="noopener">
-            <div class="resource-card-top">
-              <span class="resource-icon" aria-hidden="true">&#x1F440;</span>
-              <span class="badge badge-free">Free</span>
+            <div class="resource-thumb thumb-preview">
+              <div class="thumb-inner" style="flex-direction:column;gap:0.5rem;align-items:flex-start;padding:1.25rem">
+                <div style="font-size:0.55rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,31,122,0.7);">Free Preview</div>
+                <div style="font-family:var(--font-display);font-size:0.95rem;color:var(--white);">Days 10 &ndash; 12</div>
+                <div style="display:flex;flex-direction:column;gap:0.3rem;width:100%;">
+                  <div style="height:3px;background:rgba(255,31,122,0.4);border-radius:2px;width:100%"></div>
+                  <div style="height:3px;background:rgba(255,255,255,0.08);border-radius:2px;width:100%"></div>
+                  <div style="height:3px;background:rgba(255,255,255,0.08);border-radius:2px;width:70%"></div>
+                </div>
+                <div style="font-size:0.6rem;color:rgba(248,248,248,0.3);margin-top:0.25rem;">&#x1F440; Try before you buy</div>
+              </div>
             </div>
-            <div class="resource-title">Blueprint Preview</div>
-            <p class="resource-desc">Try Days 10&#x2013;12 of the Blueprint before you buy. See exactly what you are getting into.</p>
-            <span class="resource-cta">Preview Now <span aria-hidden="true">&#x2192;</span></span>
+            <div class="resource-body">
+              <div class="resource-card-top">
+                <div class="resource-title">Blueprint Preview</div>
+                <span class="badge badge-free">Free</span>
+              </div>
+              <p class="resource-desc">Try Days 10&#x2013;12 of the Blueprint before you buy. See exactly what you are getting into.</p>
+              <span class="resource-cta">Preview Now <span aria-hidden="true">&#x2192;</span></span>
+            </div>
           </a>
 
+          <!-- Pricing Tool -->
           <a href="/pricing-tool/" class="resource-card">
-            <div class="resource-card-top">
-              <span class="resource-icon" aria-hidden="true">&#x1F4B0;</span>
-              <span class="badge badge-free">Free</span>
+            <div class="resource-thumb thumb-pricing">
+              <div class="thumb-inner">
+                <div class="mini-calc">
+                  <div class="mini-rate">$45<span style="font-size:0.9rem">/hr</span></div>
+                  <div class="mini-rate-label">Your suggested rate</div>
+                  <div class="mini-row"><span>Part-time</span><span style="color:#4ade80">$1,800/mo</span></div>
+                  <div class="mini-row"><span>Full-time</span><span style="color:#4ade80">$7,200/mo</span></div>
+                </div>
+              </div>
             </div>
-            <div class="resource-title">VA Pricing Tool</div>
-            <p class="resource-desc">Figure out exactly what to charge. Input your goals and expenses, get a rate that actually works for your life.</p>
-            <span class="resource-cta">Calculate Your Rate <span aria-hidden="true">&#x2192;</span></span>
+            <div class="resource-body">
+              <div class="resource-card-top">
+                <div class="resource-title">VA Pricing Tool</div>
+                <span class="badge badge-free">Free</span>
+              </div>
+              <p class="resource-desc">Figure out exactly what to charge. Input your goals and expenses, get a rate that actually works for your life.</p>
+              <span class="resource-cta">Calculate Your Rate <span aria-hidden="true">&#x2192;</span></span>
+            </div>
           </a>
 
+          <!-- 260 Prompts -->
           <a href="/260-prompts/" class="resource-card">
-            <div class="resource-card-top">
-              <span class="resource-icon" aria-hidden="true">&#x1F916;</span>
-              <span class="badge badge-free">Free</span>
+            <div class="resource-thumb thumb-prompts">
+              <div class="thumb-inner">
+                <div class="mini-prompts">
+                  <div class="mini-prompt-tag">260 AI Prompts</div>
+                  <div class="mini-prompt-lines">
+                    <div class="mini-prompt-line">
+                      <span class="mini-prompt-icon">&#x1F4DD;</span>
+                      <div class="mini-prompt-text" style="width:80%"></div>
+                    </div>
+                    <div class="mini-prompt-line">
+                      <span class="mini-prompt-icon">&#x1F4AC;</span>
+                      <div class="mini-prompt-text" style="width:65%"></div>
+                    </div>
+                    <div class="mini-prompt-line">
+                      <span class="mini-prompt-icon">&#x1F4CA;</span>
+                      <div class="mini-prompt-text" style="width:75%"></div>
+                    </div>
+                    <div class="mini-prompt-line">
+                      <span class="mini-prompt-icon">&#x2699;&#xFE0F;</span>
+                      <div class="mini-prompt-text" style="width:55%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="resource-title">260 ChatGPT Prompts</div>
-            <p class="resource-desc">260 ready-to-use prompts for VA work: content, client comms, proposals, admin tasks, and more.</p>
-            <span class="resource-cta">Download Free <span aria-hidden="true">&#x2192;</span></span>
+            <div class="resource-body">
+              <div class="resource-card-top">
+                <div class="resource-title">260 ChatGPT Prompts</div>
+                <span class="badge badge-free">Free</span>
+              </div>
+              <p class="resource-desc">260 ready-to-use prompts for VA work: content, client comms, proposals, admin tasks, and more.</p>
+              <span class="resource-cta">Download Free <span aria-hidden="true">&#x2192;</span></span>
+            </div>
           </a>
 
-          <div class="resource-card placeholder">
+          <div class="resource-card placeholder" role="presentation" aria-hidden="true">
             <div class="placeholder-icon">+</div>
             <div class="placeholder-text">More coming soon</div>
           </div>
@@ -803,28 +1434,54 @@
     <section class="section newsletter-section" aria-label="Stay updated">
       <div class="newsletter-inner">
 
-        <div class="newsletter-content">
-          <span class="label">Free. No spam.</span>
-          <h2>Get new tools before anyone else.</h2>
-          <p>
-            New resources, templates, and tools drop regularly. Join the list and you will hear about them first.
-          </p>
+        <div class="newsletter-visual">
+          <div class="nl-glow" aria-hidden="true"></div>
+          <div class="nl-card">
+            <div class="nl-card-icon">&#x1F4E7;</div>
+            <div>
+              <div class="nl-card-title">New resources drop regularly</div>
+              <div class="nl-card-desc">Templates, tools, and guides built specifically for VAs</div>
+            </div>
+          </div>
+          <div class="nl-card">
+            <div class="nl-card-icon">&#x26A1;</div>
+            <div>
+              <div class="nl-card-title">Early access for subscribers</div>
+              <div class="nl-card-desc">Hear about new tools before they go public</div>
+            </div>
+          </div>
+          <div class="nl-card">
+            <div class="nl-card-icon">&#x1F512;</div>
+            <div>
+              <div class="nl-card-title">No spam, ever</div>
+              <div class="nl-card-desc">One-click unsubscribe. No surprises.</div>
+            </div>
+          </div>
         </div>
 
-        <form class="newsletter-form" action="#" method="POST" aria-label="Email signup form">
-          <div class="form-row">
-            <input
-              type="email"
-              class="form-input"
-              name="email"
-              placeholder="your@email.com"
-              required
-              aria-label="Email address"
-            >
-            <button type="submit" class="form-submit">Subscribe</button>
+        <div class="newsletter-form-col">
+          <div class="newsletter-content">
+            <span class="label">Free. No spam.</span>
+            <h2>Get new tools before anyone else.</h2>
+            <p>
+              New resources, templates, and tools drop regularly. Join the list and you will hear about them first.
+            </p>
           </div>
-          <p class="form-note">No spam. Unsubscribe anytime. A Virtueasy product.</p>
-        </form>
+          <form class="newsletter-form" action="#" method="POST" aria-label="Email signup form">
+            <div class="form-row">
+              <input
+                type="email"
+                class="form-input"
+                name="email"
+                placeholder="your@email.com"
+                required
+                aria-label="Email address"
+              >
+              <button type="submit" class="form-submit">Subscribe</button>
+            </div>
+            <p class="form-note">No spam. Unsubscribe anytime. A Virtueasy product.</p>
+          </form>
+        </div>
 
       </div>
     </section>
@@ -851,7 +1508,7 @@
           <div class="footer-nav-col">
             <h4>Tools</h4>
             <ul>
-              <li><a href="https://blueprint.virtueasy.com" target="_blank" rel="noopener">Blueprint &#x2197;</a></li>
+              <li><a href="/va-blueprint/">Blueprint</a></li>
               <li><a href="/pricing-tool/">Pricing Tool</a></li>
               <li><a href="/260-prompts/">260 Prompts</a></li>
             </ul>

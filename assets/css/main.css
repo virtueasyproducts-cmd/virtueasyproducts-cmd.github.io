@@ -3,13 +3,13 @@
 :root {
   --pink: #FF1F7A;
   --pink-dark: #D91565;
-  --pink-glow: rgba(255, 31, 122, 0.25);
+  --pink-glow: rgba(255, 31, 122, 0.3);
   --black: #0A0A0A;
-  --surface: #111111;
-  --surface-2: #1A1A1A;
-  --border: rgba(255, 255, 255, 0.08);
+  --surface: #141214;
+  --surface-2: #1e1a1e;
+  --border: rgba(255, 31, 122, 0.1);
   --white: #F8F8F8;
-  --muted: #888888;
+  --muted: #999999;
   --font-display: 'Bebas Neue', sans-serif;
   --font-body: 'Barlow', sans-serif;
 }
