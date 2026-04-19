@@ -1774,7 +1774,8 @@
 
         var url = 'https://assets.mailerlite.com/jsonp/2199748/forms/185198994698273934/subscribe'
           + '?fields%5Bemail%5D=' + encodeURIComponent(email)
-          + '&ml-submit=1&anticsrf=true';
+          + '&ml-submit=1&ajax=1'
+          + '&guid=' + Math.random().toString(36).slice(2);
 
         function showSuccess() {
           var successBody = container.querySelector('.row-success');
