@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Set Up an Upwork Profile That Actually Gets Hired | Virtueasy</title>
+  <meta name="description" content="Upwork is competitive. Most VA profiles look identical. Here is how to build a profile that stands out, ranks in search, and attracts the right clients." />
+  <meta property="og:title" content="How to Set Up an Upwork Profile That Actually Gets Hired | Virtueasy" />
+  <meta property="og:description" content="Upwork is competitive. Most VA profiles look identical. Here is how to build a profile that stands out, ranks in search, and attracts the right clients." />
+  <meta property="og:type" content="article" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --pink: #FF1F7A;
+  --black: #0A0A0A;
+  --white: #F8F8F8;
+  --gray: #141414;
+  --mid: #666;
+  --light: rgba(248,248,248,0.65);
+  --border: rgba(255,31,122,0.18);
+}
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 400; line-height: 1.75; }
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,10,0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; height: 64px; gap: 1rem;
+}
+.nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.08em; color: var(--white); text-decoration: none; }
+.nav-logo span { color: var(--pink); }
+.nav-back { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); text-decoration: none; white-space: nowrap; }
+.nav-back:hover { color: var(--pink); }
+.nav-cta { background: var(--pink); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem 1rem; text-decoration: none; white-space: nowrap; }
+.nav-cta:hover { background: #d4005a; }
+
+.post-hero { padding: 4rem 2rem 2rem; max-width: 740px; margin: 0 auto; }
+.post-tag { display: inline-block; background: var(--pink); color: var(--white); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.25rem 0.65rem; margin-bottom: 1.2rem; }
+.post-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 6vw, 4.2rem); letter-spacing: 0.04em; line-height: 1.05; margin-bottom: 1rem; }
+.post-meta { font-size: 0.78rem; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2rem; }
+.post-meta span { color: var(--pink); margin: 0 0.4rem; }
+.post-intro { font-size: 1.15rem; color: var(--light); border-left: 3px solid var(--pink); padding-left: 1.2rem; margin-bottom: 2rem; font-style: italic; }
+
+article { max-width: 740px; margin: 0 auto; padding: 0 2rem 4rem; }
+article h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.04em; color: var(--white); margin: 2.5rem 0 0.6rem; }
+article h3 { font-family: 'Barlow', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pink); margin: 2rem 0 0.5rem; }
+article p { color: var(--light); margin-bottom: 1.1rem; font-size: 1rem; }
+article ul, article ol { color: var(--light); padding-left: 1.4rem; margin-bottom: 1.2rem; }
+article li { margin-bottom: 0.5rem; font-size: 1rem; }
+article strong { color: var(--white); font-weight: 700; }
+article a { color: var(--pink); text-decoration: none; }
+article a:hover { text-decoration: underline; }
+
+.callout {
+  background: var(--gray); border-left: 3px solid var(--pink);
+  padding: 1.2rem 1.4rem; margin: 2rem 0; border-radius: 0 2px 2px 0;
+}
+.callout p { margin: 0; color: var(--white); font-size: 0.95rem; }
+.callout strong { color: var(--pink); }
+
+.numbered-list { counter-reset: item; list-style: none; padding: 0; }
+.numbered-list li { counter-increment: item; display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; color: var(--light); }
+.numbered-list li::before { content: counter(item); background: var(--pink); color: var(--white); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; min-width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+
+.cta-block { background: var(--pink); padding: 4rem 2rem; text-align: center; }
+.cta-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 0.8rem; }
+.cta-block h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 5vw, 3.2rem); letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.8rem; }
+.cta-sub { font-size: 1rem; color: rgba(255,255,255,0.85); max-width: 480px; margin: 0 auto 1.8rem; }
+.cta-btn { display: inline-block; background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; text-decoration: none; }
+.cta-btn:hover { background: #1a1a1a; }
+
+footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); text-align: center; padding: 2rem; font-size: 0.78rem; color: var(--mid); }
+footer a { color: var(--pink); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://virtueasy.com" class="nav-logo">VIRTUE<span>EASY</span></a>
+  <a href="../index.html" class="nav-back">← All Posts</a>
+  <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="nav-cta">Get the Blueprint $27</a>
+</nav>
+
+<div class="post-hero">
+  <span class="post-tag">Finding Clients</span>
+  <h1>How to Set Up an Upwork Profile That Actually Gets Hired</h1>
+  <p class="post-meta">Virtueasy <span>|</span> 7 min read</p>
+  <p class="post-intro">Most Upwork profiles read like a generic resume. Yours should read like a landing page. Here is how to build one that actually converts.</p>
+</div>
+
+<article>
+
+<h2>Why Most Upwork Profiles Fail</h2>
+<p>Search for "virtual assistant" on Upwork and you will find thousands of profiles that look nearly identical. Stock photo or no photo. A headline that says "Experienced VA with strong organizational skills." A bio that is a paragraph of general claims. No evidence, no specificity, no reason to click.</p>
+<p>Standing out on Upwork is not about having the most experience. It is about being the most specific and credible option for a particular type of client.</p>
+
+<h2>Start With Your Headline</h2>
+<p>Your headline is the first thing clients see in search results and at the top of your profile. Most VAs write something like "Professional Virtual Assistant | Admin Support | Data Entry." That is a list of words, not a value statement.</p>
+<p>A better approach: lead with the client type and the outcome. "VA for E-commerce Brands | Customer Service, Listings & Email Campaigns" tells a specific client exactly whether you are relevant to them in one read. Use your niche and your top service. Make the client feel found.</p>
+
+<h2>The Profile Photo</h2>
+<p>Use a clear, professional headshot with a plain or simple background. You do not need a photographer. A well-lit photo taken with your phone in natural light is more than adequate. Smile. Make eye contact with the camera. Clients are hiring someone they will communicate with regularly. They want to see a person they can imagine working with, not a logo or a cropped selfie from three years ago.</p>
+
+<h2>Writing Your Profile Overview</h2>
+<p>Your overview is where most VAs lose the client. Here is how to write one that works:</p>
+<ol class="numbered-list">
+  <li><strong>Open with the client, not yourself.</strong> Start with the problem your ideal client has, not "Hi, I am [name] and I have X years of experience." The client is reading to find out if you can help them. Get to that immediately.</li>
+  <li><strong>State what you specifically do.</strong> Be precise. Not "I help with a variety of tasks" but "I manage Shopify customer service inboxes, handle return and refund requests, and write weekly email campaigns for e-commerce brands."</li>
+  <li><strong>Add a result or credibility point.</strong> One specific outcome, stat, or relevant past experience. Not a list of adjectives.</li>
+  <li><strong>End with a clear next step.</strong> Invite them to reach out, ask a specific question, or describe the type of project you are looking for.</li>
+</ol>
+<p>Keep the whole overview under 300 words. Clients are scanning, not reading.</p>
+
+<div class="callout">
+  <p><strong>Upwork SEO:</strong> Upwork's search algorithm weights your title, overview, and listed skills. Use the specific words your target clients search for. Look at job postings in your niche and mirror the language they use to describe what they need.</p>
+</div>
+
+<h2>Skills, Portfolio, and Rates</h2>
+<p>Select skills that are specific and searchable. "Virtual Assistance" is too broad. "Email Management," "MailerLite," "Shopify," and "Canva" are better because clients search for specific tools and tasks.</p>
+<p>For your portfolio, create sample work if you do not have real client examples yet. A sample content calendar, a mock inbox organization system, or a sample research report shows competence without requiring past client experience. Label it clearly as a sample.</p>
+<p>On rate: do not go to the bottom of the range to compete with offshore VAs charging $5/hour. Set a rate you can sustain and that reflects the quality you deliver. Upwork clients who are shopping on price alone are often the most demanding and least loyal. You want clients who are shopping on fit and quality.</p>
+
+<h2>Submitting Proposals That Get Responses</h2>
+<p>Every proposal you submit on Upwork should be written specifically for that job posting. Do not copy and paste a generic template. Read the posting carefully, identify what the client actually needs, and address that directly. Reference something specific from their post to show you read it. Keep the proposal under 150 words. Ask a relevant question at the end to open dialogue.</p>
+<p>Volume helps in the beginning. Submit 10 tailored proposals per week while your profile builds up reviews. Your first few jobs may be at a slightly lower rate to get that initial feedback. Once you have three to five strong reviews, raise your rate. The reviews will carry you.</p>
+
+</article>
+
+<section class="cta-block">
+  <p class="cta-label">Want the full system?</p>
+  <h2>30 Days to Your First High-Ticket Client</h2>
+  <p class="cta-sub">The VA Blueprint gives you the exact steps, scripts, and strategy to go from zero to booked. No guesswork.</p>
+  <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="cta-btn">Get the Blueprint for $27</a>
+</section>
+<footer>
+  &copy; 2025 Virtueasy &nbsp;|&nbsp; <a href="https://virtueasy.com">virtueasy.com</a> &nbsp;|&nbsp; <a href="../index.html">Back to Resources</a>
+</footer>
+
+</body>
+</html>
