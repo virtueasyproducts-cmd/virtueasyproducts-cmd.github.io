@@ -831,6 +831,7 @@
               playsinline
               preload="none"
               aria-label="VA Blueprint product demo video"
+              oncanplay="this.playbackRate=3"
             >
               <source data-src="/BlueprintDemo(1).mp4" type="video/mp4">
               <p style="padding:2rem;text-align:center;color:var(--muted);font-size:0.85rem;">
@@ -1340,6 +1341,7 @@
         if (source && source.dataset.src) {
           source.src = source.dataset.src;
           video.load();
+          video.playbackRate = 3;
           video.play();
         }
         obs.disconnect();
