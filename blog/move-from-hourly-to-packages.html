@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>From Hourly to Packages: How to Stop Trading Time for Money | Virtueasy</title>
+  <meta name="description" content="Hourly billing keeps you broke and busy. Package pricing lets you earn more while working with better clients on clearer terms." />
+  <meta property="og:title" content="From Hourly to Packages: How to Stop Trading Time for Money | Virtueasy" />
+  <meta property="og:description" content="Hourly billing keeps you broke and busy. Package pricing lets you earn more while working with better clients on clearer terms." />
+  <meta property="og:type" content="article" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --pink: #FF1F7A;
+  --black: #0A0A0A;
+  --white: #F8F8F8;
+  --gray: #141414;
+  --mid: #666;
+  --light: rgba(248,248,248,0.65);
+  --border: rgba(255,31,122,0.18);
+}
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 400; line-height: 1.75; }
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,10,0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; height: 64px; gap: 1rem;
+}
+.nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.08em; color: var(--white); text-decoration: none; }
+.nav-logo span { color: var(--pink); }
+.nav-back { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); text-decoration: none; white-space: nowrap; }
+.nav-back:hover { color: var(--pink); }
+.nav-cta { background: var(--pink); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem 1rem; text-decoration: none; white-space: nowrap; }
+.nav-cta:hover { background: #d4005a; }
+
+.post-hero { padding: 4rem 2rem 2rem; max-width: 740px; margin: 0 auto; }
+.post-tag { display: inline-block; background: var(--pink); color: var(--white); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.25rem 0.65rem; margin-bottom: 1.2rem; }
+.post-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 6vw, 4.2rem); letter-spacing: 0.04em; line-height: 1.05; margin-bottom: 1rem; }
+.post-meta { font-size: 0.78rem; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2rem; }
+.post-meta span { color: var(--pink); margin: 0 0.4rem; }
+.post-intro { font-size: 1.15rem; color: var(--light); border-left: 3px solid var(--pink); padding-left: 1.2rem; margin-bottom: 2rem; font-style: italic; }
+
+article { max-width: 740px; margin: 0 auto; padding: 0 2rem 4rem; }
+article h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.04em; color: var(--white); margin: 2.5rem 0 0.6rem; }
+article h3 { font-family: 'Barlow', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pink); margin: 2rem 0 0.5rem; }
+article p { color: var(--light); margin-bottom: 1.1rem; font-size: 1rem; }
+article ul, article ol { color: var(--light); padding-left: 1.4rem; margin-bottom: 1.2rem; }
+article li { margin-bottom: 0.5rem; font-size: 1rem; }
+article strong { color: var(--white); font-weight: 700; }
+article a { color: var(--pink); text-decoration: none; }
+article a:hover { text-decoration: underline; }
+
+.callout {
+  background: var(--gray); border-left: 3px solid var(--pink);
+  padding: 1.2rem 1.4rem; margin: 2rem 0; border-radius: 0 2px 2px 0;
+}
+.callout p { margin: 0; color: var(--white); font-size: 0.95rem; }
+.callout strong { color: var(--pink); }
+
+.numbered-list { counter-reset: item; list-style: none; padding: 0; }
+.numbered-list li { counter-increment: item; display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; color: var(--light); }
+.numbered-list li::before { content: counter(item); background: var(--pink); color: var(--white); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; min-width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+
+.cta-block { background: var(--pink); padding: 4rem 2rem; text-align: center; }
+.cta-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 0.8rem; }
+.cta-block h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 5vw, 3.2rem); letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.8rem; }
+.cta-sub { font-size: 1rem; color: rgba(255,255,255,0.85); max-width: 480px; margin: 0 auto 1.8rem; }
+.cta-btn { display: inline-block; background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; text-decoration: none; }
+.cta-btn:hover { background: #1a1a1a; }
+
+footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); text-align: center; padding: 2rem; font-size: 0.78rem; color: var(--mid); }
+footer a { color: var(--pink); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://virtueasy.com" class="nav-logo">VIRTUE<span>EASY</span></a>
+  <a href="../index.html" class="nav-back">← All Posts</a>
+  <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="nav-cta">Get the Blueprint $27</a>
+</nav>
+
+<div class="post-hero">
+  <span class="post-tag">Pricing</span>
+  <h1>From Hourly to Packages: How to Stop Trading Time for Money</h1>
+  <p class="post-meta">Virtueasy <span>|</span> 6 min read</p>
+  <p class="post-intro">Hourly billing sounds safe when you are starting out. It is not. Here is how to move to retainers and packages that pay you for your value, not your time.</p>
+</div>
+
+<article>
+
+<h2>Why Hourly Billing Keeps You Stuck</h2>
+<p>When you charge hourly, you are capping your income at the number of hours in your week. Worse, you are rewarding yourself for being slow. Every system you build, every shortcut you learn, every skill that makes you faster actually reduces what you earn under an hourly model.</p>
+<p>Package pricing flips that. When you charge a flat rate for a result, you benefit from every efficiency gain. You can do in four hours what used to take eight, and you still get paid the same.</p>
+
+<h2>The Three Package Models Worth Knowing</h2>
+
+<h3>Retainer Packages</h3>
+<p>A monthly retainer charges a flat fee for a set scope of ongoing work. For example: $800/month for 10 hours of Pinterest management, scheduling, and monthly reporting. The client knows exactly what they are paying. You know exactly what you are delivering. Both of you can plan around it.</p>
+<p>Retainers are the gold standard for VA income stability. They make your revenue predictable and reduce the constant hustle for new clients.</p>
+
+<h3>Project-Based Packages</h3>
+<p>Some work is naturally project-shaped: setting up a CRM, launching an email sequence, building out a content calendar. Package it as a flat-fee deliverable with a defined scope and a deadline. "CRM setup and migration: $650, delivered in 10 business days" is a clean, sellable offer.</p>
+
+<h3>Tiered Packages</h3>
+<p>Tiered packages give clients options while anchoring them toward the middle or top tier. A three-tier structure like Starter, Growth, and Premium lets clients self-select based on budget while making the middle option feel like the obvious choice.</p>
+
+<div class="callout">
+  <p><strong>Pricing tip:</strong> When building tiers, price them so the jump from Starter to Growth feels reasonable, and the jump from Growth to Premium feels like a bargain. The middle tier should do most of your selling for you.</p>
+</div>
+
+<h2>How to Scope a Package Without Getting Burned</h2>
+<p>The biggest fear with package pricing is scope creep: the client who hired you for social media captions slowly starts asking for blog posts, graphics, and strategy calls. Protect yourself with a clear scope statement in writing before work begins.</p>
+<p>Your package should define:</p>
+<ul>
+  <li>Exactly what is included</li>
+  <li>Exactly what is not included</li>
+  <li>How many revision rounds are covered</li>
+  <li>How out-of-scope requests are handled (hourly add-on rate works well here)</li>
+</ul>
+
+<h2>Making the Transition With Existing Clients</h2>
+<p>If you are currently charging existing clients hourly, transitioning them to a package takes some finesse. The move is easiest when you can frame it as a benefit to them.</p>
+<p>Something like: "I am moving all my ongoing clients to a monthly package model. Based on what we have been doing together, the [Growth Package] at $750/month covers everything we currently work on. It also means you will have priority scheduling and a guaranteed delivery timeline each month. Want me to send over the details?"</p>
+<p>Most clients who value you will make the switch. Clients who push back hard are often the ones who were already borderline on fit.</p>
+
+<h2>What to Do When Packages Feel Intimidating</h2>
+<p>If you have never sold a package before, start simple. Pick one recurring service you already deliver. Estimate how long it takes you per month. Multiply your target hourly rate by 1.3 to account for admin and communication overhead. Round to a clean number. That is your first package.</p>
+<p>You do not need a perfect offer. You need a real one. Refine it after you have sold it a few times and know exactly where the edges are.</p>
+
+</article>
+
+<section class="cta-block">
+  <p class="cta-label">Want the full system?</p>
+  <h2>30 Days to Your First High-Ticket Client</h2>
+  <p class="cta-sub">The VA Blueprint gives you the exact steps, scripts, and strategy to go from zero to booked. No guesswork.</p>
+  <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="cta-btn">Get the Blueprint for $27</a>
+</section>
+<footer>
+  &copy; 2025 Virtueasy &nbsp;|&nbsp; <a href="https://virtueasy.com">virtueasy.com</a> &nbsp;|&nbsp; <a href="../index.html">Back to Resources</a>
+</footer>
+
+</body>
+</html>
