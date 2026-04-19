@@ -719,8 +719,8 @@
           <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn btn-primary" target="_blank" rel="noopener">
             Get Instant Access - $27
           </a>
-          <a href="https://virtueasyproducts-cmd.github.io/va-blueprint-preview" class="btn-ghost" target="_blank" rel="noopener">
-            Try the preview free first
+          <a href="#demo" class="btn-ghost">
+            Watch it in action first
           </a>
         </div>
 
@@ -810,34 +810,35 @@
     </section>
 
     <!-- NOT A PDF -->
-    <section class="not-pdf-section" aria-label="How the Blueprint works">
+    <section class="not-pdf-section" id="demo" aria-label="How the Blueprint works">
       <div class="not-pdf-inner">
 
-        <div class="day-preview" aria-hidden="true">
-          <div class="day-preview-label">Day 11 of 30</div>
-          <div class="day-preview-title">Your First Cold DM</div>
-          <ul class="day-task-list">
-            <li>
-              <span class="task-check done" aria-hidden="true"></span>
-              Identify 10 target businesses in your niche
-            </li>
-            <li>
-              <span class="task-check done" aria-hidden="true"></span>
-              Write your outreach message using the script
-            </li>
-            <li>
-              <span class="task-check" aria-hidden="true"></span>
-              Send your first 3 DMs today
-            </li>
-            <li>
-              <span class="task-check" aria-hidden="true"></span>
-              Log results in your tracking sheet
-            </li>
-          </ul>
-          <div class="day-progress">
-            <div class="day-progress-fill"></div>
+        <div class="feature-video-wrap">
+          <div class="video-frame">
+            <div class="video-frame-bar">
+              <div class="browser-dots">
+                <span class="browser-dot browser-dot-r"></span>
+                <span class="browser-dot browser-dot-y"></span>
+                <span class="browser-dot browser-dot-g"></span>
+              </div>
+              <span class="video-frame-title">VA Blueprint — Live Demo</span>
+            </div>
+            <video
+              id="blueprintVideo"
+              class="feature-video"
+              muted
+              loop
+              playsinline
+              preload="none"
+              aria-label="VA Blueprint product demo video"
+            >
+              <source data-src="/BlueprintDemo(1).mp4" type="video/mp4">
+              <p style="padding:2rem;text-align:center;color:var(--muted);font-size:0.85rem;">
+                Your browser does not support video.
+              </p>
+            </video>
           </div>
-          <div style="font-size:0.75rem;color:var(--muted);margin-top:0.5rem;">Day 11 of 30 complete</div>
+          <div class="video-glow" aria-hidden="true"></div>
         </div>
 
         <div class="not-pdf-content">
@@ -853,12 +854,101 @@
             <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn btn-primary" target="_blank" rel="noopener">
               Get Instant Access - $27
             </a>
-            <a href="https://virtueasyproducts-cmd.github.io/va-blueprint-preview" class="btn btn-secondary" target="_blank" rel="noopener">
-              Try Days 10&#x2013;12 Free
-            </a>
           </div>
         </div>
 
+      </div>
+    </section>
+
+    <!-- SKILLS QUIZ -->
+    <section class="quiz-section" aria-label="Skills quiz">
+      <div class="quiz-container-wrap">
+        <div class="quiz-eyebrow-pill">Skill check</div>
+        <h2 class="quiz-heading">Think You Don't Have the Skills?<br><span style="color:var(--pink)">Let's Find Out.</span></h2>
+        <p class="quiz-intro">4 questions. Takes 30 seconds. You might surprise yourself.</p>
+
+        <div class="quiz-powerbar" id="quizPowerbar">
+          <div class="qpb-track">
+            <div class="qpb-fill" id="qpbFill"></div>
+            <div class="qpb-glow" id="qpbGlow"></div>
+            <div class="qpb-segments"><div class="qpb-seg"></div><div class="qpb-seg"></div><div class="qpb-seg"></div><div class="qpb-seg"></div></div>
+          </div>
+          <div class="qpb-label"><span id="qpbCount">0</span> / 4 skills unlocked</div>
+        </div>
+
+        <div class="quiz-particles" id="quizParticles"></div>
+        <div class="quiz-flash" id="quizFlash"></div>
+
+        <div class="quiz-cards" id="quizContainer">
+          <div class="quiz-card active" data-q="0">
+            <div class="quiz-q-badge">Question 1 of 4</div>
+            <div class="quiz-q-num">01</div>
+            <p class="quiz-question">Have you ever sent a professional email, scheduled a meeting, or organized files on a computer?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" onclick="answerQuiz(0,true,event)"><span class="qo-emoji">&#x1F4E7;</span> Yes, I do this regularly</button>
+              <button class="quiz-option" onclick="answerQuiz(0,true,event)"><span class="qo-emoji">&#x1F44D;</span> Sometimes -- I've done it before</button>
+              <button class="quiz-option quiz-option-no" onclick="answerQuiz(0,false,event)"><span class="qo-emoji">&#x274C;</span> No, never</button>
+            </div>
+            <div class="quiz-unlock" id="unlock0"><div class="unlock-icon-wrap"><div class="unlock-icon">&#x2713;</div><div class="unlock-ring"></div></div><div><div class="unlock-text"><strong>Skill unlocked:</strong> Admin &amp; Organization</div><div class="unlock-sub">The #1 skill clients pay for.</div></div></div>
+          </div>
+          <div class="quiz-card" data-q="1" style="display:none">
+            <div class="quiz-q-badge">Question 2 of 4</div>
+            <div class="quiz-q-num">02</div>
+            <p class="quiz-question">Have you ever posted on social media, replied to a comment, or helped someone write a caption?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" onclick="answerQuiz(1,true,event)"><span class="qo-emoji">&#x1F4F1;</span> Yes, I'm on socials all the time</button>
+              <button class="quiz-option" onclick="answerQuiz(1,true,event)"><span class="qo-emoji">&#x1F91D;</span> I've helped someone with theirs</button>
+              <button class="quiz-option quiz-option-no" onclick="answerQuiz(1,false,event)"><span class="qo-emoji">&#x274C;</span> Not really</button>
+            </div>
+            <div class="quiz-unlock" id="unlock1"><div class="unlock-icon-wrap"><div class="unlock-icon">&#x2713;</div><div class="unlock-ring"></div></div><div><div class="unlock-text"><strong>Skill unlocked:</strong> Social Media Management</div><div class="unlock-sub">Clients pay $500-$1,500/mo for this.</div></div></div>
+          </div>
+          <div class="quiz-card" data-q="2" style="display:none">
+            <div class="quiz-q-badge">Question 3 of 4</div>
+            <div class="quiz-q-num">03</div>
+            <p class="quiz-question">Have you ever Googled something to find an answer, compared products, or researched a topic online?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" onclick="answerQuiz(2,true,event)"><span class="qo-emoji">&#x1F50D;</span> All the time -- I'm a great Googler</button>
+              <button class="quiz-option" onclick="answerQuiz(2,true,event)"><span class="qo-emoji">&#x1F4BB;</span> Yeah, for work or personal stuff</button>
+              <button class="quiz-option quiz-option-no" onclick="answerQuiz(2,false,event)"><span class="qo-emoji">&#x274C;</span> No, I don't do that</button>
+            </div>
+            <div class="quiz-unlock" id="unlock2"><div class="unlock-icon-wrap"><div class="unlock-icon">&#x2713;</div><div class="unlock-ring"></div></div><div><div class="unlock-text"><strong>Skill unlocked:</strong> Research &amp; Data Entry</div><div class="unlock-sub">A real, billable VA service.</div></div></div>
+          </div>
+          <div class="quiz-card" data-q="3" style="display:none">
+            <div class="quiz-q-badge">Question 4 of 4</div>
+            <div class="quiz-q-num">04</div>
+            <p class="quiz-question">Have you ever helped a friend solve a problem, talked someone through a process, or handled a complaint?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" onclick="answerQuiz(3,true,event)"><span class="qo-emoji">&#x1F4AA;</span> I'm the person everyone comes to</button>
+              <button class="quiz-option" onclick="answerQuiz(3,true,event)"><span class="qo-emoji">&#x1F64B;</span> I've done it a few times</button>
+              <button class="quiz-option quiz-option-no" onclick="answerQuiz(3,false,event)"><span class="qo-emoji">&#x274C;</span> Not really my thing</button>
+            </div>
+            <div class="quiz-unlock" id="unlock3"><div class="unlock-icon-wrap"><div class="unlock-icon">&#x2713;</div><div class="unlock-ring"></div></div><div><div class="unlock-text"><strong>Skill unlocked:</strong> Client Support &amp; Communication</div><div class="unlock-sub">The backbone of every VA business.</div></div></div>
+          </div>
+        </div>
+
+        <div class="quiz-result" id="quizResult" style="display:none">
+          <div class="quiz-result-inner">
+            <div class="confetti-canvas" id="confettiCanvas"></div>
+            <div class="badge-wrap" id="badgeWrap">
+              <div class="badge-burst" id="badgeBurst"></div>
+              <svg class="badge-svg" viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="badgeGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF1F7A"/><stop offset="100%" style="stop-color:#FF6BAB"/></linearGradient>
+                  <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FFD700"/><stop offset="100%" style="stop-color:#FFF4CC"/></linearGradient>
+                </defs>
+                <path d="M100 12 L178 50 L178 125 Q178 180 100 212 Q22 180 22 125 L22 50 Z" fill="url(#badgeGrad)"/>
+                <path d="M100 28 L164 58 L164 122 Q164 168 100 196 Q36 168 36 122 L36 58 Z" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                <polygon points="100,52 113,84 148,84 120,106 130,138 100,118 70,138 80,106 52,84 87,84" fill="url(#starGrad)"/>
+                <text x="100" y="175" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="20" fill="white" letter-spacing="4">VA READY</text>
+              </svg>
+            </div>
+            <h3 class="quiz-result-title" id="quizResultTitle"></h3>
+            <p class="quiz-result-body" id="quizResultBody"></p>
+            <div class="badge-skills" id="badgeSkills"></div>
+            <p class="quiz-result-note">The VA Blueprint meets you exactly where you are and moves you forward -- one day at a time.</p>
+            <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn btn-primary" target="_blank" rel="noopener" style="margin-top:1.5rem;">Turn These Skills Into Income - $27</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1070,6 +1160,341 @@
       </div>
     </div>
   </footer>
+
+  <!-- VIDEO + QUIZ STYLES & SCRIPTS -->
+  <style>
+    /* ── VIDEO SECTION ── */
+    .feature-video-wrap { position: relative; }
+    .video-frame {
+      background: #120f12;
+      border: 1px solid rgba(255,31,122,0.2);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,31,122,0.06);
+    }
+    .video-frame-bar {
+      background: #0e0b0e;
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid rgba(255,31,122,0.1);
+    }
+    .browser-dots { display:flex; gap:6px; align-items:center; }
+    .browser-dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+    .browser-dot-r { background:#ff5f57; }
+    .browser-dot-y { background:#ffbd2e; }
+    .browser-dot-g { background:#28c840; }
+    .video-frame-title { font-size:0.7rem; color:rgba(248,248,248,0.35); margin-left:0.5rem; letter-spacing:0.05em; }
+    .feature-video { width:100%; display:block; max-height:380px; object-fit:cover; background:#0a0a0a; }
+    .video-glow {
+      position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
+      width: 70%; height: 60px;
+      background: rgba(255,31,122,0.18); filter: blur(24px); border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* ── QUIZ SECTION ── */
+    .quiz-section {
+      background: linear-gradient(160deg, #0f0b0f 0%, #1a0d15 50%, #0a0a0a 100%);
+      border-top: 1px solid rgba(255,31,122,0.12);
+      padding: 6rem 2rem;
+    }
+    .quiz-container-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .quiz-eyebrow-pill {
+      display: inline-block;
+      background: rgba(255,31,122,0.12);
+      border: 1px solid rgba(255,31,122,0.3);
+      border-radius: 99px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 1.25rem;
+    }
+    .quiz-heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .quiz-intro {
+      font-size: 0.95rem;
+      color: rgba(248,248,248,0.55);
+      margin-bottom: 2rem;
+    }
+
+    /* powerbar */
+    .quiz-powerbar { max-width: 500px; margin: 0 auto 2rem; }
+    .qpb-track { height: 14px; background: rgba(255,255,255,0.06); border-radius: 100px; overflow: hidden; position: relative; }
+    .qpb-fill { height:100%; width:0%; background: linear-gradient(90deg, var(--pink), #ff6bab); border-radius:100px; transition: width .6s cubic-bezier(.34,1.56,.64,1); position:relative; z-index:2; overflow:hidden; }
+    .qpb-fill::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.35) 50%,transparent 100%); transform:translateX(-100%); animation:barShine 2s linear infinite; }
+    @keyframes barShine { to { transform:translateX(300%) } }
+    .qpb-glow { position:absolute; top:-4px; bottom:-4px; left:0; width:0%; background:rgba(255,31,122,0.3); border-radius:100px; filter:blur(8px); transition:width .6s cubic-bezier(.34,1.56,.64,1); z-index:1; }
+    .qpb-segments { position:absolute; inset:0; display:flex; z-index:3; pointer-events:none; }
+    .qpb-seg { flex:1; border-right:2px solid rgba(255,255,255,0.12); }
+    .qpb-seg:last-child { border-right:none; }
+    .qpb-label { text-align:center; font-size:.82rem; font-weight:700; color:var(--muted); margin-top:8px; transition:all .3s; }
+    .qpb-label.glow { color:var(--pink); text-shadow:0 0 12px rgba(255,31,122,0.4); }
+
+    /* particles / flash */
+    .quiz-particles { position:fixed; inset:0; pointer-events:none; z-index:9990; overflow:hidden; }
+    .q-particle { position:absolute; border-radius:50%; pointer-events:none; }
+    .quiz-flash { position:fixed; inset:0; background:rgba(255,31,122,0.1); pointer-events:none; z-index:9989; opacity:0; transition:opacity .1s; }
+    .quiz-flash.fire { opacity:1; transition:opacity .05s; }
+    .float-plus { position:absolute; font-family:var(--font-display); font-size:1.75rem; color:var(--pink); pointer-events:none; z-index:100; animation:floatUp 1s ease-out forwards; text-shadow:0 2px 8px rgba(255,31,122,0.4); }
+    @keyframes floatUp { 0%{opacity:1;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(-60px) scale(1.3)} }
+
+    /* cards */
+    .quiz-cards { text-align: left; }
+    .quiz-card {
+      background: var(--surface);
+      border: 1px solid rgba(255,31,122,0.15);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 0 auto;
+      max-width: 600px;
+    }
+    .quiz-q-badge { display:inline-block; background:rgba(255,31,122,0.1); color:var(--pink); font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:4px 12px; border-radius:100px; margin-bottom:8px; }
+    .quiz-q-num { font-family:var(--font-display); font-size:2.5rem; color:rgba(255,31,122,0.2); line-height:1; margin-bottom:0.5rem; }
+    .quiz-question { font-size: 1rem; color: var(--white); line-height: 1.6; margin-bottom: 1.25rem; }
+    .quiz-options { display:flex; flex-direction:column; gap:0.6rem; }
+    .quiz-option {
+      background: var(--surface-2);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: rgba(248,248,248,0.8);
+      cursor: pointer;
+      text-align: left;
+      transition: all .25s cubic-bezier(.34,1.2,.64,1);
+    }
+    .quiz-option:hover { border-color:rgba(255,31,122,0.35); background:rgba(255,31,122,0.06); transform:translateX(4px); }
+    .quiz-option.selected { border-color:var(--pink); background:var(--pink); color:#fff; font-weight:600; transform:translateX(6px) scale(1.01); box-shadow:0 4px 16px rgba(255,31,122,0.3); }
+    .qo-emoji { margin-right:8px; }
+    .quiz-option.exit-up { opacity:0; transform:translateY(-20px) scale(.95); transition:all .35s ease; }
+    .quiz-card.enter-in { animation:cardSlam .45s cubic-bezier(.34,1.4,.64,1) both; }
+    @keyframes cardSlam { 0%{opacity:0;transform:translateY(30px) scale(.95)} 100%{opacity:1;transform:translateY(0) scale(1)} }
+    .quiz-card.shake { animation:headShake .5s ease; }
+    @keyframes headShake { 0%{transform:translateX(0)} 15%{transform:translateX(-6px)} 30%{transform:translateX(6px)} 45%{transform:translateX(-4px)} 60%{transform:translateX(3px)} 100%{transform:translateX(0)} }
+
+    /* unlock reveal */
+    .quiz-unlock { display:flex; align-items:center; gap:14px; background:linear-gradient(135deg,#111,#1a0d14); border:1px solid rgba(255,31,122,0.2); border-radius:12px; padding:0; margin-top:0; opacity:0; max-height:0; overflow:hidden; transition:opacity .4s ease .1s, max-height .5s ease, margin-top .3s ease, padding .3s ease; }
+    .quiz-unlock.visible { opacity:1; max-height:100px; margin-top:1rem; padding:1rem 1.25rem; }
+    .unlock-icon-wrap { position:relative; width:36px; height:36px; flex-shrink:0; }
+    .unlock-icon { width:36px; height:36px; border-radius:50%; background:var(--pink); color:#fff; font-weight:700; font-size:1rem; display:flex; align-items:center; justify-content:center; position:relative; z-index:2; }
+    .unlock-ring { position:absolute; inset:-4px; border-radius:50%; border:2px solid var(--pink); opacity:0; }
+    .quiz-unlock.visible .unlock-icon { animation:iconPop .4s cubic-bezier(.34,1.56,.64,1) .15s both; }
+    .quiz-unlock.visible .unlock-ring { animation:ringExpand .6s ease .2s both; }
+    @keyframes iconPop { from{transform:scale(0) rotate(-20deg)} to{transform:scale(1) rotate(0deg)} }
+    @keyframes ringExpand { 0%{transform:scale(.5);opacity:.8} 100%{transform:scale(1.8);opacity:0} }
+    .unlock-text { font-size:.88rem; color:var(--white); font-weight:500; line-height:1.3; }
+    .unlock-text strong { color:#ff6bab; }
+    .unlock-sub { font-size:.75rem; color:rgba(255,255,255,0.4); margin-top:2px; }
+    .quiz-unlock.no-skill { background:var(--surface-2); border-color:rgba(255,255,255,0.06); }
+    .quiz-unlock.no-skill .unlock-icon { background:#333; }
+    .quiz-unlock.no-skill .unlock-ring { display:none; }
+
+    /* result */
+    .quiz-result { text-align:center; }
+    .quiz-result-inner { position:relative; background:var(--surface); border:1px solid rgba(255,31,122,0.2); border-radius:16px; padding:3rem 2rem; max-width:600px; margin:0 auto; overflow:hidden; }
+    .confetti-canvas { position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:0; border-radius:16px; }
+    .badge-wrap { margin-bottom:1.5rem; position:relative; z-index:1; display:inline-block; opacity:0; transform:scale(.3); }
+    .badge-svg { width:130px; height:150px; }
+    .badge-wrap.pop { animation:badgePop .8s cubic-bezier(.34,1.56,.64,1) forwards; }
+    @keyframes badgePop { 0%{opacity:0;transform:scale(.2) rotate(-20deg)} 50%{opacity:1;transform:scale(1.15) rotate(5deg)} 70%{transform:scale(.95) rotate(-2deg)} 100%{opacity:1;transform:scale(1) rotate(0deg)} }
+    .badge-burst { position:absolute; inset:-40px; z-index:0; opacity:0; }
+    .badge-burst.fire { animation:burstSpin 8s linear infinite, burstFade 1s ease forwards; }
+    @keyframes burstFade { from{opacity:0} to{opacity:.5} }
+    @keyframes burstSpin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    .burst-ray { position:absolute; top:50%; left:50%; width:3px; height:55px; background:linear-gradient(to top,transparent,rgba(255,31,122,0.4)); border-radius:2px; transform-origin:bottom center; }
+    .quiz-result-title { font-family:var(--font-display); font-size:clamp(1.8rem,4vw,2.8rem); line-height:1; color:var(--white); margin-bottom:0.75rem; position:relative; z-index:1; }
+    .quiz-result-body { font-size:.95rem; color:rgba(248,248,248,0.65); line-height:1.65; margin-bottom:1rem; position:relative; z-index:1; max-width:440px; margin-left:auto; margin-right:auto; }
+    .badge-skills { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:1.25rem; position:relative; z-index:1; }
+    .badge-skill-pill { background:rgba(255,31,122,0.15); border:1px solid rgba(255,31,122,0.3); color:#ff6bab; font-size:.78rem; font-weight:600; padding:5px 14px; border-radius:100px; opacity:0; transform:translateY(8px) scale(.92); }
+    .badge-skill-pill.pop { animation:pillPop .4s cubic-bezier(.34,1.4,.64,1) forwards; }
+    @keyframes pillPop { to{opacity:1;transform:translateY(0) scale(1)} }
+    .confetti-piece { position:absolute; top:-12px; opacity:0; animation:confettiFall var(--fall-dur,2s) cubic-bezier(.25,.46,.45,.94) forwards; animation-delay:var(--fall-delay,0s); }
+    @keyframes confettiFall { 0%{opacity:1;transform:translateY(0) rotate(0) translateX(0)} 100%{opacity:0;transform:translateY(380px) rotate(720deg) translateX(var(--drift,15px))} }
+    .quiz-result-note { font-size:.82rem; color:rgba(248,248,248,0.4); margin-bottom:0; position:relative; z-index:1; }
+  </style>
+
+  <script>
+    // Lazy-load video when section scrolls into view
+    (function(){
+      var video = document.getElementById('blueprintVideo');
+      if (!video) return;
+      var obs = new IntersectionObserver(function(entries) {
+        if (!entries[0].isIntersecting) return;
+        var source = video.querySelector('source');
+        if (source && source.dataset.src) {
+          source.src = source.dataset.src;
+          video.load();
+          video.play();
+        }
+        obs.disconnect();
+      }, { threshold: 0.1 });
+      obs.observe(video);
+    })();
+
+    // Skills quiz logic
+    (window.requestIdleCallback || function(fn){ setTimeout(fn,200); })(function(){
+      var quizAnswers = [], currentQ = 0;
+      var skillNames = ['Admin & Organization','Social Media Management','Research & Data Entry','Client Support & Communication'];
+
+      function spawnParticles(x,y,color,count){
+        var c=document.getElementById('quizParticles');
+        for(var i=0;i<count;i++){
+          var p=document.createElement('div'); p.className='q-particle';
+          var size=4+Math.random()*8, angle=Math.random()*Math.PI*2, dist=30+Math.random()*80;
+          p.style.cssText='left:'+x+'px;top:'+y+'px;width:'+size+'px;height:'+size+'px;background:'+color+';';
+          c.appendChild(p);
+          p.animate([{opacity:1,transform:'scale(1) translate(0,0)'},{opacity:0,transform:'scale(0.2) translate('+(Math.cos(angle)*dist)+'px,'+(Math.sin(angle)*dist)+'px)'}],{duration:600+Math.random()*400,easing:'cubic-bezier(0.34,1.56,0.64,1)',fill:'forwards'});
+          (function(el){setTimeout(function(){el.remove()},1200)})(p);
+        }
+      }
+
+      function flash(){
+        var f=document.getElementById('quizFlash'); f.classList.add('fire');
+        setTimeout(function(){f.classList.remove('fire')},120);
+      }
+
+      function floatPlus(card){
+        var p=document.createElement('div'); p.className='float-plus'; p.textContent='+1 SKILL';
+        p.style.cssText='left:50%;top:10px;transform:translateX(-50%);';
+        card.style.position='relative'; card.appendChild(p);
+        setTimeout(function(){p.remove()},1000);
+      }
+
+      // Build burst rays
+      var burst=document.getElementById('badgeBurst');
+      for(var i=0;i<12;i++){
+        var ray=document.createElement('div'); ray.className='burst-ray';
+        ray.style.transform='rotate('+(i*30)+'deg) translateY(-30px)';
+        burst.appendChild(ray);
+      }
+
+      function spawnConfetti(canvas,count,delay){
+        var colors=['#FF1F7A','#FF6BAB','#FFF0F6','#FFD700','#fff','#FF85B3','#FFB347'];
+        for(var i=0;i<count;i++){
+          var piece=document.createElement('div'); piece.className='confetti-piece';
+          var w=5+Math.random()*8, h=Math.random()>.4?w:w*2.5;
+          piece.style.left=Math.random()*100+'%';
+          piece.style.background=colors[Math.floor(Math.random()*colors.length)];
+          piece.style.width=w+'px'; piece.style.height=h+'px';
+          piece.style.borderRadius=Math.random()>.5?'50%':'4px';
+          piece.style.setProperty('--fall-dur',(1.5+Math.random()*1.5)+'s');
+          piece.style.setProperty('--fall-delay',(delay+Math.random()*.6)+'s');
+          piece.style.setProperty('--drift',(Math.random()*40-20)+'px');
+          canvas.appendChild(piece);
+        }
+      }
+
+      window.answerQuiz = function(qIndex, isYes, evt){
+        quizAnswers[qIndex] = isYes;
+        var card = document.querySelector('.quiz-card[data-q="'+qIndex+'"]');
+        var btn = evt.target.closest('.quiz-option') || evt.target;
+        var rect = btn.getBoundingClientRect(), cx=rect.left+rect.width/2, cy=rect.top+rect.height/2;
+        card.querySelectorAll('.quiz-option').forEach(function(b){ b.disabled=true; b.classList.remove('selected'); });
+        btn.classList.add('selected');
+
+        if(isYes){
+          flash();
+          spawnParticles(cx,cy,'#FF1F7A',12); spawnParticles(cx,cy,'#FF6BAB',8); spawnParticles(cx,cy,'#FFD700',4);
+          floatPlus(card);
+          document.getElementById('unlock'+qIndex).classList.add('visible');
+          var yc = quizAnswers.filter(function(a){return a===true}).length;
+          document.getElementById('qpbFill').style.width=(yc*25)+'%';
+          document.getElementById('qpbGlow').style.width=(yc*25)+'%';
+          document.getElementById('qpbCount').textContent=yc;
+          var lbl=document.querySelector('.qpb-label'); lbl.classList.add('glow');
+          setTimeout(function(){lbl.classList.remove('glow')},800);
+        } else {
+          card.classList.add('shake');
+          setTimeout(function(){card.classList.remove('shake')},500);
+          var u=document.getElementById('unlock'+qIndex);
+          u.classList.add('visible','no-skill');
+          u.querySelector('.unlock-icon').textContent='\u2014';
+          u.querySelector('.unlock-text').innerHTML='<strong>Not yet</strong> -- the Blueprint teaches this from scratch.';
+          u.querySelector('.unlock-sub').textContent='';
+        }
+
+        setTimeout(function(){
+          if(qIndex < 3){
+            btn.classList.add('exit-up');
+            setTimeout(function(){
+              card.style.display='none';
+              currentQ = qIndex+1;
+              var next = document.querySelector('.quiz-card[data-q="'+currentQ+'"]');
+              next.style.display='';
+              next.classList.add('enter-in');
+              setTimeout(function(){next.classList.remove('enter-in')},500);
+            },350);
+          } else {
+            setTimeout(showQuizResult, 700);
+          }
+        }, 1400);
+      };
+
+      window.showQuizResult = function(){
+        var yc = quizAnswers.filter(function(a){return a===true}).length;
+        var container = document.getElementById('quizContainer');
+        var powerbar = document.getElementById('quizPowerbar');
+        var result = document.getElementById('quizResult');
+
+        container.style.cssText='opacity:0;transform:translateY(-12px) scale(.97);transition:all .35s ease;';
+        powerbar.style.cssText='opacity:0;transition:opacity .3s;';
+
+        setTimeout(function(){
+          container.style.display='none'; powerbar.style.display='none';
+          result.style.display='block';
+
+          var canvas=document.getElementById('confettiCanvas');
+          canvas.innerHTML='';
+          spawnConfetti(canvas,35,0); spawnConfetti(canvas,25,.8); spawnConfetti(canvas,15,1.6);
+          flash();
+
+          setTimeout(function(){
+            document.getElementById('badgeWrap').classList.add('pop');
+            document.getElementById('badgeBurst').classList.add('fire');
+            setTimeout(flash,200);
+          },300);
+
+          var title=document.getElementById('quizResultTitle'), body=document.getElementById('quizResultBody'), skills=document.getElementById('badgeSkills');
+          if(yc>=3){
+            title.innerHTML='You Already Have <span style="color:var(--pink)">'+yc+' Out of 4</span> VA Skills.';
+            body.textContent="You're not starting from scratch. The skills you already use every day are the same ones businesses pay $1,000+/month for. You just need the roadmap to turn them into income.";
+          } else if(yc>=1){
+            title.innerHTML="You're Not Starting From <span style=\"color:var(--pink)\">Zero.</span>";
+            body.textContent="You already have real, billable skills. The VA Blueprint is built for exactly where you are right now. No experience required.";
+          } else {
+            title.innerHTML="That's Exactly Why <span style=\"color:var(--pink)\">This Exists.</span>";
+            body.textContent="You don't need to walk in with a skillset. The VA Blueprint starts at absolute zero and builds you up -- one simple task per day, no assumptions.";
+          }
+
+          var ph='';
+          quizAnswers.forEach(function(a,i){
+            if(a) ph+='<span class="badge-skill-pill" style="animation-delay:'+(0.8+i*.18)+'s">'+skillNames[i]+'</span>';
+          });
+          if(!ph) ph='<span class="badge-skill-pill" style="animation-delay:0.8s">Ready to learn all 4</span>';
+          skills.innerHTML=ph;
+          setTimeout(function(){
+            skills.querySelectorAll('.badge-skill-pill').forEach(function(p){p.classList.add('pop');});
+          },100);
+        },400);
+      };
+    });
+  </script>
 
   <!-- STICKY BAR -->
   <div class="sticky-bar" id="stickyBar" role="complementary" aria-label="Purchase prompt">
