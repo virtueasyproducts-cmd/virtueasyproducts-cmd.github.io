@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The VA Portfolio Builder — Virtueasy</title>
+  <title>The VA Portfolio Builder - Virtueasy</title>
   <meta name="description" content="Pick a spec client, document your work, and download a polished portfolio card. Free tool for virtual assistants by Virtueasy.">
   <meta property="og:title" content="The VA Portfolio Builder | Virtueasy">
   <meta property="og:description" content="Build a portfolio piece without a real client. Pick a spec, do the work, download the proof.">
@@ -391,6 +391,29 @@
       line-height: 1.6;
     }
 
+    /* ── PRINT STYLES ── */
+    @media print {
+      body * { visibility: hidden; }
+      .portfolio-card, .portfolio-card * { visibility: visible; }
+      .portfolio-card {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%;
+        max-width: 100% !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+      }
+      .card-section-label { color: #000 !important; }
+      .card-spec-label { color: #333 !important; }
+      .card-service-badge { background: #333 !important; }
+      .card-tool-pill {
+        background: #eee !important;
+        border-color: #ccc !important;
+      }
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
       .dropdown-row { grid-template-columns: 1fr; }
@@ -553,7 +576,7 @@ const BRIEFS = {
       "Kofi Mensah runs a boutique video production company and has been meaning to start a LinkedIn content strategy for months. He has a Google Doc of 40 post ideas, three recorded videos, and a case study draft. He needs a VA to format and schedule the LinkedIn posts, edit the video transcripts into standalone posts, and get everything into a 90-day content calendar."
     ],
     'finance': [
-      "Rachel Bowman is a certified financial planner who wants to grow her audience through educational Instagram content about personal finance. She writes all her posts but struggles to maintain consistency because posting feels like a chore during busy client seasons. She needs a VA to take her written posts, format for Instagram with line breaks and hashtags, and schedule two posts per week using Later.",
+      "Rachel Bowman is a certified financial planner who wants to grow her audience through educational Instagram content about personal finance. She writes all her posts but struggles to maintain consistency because posting feels like a chore during busy client seasons. She needs a VA to take her written posts, format them for Instagram with line breaks and hashtags, and schedule two posts per week using Later.",
       "Jordan Voss runs a tax preparation firm and wants to use the off-season to build authority on LinkedIn. He has a backlog of educational posts he wrote over the summer that have never been published. He needs a VA to review the posts for formatting, load them into LinkedIn's scheduler, space them out over 10 weeks, and track performance in a simple spreadsheet."
     ],
     'other': [
@@ -585,7 +608,7 @@ const BRIEFS = {
     ],
     'finance': [
       "Whitney Pace is a wealth advisor who wants to grow on LinkedIn by sharing personal finance education. She's cautious about compliance and only wants educational content that doesn't constitute advice — but she still struggles to maintain any presence at all. She needs a VA to manage her LinkedIn: writing pre-approved educational posts twice a week, responding to comments, and building a content queue she reviews monthly.",
-      "Andre Kim runs a financial literacy nonprofit and wants to grow their Instagram following among 18 to 30-year-olds. The account has 2,100 followers and they post inconsistently. He needs a VA to take their written content, format for Instagram carousels and single images, maintain a daily posting schedule, and respond to DMs and comments."
+      "Andre Kim runs a financial literacy nonprofit and wants to grow their Instagram following among 18 to 30-year-olds. The account has 2,100 followers and they post inconsistently. He needs a VA to take their written content, format it for Instagram carousels and single images, maintain a daily posting schedule, and respond to DMs and comments."
     ],
     'other': [
       "Jonah Parker is a fitness coach who built his following through YouTube but wants to repurpose that content onto Instagram and TikTok. He films everything himself but doesn't understand short-form strategy and hasn't started either account. He needs a VA to clip his YouTube videos into Reels and TikToks, write platform-native captions, post daily, and track which clips perform best.",
@@ -658,7 +681,7 @@ const BRIEFS = {
   'research-reporting': {
     'ecommerce': [
       "Olivia Nash runs a sustainable apparel brand and wants to expand into two new product categories. Before she invests in sampling and inventory, she wants a competitive analysis of 3 to 5 brands already in those spaces — pricing, bestsellers, marketing approach, and customer sentiment from reviews. She needs a VA to compile a research report she can review before making a final category decision.",
-      "Brendan Chu manages paid advertising for his Shopify store and wants to understand which ad angles are working best in the women's fitness apparel market. He needs a VA to pull competitor ads from Facebook Ad Library, categorize by messaging type, and summarize trends in a one-page doc he can share with his creative team."
+      "Brendan Chu manages paid advertising for his Shopify store and wants to understand which ad angles are working best in the women's fitness apparel market. He needs a VA to pull competitor ads from Facebook Ad Library, categorize them by messaging type, and summarize trends in a one-page doc he can share with his creative team."
     ],
     'coaching': [
       "Gabriella Moreno is a leadership coach preparing a keynote on burnout in high-growth companies. She needs research support: 5 to 8 current studies or articles on the topic, a summary of key statistics, and a brief competitive review of how other speakers are positioning the subject. She needs a VA to compile a research brief she can use to build her presentation.",
@@ -765,21 +788,21 @@ function pickBrief(service, industry) {
 }
 
 // ─────────────────────────────────────────────
-//  IMAGE DOWNLOAD LOGIC
+//  DOWNLOAD PNG
 // ─────────────────────────────────────────────
 
 async function downloadAsPng() {
   const card = document.getElementById('portfolio-card');
-  const downloadBtn = document.querySelector('.btn-download-trigger');
-  const originalText = downloadBtn.innerHTML;
+  const btn = document.querySelector('.btn-download-trigger');
+  const originalText = btn.innerHTML;
 
-  downloadBtn.innerHTML = "Generating...";
-  downloadBtn.disabled = true;
+  btn.innerHTML = "Generating Image...";
+  btn.disabled = true;
 
   try {
     const canvas = await html2canvas(card, {
-      scale: 2, // High resolution
-      useCORS: true, 
+      scale: 2,
+      useCORS: true,
       backgroundColor: "#ffffff",
       logging: false
     });
@@ -792,8 +815,8 @@ async function downloadAsPng() {
     console.error("Capture failed", err);
     alert("Could not generate image. Please try again.");
   } finally {
-    downloadBtn.innerHTML = originalText;
-    downloadBtn.disabled = false;
+    btn.innerHTML = originalText;
+    btn.disabled = false;
   }
 }
 
@@ -1021,7 +1044,7 @@ function renderStep3() {
       <h2 class="step-title">Your Portfolio Card</h2>
 
       <div class="step3-intro">
-        <strong>Ready to download.</strong> Click &ldquo;Download as PNG&rdquo; to save your portfolio card as a high-quality image.
+        <strong>Ready to download.</strong> Click &ldquo;Download as PNG&rdquo; to save your portfolio card as a high-quality image file.
       </div>
 
       <div class="portfolio-card-wrapper">
