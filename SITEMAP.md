@@ -16,6 +16,7 @@
 | `virtueasy.com/pricing-tool/` | `/pricing-tool/index.html` | Live | VA Pricing Calculator (full app) |
 | `virtueasy.com/260-prompts/` | `/260-prompts/index.html` | Live | Prompts landing + download link |
 | `virtueasy.com/va-blueprint/` | `/va-blueprint/index.html` | Live | Blueprint sales page |
+| `virtueasy.com/va-proposal-template/` | `/va-proposal-template/index.html` | Live | Free VA proposal template landing + editable template |
 | `virtueasy.com/260-prompts-download.html` | `/260-prompts-download.html` | Live | Existing download/opt-in page |
 | `virtueasy.com/privacy-policy.html` | `/privacy-policy.html` | Live | Existing privacy policy |
 
@@ -60,6 +61,7 @@ Home (/)
 | Blueprint Preview | Free | virtueasyproducts-cmd.github.io/va-blueprint-preview |
 | VA Pricing Tool | Free | virtueasy.com/pricing-tool/ |
 | 260 ChatGPT Prompts | Free | virtueasy.com/260-prompts/ |
+| VA Proposal Template | Free | virtueasy.com/va-proposal-template/ |
 
 ---
 
