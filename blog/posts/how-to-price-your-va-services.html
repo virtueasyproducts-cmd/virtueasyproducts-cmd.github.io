@@ -67,6 +67,20 @@ article a:hover { text-decoration: underline; }
 .numbered-list li { counter-increment: item; display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; color: var(--light); }
 .numbered-list li::before { content: counter(item); background: var(--pink); color: var(--white); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; min-width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
 
+.promo-banner {
+  border: 1px solid var(--pink);
+  padding: 2rem 1.8rem;
+  margin: 2.5rem 0;
+  text-align: center;
+  background: rgba(255,31,122,0.07);
+  border-radius: 2px;
+}
+.promo-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.5rem; }
+.promo-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.5rem, 4vw, 2.2rem); letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.5rem; }
+.promo-sub { font-size: 0.92rem; color: var(--light); margin-bottom: 1.3rem; max-width: 420px; margin-left: auto; margin-right: auto; }
+.promo-btn { display: inline-block; background: var(--pink); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.75rem 1.8rem; text-decoration: none; }
+.promo-btn:hover { background: #d4005a; text-decoration: none; }
+
 .cta-block { background: var(--pink); padding: 4rem 2rem; text-align: center; }
 .cta-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 0.8rem; }
 .cta-block h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 5vw, 3.2rem); letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.8rem; }
@@ -76,7 +90,7 @@ article a:hover { text-decoration: underline; }
 
 footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); text-align: center; padding: 2rem; font-size: 0.78rem; color: var(--mid); }
 footer a { color: var(--pink); text-decoration: none; }
-</style>
+  </style>
 </head>
 <body>
 
@@ -97,10 +111,18 @@ footer a { color: var(--pink); text-decoration: none; }
 
 <h2>The Undercharging Trap</h2>
 <p>New VAs almost always start by charging too little. It feels safer. You tell yourself you will raise rates once you have more experience, more testimonials, more confidence. But here is what actually happens: you attract clients who are used to paying rock bottom, you burn out on high-volume low-pay work, and raising your rates later becomes a crisis instead of a natural progression.</p>
-<p>Pricing is not just a number. It is a positioning statement. Before you pick a rate, you need to understand what you are actually communicating with it.</p>
+<p>Pricing is not just a number. It is a positioning statement. Before you pick a rate, you need to understand what you are actually communicating with it. Use our <a href="https://virtueasy.com/pricing-tool/">free VA pricing tool</a> to find your number before you quote a single client.</p>
+
+<!-- Pricing tool banner: top of article -->
+<div class="promo-banner">
+  <p class="promo-eyebrow">Free Tool</p>
+  <p class="promo-title">What Should You Actually Be Charging?</p>
+  <p class="promo-sub">Answer a few quick questions and get your personalized VA rate recommendation — no guesswork, no underselling.</p>
+  <a href="https://virtueasy.com/pricing-tool/" class="promo-btn">Use the Free Pricing Tool →</a>
+</div>
 
 <h2>Start With Your Real Cost of Business</h2>
-<p>Your hourly rate is not what you earn. It is what you charge before taxes, software, admin time, and unpaid hours eat into it. Before you quote a single client, calculate your baseline:</p>
+<p>Your hourly rate is not what you earn. It is what you charge before taxes, software, admin time, and unpaid hours eat into it. Before you quote a single client, <a href="https://virtueasy.com/pricing-tool/">calculate your baseline</a>:</p>
 <ul>
   <li><strong>Monthly expenses:</strong> software subscriptions, internet, a portion of your phone bill, any tools specific to your work</li>
   <li><strong>Tax set-aside:</strong> in the US, self-employed VAs typically set aside 25-30% for taxes</li>
@@ -109,7 +131,15 @@ footer a { color: var(--pink); text-decoration: none; }
 <p>If you want to bring home $3,000/month and you realistically have 80 billable hours available, you need to be charging at least $50/hour before taxes just to break even. Most new VAs charge $15-25/hour. You can see the problem.</p>
 
 <div class="callout">
-  <p><strong>Quick math:</strong> Take your desired monthly take-home. Add 30% for taxes. Add 20% for business overhead. Divide by your realistic billable hours. That is your floor, not your ceiling.</p>
+  <p><strong>Quick math:</strong> Take your desired monthly take-home. Add 30% for taxes. Add 20% for business overhead. Divide by your realistic billable hours. That is your floor, not your ceiling. <a href="https://virtueasy.com/pricing-tool/" style="color:var(--pink);">Run the numbers automatically →</a></p>
+</div>
+
+<!-- Pricing tool banner: after cost section -->
+<div class="promo-banner">
+  <p class="promo-eyebrow">Skip the Spreadsheet</p>
+  <p class="promo-title">Calculate Your VA Rate in Under 2 Minutes</p>
+  <p class="promo-sub">Plug in your income goal, hours, and expenses. The pricing tool does the rest and gives you a rate you can actually defend.</p>
+  <a href="https://virtueasy.com/pricing-tool/" class="promo-btn">Calculate My Rate →</a>
 </div>
 
 <h2>What the Market Actually Pays</h2>
@@ -121,7 +151,7 @@ footer a { color: var(--pink); text-decoration: none; }
   <li><strong>Tech-savvy VAs (funnels, CRMs, automations):</strong> $50-100/hour</li>
   <li><strong>Specialized niches (legal, medical, real estate):</strong> $40-85/hour</li>
 </ul>
-<p>These are not ceilings. They are starting points. The VAs charging on the higher end are not necessarily more skilled. They are better at positioning their value.</p>
+<p>These are not ceilings. They are starting points. The VAs charging on the higher end are not necessarily more skilled. They are better at positioning their value. Not sure where you fall? <a href="https://virtueasy.com/pricing-tool/">Find your range with the pricing tool.</a></p>
 
 <h2>How to Defend Your Rate Without Flinching</h2>
 <p>The moment a potential client asks about your rate, most new VAs get nervous and start justifying. That is the wrong move. Confidence is more convincing than credentials.</p>
@@ -137,7 +167,7 @@ footer a { color: var(--pink); text-decoration: none; }
 
 <h2>When to Raise Your Rates</h2>
 <p>You should raise your rates when you are consistently booked, when you have gotten measurable results for clients, when you have added a new skill set, or when your calendar starts to feel stretched. Any one of these is justification enough. You do not need all four.</p>
-<p>Raise rates with new clients first. Once you are comfortable with the new number, you can migrate existing clients at renewal or give them advance notice of a price increase.</p>
+<p>Raise rates with new clients first. Once you are comfortable with the new number, you can migrate existing clients at renewal or give them advance notice of a price increase. Use the <a href="https://virtueasy.com/pricing-tool/">pricing tool</a> to confirm your new rate is sustainable before you announce it.</p>
 
 <div class="callout">
   <p><strong>The simplest rate-raise script:</strong> "I wanted to let you know that starting [date], my rates will be moving to [new rate]. I really enjoy working with you and wanted to give you plenty of notice. Happy to answer any questions."</p>
@@ -145,7 +175,15 @@ footer a { color: var(--pink); text-decoration: none; }
 
 <h2>The Mindset Shift That Changes Everything</h2>
 <p>Charging more is not greedy. It is what allows you to do your best work. When you are underpaid, you resent the work, rush through it, and eventually either burn out or quit. When you charge what your work is worth, you show up differently. Your clients feel that.</p>
-<p>Pick a number that makes you slightly uncomfortable. That is probably closer to right than the number that feels safe.</p>
+<p>Pick a number that makes you slightly uncomfortable. That is probably closer to right than the number that feels safe. If you need a starting point, <a href="https://virtueasy.com/pricing-tool/">the pricing tool will give you one.</a></p>
+
+<!-- Pricing tool banner: end of article -->
+<div class="promo-banner">
+  <p class="promo-eyebrow">Ready to Set Your Rate?</p>
+  <p class="promo-title">Find Your Number with the Free VA Pricing Tool</p>
+  <p class="promo-sub">Stop guessing. Get a rate based on your actual income goal, hours, and niche — in under two minutes.</p>
+  <a href="https://virtueasy.com/pricing-tool/" class="promo-btn">Get My Rate Now — Free →</a>
+</div>
 
 </article>
 
