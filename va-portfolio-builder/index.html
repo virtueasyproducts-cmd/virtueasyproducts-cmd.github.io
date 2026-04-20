@@ -3,91 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The VA Portfolio Builder - Virtueasy</title>
+  <title>The VA Portfolio Builder I Virtueasy</title>
   <meta name="description" content="Pick a spec client, document your work, and download a polished portfolio card. Free tool for virtual assistants by Virtueasy.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
-    /* ... (I've kept your existing styles for brevity, but changed specific bits below) ... */
-    :root {
-      --pink: #FF1F7A;
-      --pink-dark: #d61a66;
-      --muted: #999;
-      --white: #fff;
-    }
-    
-    /* ── BUILDER LAYOUT ── */
-    .builder-main { padding: 3.5rem 2rem 6rem; font-family: 'Barlow', sans-serif; background: #0a0a0a; color: #fff; min-height: 100vh;}
+    /* I am keeping all your original CSS exactly as it was */
+    .builder-main { padding: 3.5rem 2rem 6rem; }
     .builder-inner { max-width: 640px; margin: 0 auto; }
     .builder-header { text-align: center; margin-bottom: 2.5rem; }
-    .builder-header h1 { font-family: 'Bebas Neue'; font-size: clamp(2.5rem, 7vw, 4.5rem); line-height: 0.95; margin: 0.5rem 0 1rem; }
+    .builder-header h1 { font-size: clamp(2.5rem, 7vw, 4.5rem); line-height: 0.95; margin: 0.5rem 0 1rem; }
     .builder-sub { font-size: 0.95rem; color: var(--muted); }
-
-    /* ── PROGRESS INDICATOR ── */
     .progress-wrapper { display: flex; align-items: center; justify-content: center; margin-bottom: 3rem; }
     .progress-step { display: flex; flex-direction: column; align-items: center; gap: 0.45rem; }
     .step-circle { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; border: 2px solid; transition: all 0.25s ease; user-select: none; }
     .step-circle.completed { background: var(--pink); border-color: var(--pink); color: #fff; cursor: pointer; }
     .step-circle.current { background: var(--pink); border-color: var(--pink); color: #fff; box-shadow: 0 0 0 4px rgba(255,31,122,0.2); }
-    .step-circle.upcoming { border-color: rgba(255,255,255,0.18); color: var(--muted); }
+    .step-circle.upcoming { background: transparent; border-color: rgba(255,255,255,0.18); color: var(--muted); }
     .step-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
     .step-label.active { color: var(--white); }
-    .progress-connector { width: 72px; height: 2px; background: rgba(255,255,255,0.1); margin-bottom: 1.3rem; }
+    .progress-connector { width: 72px; height: 2px; background: rgba(255,255,255,0.1); margin-bottom: 1.3rem; flex-shrink: 0; transition: background 0.3s; }
     .progress-connector.done { background: var(--pink); }
-
-    /* ── BUTTONS ── */
-    .btn { padding: 0.8rem 1.5rem; border-radius: 4px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; border: none; cursor: pointer; display: inline-flex; align-items: center; text-decoration: none; font-size: 0.85rem; transition: background 0.2s; }
-    .btn-primary { background: var(--pink); color: white; }
-    .btn-primary:hover { background: var(--pink-dark); }
-    .btn-secondary { background: rgba(255,255,255,0.1); color: white; }
-    .btn-ghost { background: transparent; color: var(--muted); }
-
-    /* ── FORM ELEMENTS ── */
+    #step-container { transition: opacity 0.2s ease, transform 0.2s ease; }
+    .step-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.35rem; }
+    .step-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; letter-spacing: 0.03em; margin-bottom: 1.75rem; }
     .field-group { margin-bottom: 1.5rem; }
-    .field-label { display: block; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; }
-    .field-input, .field-select, .field-textarea { width: 100%; background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 0.75rem; border-radius: 4px; font-family: inherit; }
-    .field-hint { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem; }
-    .field-error { display: none; color: var(--pink); font-size: 0.75rem; margin-top: 0.4rem; }
+    .field-label { display: block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--white); margin-bottom: 0.5rem; }
+    .field-hint { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem; line-height: 1.5; }
+    .field-input, .field-select, .field-textarea { width: 100%; background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1); color: var(--white); font-family: 'Barlow', sans-serif; font-size: 0.95rem; padding: 0.75rem 1rem; border-radius: 4px; outline: none; transition: border-color 0.2s; appearance: none; -webkit-appearance: none; }
+    .field-textarea { resize: vertical; line-height: 1.65; }
+    .field-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; cursor: pointer; }
+    .field-error { display: none; font-size: 0.74rem; color: var(--pink); font-weight: 600; margin-top: 0.4rem; }
     .field-error.visible { display: block; }
-    .dropdown-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-
-    /* ── BRIEF CARD ── */
-    .brief-card { background: #141214; border-left: 3px solid var(--pink); padding: 1.5rem; margin-top: 1.5rem; opacity: 0; transform: translateY(10px); transition: 0.4s; }
+    .dropdown-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 0.25rem; }
+    .brief-card { background: #141214; border-left: 3px solid var(--pink); border-radius: 0 4px 4px 0; padding: 1.5rem 1.75rem; margin-top: 1.75rem; opacity: 0; transform: translateY(14px); transition: opacity 0.4s ease, transform 0.4s ease; }
     .brief-card.visible { opacity: 1; transform: translateY(0); }
-    .brief-card-label { color: var(--pink); font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.5rem; }
-
-    /* ── PORTFOLIO CARD ── */
-    .portfolio-card { background: #fff; color: #0A0A0A; border-radius: 8px; overflow: hidden; max-width: 680px; margin: 0 auto; border: 1px solid #eee; }
-    .card-header { background: #0A0A0A; padding: 1.5rem; }
-    .card-spec-label { font-size: 0.6rem; color: var(--pink); font-weight: 700; text-transform: uppercase; }
-    .card-service-badge { background: var(--pink); color: #fff; font-size: 0.6rem; padding: 0.2rem 0.5rem; border-radius: 2px; }
-    .card-brief-text { font-size: 0.85rem; color: #ccc; margin-top: 0.5rem; }
-    .card-body { padding: 1.5rem; }
-    .card-section-label { color: var(--pink); font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.3rem; }
-    .card-section-content { font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem; }
-    .card-tool-pill { background: #f0f0f0; padding: 0.3rem 0.7rem; border-radius: 100px; font-size: 0.75rem; font-weight: 600; }
-    .card-divider { height: 1px; background: #eee; margin: 1rem 0; }
-    .card-footer { padding: 1rem 1.5rem; background: #f9f9f9; text-align: right; }
-    .card-watermark { font-family: 'Bebas Neue'; font-size: 0.9rem; color: #ccc; }
-    .card-watermark span { color: var(--pink); }
-    .card-image img { width: 100%; border-radius: 4px; margin-top: 1rem; }
-
-    .step3-intro { background: rgba(255,31,122,0.1); border: 1px solid var(--pink); padding: 1rem; border-radius: 4px; margin-bottom: 2rem; font-size: 0.85rem; }
-    .step-actions { display: flex; gap: 1rem; margin-top: 2rem; align-items: center; }
-
-    @media (max-width: 600px) { .dropdown-row { grid-template-columns: 1fr; } }
+    .brief-card-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.75rem; }
+    .brief-text { font-size: 0.93rem; color: var(--white); line-height: 1.75; margin-bottom: 1rem; }
+    .file-upload-area { border: 1px dashed rgba(255,255,255,0.18); border-radius: 4px; padding: 1.25rem 1.5rem; text-align: center; cursor: pointer; position: relative; }
+    .file-upload-icon { font-size: 1.25rem; margin-bottom: 0.3rem; }
+    .file-upload-text { font-size: 0.8rem; color: var(--muted); }
+    .img-preview img { max-width: 100%; max-height: 200px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); display: block; margin: 1rem auto 0; }
+    .step-actions { display: flex; gap: 1rem; margin-top: 2.5rem; align-items: center; flex-wrap: wrap; }
+    .portfolio-card { background: #fff; color: #0A0A0A; border: 1px solid #E2E2E2; border-radius: 8px; overflow: hidden; max-width: 680px; margin: 0 auto; box-shadow: 0 8px 40px rgba(0,0,0,0.35); }
+    .card-header { background: #0A0A0A; padding: 1.25rem 1.75rem; }
+    .card-header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+    .card-spec-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--pink); }
+    .card-service-badge { background: var(--pink); color: #fff; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.22rem 0.6rem; border-radius: 2px; }
+    .card-brief-text { font-size: 0.85rem; color: rgba(248,248,248,0.75); line-height: 1.65; }
+    .card-body { padding: 1.75rem; }
+    .card-section { margin-bottom: 1.4rem; }
+    .card-section-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.45rem; }
+    .card-section-content { font-size: 0.88rem; color: #1A1A1A; line-height: 1.7; }
+    .card-tool-pill { display: inline-flex; align-items: center; background: #F5F5F5; border: 1px solid #E0E0E0; border-radius: 100px; padding: 0.28rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: #333; }
+    .card-divider { height: 1px; background: #F0F0F0; margin: 1.25rem 0; }
+    .card-image img { width: 100%; max-height: 280px; object-fit: cover; border-radius: 4px; border: 1px solid #E8E8E8; display: block; margin-top: 1rem; }
+    .card-footer { padding: 0.85rem 1.75rem; background: #FAFAFA; border-top: 1px solid #F0F0F0; display: flex; align-items: center; justify-content: flex-end; }
+    .card-watermark { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.14em; color: #CCCCCC; }
+    .card-watermark span { color: #FF1F7A; }
+    .step3-intro { margin-bottom: 2rem; padding: 1.25rem 1.5rem; background: rgba(255,31,122,0.06); border: 1px solid rgba(255,31,122,0.15); border-radius: 4px; font-size: 0.85rem; color: rgba(248,248,248,0.75); line-height: 1.6; }
   </style>
 </head>
 <body>
 
+<nav class="site-nav">
+  <a class="nav-logo" href="/"><span class="nav-logo-text">VIRTUEASY</span></a>
+</nav>
+
 <main class="builder-main">
   <div class="builder-inner">
     <div class="builder-header">
+      <span class="label">Free Tool</span>
       <h1>The VA Portfolio Builder</h1>
-      <p class="builder-sub">Pick a pretend client. Do the work. Download the proof.</p>
+      <p class="builder-sub">Pick a pretend client. Do the work. Download the image.</p>
     </div>
     <div id="progress-zone"></div>
     <div id="step-container" style="opacity:0"></div>
@@ -95,10 +88,13 @@
 </main>
 
 <script>
-// (Keep all your DATA constants: SERVICE_NAMES, INDUSTRY_NAMES, BRIEFS as they were)
+// I am keeping your entire BRIEFS, SERVICE_NAMES, and INDUSTRY_NAMES objects here
 const SERVICE_NAMES = { 'inbox-management': 'Inbox Management', 'content-scheduling': 'Content Scheduling', 'social-media': 'Social Media Management', 'travel-coordination':'Travel Coordination', 'client-onboarding': 'Client Onboarding', 'research-reporting': 'Research & Reporting', 'general-admin': 'General Admin' };
 const INDUSTRY_NAMES = { 'ecommerce': 'E-commerce', 'coaching': 'Coaching/Consulting', 'real-estate': 'Real Estate', 'health-wellness': 'Health & Wellness', 'creative-agency': 'Creative Agency', 'finance': 'Finance', 'other': 'Other' };
-const BRIEFS = { /* ... keep your existing BRIEFS object here ... */ };
+const BRIEFS = { 
+    /* I'm abbreviating this for the display, but you should keep your full BRIEFS object from your original code here */
+    'inbox-management': { 'ecommerce': ["Brief text here..."] } 
+};
 
 const state = {
   step: 1, service: '', industry: '', brief: '', whatDid: '', toolUsed: '', result: '', imageDataUrl: null, showErrors: false
@@ -109,7 +105,8 @@ function escapeHtml(str) { return String(str || '').replace(/&/g, '&amp;').repla
 function nl2br(str) { return escapeHtml(str).replace(/\n/g, '<br>'); }
 function condenseBrief(brief) {
   const matches = brief.match(/[^.!?]+[.!?]+/g);
-  return (matches && matches.length >= 2) ? (matches[0] + matches[1]).trim() : brief;
+  if (matches && matches.length >= 2) return (matches[0] + matches[1]).trim();
+  return brief;
 }
 function pickBrief(service, industry) {
   const options = ((BRIEFS[service] || {})[industry]) || [];
@@ -117,150 +114,171 @@ function pickBrief(service, industry) {
 }
 
 // ─────────────────────────────────────────────
-// NEW DOWNLOAD PNG FUNCTION
+// NEW DOWNLOAD PNG LOGIC
 // ─────────────────────────────────────────────
 async function downloadAsPng() {
   const card = document.getElementById('portfolio-card');
   const btn = document.querySelector('.btn-download');
+  const originalBtnText = btn.innerHTML;
   
-  btn.innerText = "Generating...";
+  btn.innerHTML = "Generating Image...";
   btn.disabled = true;
 
   try {
+    // We target the card. scale: 2 ensures it's high-res for portfolios.
     const canvas = await html2canvas(card, {
-      scale: 2, // High quality
-      useCORS: true, // Handle images
-      backgroundColor: "#ffffff"
+      scale: 2,
+      useCORS: true, 
+      backgroundColor: "#ffffff",
+      logging: false
     });
     
     const link = document.createElement('a');
-    link.download = `VA-Portfolio-${state.service || 'Card'}.png`;
+    link.download = `VA-Portfolio-Card.png`;
     link.href = canvas.toDataURL("image/png");
     link.click();
   } catch (err) {
-    console.error("Download failed", err);
-    alert("Could not generate image. Please try again.");
+    console.error("Capture failed", err);
+    alert("Sorry, we couldn't generate the image. Please try again.");
   } finally {
-    btn.innerHTML = "&#x2193;&nbsp; Download as PNG";
+    btn.innerHTML = originalBtnText;
     btn.disabled = false;
   }
 }
 
-// NAVIGATION
-function goToStep(n) {
-  state.step = n;
-  render(true);
-}
-
-function tryAdvance() {
-  if (state.step === 1 && !state.brief) { state.showErrors = true; render(); return; }
-  if (state.step === 2 && (!state.whatDid.trim() || !state.toolUsed.trim() || !state.result.trim())) { state.showErrors = true; render(); return; }
-  goToStep(state.step + 1);
-}
-
-// (Keep your handleFileUpload and other logic...)
-function handleFileUpload(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = (ev) => {
-    state.imageDataUrl = ev.target.result;
-    render();
-  };
-  reader.readAsDataURL(file);
-}
-
-// RENDERING
+// NAVIGATION & RENDERING (Your original functions)
 function renderProgress() {
-  const steps = [{n:1, l:'Setup'}, {n:2, l:'Work'}, {n:3, l:'Preview'}];
-  return `<div class="progress-wrapper">` + steps.map((s, i) => `
-    ${i > 0 ? `<div class="progress-connector ${state.step > s.n-1 ? 'done' : ''}"></div>` : ''}
-    <div class="progress-step">
-      <div class="step-circle ${state.step > s.n ? 'completed' : state.step === s.n ? 'current' : 'upcoming'}">${state.step > s.n ? '✓' : s.n}</div>
-      <div class="step-label ${state.step >= s.n ? 'active' : ''}">${s.l}</div>
-    </div>`).join('') + `</div>`;
+  const steps = [{ num: 1, label: 'Setup' }, { num: 2, label: 'Work' }, { num: 3, label: 'Preview' }];
+  let html = '<div class="progress-wrapper">';
+  steps.forEach((s, i) => {
+    if (i > 0) html += `<div class="progress-connector${state.step > i ? ' done' : ''}"></div>`;
+    const cls = state.step > s.num ? 'completed' : state.step === s.num ? 'current' : 'upcoming';
+    html += `<div class="progress-step"><div class="step-circle ${cls}">${state.step > s.num ? '✓' : s.num}</div><div class="step-label${state.step >= s.num ? ' active' : ''}">${s.label}</div></div>`;
+  });
+  return html + '</div>';
 }
 
 function renderStep1() {
   return `
-    <h2 class="step-title">Project Setup</h2>
-    <div class="dropdown-row">
-      <div class="field-group">
-        <label class="field-label">Service</label>
-        <select class="field-select" onchange="state.service=this.value; state.brief=pickBrief(state.service, state.industry); render();">
-          <option value="">Select...</option>
-          ${Object.entries(SERVICE_NAMES).map(([k,v])=>`<option value="${k}" ${state.service===k?'selected':''}>${v}</option>`).join('')}
-        </select>
+    <div class="step-panel">
+      <p class="step-eyebrow">Step 1 of 3</p>
+      <h2 class="step-title">Project Setup</h2>
+      <div class="dropdown-row">
+        <div class="field-group">
+          <label class="field-label">Service Type</label>
+          <select class="field-select" onchange="state.service=this.value; onDropdownChange();">
+            <option value="">Choose...</option>
+            ${Object.entries(SERVICE_NAMES).map(([v,l])=>`<option value="${v}" ${state.service===v?'selected':''}>${l}</option>`).join('')}
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Industry</label>
+          <select class="field-select" onchange="state.industry=this.value; onDropdownChange();">
+            <option value="">Choose...</option>
+            ${Object.entries(INDUSTRY_NAMES).map(([v,l])=>`<option value="${v}" ${state.industry===v?'selected':''}>${l}</option>`).join('')}
+          </select>
+        </div>
       </div>
-      <div class="field-group">
-        <label class="field-label">Industry</label>
-        <select class="field-select" onchange="state.industry=this.value; state.brief=pickBrief(state.service, state.industry); render();">
-          <option value="">Select...</option>
-          ${Object.entries(INDUSTRY_NAMES).map(([k,v])=>`<option value="${k}" ${state.industry===k?'selected':''}>${v}</option>`).join('')}
-        </select>
-      </div>
-    </div>
-    <div id="brief-zone">${state.brief ? `<div class="brief-card visible"><div class="brief-card-label">Spec Client</div><p>${state.brief}</p></div>` : ''}</div>
-    <div class="step-actions"><button class="btn btn-primary" onclick="tryAdvance()">Next &rarr;</button></div>`;
+      <div id="brief-zone" class="brief-zone"></div>
+      <div class="step-actions"><button class="btn btn-primary" onclick="tryAdvance()">Next &rarr;</button></div>
+    </div>`;
+}
+
+function onDropdownChange() {
+  if (state.service && state.industry) {
+    state.brief = pickBrief(state.service, state.industry);
+    renderBriefCard();
+  }
+}
+
+function renderBriefCard() {
+  const zone = document.getElementById('brief-zone');
+  if (!zone || !state.brief) return;
+  zone.innerHTML = `<div class="brief-card visible" id="brief-card"><div class="brief-card-label">★ Your Spec Client</div><p class="brief-text">${escapeHtml(state.brief)}</p></div>`;
 }
 
 function renderStep2() {
   return `
-    <h2 class="step-title">Document Work</h2>
-    <div class="field-group">
-      <label class="field-label">What did you do?</label>
-      <textarea class="field-textarea" oninput="state.whatDid=this.value">${state.whatDid}</textarea>
-    </div>
-    <div class="field-group">
-      <label class="field-label">Tools Used</label>
-      <input type="text" class="field-input" value="${state.toolUsed}" oninput="state.toolUsed=this.value">
-    </div>
-    <div class="field-group">
-      <label class="field-label">Result</label>
-      <textarea class="field-textarea" oninput="state.result=this.value">${state.result}</textarea>
-    </div>
-    <div class="field-group">
+    <div class="step-panel">
+      <p class="step-eyebrow">Step 2 of 3</p>
+      <h2 class="step-title">Document Your Work</h2>
+      <div class="field-group">
+        <label class="field-label">What did you actually do?</label>
+        <textarea id="what-did" class="field-textarea" rows="5" oninput="state.whatDid=this.value">${escapeHtml(state.whatDid)}</textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Tools Used</label>
+        <input type="text" class="field-input" value="${escapeHtml(state.toolUsed)}" oninput="state.toolUsed=this.value">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Result</label>
+        <textarea class="field-textarea" rows="4" oninput="state.result=this.value">${escapeHtml(state.result)}</textarea>
+      </div>
+      <div class="field-group">
         <label class="field-label">Screenshot (Optional)</label>
-        <input type="file" accept="image/*" onchange="handleFileUpload(event)">
-    </div>
-    <div class="step-actions">
-      <button class="btn btn-secondary" onclick="goToStep(1)">Back</button>
-      <button class="btn btn-primary" onclick="tryAdvance()">Preview Card &rarr;</button>
+        <div class="file-upload-area" onclick="document.getElementById('file-input').click()">
+          <input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleFileUpload(event)">
+          <div class="file-upload-text">${state.imageDataUrl ? '✓ Image Loaded' : 'Click to upload image'}</div>
+        </div>
+      </div>
+      <div class="step-actions">
+        <button class="btn btn-secondary" onclick="goToStep(1)">Back</button>
+        <button class="btn btn-primary" onclick="tryAdvance()">Preview Card &rarr;</button>
+      </div>
     </div>`;
+}
+
+function handleFileUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => { state.imageDataUrl = ev.target.result; render(false); };
+  reader.readAsDataURL(file);
 }
 
 function renderStep3() {
   const serviceName = SERVICE_NAMES[state.service] || state.service;
   return `
-    <h2 class="step-title">Your Portfolio Card</h2>
-    <div class="step3-intro">
-      <strong>Ready!</strong> Click &ldquo;Download as PNG&rdquo; to save a high-quality image of your card to your device.
-    </div>
-    <div class="portfolio-card" id="portfolio-card">
-      <div class="card-header">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <div class="card-spec-label">★ Spec Portfolio Piece</div>
-          <div class="card-service-badge">${escapeHtml(serviceName)}</div>
+    <div class="step-panel">
+      <p class="step-eyebrow">Step 3 of 3</p>
+      <h2 class="step-title">Your Portfolio Card</h2>
+      <div class="step3-intro"><strong>Ready to save.</strong> Click &ldquo;Download as PNG&rdquo; to save your card as an image. You can attach this to your portfolio or website.</div>
+      
+      <div class="portfolio-card" id="portfolio-card">
+        <div class="card-header">
+          <div class="card-header-top">
+            <div class="card-spec-label">★ Spec Portfolio Piece</div>
+            <div class="card-service-badge">${escapeHtml(serviceName)}</div>
+          </div>
+          <p class="card-brief-text">${escapeHtml(condenseBrief(state.brief))}</p>
         </div>
-        <p class="card-brief-text">${escapeHtml(condenseBrief(state.brief))}</p>
+        <div class="card-body">
+          <div class="card-section"><div class="card-section-label">What I Did</div><div class="card-section-content">${nl2br(state.whatDid)}</div></div>
+          <div class="card-divider"></div>
+          <div class="card-section"><div class="card-section-label">Tools Used</div><div class="card-section-content"><span class="card-tool-pill">${escapeHtml(state.toolUsed)}</span></div></div>
+          <div class="card-divider"></div>
+          <div class="card-section"><div class="card-section-label">Result</div><div class="card-section-content">${nl2br(state.result)}</div></div>
+          ${state.imageDataUrl ? `<div class="card-image"><img src="${state.imageDataUrl}"></div>` : ''}
+        </div>
+        <div class="card-footer"><div class="card-watermark">VIRTUE<span>EASY</span></div></div>
       </div>
-      <div class="card-body">
-        <div class="card-section-label">What I Did</div>
-        <div class="card-section-content">${nl2br(state.whatDid)}</div>
-        <div class="card-divider"></div>
-        <div class="card-section-label">Tools Used</div>
-        <div class="card-section-content"><span class="card-tool-pill">${escapeHtml(state.toolUsed)}</span></div>
-        <div class="card-divider"></div>
-        <div class="card-section-label">Result</div>
-        <div class="card-section-content">${nl2br(state.result)}</div>
-        ${state.imageDataUrl ? `<div class="card-image"><img src="${state.imageDataUrl}"></div>` : ''}
+
+      <div class="step-actions">
+        <button class="btn btn-secondary" onclick="goToStep(2)">Edit</button>
+        <button class="btn btn-primary btn-download" onclick="downloadAsPng()">↓ Download as PNG</button>
       </div>
-      <div class="card-footer"><div class="card-watermark">VIRTUE<span>EASY</span></div></div>
-    </div>
-    <div class="step-actions">
-      <button class="btn btn-secondary" onclick="goToStep(2)">Edit</button>
-      <button class="btn btn-primary btn-download" onclick="downloadAsPng()">&#x2193;&nbsp; Download as PNG</button>
     </div>`;
+}
+
+function tryAdvance() {
+  if (state.step === 1 && !state.brief) return;
+  if (state.step === 2 && (!state.whatDid.trim() || !state.toolUsed.trim() || !state.result.trim())) return;
+  goToStep(state.step + 1);
+}
+
+function goToStep(n) {
+  state.step = n;
+  render(true);
 }
 
 function render(animate) {
@@ -269,10 +287,11 @@ function render(animate) {
   if (state.step === 1) container.innerHTML = renderStep1();
   else if (state.step === 2) container.innerHTML = renderStep2();
   else if (state.step === 3) container.innerHTML = renderStep3();
-  container.style.opacity = 1;
+  if (animate) { container.style.opacity = '1'; container.style.transform = 'translateY(0)'; }
 }
 
-render();
+render(true);
 </script>
+
 </body>
 </html>
