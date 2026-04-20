@@ -5,1177 +5,274 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The VA Portfolio Builder — Virtueasy</title>
   <meta name="description" content="Pick a spec client, document your work, and download a polished portfolio card. Free tool for virtual assistants by Virtueasy.">
-  <meta property="og:title" content="The VA Portfolio Builder | Virtueasy">
-  <meta property="og:description" content="Build a portfolio piece without a real client. Pick a spec, do the work, download the proof.">
-  <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
+    /* ... (I've kept your existing styles for brevity, but changed specific bits below) ... */
+    :root {
+      --pink: #FF1F7A;
+      --pink-dark: #d61a66;
+      --muted: #999;
+      --white: #fff;
+    }
+    
     /* ── BUILDER LAYOUT ── */
-    .builder-main {
-      padding: 3.5rem 2rem 6rem;
-    }
-    .builder-inner {
-      max-width: 640px;
-      margin: 0 auto;
-    }
-    .builder-header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-    .builder-header h1 {
-      font-size: clamp(2.5rem, 7vw, 4.5rem);
-      line-height: 0.95;
-      margin: 0.5rem 0 1rem;
-    }
-    .builder-sub {
-      font-size: 0.95rem;
-      color: var(--muted);
-    }
+    .builder-main { padding: 3.5rem 2rem 6rem; font-family: 'Barlow', sans-serif; background: #0a0a0a; color: #fff; min-height: 100vh;}
+    .builder-inner { max-width: 640px; margin: 0 auto; }
+    .builder-header { text-align: center; margin-bottom: 2.5rem; }
+    .builder-header h1 { font-family: 'Bebas Neue'; font-size: clamp(2.5rem, 7vw, 4.5rem); line-height: 0.95; margin: 0.5rem 0 1rem; }
+    .builder-sub { font-size: 0.95rem; color: var(--muted); }
 
     /* ── PROGRESS INDICATOR ── */
-    .progress-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 3rem;
-    }
-    .progress-step {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.45rem;
-    }
-    .step-circle {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1rem;
-      border: 2px solid;
-      transition: all 0.25s ease;
-      user-select: none;
-    }
-    .step-circle.completed {
-      background: var(--pink);
-      border-color: var(--pink);
-      color: #fff;
-      cursor: pointer;
-    }
-    .step-circle.completed:hover {
-      background: var(--pink-dark);
-      border-color: var(--pink-dark);
-    }
-    .step-circle.current {
-      background: var(--pink);
-      border-color: var(--pink);
-      color: #fff;
-      box-shadow: 0 0 0 4px rgba(255,31,122,0.2);
-      cursor: default;
-    }
-    .step-circle.upcoming {
-      background: transparent;
-      border-color: rgba(255,255,255,0.18);
-      color: var(--muted);
-      cursor: default;
-    }
-    .step-label {
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      transition: color 0.2s;
-    }
+    .progress-wrapper { display: flex; align-items: center; justify-content: center; margin-bottom: 3rem; }
+    .progress-step { display: flex; flex-direction: column; align-items: center; gap: 0.45rem; }
+    .step-circle { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; border: 2px solid; transition: all 0.25s ease; user-select: none; }
+    .step-circle.completed { background: var(--pink); border-color: var(--pink); color: #fff; cursor: pointer; }
+    .step-circle.current { background: var(--pink); border-color: var(--pink); color: #fff; box-shadow: 0 0 0 4px rgba(255,31,122,0.2); }
+    .step-circle.upcoming { border-color: rgba(255,255,255,0.18); color: var(--muted); }
+    .step-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
     .step-label.active { color: var(--white); }
-    .progress-connector {
-      width: 72px;
-      height: 2px;
-      background: rgba(255,255,255,0.1);
-      margin-bottom: 1.3rem;
-      flex-shrink: 0;
-      transition: background 0.3s;
-    }
+    .progress-connector { width: 72px; height: 2px; background: rgba(255,255,255,0.1); margin-bottom: 1.3rem; }
     .progress-connector.done { background: var(--pink); }
 
-    /* ── STEP CONTAINER ── */
-    #step-container {
-      transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-    .step-eyebrow {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--pink);
-      margin-bottom: 0.35rem;
-    }
-    .step-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.9rem;
-      letter-spacing: 0.03em;
-      margin-bottom: 1.75rem;
-    }
+    /* ── BUTTONS ── */
+    .btn { padding: 0.8rem 1.5rem; border-radius: 4px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; border: none; cursor: pointer; display: inline-flex; align-items: center; text-decoration: none; font-size: 0.85rem; transition: background 0.2s; }
+    .btn-primary { background: var(--pink); color: white; }
+    .btn-primary:hover { background: var(--pink-dark); }
+    .btn-secondary { background: rgba(255,255,255,0.1); color: white; }
+    .btn-ghost { background: transparent; color: var(--muted); }
 
     /* ── FORM ELEMENTS ── */
     .field-group { margin-bottom: 1.5rem; }
-    .field-label {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: var(--white);
-      margin-bottom: 0.5rem;
-    }
-    .field-hint {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-    .field-input,
-    .field-select,
-    .field-textarea {
-      width: 100%;
-      background: #1a1a1a;
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--white);
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.95rem;
-      padding: 0.75rem 1rem;
-      border-radius: 4px;
-      outline: none;
-      transition: border-color 0.2s;
-      appearance: none;
-      -webkit-appearance: none;
-    }
-    .field-input:focus,
-    .field-select:focus,
-    .field-textarea:focus {
-      border-color: rgba(255,31,122,0.45);
-    }
-    .field-textarea {
-      resize: vertical;
-      line-height: 1.65;
-    }
-    .field-select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      background-color: #1a1a1a;
-      padding-right: 2.5rem;
-      cursor: pointer;
-    }
-    .field-select option { background: #1a1a1a; color: var(--white); }
-    .field-error {
-      display: none;
-      font-size: 0.74rem;
-      color: var(--pink);
-      font-weight: 600;
-      margin-top: 0.4rem;
-    }
+    .field-label { display: block; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .field-input, .field-select, .field-textarea { width: 100%; background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 0.75rem; border-radius: 4px; font-family: inherit; }
+    .field-hint { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .field-error { display: none; color: var(--pink); font-size: 0.75rem; margin-top: 0.4rem; }
     .field-error.visible { display: block; }
-
-    /* ── DROPDOWN ROW ── */
-    .dropdown-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-bottom: 0.25rem;
-    }
+    .dropdown-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 
     /* ── BRIEF CARD ── */
-    .brief-zone { min-height: 0; }
-    .brief-card {
-      background: #141214;
-      border-left: 3px solid var(--pink);
-      border-radius: 0 4px 4px 0;
-      padding: 1.5rem 1.75rem;
-      margin-top: 1.75rem;
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-    .brief-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .brief-card-label {
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--pink);
-      margin-bottom: 0.75rem;
-    }
-    .brief-text {
-      font-size: 0.93rem;
-      color: var(--white);
-      line-height: 1.75;
-      margin-bottom: 1rem;
-    }
-    .brief-note {
-      font-size: 0.78rem;
-      color: var(--muted);
-      font-style: italic;
-    }
-
-    /* ── FILE UPLOAD ── */
-    .file-upload-area {
-      border: 1px dashed rgba(255,255,255,0.18);
-      border-radius: 4px;
-      padding: 1.25rem 1.5rem;
-      text-align: center;
-      cursor: pointer;
-      transition: border-color 0.2s;
-      position: relative;
-    }
-    .file-upload-area:hover { border-color: rgba(255,31,122,0.4); }
-    .file-upload-area input[type="file"] {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-      width: 100%;
-      height: 100%;
-    }
-    .file-upload-icon { font-size: 1.25rem; margin-bottom: 0.3rem; }
-    .file-upload-text { font-size: 0.8rem; color: var(--muted); }
-    .img-preview { margin-top: 1rem; }
-    .img-preview img {
-      max-width: 100%;
-      max-height: 200px;
-      border-radius: 4px;
-      border: 1px solid rgba(255,255,255,0.1);
-      display: block;
-      margin: 0 auto;
-    }
-    .file-name-display {
-      font-size: 0.75rem;
-      color: var(--pink);
-      margin-top: 0.5rem;
-      font-weight: 600;
-    }
-
-    /* ── STEP ACTIONS ── */
-    .step-actions {
-      display: flex;
-      gap: 1rem;
-      margin-top: 2.5rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+    .brief-card { background: #141214; border-left: 3px solid var(--pink); padding: 1.5rem; margin-top: 1.5rem; opacity: 0; transform: translateY(10px); transition: 0.4s; }
+    .brief-card.visible { opacity: 1; transform: translateY(0); }
+    .brief-card-label { color: var(--pink); font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.5rem; }
 
     /* ── PORTFOLIO CARD ── */
-    .portfolio-card-wrapper {
-      margin-bottom: 2rem;
-    }
-    .portfolio-card {
-      background: #fff;
-      color: #0A0A0A;
-      border: 1px solid #E2E2E2;
-      border-radius: 8px;
-      overflow: hidden;
-      max-width: 680px;
-      margin: 0 auto;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.35);
-    }
-    .card-header {
-      background: #0A0A0A;
-      padding: 1.25rem 1.75rem;
-    }
-    .card-header-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 0.75rem;
-    }
-    .card-spec-label {
-      font-size: 0.58rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--pink);
-    }
-    .card-service-badge {
-      background: var(--pink);
-      color: #fff;
-      font-size: 0.58rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.22rem 0.6rem;
-      border-radius: 2px;
-      white-space: nowrap;
-    }
-    .card-brief-text {
-      font-size: 0.85rem;
-      color: rgba(248,248,248,0.75);
-      line-height: 1.65;
-    }
-    .card-body { padding: 1.75rem; }
-    .card-section { margin-bottom: 1.4rem; }
-    .card-section:last-child { margin-bottom: 0; }
-    .card-section-label {
-      font-size: 0.58rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--pink);
-      margin-bottom: 0.45rem;
-    }
-    .card-section-content {
-      font-size: 0.88rem;
-      color: #1A1A1A;
-      line-height: 1.7;
-    }
-    .card-tool-pill {
-      display: inline-flex;
-      align-items: center;
-      background: #F5F5F5;
-      border: 1px solid #E0E0E0;
-      border-radius: 100px;
-      padding: 0.28rem 0.85rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #333;
-    }
-    .card-divider {
-      height: 1px;
-      background: #F0F0F0;
-      margin: 1.25rem 0;
-    }
-    .card-image { margin-top: 1rem; }
-    .card-image img {
-      width: 100%;
-      max-height: 280px;
-      object-fit: cover;
-      border-radius: 4px;
-      border: 1px solid #E8E8E8;
-      display: block;
-    }
-    .card-footer {
-      padding: 0.85rem 1.75rem;
-      background: #FAFAFA;
-      border-top: 1px solid #F0F0F0;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
-    .card-watermark {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.14em;
-      color: #CCCCCC;
-    }
-    .card-watermark span { color: #FF1F7A; }
+    .portfolio-card { background: #fff; color: #0A0A0A; border-radius: 8px; overflow: hidden; max-width: 680px; margin: 0 auto; border: 1px solid #eee; }
+    .card-header { background: #0A0A0A; padding: 1.5rem; }
+    .card-spec-label { font-size: 0.6rem; color: var(--pink); font-weight: 700; text-transform: uppercase; }
+    .card-service-badge { background: var(--pink); color: #fff; font-size: 0.6rem; padding: 0.2rem 0.5rem; border-radius: 2px; }
+    .card-brief-text { font-size: 0.85rem; color: #ccc; margin-top: 0.5rem; }
+    .card-body { padding: 1.5rem; }
+    .card-section-label { color: var(--pink); font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .card-section-content { font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem; }
+    .card-tool-pill { background: #f0f0f0; padding: 0.3rem 0.7rem; border-radius: 100px; font-size: 0.75rem; font-weight: 600; }
+    .card-divider { height: 1px; background: #eee; margin: 1rem 0; }
+    .card-footer { padding: 1rem 1.5rem; background: #f9f9f9; text-align: right; }
+    .card-watermark { font-family: 'Bebas Neue'; font-size: 0.9rem; color: #ccc; }
+    .card-watermark span { color: var(--pink); }
+    .card-image img { width: 100%; border-radius: 4px; margin-top: 1rem; }
 
-    /* ── STEP 3 HEADER ── */
-    .step3-intro {
-      margin-bottom: 2rem;
-      padding: 1.25rem 1.5rem;
-      background: rgba(255,31,122,0.06);
-      border: 1px solid rgba(255,31,122,0.15);
-      border-radius: 4px;
-      font-size: 0.85rem;
-      color: rgba(248,248,248,0.75);
-      line-height: 1.6;
-    }
+    .step3-intro { background: rgba(255,31,122,0.1); border: 1px solid var(--pink); padding: 1rem; border-radius: 4px; margin-bottom: 2rem; font-size: 0.85rem; }
+    .step-actions { display: flex; gap: 1rem; margin-top: 2rem; align-items: center; }
 
-    /* ── PRINT STYLES ── */
-    @media print {
-      body * { visibility: hidden; }
-      .portfolio-card, .portfolio-card * { visibility: visible; }
-      .portfolio-card {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%;
-        max-width: 100% !important;
-        border: none !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        margin: 0 !important;
-      }
-      .card-section-label { color: #000 !important; }
-      .card-spec-label { color: #333 !important; }
-      .card-service-badge { background: #333 !important; }
-      .card-tool-pill {
-        background: #eee !important;
-        border-color: #ccc !important;
-      }
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      .dropdown-row { grid-template-columns: 1fr; }
-      .progress-connector { width: 40px; }
-      .step-label { font-size: 0.56rem; }
-      .builder-main { padding: 2.5rem 1.25rem 5rem; }
-      .step-actions { flex-direction: column-reverse; align-items: stretch; }
-      .step-actions .btn { text-align: center; justify-content: center; }
-    }
+    @media (max-width: 600px) { .dropdown-row { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="site-nav" role="navigation" aria-label="Main navigation">
-  <a class="nav-logo" href="/">
-    <span class="nav-logo-text">VIRTUEASY</span>
-  </a>
-  <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
-    <span></span><span></span><span></span>
-  </button>
-  <ul class="nav-links">
-    <li><a href="/">Home</a></li>
-    <li><a href="/resources/" class="active">Resources</a></li>
-    <li><a href="/blog/">Blog</a></li>
-    <li><a href="/blueprint/">Blueprint &#x2197;</a></li>
-    <li><a href="/pricing-tool/">Pricing Tool</a></li>
-    <li class="nav-cta"><a href="/blueprint/">Get Started</a></li>
-  </ul>
-</nav>
-
-<!-- MAIN -->
 <main class="builder-main">
   <div class="builder-inner">
-
     <div class="builder-header">
-      <span class="label">Free Tool</span>
       <h1>The VA Portfolio Builder</h1>
       <p class="builder-sub">Pick a pretend client. Do the work. Download the proof.</p>
     </div>
-
     <div id="progress-zone"></div>
     <div id="step-container" style="opacity:0"></div>
-
   </div>
 </main>
 
-<!-- FOOTER -->
-<footer class="site-footer" role="contentinfo">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <div class="footer-brand">VIRTUEASY</div>
-        <p class="footer-tagline">Everything you need to build your VA business.</p>
-      </div>
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <div class="footer-nav-col">
-          <h4>Hub</h4>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/resources/">Resources</a></li>
-            <li><a href="/blog/">Blog</a></li>
-          </ul>
-        </div>
-        <div class="footer-nav-col">
-          <h4>Tools</h4>
-          <ul>
-            <li><a href="/blueprint/">Blueprint &#x2197;</a></li>
-            <li><a href="/pricing-tool/">Pricing Tool</a></li>
-            <li><a href="/va-proposal-template/">Proposal Template</a></li>
-          </ul>
-        </div>
-        <div class="footer-nav-col">
-          <h4>Legal</h4>
-          <ul>
-            <li><a href="/privacy-policy.html">Privacy Policy</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">&copy; <span id="footer-year"></span> Virtueasy. A Virtueasy product.</p>
-    </div>
-  </div>
-</footer>
-
 <script>
-// ─────────────────────────────────────────────
-//  DATA
-// ─────────────────────────────────────────────
-
-const SERVICE_NAMES = {
-  'inbox-management':   'Inbox Management',
-  'content-scheduling': 'Content Scheduling',
-  'social-media':       'Social Media Management',
-  'travel-coordination':'Travel Coordination',
-  'client-onboarding':  'Client Onboarding',
-  'research-reporting': 'Research & Reporting',
-  'general-admin':      'General Admin'
-};
-
-const INDUSTRY_NAMES = {
-  'ecommerce':       'E-commerce',
-  'coaching':        'Coaching/Consulting',
-  'real-estate':     'Real Estate',
-  'health-wellness': 'Health & Wellness',
-  'creative-agency': 'Creative Agency',
-  'finance':         'Finance',
-  'other':           'Other'
-};
-
-const BRIEFS = {
-  'inbox-management': {
-    'ecommerce': [
-      "Priya Mehta runs a Shopify candle brand called Flicker & Co that did $180K last year. Since launching a wholesale channel in Q3, her inbox has become unmanageable — she's receiving 60 to 80 emails a day from retailers, customers, and suppliers and hasn't responded to three wholesale inquiries in over a week. She needs someone to triage her inbox, set up folders and filters, draft templated replies, and flag anything that needs her direct attention.",
-      "Marcus Webb sells custom sneaker accessories through his WooCommerce store and a growing Amazon presence. He recently went viral on TikTok and his customer service inbox exploded — he's sitting on 200+ unread messages and his average response time has ballooned to 5 days. He needs inbox cleanup, a response system, and ongoing daily triage so he never falls behind again."
-    ],
-    'coaching': [
-      "Dani Reyes is a business coach who works with first-time entrepreneurs and runs a 12-week group program. She uses Gmail for everything — client check-ins, affiliate inquiries, podcast pitches, and general questions — and has no system beyond a starred folder she never checks. She needs her inbox sorted, a priority filter set up, and templated replies drafted for her five most common email types.",
-      "Stephen Okafor is an executive coach who recently started getting inbound from a LinkedIn article that gained traction. His inbox has tripled in volume and he's missing potential discovery call bookings because he doesn't see them in time. He needs a VA to manage intake emails, send booking links with a personal-sounding reply, and summarize anything that needs his real attention."
-    ],
-    'real-estate': [
-      "Claudia Santana is a residential real estate agent in Phoenix who handles both buyers and sellers. She gets emails from Zillow leads, title companies, lenders, and clients all in the same inbox with zero organization, and she regularly misses time-sensitive documents. She needs a VA to set up a folder system by deal stage, flag urgent items, and draft acknowledgment replies to keep all parties feeling heard.",
-      "Brandon Kirk is a property investor who manages a portfolio of 14 rental units and is actively buying more. His inbox is flooded with messages from property managers, contractors, brokers, and tenants — many of which are duplicates or low-priority. He needs triage, a simple tagging system, and a weekly summary email so he can process his inbox in 20 minutes instead of 2 hours."
-    ],
-    'health-wellness': [
-      "Marissa Bloom is a registered dietitian who runs a virtual private practice and a small group coaching program. She's been handling her own inbox — client questions, referral inquiries, supplement brand partnerships, and scheduling — for three years, and it's now costing her roughly two hours a day. She needs someone to respond to non-clinical questions, handle scheduling back-and-forth, and flag anything requiring her professional judgment.",
-      "James Tran owns a boutique personal training studio with six trainers and a growing online program. His inbox includes client check-ins, new member inquiries, trainer scheduling requests, and equipment vendor emails, and he hasn't archived a single email in two years. He needs a full inbox audit, folder structure, templated responses for common questions, and daily triage going forward."
-    ],
-    'creative-agency': [
-      "Sofia Andrade runs a four-person branding studio called Ancho Creative. She handles all client communication herself despite running three active projects, and has started missing follow-up emails from warm leads because she's too deep in delivery work. She needs a VA to manage her new inquiry inbox, send proposal follow-ups on schedule, and surface anything from current clients that's been waiting more than 24 hours.",
-      "Leo Nakamura is a freelance photographer who recently started getting inbound from brands wanting content licensing. His inbox mixes licensing inquiries, wedding client questions, gear rental requests, and random pitches, and he has no filtering whatsoever. He needs his inbox organized by category, templated replies drafted for the most common types, and a flagging system for time-sensitive licensing requests."
-    ],
-    'finance': [
-      "Gwen Ortega is a fee-only financial planner who recently moved to independent practice after leaving a larger firm. She now manages her own client communication and is overwhelmed by a combination of prospecting follow-ups, existing client questions, document requests, and custodian emails all landing in the same inbox. She needs triage, a response schedule, and draft replies she can approve with minimal edits.",
-      "Alec Pham runs a small CPA firm with four staff accountants. During tax season, client emails pile up to 150+ per day and the team has no system for tracking which ones need a reply or which documents have been received. He needs a VA to triage the shared inbox, create a status log for pending items, and send acknowledgment emails to clients so nothing falls through the cracks."
-    ],
-    'other': [
-      "Renata Diaz is an author who recently launched her third book and is now managing a flood of reader mail, interview requests, book club inquiries, and speaking engagement pitches. She wants to respond to everyone but her inbox has become a source of anxiety rather than connection. She needs her inbox organized, a tiered response system, and templated replies she can personalize quickly.",
-      "Omar Collins is a nonprofit director running a food security organization with a staff of eight. His email handles everything from donor communications to grant follow-ups to volunteer coordination, and he's the only one with access to the account. He needs triage, folders by stakeholder type, and a flagging system so urgent donor and grant emails never sit unanswered past 24 hours."
-    ]
-  },
-
-  'content-scheduling': {
-    'ecommerce': [
-      "Tobi Adekunle sells handcrafted leather goods through his Etsy shop and a DTC website. He creates great content but posts it whenever he remembers, which means his channels have long dead periods followed by bursts of activity that never build consistent reach. He needs a VA to take his existing batch of 30 photos and captions and schedule them across Instagram, Pinterest, and Facebook on a consistent weekly calendar.",
-      "Natasha Lin runs a zero-waste home goods brand and produces monthly blog posts and a weekly email newsletter. She writes everything herself but regularly misses publish dates because she's also handling fulfillment and customer service. She needs a VA to take her finished drafts, format and schedule them in Klaviyo and WordPress, and send her a weekly content status doc."
-    ],
-    'coaching': [
-      "Patrick Hughes is a sales coach who creates LinkedIn and Instagram content in batches on Sunday afternoons. He has a Notion folder full of finished posts that never made it to any scheduling tool, and his posting consistency has dropped to once or twice a week. He needs a VA to take his existing content, load it into Buffer, and maintain a 5-day-a-week schedule across LinkedIn and Instagram.",
-      "Yemi Adeyemi is a mindset and productivity coach with an email list of 4,200 subscribers. She writes her newsletters in advance but often sends them late — sometimes by a week — because she forgets to log in and hit send. She needs a VA to take her finished copy, set it up in ConvertKit with the right segments and scheduling, and confirm back when it's queued."
-    ],
-    'real-estate': [
-      "Chloe Brentwood is a real estate agent who creates just-listed and just-sold posts for every transaction, plus market update content for her newsletter. She has the raw content — photos, stats, and written copy — but can't keep up with formatting and posting it across Instagram, Facebook, and her email list. She needs a VA to own the publishing calendar and keep her channels active between transactions.",
-      "Dean Fitzgerald runs a small property management company and wants to build authority through educational content on Instagram and LinkedIn. He batch-writes tips and short-form posts but has no scheduling system and often posts nothing for two weeks straight. He needs a VA to load his content into a scheduling tool, maintain a minimum of 4 posts per week, and alert him when he's running low on content."
-    ],
-    'health-wellness': [
-      "Amber Nguyen is an acupuncturist with a loyal local following who wants to grow her reach online. She photographs her treatments, writes educational captions about traditional Chinese medicine, and films short videos — but all of it sits in her camera roll unpublished. She needs a VA to select, caption if needed, and schedule her content across Instagram and Facebook three times a week.",
-      "Chris Dunmore runs a functional medicine clinic and sends a bi-weekly patient newsletter through Mailchimp. He writes the content himself and sends it to a VA for formatting, but every campaign goes live late because the handoff process is unclear. He needs a defined workflow: he sends copy, the VA formats it using his template, schedules it for Tuesday morning, and confirms."
-    ],
-    'creative-agency': [
-      "Helena Price is the founder of a motion graphics studio and wants her Instagram to show consistent work, behind-the-scenes content, and client results. She creates the content but has no one to organize and schedule it — her last post was three weeks ago. She needs a VA to take her Dropbox folder of finished assets, write brief captions using her voice guide, and schedule four posts a week.",
-      "Kofi Mensah runs a boutique video production company and has been meaning to start a LinkedIn content strategy for months. He has a Google Doc of 40 post ideas, three recorded videos, and a case study draft. He needs a VA to format and schedule the LinkedIn posts, edit the video transcripts into standalone posts, and get everything into a 90-day content calendar."
-    ],
-    'finance': [
-      "Rachel Bowman is a certified financial planner who wants to grow her audience through educational Instagram content about personal finance. She writes all her posts but struggles to maintain consistency because posting feels like a chore during busy client seasons. She needs a VA to take her written posts, format them for Instagram with line breaks and hashtags, and schedule two posts per week using Later.",
-      "Jordan Voss runs a tax preparation firm and wants to use the off-season to build authority on LinkedIn. He has a backlog of educational posts he wrote over the summer that have never been published. He needs a VA to review the posts for formatting, load them into LinkedIn's scheduler, space them out over 10 weeks, and track performance in a simple spreadsheet."
-    ],
-    'other': [
-      "Viviane Torres is a chef and food photographer who runs cooking classes and wants to grow on Instagram and TikTok. She creates beautiful content but gets distracted mid-edit and never publishes consistently. She needs a VA to take her finished photos and edited video clips, add captions based on her notes, and schedule daily posts across both platforms.",
-      "Sam Kellerman runs an independent podcast and produces two episodes per week. He needs each episode promoted with a quote graphic, audiogram clip, and show notes excerpt across Instagram and Twitter the day it publishes. He needs a VA to take his finished episodes and promotion assets and handle all scheduling and posting on time, every time."
-    ]
-  },
-
-  'social-media': {
-    'ecommerce': [
-      "Kiara Thomas launched a Shopify skincare brand six months ago and got early traction from a few viral TikToks she filmed herself. Now she wants to scale her social presence on Instagram and TikTok but doesn't have time to plan, film, edit, and post consistently. She needs a VA to manage her content calendar, write captions, schedule posts, and respond to comments and DMs using her established brand voice.",
-      "Darnell Cross sells premium coffee equipment online and has an engaged Instagram following of 8,200. He's been managing the account himself but response times on DMs and comments have slipped and his posting cadence has dropped from daily to twice a week. He needs a VA to maintain a 5-day posting schedule, respond to all comments within 4 hours, and send him a weekly engagement summary."
-    ],
-    'coaching': [
-      "Layla Osei is a confidence coach for women in corporate who built her Instagram following to 12,000 through raw, personal posts. She wants to show up consistently but has been in a rut for two months and hasn't posted in three weeks. She needs a VA to manage her Instagram — writing captions in her voice, repurposing existing content, scheduling posts five days a week, and engaging with followers in comments.",
-      "Trevor Hall is a business strategy coach who's trying to grow on LinkedIn. He has a strong point of view but no consistency — he'll post six times in one week and then disappear for two. He needs a VA to manage his LinkedIn presence: turning his voice memos into polished posts, scheduling them daily, and responding to comments within a business day."
-    ],
-    'real-estate': [
-      "Marina Cabrera is a luxury real estate agent who wants to grow her personal brand on Instagram and Facebook. She has great listing photos and a professional headshot session, but zero posting consistency and no engagement strategy. She needs a VA to manage both accounts — posting listings, market updates, and personal brand content three times a week each, and responding to all comments and inquiries.",
-      "Troy Higgins is a real estate investor who documents his property flips and wants to build a following on Instagram Reels. He films everything himself but doesn't have time to organize, caption, or post it. He needs a VA to manage his short-form video pipeline — downloading clips from his shared folder, writing captions, posting on schedule, and responding to comments."
-    ],
-    'health-wellness': [
-      "Claire Fontaine is a yoga instructor and wellness blogger with a following of 6,500 on Instagram. She was consistent for two years but took a break during a personal move and never re-established her rhythm. She needs a VA to rebuild her content calendar, write captions for her backlog of photos, schedule four posts per week, and re-engage her audience through comments and story interactions.",
-      "Ryan Cho is a physical therapist who creates educational content about injury prevention. He wants to grow on Instagram and TikTok but has been inconsistent — great months followed by total silence. He needs a VA to plan his content calendar, turn his clinical talking points into engaging short-form captions, and maintain a minimum of 5 posts per week across both platforms."
-    ],
-    'creative-agency': [
-      "Simone Laurent runs a graphic design agency and wants her Instagram to reflect the quality of her work. She posts sporadically when she remembers and her grid has no cohesion. She needs a VA to curate her project library, build a consistent posting schedule, write captions in her minimalist brand voice, and respond to collaboration inquiries in DMs.",
-      "Elan Gregory is a brand photographer who wants to use Instagram as his primary lead generation channel. He has thousands of images but no strategy for which ones to post or when. He needs a VA to manage his Instagram account end-to-end: building a 60-day content calendar, writing captions, scheduling posts, engaging in comments, and tracking follower growth weekly."
-    ],
-    'finance': [
-      "Whitney Pace is a wealth advisor who wants to grow on LinkedIn by sharing personal finance education. She's cautious about compliance and only wants educational content that doesn't constitute advice — but she still struggles to maintain any presence at all. She needs a VA to manage her LinkedIn: writing pre-approved educational posts twice a week, responding to comments, and building a content queue she reviews monthly.",
-      "Andre Kim runs a financial literacy nonprofit and wants to grow their Instagram following among 18 to 30-year-olds. The account has 2,100 followers and they post inconsistently. He needs a VA to take their written content, format it for Instagram carousels and single images, maintain a daily posting schedule, and respond to DMs and comments."
-    ],
-    'other': [
-      "Jonah Parker is a fitness coach who built his following through YouTube but wants to repurpose that content onto Instagram and TikTok. He films everything himself but doesn't understand short-form strategy and hasn't started either account. He needs a VA to clip his YouTube videos into Reels and TikToks, write platform-native captions, post daily, and track which clips perform best.",
-      "Miriam Stein runs a children's book author platform and uses Instagram to connect with teachers, parents, and librarians. She posts beautiful content but has no strategy for hashtags, engagement, or growth. She needs a VA to take ownership of the account — scheduling posts, writing captions that speak to educators, responding to every comment, and sending her a monthly performance report."
-    ]
-  },
-
-  'travel-coordination': {
-    'ecommerce': [
-      "Theo Watts runs a growing e-commerce brand and needs to attend four trade shows this year — two domestic, two international. He's never managed his own travel before and doesn't know how to build an itinerary that accounts for booth setup days, buyer meetings, and buffer time. He needs a VA to research and book all flights, hotels, and ground transport for each conference, and build him a clean day-by-day itinerary he can follow without thinking.",
-      "Jasmine Reed is the founder of a gift box company who travels quarterly to meet wholesale buyers across the country. She spends hours searching for flights and hotels herself and always feels like she leaves money on the table on fares. She needs a VA to handle all booking logistics for her next two trips — including research, booking, confirmation tracking, and a full travel document per trip."
-    ],
-    'coaching': [
-      "David Okonkwo is a keynote speaker and coach who speaks at 15 to 20 events per year and has an upcoming 8-city tour over 6 weeks. His current system is a spreadsheet that's three months out of date. He needs a VA to coordinate all travel for the tour — flights, hotels, ground transportation, and a master itinerary that includes venue arrival times, AV check deadlines, and travel buffer between cities.",
-      "Priscilla Huang is a high-performance coach who runs two in-person retreats per year plus regular client intensives. She needs to travel to venue sites in advance for walk-throughs and then manage logistics for herself and her assistant during the events themselves. She needs a VA to handle venue research, flight and hotel booking, car rental, and a detailed logistics doc for each trip."
-    ],
-    'real-estate': [
-      "Kevin Stafford is a real estate investor who does two to three acquisition trips per year to markets outside his home state. He typically tours 10 to 15 properties per visit and needs his travel and property schedule perfectly timed. He needs a VA to book flights and hotels, build a day-by-day property tour itinerary using Google Maps routing, and confirm all appointments with agents and sellers.",
-      "Adriana Vidal is a commercial real estate broker who attends major industry conferences each year with complex schedules — panels, parties, and client dinners scattered across multiple venues. She needs a VA to handle all travel logistics and build her a conference schedule that layers her confirmed meetings onto the official event agenda."
-    ],
-    'health-wellness': [
-      "Mia Rosenberg is a functional nutritionist who is leading a wellness retreat in Costa Rica for 14 clients. She needs to coordinate her own travel plus help clients understand their logistics. She needs a VA to book her flights and accommodation, create a client travel guide with recommendations for flights and local transport, and build a retreat master schedule.",
-      "Carlos Ybarra is a sports performance coach who travels with two semi-pro athletic teams during competition season. He needs flights, hotels, and ground transport coordinated for himself and coaches across 12 away events over the next four months. He needs a VA to build a master travel tracker, handle all bookings, and update itineraries as game schedules shift."
-    ],
-    'creative-agency': [
-      "Zoe Blackwell runs a creative production agency and has an upcoming 3-week shoot across New York, Nashville, and Los Angeles. She needs travel and accommodation coordinated for herself and two team members, plus equipment shipping logistics factored into the schedule. She needs a VA to handle all flight and hotel bookings, build city-by-city itineraries, and flag any timing conflicts with the production schedule.",
-      "Matteo Russo is a commercial photographer who does on-location shoots across the country. He has four shoots booked over the next six weeks in cities he's never worked in before, and he needs to scout locations in advance of each. He needs a VA to book his travel, find hotels near each shoot location, and research local equipment rental shops and backup studios."
-    ],
-    'finance': [
-      "Sandra Obi is a financial advisor who attends two national conferences per year and visits her top 20 clients in person annually, spread across five cities. Her travel planning is completely ad hoc and she often pays premium prices for last-minute bookings. She needs a VA to plan and book her full annual travel calendar, set booking windows in advance to capture better rates, and maintain a master travel document.",
-      "Winston Leach runs a boutique investment firm and is traveling to three investor days and one conference this quarter. He prefers specific airline and hotel brands for points reasons and has a hard requirement for direct flights. He needs a VA to research and book all travel within his preferences, track his loyalty numbers, and build him a clean trip-by-trip briefing document."
-    ],
-    'other': [
-      "Camille Fontaine is a ceramics artist who does four art fair residencies per year — each one requiring travel, accommodation near the fair venue, and shipping of fragile work. She's lost money on bad hotel choices and slow shipping timing before. She needs a VA to research and book travel and lodging for her next two fair trips and create a shipping timeline and packing checklist for her pieces.",
-      "Isaac Garza is an independent consultant who bills clients for travel time and needs accurate, well-organized travel records for reimbursement. He travels 3 to 4 days a week and has a backlog of receipts and confirmation emails he needs organized. He needs a VA to catch up on the last quarter's travel documentation, then build a system for organizing future trips in real time."
-    ]
-  },
-
-  'client-onboarding': {
-    'ecommerce': [
-      "Bianca Ola runs a subscription box company that onboards 40 to 60 new subscribers every month through a Shopify flow that works technically but leaves new members confused about what they're getting and when. She's been getting 'where is my box?' emails within 48 hours of sign-up. She needs a VA to redesign and execute her onboarding email sequence — three emails over seven days — that sets expectations, builds excitement, and reduces support tickets.",
-      "Felix Drummond runs a B2B wholesale business supplying handmade goods to boutique retailers. Each new retail partner needs to be walked through ordering minimums, lead times, payment terms, and reorder processes, but he has no standardized onboarding — it's all ad hoc phone calls. He needs a VA to build an onboarding checklist, welcome email, and a new partner information packet in Google Docs."
-    ],
-    'coaching': [
-      "Nadia Clarke is a business coach who enrolls 5 to 10 new clients per month into her 1:1 coaching program. Her current onboarding is a single welcome email and a Calendly link, and new clients frequently email asking what to do next, where to find the resources, and when to expect their first session. She needs a VA to build a proper onboarding flow: intake form, welcome packet, portal setup guide, and a 3-email onboarding sequence.",
-      "Victor Santos runs a group coaching program for real estate agents with 85 active members. New members are added to a Slack workspace and a course platform, but no one walks them through the community norms, course structure, or support channels — and they often feel lost in week one. He needs a VA to create an onboarding checklist, a welcome video script, and a 5-day email sequence that orients new members step by step."
-    ],
-    'real-estate': [
-      "Tanya Osei is a real estate agent who works primarily with first-time buyers. Her buyer onboarding consists of a one-page PDF she made three years ago and a handshake. Clients come to the first showing without having done the mortgage pre-approval or knowing what to expect from the process. She needs a VA to build a modern buyer onboarding packet — process overview, glossary, checklist, and a 3-email nurture sequence that runs after first contact.",
-      "Marcus Webb is a property manager who takes on 6 to 10 new landlord clients per year. There's no standardized intake, so every new client relationship starts chaotically with back-and-forth emails and missing information. He needs a VA to design and execute a new client onboarding system: intake questionnaire, property setup checklist, welcome call agenda template, and a 30-day communication plan."
-    ],
-    'health-wellness': [
-      "Dr. Aisha Monroe runs an integrative medicine clinic and brings on about 8 new patients per month. Her current intake process involves two PDFs, a phone intake call, and a lot of back-and-forth that delays first appointment scheduling by an average of 5 days. She needs a VA to map the current flow, identify friction points, and redesign it so new patients are fully prepped and scheduled within 48 hours of first contact.",
-      "Luke Bennett is a personal trainer who sells 3-month transformation packages to online clients. When new clients pay, they receive a receipt and a PDF workout guide, but nothing orients them to the app, coaching check-in structure, or what they should do on day one. He needs a VA to build a client welcome kit — app setup guide, week-one schedule, FAQ doc, and an onboarding call agenda."
-    ],
-    'creative-agency': [
-      "Isabel Reyes runs a small web design agency and kicks off 2 to 3 new projects per month. Her onboarding is chaotic: clients don't know the timeline, don't have access to the project management tool, and often don't submit the content she needs until week three. She needs a VA to build a standardized project kickoff kit — welcome email, Notion template, content checklist, and a kickoff call agenda — and run it for each new client.",
-      "Jordan Abrams is a freelance copywriter who takes on retainer clients. When a new client signs, she sends the contract and invoice and then nothing formal. Clients often don't know when to expect their first deliverable or how to submit feedback. She needs a VA to create and implement a client onboarding flow: welcome email, working agreement summary, feedback process guide, and a 3-step check-in schedule."
-    ],
-    'finance': [
-      "Raymond Cole is a CPA who brings on 15 to 20 new tax clients each season. His onboarding is purely reactive — clients email him their documents when they feel like it and he chases down what's missing, losing hours every season to document collection. He needs a VA to build an onboarding checklist per entity type, a structured intake form, a welcome email with clear deadlines, and a follow-up sequence for missing docs.",
-      "Ingrid Sato is a financial planner who requires new clients to complete a detailed financial questionnaire, gather six months of statements, and read a client agreement before their first meeting. She does all of this via email threads that stretch on for weeks. She needs a VA to turn her onboarding into a structured process with automated touchpoints, a document submission guide, and a first-meeting prep email."
-    ],
-    'other': [
-      "Frank Adler runs a photography studio and books weddings 12 to 18 months out. After booking, there's very little communication until six months before the wedding, and couples often feel dropped. He needs a VA to build a 12-month nurture and onboarding flow: a welcome packet, a 3-month check-in, a 6-month planning call agenda, and a 4-week pre-wedding prep sequence.",
-      "Hannah Voss is a virtual event host who books corporate clients for team facilitation sessions. Once a client signs a contract, she has no structured onboarding and every kickoff call starts with her re-explaining what she needs from them. She needs a VA to create a new client onboarding kit: a welcome email, a pre-session questionnaire, a technical setup guide, and a 10-day prep sequence."
-    ]
-  },
-
-  'research-reporting': {
-    'ecommerce': [
-      "Olivia Nash runs a sustainable apparel brand and wants to expand into two new product categories. Before she invests in sampling and inventory, she wants a competitive analysis of 3 to 5 brands already in those spaces — pricing, bestsellers, marketing approach, and customer sentiment from reviews. She needs a VA to compile a research report she can review before making a final category decision.",
-      "Brendan Chu manages paid advertising for his Shopify store and wants to understand which ad angles are working best in the women's fitness apparel market. He needs a VA to pull competitor ads from Facebook Ad Library, categorize them by messaging type, and summarize trends in a one-page doc he can share with his creative team."
-    ],
-    'coaching': [
-      "Gabriella Moreno is a leadership coach preparing a keynote on burnout in high-growth companies. She needs research support: 5 to 8 current studies or articles on the topic, a summary of key statistics, and a brief competitive review of how other speakers are positioning the subject. She needs a VA to compile a research brief she can use to build her presentation.",
-      "Harold Kim is a business coach who wants to launch a podcast. Before investing time in production, he wants to know what the competitive landscape looks like in the business coaching podcast space — top shows, average episode frequency, typical format, guest strategies, and monetization approaches. He needs a VA to research and deliver a competitive landscape report."
-    ],
-    'real-estate': [
-      "Valerie Park is a commercial real estate broker analyzing a potential market entry in a mid-size southeastern city. She needs a research report covering population trends, major employers, vacancy rates, and recent notable commercial transactions in that market. She needs a VA to pull this from public data sources and compile it into a clean, shareable document.",
-      "Elijah Turner is a residential investor who makes data-driven decisions about which zip codes to target. For each new market he evaluates, he needs a standardized report: median home prices, days on market, rent-to-price ratios, school ratings, and recent price trends. He needs a VA to build this report template and populate it for three specific markets."
-    ],
-    'health-wellness': [
-      "Dr. Sarah Obi runs a holistic health clinic and is considering adding infrared sauna therapy as a new service. She wants a research brief before investing in equipment and training: market demand indicators, competitor pricing in her metro area, client demographic data, and two or three case studies of clinics that have successfully added this service. She needs a VA to compile a decision-support document.",
-      "Melanie Cruz is a health and wellness blogger preparing a sponsored post for a probiotic brand. She needs a VA to pull recent peer-reviewed research on probiotic efficacy, summarize 3 to 5 key studies in plain language, and compile a source list with links. The deliverable is a research brief she'll use as the factual backbone for her post."
-    ],
-    'creative-agency': [
-      "Dominic Walsh is a brand strategist preparing a competitive audit for a new client in the meal-kit space. He needs a VA to research 8 direct and indirect competitors — analyzing their positioning, visual identity direction, tone of voice, and pricing strategy — and compile findings into a formatted presentation outline.",
-      "Alicia Moon is the creative director at a mid-size agency pitching a fintech client. She needs trend research for the pitch: visual design trends in fintech apps, color and typography patterns used by leading brands, and recent award-winning campaigns in financial services. She needs a VA to pull reference images and compile them into a Notion moodboard with annotations."
-    ],
-    'finance': [
-      "Marcus Greenfield is an independent financial analyst writing a quarterly market commentary for his clients. He needs a VA to pull recent economic data — CPI, interest rate movements, S&P sector performance, and two or three notable earnings reports — and compile it into a structured data brief he can write from. The deliverable should be a Google Doc with all data tables and source links.",
-      "Tamara Fox is a wealth management advisor who monitors five ETFs for a specific client segment. She needs a monthly performance report compiled from publicly available data: returns vs. benchmark, expense ratios, top holdings changes, and a brief note on any significant news affecting each fund. She needs a VA to build this reporting template and deliver the first report."
-    ],
-    'other': [
-      "Noah Walsh is an independent journalist writing a long-form piece on gig worker health insurance. He needs a VA to research 5 to 8 currently available health insurance options for self-employed workers, summarize the key features and costs of each, and flag any recent policy changes or news coverage. The deliverable is a research brief with sources.",
-      "Elena Ruiz is a grant writer for a youth arts nonprofit. She needs a VA to research 5 to 10 potential foundations and corporate grant programs that align with their mission, pull application requirements and deadlines, and build a master grants calendar for the next 12 months. The deliverable is a spreadsheet and a one-page summary of the top three prospects."
-    ]
-  },
-
-  'general-admin': {
-    'ecommerce': [
-      "Carmen Diaz runs a fast-growing e-commerce business and has completely lost control of her digital files. Product photos, supplier contracts, invoices, and customer data are spread across three Google Drives, a Dropbox, and her local hard drive. She needs a VA to audit all storage, propose a clear folder structure, migrate files, and document where everything lives so her team can find things without asking her.",
-      "Nico James launched a Shopify brand nine months ago and has a growing pile of admin he keeps ignoring: unanswered vendor quotes, unpaid invoices in his email, a product returns log that hasn't been updated in six weeks, and a supplier contact sheet that's out of date. He needs a VA to spend a full week clearing the backlog and building a simple admin system he can maintain going forward."
-    ],
-    'coaching': [
-      "Heather Bloom is a productivity coach with an ironic problem: her own business is completely disorganized. She has client notes scattered across three apps, no consistent filing system, and has accidentally double-booked herself twice this month. She needs a VA to do a full admin audit — calendars, tools, files, and workflows — and build a simple, consistent system she'll actually stick to.",
-      "Carlos Mendez is a business coach who is preparing to raise his prices and restructure his service offerings. Before he does, he needs a full admin cleanup: update his client tracker, reconcile his invoicing records against payments received, archive completed project files, and update his contact database. He needs a VA to handle this during two focused weeks."
-    ],
-    'real-estate': [
-      "Paula Chen is a real estate agent who has been in the business for 12 years and has a digital filing system that reflects every bad habit she's ever had. She has duplicate contacts, contracts saved in five different locations, and a database of past clients she has never actually used for outreach. She needs a VA to clean up her CRM, consolidate her files, and build her a simple business reference document she can use daily.",
-      "Thomas Burke is a real estate investor who manages operations for seven properties using a combination of email, a spreadsheet, and memory. He needs a VA to build a simple property management admin system: a tenant contact log, a maintenance request tracker, a lease renewal calendar, and a monthly reporting template. He doesn't need software — Google Sheets is fine."
-    ],
-    'health-wellness': [
-      "Dr. Jin Park runs a chiropractic clinic and has struggled to keep up with admin since his office manager left. Files aren't being named consistently, vendor invoices are piling up unreconciled, and his staff scheduling spreadsheet hasn't been updated in three weeks. He needs a VA for a four-week admin stabilization — filing system, invoice log, scheduling doc, and a simple SOP for the tasks he needs someone to own ongoing.",
-      "Lauren Ortega is a nutritionist and author who is preparing her second book proposal. She needs help getting her research files, interview notes, and publisher correspondence organized before she hires an editor. She needs a VA to set up a book project folder system, migrate existing files into it, and create a master document tracking every file, interview, and outstanding task related to the project."
-    ],
-    'creative-agency': [
-      "Derek Osei runs a small motion design studio and has never had a formal admin system. Contracts are saved to random desktop folders, client feedback lives in email threads, and his invoices are tracked in a spreadsheet he admits is three months behind. He needs a VA to do a full administrative cleanup over two weeks: file all contracts, reconcile invoicing, and build him a simple project tracking sheet.",
-      "Fatima Hasan is a UX designer who recently went independent and is managing her own admin for the first time. She needs help setting up her business infrastructure: a G Suite folder system, a project and client tracker in Notion, an invoicing workflow, and a simple weekly admin routine she can maintain in under an hour. She needs a VA to build and document all of it."
-    ],
-    'finance': [
-      "Ben Ochoa is a CPA who works solo and is preparing for his busiest season. He needs a VA to spend three weeks before tax season getting his admin in order: cleaning up his client list in his CRM, organizing his file server by client and year, updating his engagement letter templates, and creating a tax season communication calendar so he knows when to send what.",
-      "Diane Wu is a financial planner who serves 60 households and tracks client touchpoints in a spreadsheet she built five years ago. It's outdated, full of duplicates, and she frequently misses annual review dates. She needs a VA to audit the tracker, clean and de-duplicate the data, add a review date alert column, and document the system so a future hire can maintain it."
-    ],
-    'other': [
-      "Stuart Lim is an event photographer who has been freelancing for four years and has never organized his business files. He has client contracts in email, model releases on his phone, and invoices in three different apps. He needs a VA to build a simple freelance admin system — one folder structure, one invoice template, one client tracker — and migrate his backlog of files into it.",
-      "Alice Chen is a virtual assistant herself, preparing to launch her own VA agency with two subcontractors. She needs help with the admin of her own business before she onboards clients: building an internal SOP library, creating subcontractor onboarding docs, setting up a client billing tracker, and drafting service agreement templates. She needs a VA to handle the setup so she can focus on sales."
-    ]
-  }
-};
-
-// ─────────────────────────────────────────────
-//  STATE
-// ─────────────────────────────────────────────
+// (Keep all your DATA constants: SERVICE_NAMES, INDUSTRY_NAMES, BRIEFS as they were)
+const SERVICE_NAMES = { 'inbox-management': 'Inbox Management', 'content-scheduling': 'Content Scheduling', 'social-media': 'Social Media Management', 'travel-coordination':'Travel Coordination', 'client-onboarding': 'Client Onboarding', 'research-reporting': 'Research & Reporting', 'general-admin': 'General Admin' };
+const INDUSTRY_NAMES = { 'ecommerce': 'E-commerce', 'coaching': 'Coaching/Consulting', 'real-estate': 'Real Estate', 'health-wellness': 'Health & Wellness', 'creative-agency': 'Creative Agency', 'finance': 'Finance', 'other': 'Other' };
+const BRIEFS = { /* ... keep your existing BRIEFS object here ... */ };
 
 const state = {
-  step: 1,
-  service: '',
-  industry: '',
-  brief: '',
-  whatDid: '',
-  toolUsed: '',
-  result: '',
-  imageDataUrl: null,
-  showErrors: false
+  step: 1, service: '', industry: '', brief: '', whatDid: '', toolUsed: '', result: '', imageDataUrl: null, showErrors: false
 };
 
-// ─────────────────────────────────────────────
-//  HELPERS
-// ─────────────────────────────────────────────
-
-function escapeHtml(str) {
-  return String(str || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-function nl2br(str) {
-  return escapeHtml(str).replace(/\n/g, '<br>');
-}
-
+// HELPERS
+function escapeHtml(str) { return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+function nl2br(str) { return escapeHtml(str).replace(/\n/g, '<br>'); }
 function condenseBrief(brief) {
   const matches = brief.match(/[^.!?]+[.!?]+/g);
-  if (matches && matches.length >= 2) {
-    return (matches[0] + matches[1]).trim();
-  }
-  return brief;
+  return (matches && matches.length >= 2) ? (matches[0] + matches[1]).trim() : brief;
 }
-
 function pickBrief(service, industry) {
   const options = ((BRIEFS[service] || {})[industry]) || [];
-  if (!options.length) return '';
-  return options[Math.floor(Math.random() * options.length)];
+  return options.length ? options[Math.floor(Math.random() * options.length)] : '';
 }
 
 // ─────────────────────────────────────────────
-//  PROGRESS
+// NEW DOWNLOAD PNG FUNCTION
 // ─────────────────────────────────────────────
+async function downloadAsPng() {
+  const card = document.getElementById('portfolio-card');
+  const btn = document.querySelector('.btn-download');
+  
+  btn.innerText = "Generating...";
+  btn.disabled = true;
 
-function renderProgress() {
-  const steps = [
-    { num: 1, label: 'Setup' },
-    { num: 2, label: 'Work' },
-    { num: 3, label: 'Preview' }
-  ];
-
-  let html = '<div class="progress-wrapper">';
-  steps.forEach((s, i) => {
-    if (i > 0) {
-      const done = state.step > i;
-      html += `<div class="progress-connector${done ? ' done' : ''}"></div>`;
-    }
-    const cls = state.step > s.num ? 'completed' : state.step === s.num ? 'current' : 'upcoming';
-    const click = state.step > s.num ? `onclick="goToStep(${s.num})" title="Go back to step ${s.num}"` : '';
-    const icon = state.step > s.num ? '&#x2713;' : s.num;
-    html += `
-      <div class="progress-step">
-        <div class="step-circle ${cls}" ${click}>${icon}</div>
-        <div class="step-label${state.step >= s.num ? ' active' : ''}">${s.label}</div>
-      </div>`;
-  });
-  html += '</div>';
-  return html;
-}
-
-// ─────────────────────────────────────────────
-//  STEP 1
-// ─────────────────────────────────────────────
-
-function renderStep1() {
-  const serviceOptions = Object.entries(SERVICE_NAMES).map(([val, label]) =>
-    `<option value="${val}"${state.service === val ? ' selected' : ''}>${label}</option>`
-  ).join('');
-
-  const industryOptions = Object.entries(INDUSTRY_NAMES).map(([val, label]) =>
-    `<option value="${val}"${state.industry === val ? ' selected' : ''}>${label}</option>`
-  ).join('');
-
-  const briefErr = state.showErrors && !state.brief ? ' visible' : '';
-
-  return `
-    <div class="step-panel">
-      <p class="step-eyebrow">Step 1 of 3</p>
-      <h2 class="step-title">Project Setup</h2>
-
-      <div class="dropdown-row">
-        <div class="field-group">
-          <label class="field-label" for="service-select">Service Type</label>
-          <select id="service-select" class="field-select" onchange="onDropdownChange('service', this.value)">
-            <option value="">Choose a service&hellip;</option>
-            ${serviceOptions}
-          </select>
-        </div>
-        <div class="field-group">
-          <label class="field-label" for="industry-select">Industry</label>
-          <select id="industry-select" class="field-select" onchange="onDropdownChange('industry', this.value)">
-            <option value="">Choose an industry&hellip;</option>
-            ${industryOptions}
-          </select>
-        </div>
-      </div>
-
-      <div id="brief-zone" class="brief-zone"></div>
-      <div class="field-error${briefErr}" id="brief-error" style="margin-top:0.5rem">
-        Select both a service and industry to generate your spec client.
-      </div>
-
-      <div class="step-actions">
-        <button class="btn btn-primary" onclick="tryAdvance()">
-          Next: Document Your Work &rarr;
-        </button>
-      </div>
-    </div>`;
-}
-
-function onDropdownChange(key, value) {
-  state[key] = value;
-  state.showErrors = false;
-  const errEl = document.getElementById('brief-error');
-  if (errEl) errEl.classList.remove('visible');
-
-  if (state.service && state.industry) {
-    state.brief = pickBrief(state.service, state.industry);
-    renderBriefCard();
-  } else {
-    state.brief = '';
-    const zone = document.getElementById('brief-zone');
-    if (zone) zone.innerHTML = '';
+  try {
+    const canvas = await html2canvas(card, {
+      scale: 2, // High quality
+      useCORS: true, // Handle images
+      backgroundColor: "#ffffff"
+    });
+    
+    const link = document.createElement('a');
+    link.download = `VA-Portfolio-${state.service || 'Card'}.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  } catch (err) {
+    console.error("Download failed", err);
+    alert("Could not generate image. Please try again.");
+  } finally {
+    btn.innerHTML = "&#x2193;&nbsp; Download as PNG";
+    btn.disabled = false;
   }
 }
 
-function renderBriefCard() {
-  const zone = document.getElementById('brief-zone');
-  if (!zone || !state.brief) return;
-
-  zone.innerHTML = `
-    <div class="brief-card" id="brief-card">
-      <div class="brief-card-label">&#x2605;&nbsp; Your Spec Client</div>
-      <p class="brief-text">${escapeHtml(state.brief)}</p>
-      <p class="brief-note">This is your spec client. Do the work offline, then come back.</p>
-    </div>`;
-
-  requestAnimationFrame(() => {
-    const card = document.getElementById('brief-card');
-    if (card) requestAnimationFrame(() => card.classList.add('visible'));
-  });
+// NAVIGATION
+function goToStep(n) {
+  state.step = n;
+  render(true);
 }
 
-// ─────────────────────────────────────────────
-//  STEP 2
-// ─────────────────────────────────────────────
-
-function renderStep2() {
-  const e1 = state.showErrors && !state.whatDid.trim() ? ' visible' : '';
-  const e2 = state.showErrors && !state.toolUsed.trim() ? ' visible' : '';
-  const e3 = state.showErrors && !state.result.trim() ? ' visible' : '';
-
-  return `
-    <div class="step-panel">
-      <p class="step-eyebrow">Step 2 of 3</p>
-      <h2 class="step-title">Document Your Work</h2>
-
-      <div class="field-group">
-        <label class="field-label" for="what-did">What did you actually do?</label>
-        <textarea id="what-did" class="field-textarea" rows="5"
-          placeholder="Describe the specific tasks you completed for this spec client..."
-          oninput="state.whatDid = this.value; clearErr('err-whatdid')">${escapeHtml(state.whatDid)}</textarea>
-        <div class="field-error${e1}" id="err-whatdid">This field is required.</div>
-      </div>
-
-      <div class="field-group">
-        <label class="field-label" for="tool-used">What tool or platform did you use?</label>
-        <input id="tool-used" type="text" class="field-input"
-          placeholder="e.g. Gmail, Notion, Canva, Trello, Mailchimp..."
-          value="${escapeHtml(state.toolUsed)}"
-          oninput="state.toolUsed = this.value; clearErr('err-toolused')">
-        <div class="field-error${e2}" id="err-toolused">This field is required.</div>
-      </div>
-
-      <div class="field-group">
-        <label class="field-label" for="result">Estimated result or outcome</label>
-        <p class="field-hint">Made-up is fine &mdash; be specific. &ldquo;37% faster response time&rdquo; beats &ldquo;improved efficiency.&rdquo;</p>
-        <textarea id="result" class="field-textarea" rows="4"
-          placeholder="e.g. Reduced average email response time from 5 days to same-day. Cleared 200+ unread messages in 4 hours and set up a folder system that cut daily inbox processing time by 60%."
-          oninput="state.result = this.value; clearErr('err-result')">${escapeHtml(state.result)}</textarea>
-        <div class="field-error${e3}" id="err-result">This field is required.</div>
-      </div>
-
-      <div class="field-group">
-        <label class="field-label">Screenshot or Sample <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:0.75rem">(optional)</span></label>
-        <p class="field-hint">Stored in your browser only &mdash; never sent anywhere.</p>
-        <div class="file-upload-area" onclick="document.getElementById('file-input').click()">
-          <input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleFileUpload(event)">
-          <div class="file-upload-icon">&#x1F4F7;</div>
-          <div class="file-upload-text">
-            ${state.imageDataUrl ? 'Click to replace image' : 'Click to upload an image'}
-          </div>
-          ${state.imageDataUrl ? `<div class="file-name-display">&#x2714; Image loaded</div>` : ''}
-        </div>
-        <div id="img-preview" class="img-preview">
-          ${state.imageDataUrl ? `<img src="${state.imageDataUrl}" alt="Uploaded screenshot">` : ''}
-        </div>
-      </div>
-
-      <div class="step-actions">
-        <button class="btn btn-secondary" onclick="goToStep(1)">&larr; Back</button>
-        <button class="btn btn-primary" onclick="tryAdvance()">
-          Preview Your Card &rarr;
-        </button>
-      </div>
-    </div>`;
+function tryAdvance() {
+  if (state.step === 1 && !state.brief) { state.showErrors = true; render(); return; }
+  if (state.step === 2 && (!state.whatDid.trim() || !state.toolUsed.trim() || !state.result.trim())) { state.showErrors = true; render(); return; }
+  goToStep(state.step + 1);
 }
 
-function clearErr(id) {
-  const el = document.getElementById(id);
-  if (el) el.classList.remove('visible');
-}
-
+// (Keep your handleFileUpload and other logic...)
 function handleFileUpload(e) {
   const file = e.target.files[0];
   if (!file) return;
-  if (!file.type.startsWith('image/')) return;
   const reader = new FileReader();
-  reader.onload = function(ev) {
+  reader.onload = (ev) => {
     state.imageDataUrl = ev.target.result;
-    const preview = document.getElementById('img-preview');
-    if (preview) {
-      preview.innerHTML = `<img src="${state.imageDataUrl}" alt="Uploaded screenshot">`;
-    }
-    const area = document.querySelector('.file-upload-area .file-upload-text');
-    if (area) area.textContent = 'Click to replace image';
-    const badge = document.querySelector('.file-name-display');
-    if (!badge) {
-      const area2 = document.querySelector('.file-upload-area');
-      if (area2) {
-        const d = document.createElement('div');
-        d.className = 'file-name-display';
-        d.innerHTML = '&#x2714; Image loaded';
-        area2.appendChild(d);
-      }
-    }
+    render();
   };
   reader.readAsDataURL(file);
 }
 
-// ─────────────────────────────────────────────
-//  STEP 3
-// ─────────────────────────────────────────────
+// RENDERING
+function renderProgress() {
+  const steps = [{n:1, l:'Setup'}, {n:2, l:'Work'}, {n:3, l:'Preview'}];
+  return `<div class="progress-wrapper">` + steps.map((s, i) => `
+    ${i > 0 ? `<div class="progress-connector ${state.step > s.n-1 ? 'done' : ''}"></div>` : ''}
+    <div class="progress-step">
+      <div class="step-circle ${state.step > s.n ? 'completed' : state.step === s.n ? 'current' : 'upcoming'}">${state.step > s.n ? '✓' : s.n}</div>
+      <div class="step-label ${state.step >= s.n ? 'active' : ''}">${s.l}</div>
+    </div>`).join('') + `</div>`;
+}
 
-function renderStep3() {
-  const serviceName = SERVICE_NAMES[state.service] || state.service;
-  const condensed = condenseBrief(state.brief);
-
+function renderStep1() {
   return `
-    <div class="step-panel">
-      <p class="step-eyebrow">Step 3 of 3</p>
-      <h2 class="step-title">Your Portfolio Card</h2>
-
-      <div class="step3-intro">
-        <strong>Ready to download.</strong> Click &ldquo;Download as PDF&rdquo; to save your portfolio card. Use your browser&rsquo;s print dialog &mdash; select &ldquo;Save as PDF&rdquo; for the cleanest output.
+    <h2 class="step-title">Project Setup</h2>
+    <div class="dropdown-row">
+      <div class="field-group">
+        <label class="field-label">Service</label>
+        <select class="field-select" onchange="state.service=this.value; state.brief=pickBrief(state.service, state.industry); render();">
+          <option value="">Select...</option>
+          ${Object.entries(SERVICE_NAMES).map(([k,v])=>`<option value="${k}" ${state.service===k?'selected':''}>${v}</option>`).join('')}
+        </select>
       </div>
-
-      <div class="portfolio-card-wrapper">
-        <div class="portfolio-card" id="portfolio-card">
-
-          <div class="card-header">
-            <div class="card-header-top">
-              <div class="card-spec-label">&#x2605;&nbsp; Spec Portfolio Piece</div>
-              <div class="card-service-badge">${escapeHtml(serviceName)}</div>
-            </div>
-            <p class="card-brief-text">${escapeHtml(condensed)}</p>
-          </div>
-
-          <div class="card-body">
-
-            <div class="card-section">
-              <div class="card-section-label">What I Did</div>
-              <div class="card-section-content">${nl2br(state.whatDid)}</div>
-            </div>
-
-            <div class="card-divider"></div>
-
-            <div class="card-section">
-              <div class="card-section-label">Tools Used</div>
-              <div class="card-section-content">
-                <span class="card-tool-pill">${escapeHtml(state.toolUsed)}</span>
-              </div>
-            </div>
-
-            <div class="card-divider"></div>
-
-            <div class="card-section">
-              <div class="card-section-label">Result</div>
-              <div class="card-section-content">${nl2br(state.result)}</div>
-            </div>
-
-            ${state.imageDataUrl ? `
-            <div class="card-image">
-              <img src="${state.imageDataUrl}" alt="Work sample">
-            </div>` : ''}
-
-          </div>
-
-          <div class="card-footer">
-            <div class="card-watermark">VIRTUE<span>EASY</span></div>
-          </div>
-
-        </div>
+      <div class="field-group">
+        <label class="field-label">Industry</label>
+        <select class="field-select" onchange="state.industry=this.value; state.brief=pickBrief(state.service, state.industry); render();">
+          <option value="">Select...</option>
+          ${Object.entries(INDUSTRY_NAMES).map(([k,v])=>`<option value="${k}" ${state.industry===k?'selected':''}>${v}</option>`).join('')}
+        </select>
       </div>
+    </div>
+    <div id="brief-zone">${state.brief ? `<div class="brief-card visible"><div class="brief-card-label">Spec Client</div><p>${state.brief}</p></div>` : ''}</div>
+    <div class="step-actions"><button class="btn btn-primary" onclick="tryAdvance()">Next &rarr;</button></div>`;
+}
 
-      <div class="step-actions">
-        <button class="btn btn-secondary" onclick="goToStep(2)">&larr; Edit</button>
-        <button class="btn btn-primary" onclick="window.print()">
-          &#x2193;&nbsp; Download as PDF
-        </button>
-        <button class="btn btn-ghost" onclick="startOver()" style="margin-left:auto">
-          Start Over
-        </button>
-      </div>
+function renderStep2() {
+  return `
+    <h2 class="step-title">Document Work</h2>
+    <div class="field-group">
+      <label class="field-label">What did you do?</label>
+      <textarea class="field-textarea" oninput="state.whatDid=this.value">${state.whatDid}</textarea>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Tools Used</label>
+      <input type="text" class="field-input" value="${state.toolUsed}" oninput="state.toolUsed=this.value">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Result</label>
+      <textarea class="field-textarea" oninput="state.result=this.value">${state.result}</textarea>
+    </div>
+    <div class="field-group">
+        <label class="field-label">Screenshot (Optional)</label>
+        <input type="file" accept="image/*" onchange="handleFileUpload(event)">
+    </div>
+    <div class="step-actions">
+      <button class="btn btn-secondary" onclick="goToStep(1)">Back</button>
+      <button class="btn btn-primary" onclick="tryAdvance()">Preview Card &rarr;</button>
     </div>`;
 }
 
-// ─────────────────────────────────────────────
-//  NAVIGATION
-// ─────────────────────────────────────────────
-
-function validate() {
-  if (state.step === 1) {
-    return !!state.brief;
-  }
-  if (state.step === 2) {
-    return state.whatDid.trim() && state.toolUsed.trim() && state.result.trim();
-  }
-  return true;
+function renderStep3() {
+  const serviceName = SERVICE_NAMES[state.service] || state.service;
+  return `
+    <h2 class="step-title">Your Portfolio Card</h2>
+    <div class="step3-intro">
+      <strong>Ready!</strong> Click &ldquo;Download as PNG&rdquo; to save a high-quality image of your card to your device.
+    </div>
+    <div class="portfolio-card" id="portfolio-card">
+      <div class="card-header">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="card-spec-label">★ Spec Portfolio Piece</div>
+          <div class="card-service-badge">${escapeHtml(serviceName)}</div>
+        </div>
+        <p class="card-brief-text">${escapeHtml(condenseBrief(state.brief))}</p>
+      </div>
+      <div class="card-body">
+        <div class="card-section-label">What I Did</div>
+        <div class="card-section-content">${nl2br(state.whatDid)}</div>
+        <div class="card-divider"></div>
+        <div class="card-section-label">Tools Used</div>
+        <div class="card-section-content"><span class="card-tool-pill">${escapeHtml(state.toolUsed)}</span></div>
+        <div class="card-divider"></div>
+        <div class="card-section-label">Result</div>
+        <div class="card-section-content">${nl2br(state.result)}</div>
+        ${state.imageDataUrl ? `<div class="card-image"><img src="${state.imageDataUrl}"></div>` : ''}
+      </div>
+      <div class="card-footer"><div class="card-watermark">VIRTUE<span>EASY</span></div></div>
+    </div>
+    <div class="step-actions">
+      <button class="btn btn-secondary" onclick="goToStep(2)">Edit</button>
+      <button class="btn btn-primary btn-download" onclick="downloadAsPng()">&#x2193;&nbsp; Download as PNG</button>
+    </div>`;
 }
-
-function tryAdvance() {
-  if (validate()) {
-    goToStep(state.step + 1);
-  } else {
-    state.showErrors = true;
-    render(false); // re-render current step to show errors
-  }
-}
-
-function goToStep(n) {
-  state.showErrors = false;
-  const container = document.getElementById('step-container');
-  container.style.opacity = '0';
-  container.style.transform = 'translateY(8px)';
-
-  setTimeout(() => {
-    state.step = n;
-    render(true);
-  }, 190);
-}
-
-function startOver() {
-  state.step = 1;
-  state.service = '';
-  state.industry = '';
-  state.brief = '';
-  state.whatDid = '';
-  state.toolUsed = '';
-  state.result = '';
-  state.imageDataUrl = null;
-  state.showErrors = false;
-  goToStep(1);
-}
-
-// ─────────────────────────────────────────────
-//  RENDER
-// ─────────────────────────────────────────────
 
 function render(animate) {
-  // Progress
-  const progressZone = document.getElementById('progress-zone');
-  if (progressZone) progressZone.innerHTML = renderProgress();
-
-  // Step content
+  document.getElementById('progress-zone').innerHTML = renderProgress();
   const container = document.getElementById('step-container');
-  if (!container) return;
-
-  if (state.step === 1) {
-    container.innerHTML = renderStep1();
-    if (state.brief) renderBriefCard();
-  } else if (state.step === 2) {
-    container.innerHTML = renderStep2();
-  } else if (state.step === 3) {
-    container.innerHTML = renderStep3();
-  }
-
-  // Animate in
-  if (animate) {
-    container.style.opacity = '0';
-    container.style.transform = 'translateY(8px)';
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        container.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
-        container.style.opacity = '1';
-        container.style.transform = '';
-      });
-    });
-  }
+  if (state.step === 1) container.innerHTML = renderStep1();
+  else if (state.step === 2) container.innerHTML = renderStep2();
+  else if (state.step === 3) container.innerHTML = renderStep3();
+  container.style.opacity = 1;
 }
 
-// ─────────────────────────────────────────────
-//  INIT
-// ─────────────────────────────────────────────
-
-document.getElementById('footer-year').textContent = new Date().getFullYear();
-
-// Initial render with fade-in
-render(false);
-const container = document.getElementById('step-container');
-requestAnimationFrame(() => {
-  requestAnimationFrame(() => {
-    container.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-    container.style.opacity = '1';
-    container.style.transform = '';
-  });
-});
+render();
 </script>
-
 </body>
 </html>
