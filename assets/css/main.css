@@ -156,6 +156,9 @@ h1, h2, h3, h4 {
 .nav-links a:hover { color: var(--white); }
 .nav-links a.active { color: var(--white); }
 
+.nav-links a.nav-community { color: rgba(255,31,122,0.75); }
+.nav-links a.nav-community:hover { color: var(--pink); }
+
 .nav-links .nav-cta a {
   color: var(--pink);
   border: 1px solid rgba(255,31,122,0.4);
@@ -285,8 +288,8 @@ h1, h2, h3, h4 {
 
 .badge-free {
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.25);
-  color: var(--muted);
+  border: 1px solid rgba(0,0,0,0.15);
+  color: rgba(0,0,0,0.4);
 }
 
 /* ── SECTION WRAPPER ── */
