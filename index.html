@@ -1867,6 +1867,32 @@
       font-size: 14px;
       margin: 0;
     }
+
+  /* ── MOBILE FIXES ── */
+  @media (max-width: 768px) {
+    .hero { padding: 4rem 1.25rem 3rem; min-height: auto; }
+    .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero-headline { font-size: clamp(2.8rem, 12vw, 4.5rem); }
+    .hero-sub { font-size: 0.95rem; max-width: 100%; }
+    .hero-ctas { flex-direction: column; }
+    .hero-visual { height: auto; min-height: 320px; padding-bottom: 80px; }
+    .mockup-browser { position: relative; left: auto; right: auto; top: auto; width: 100%; }
+    .mockup-content { padding: 1rem; }
+    .mockup-day-title { font-size: 1.1rem; }
+    .mockup-task { font-size: 0.82rem; }
+    .float-card-win { left: 0; bottom: -10px; }
+    .float-card-stars { right: 0; bottom: -60px; }
+    .orientation-inner { grid-template-columns: 1fr; }
+    .orientation-item { border-right: none; border-bottom: 1px solid var(--border); padding: 1.5rem 1rem; }
+    .orientation-item:last-child { border-bottom: none; }
+  }
+  @media (max-width: 480px) {
+    .hero-headline { font-size: clamp(2.4rem, 13vw, 3.5rem); }
+    .mockup-day-title { font-size: 1rem; margin-bottom: 0.75rem; }
+    .mockup-task { font-size: 0.76rem; }
+    .float-card { padding: 0.65rem 0.85rem; }
+    .float-card-value { font-size: 0.9rem; }
+  }
   </style>
 </head>
 <body>
