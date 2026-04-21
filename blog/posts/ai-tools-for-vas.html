@@ -94,11 +94,24 @@ footer a { color: var(--pink); text-decoration: none; }
 </head>
 <body>
 
-<nav>
-  <a href="https://virtueasy.com" class="nav-logo">VIRTUE<span>EASY</span></a>
-  <a href="../index.html" class="nav-back">← All Posts</a>
-  <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="nav-cta">Get the Blueprint $27</a>
-</nav>
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="/">
+      <img src="/assets/virtueasy-logo.png" alt="Virtueasy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="nav-logo-text">VIRTUEASY</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/resources/">Resources</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/blueprint/">Blueprint</a></li>
+      <li><a href="/pricing-tool/">Pricing Tool</a></li>
+      <li><a href="https://www.facebook.com/groups/974455928445420" target="_blank" rel="noopener" class="nav-community"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.885v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>Community</a></li>
+      <li class="nav-cta"><a href="/blueprint/">Get Started</a></li>
+    </ul>
+  </nav>
 
 <div class="post-hero">
   <span class="post-tag">AI for VAs</span>
@@ -117,7 +130,7 @@ footer a { color: var(--pink); text-decoration: none; }
 
 <h3><a href="https://virtueasy.com/260-prompts/">ChatGPT</a> and Claude for Writing and Research</h3>
 <p>These tools are most useful for drafting, not publishing. Use them to generate a first draft of an email, caption, blog outline, or client report. Then edit it to match the client's voice and add the specifics AI cannot know. Your job shifts from writing from scratch to editing toward excellent, which is both faster and easier.</p>
-<p>They are also powerful research tools. Summarizing long articles, comparing options, drafting FAQs, generating lists of ideas — all faster with AI than without it.</p>
+<p>They are also powerful research tools. Summarizing long articles, comparing options, drafting FAQs, generating lists of ideas - all faster with AI than without it.</p>
 
 <!-- ChatGPT 260 prompts banner: after ChatGPT/Claude section -->
 <div class="promo-banner">
@@ -134,7 +147,7 @@ footer a { color: var(--pink); text-decoration: none; }
 <p>AI transcription tools automatically record and summarize calls. If you manage a client's calendar or sit in on meetings, tools like Otter.ai or Fireflies do the note-taking and produce a clean summary. That is several hours per week returned to billable work.</p>
 
 <h3>Zapier and Make for Automations</h3>
-<p>These are not strictly AI tools, but they are increasingly AI-powered and represent one of the highest-value skills a VA can develop. The ability to build simple automations — connecting apps, triggering actions, reducing manual steps — is something most clients will pay a premium for. A VA who can build workflows is worth considerably more than one who only executes them.</p>
+<p>These are not strictly AI tools, but they are increasingly AI-powered and represent one of the highest-value skills a VA can develop. The ability to build simple automations - connecting apps, triggering actions, reducing manual steps - is something most clients will pay a premium for. A VA who can build workflows is worth considerably more than one who only executes them.</p>
 
 <div class="callout">
   <p><strong>Positioning tip:</strong> If you learn to build basic automations in Zapier or Make, add it to your service offerings. Clients who are drowning in repetitive tasks will pay $300-500 for an automation that takes you two hours to build. That math works in your favor.</p>
@@ -147,14 +160,14 @@ footer a { color: var(--pink); text-decoration: none; }
   <li>Detailed prompts that include the client's tone, audience, and goals</li>
   <li>Editing every output before it goes anywhere near a client</li>
   <li>Adding specifics, examples, and personality that AI cannot access</li>
-  <li>Knowing when not to use it — some tasks are faster done manually</li>
+  <li>Knowing when not to use it - some tasks are faster done manually</li>
 </ul>
 <p>Your client is not paying for AI-generated content. They are paying for your judgment about what is good, what needs to be fixed, and what should be scrapped. AI makes that process faster. It does not replace it.</p>
 
 <!-- ChatGPT 260 prompts banner: mid-article -->
 <div class="promo-banner">
   <p class="promo-eyebrow">Stop Staring at a Blank Prompt</p>
-  <p class="promo-title">Get 260 Ready-to-Use ChatGPT Prompts — Free</p>
+  <p class="promo-title">Get 260 Ready-to-Use ChatGPT Prompts - Free</p>
   <p class="promo-sub">Copy, paste, and get results in seconds. Built specifically for virtual assistants.</p>
   <a href="https://virtueasy.com/260-prompts/" class="promo-btn">Grab the Free Download →</a>
 </div>
@@ -169,9 +182,9 @@ footer a { color: var(--pink); text-decoration: none; }
 <!-- ChatGPT 260 prompts banner: end of article -->
 <div class="promo-banner">
   <p class="promo-eyebrow">Start Here</p>
-  <p class="promo-title">260 ChatGPT Prompts — Free Download</p>
+  <p class="promo-title">260 ChatGPT Prompts - Free Download</p>
   <p class="promo-sub">If you're starting with <a href="https://virtueasy.com/260-prompts/" style="color:var(--pink);">ChatGPT</a>, start with prompts that actually work. 260 of them, free.</p>
-  <a href="https://virtueasy.com/260-prompts/" class="promo-btn">Download Now — It's Free →</a>
+  <a href="https://virtueasy.com/260-prompts/" class="promo-btn">Download Now - It's Free →</a>
 </div>
 
 </article>

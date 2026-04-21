@@ -17,7 +17,7 @@ fbq('track', 'PageView');
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>VA Pricing Tool — VIRTUEASY</title>
+<title>VA Pricing Tool - VIRTUEASY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -365,13 +365,13 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
 
   function renderStep2(){
     const models=[
-      {id:"hourly",icon:"⏱",title:"Hourly rate",desc:"Charge by the hour — simple and flexible"},
+      {id:"hourly",icon:"⏱",title:"Hourly rate",desc:"Charge by the hour - simple and flexible"},
       {id:"package",icon:"📦",title:"Packages",desc:"Bundle hours + services into tiered plans"},
       {id:"project",icon:"🎯",title:"Per-project",desc:"Fixed price based on scope and complexity"}
     ];
     let h=`<div class="${vis(2)}"><div class="card">
       <h2 class="card-title">Choose pricing models</h2>
-      <p class="card-sub">Select one or more — you can build each one out.</p>`;
+      <p class="card-sub">Select one or more - you can build each one out.</p>`;
     models.forEach(m=>{
       const active=state.pricingModels.includes(m.id);
       h+=`<button class="model-card${active?" active":""}" onclick="toggleModel('${m.id}')">

@@ -434,14 +434,15 @@
   <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
     <span></span><span></span><span></span>
   </button>
-  <ul class="nav-links">
-    <li><a href="/">Home</a></li>
-    <li><a href="/resources/" class="active">Resources</a></li>
-    <li><a href="/blog/">Blog</a></li>
-    <li><a href="/blueprint/">Blueprint &#x2197;</a></li>
-    <li><a href="/pricing-tool/">Pricing Tool</a></li>
-    <li class="nav-cta"><a href="/blueprint/">Get Started</a></li>
-  </ul>
+      <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/resources/">Resources</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/blueprint/">Blueprint</a></li>
+      <li><a href="/pricing-tool/">Pricing Tool</a></li>
+      <li><a href="https://www.facebook.com/groups/974455928445420" target="_blank" rel="noopener" class="nav-community"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.885v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>Community</a></li>
+      <li class="nav-cta"><a href="/blueprint/">Get Started</a></li>
+    </ul>
 </nav>
 
 <main class="builder-main">
@@ -525,19 +526,19 @@ const INDUSTRY_NAMES = {
 const BRIEFS = {
   'inbox-management': {
     'ecommerce': [
-      "Priya Mehta runs a Shopify candle brand called Flicker & Co that did $180K last year. Since launching a wholesale channel in Q3, her inbox has become unmanageable — she's receiving 60 to 80 emails a day from retailers, customers, and suppliers and hasn't responded to three wholesale inquiries in over a week. She needs someone to triage her inbox, set up folders and filters, draft templated replies, and flag anything that needs her direct attention.",
-      "Marcus Webb sells custom sneaker accessories through his WooCommerce store and a growing Amazon presence. He recently went viral on TikTok and his customer service inbox exploded — he's sitting on 200+ unread messages and his average response time has ballooned to 5 days. He needs inbox cleanup, a response system, and ongoing daily triage so he never falls behind again."
+      "Priya Mehta runs a Shopify candle brand called Flicker & Co that did $180K last year. Since launching a wholesale channel in Q3, her inbox has become unmanageable - she's receiving 60 to 80 emails a day from retailers, customers, and suppliers and hasn't responded to three wholesale inquiries in over a week. She needs someone to triage her inbox, set up folders and filters, draft templated replies, and flag anything that needs her direct attention.",
+      "Marcus Webb sells custom sneaker accessories through his WooCommerce store and a growing Amazon presence. He recently went viral on TikTok and his customer service inbox exploded - he's sitting on 200+ unread messages and his average response time has ballooned to 5 days. He needs inbox cleanup, a response system, and ongoing daily triage so he never falls behind again."
     ],
     'coaching': [
-      "Dani Reyes is a business coach who works with first-time entrepreneurs and runs a 12-week group program. She uses Gmail for everything — client check-ins, affiliate inquiries, podcast pitches, and general questions — and has no system beyond a starred folder she never checks. She needs her inbox sorted, a priority filter set up, and templated replies drafted for her five most common email types.",
+      "Dani Reyes is a business coach who works with first-time entrepreneurs and runs a 12-week group program. She uses Gmail for everything - client check-ins, affiliate inquiries, podcast pitches, and general questions - and has no system beyond a starred folder she never checks. She needs her inbox sorted, a priority filter set up, and templated replies drafted for her five most common email types.",
       "Stephen Okafor is an executive coach who recently started getting inbound from a LinkedIn article that gained traction. His inbox has tripled in volume and he's missing potential discovery call bookings because he doesn't see them in time. He needs a VA to manage intake emails, send booking links with a personal-sounding reply, and summarize anything that needs his real attention."
     ],
     'real-estate': [
       "Claudia Santana is a residential real estate agent in Phoenix who handles both buyers and sellers. She gets emails from Zillow leads, title companies, lenders, and clients all in the same inbox with zero organization, and she regularly misses time-sensitive documents. She needs a VA to set up a folder system by deal stage, flag urgent items, and draft acknowledgment replies to keep all parties feeling heard.",
-      "Brandon Kirk is a property investor who manages a portfolio of 14 rental units and is actively buying more. His inbox is flooded with messages from property managers, contractors, brokers, and tenants — many of which are duplicates or low-priority. He needs triage, a simple tagging system, and a weekly summary email so he can process his inbox in 20 minutes instead of 2 hours."
+      "Brandon Kirk is a property investor who manages a portfolio of 14 rental units and is actively buying more. His inbox is flooded with messages from property managers, contractors, brokers, and tenants - many of which are duplicates or low-priority. He needs triage, a simple tagging system, and a weekly summary email so he can process his inbox in 20 minutes instead of 2 hours."
     ],
     'health-wellness': [
-      "Marissa Bloom is a registered dietitian who runs a virtual private practice and a small group coaching program. She's been handling her own inbox — client questions, referral inquiries, supplement brand partnerships, and scheduling — for three years, and it's now costing her roughly two hours a day. She needs someone to respond to non-clinical questions, handle scheduling back-and-forth, and flag anything requiring her professional judgment.",
+      "Marissa Bloom is a registered dietitian who runs a virtual private practice and a small group coaching program. She's been handling her own inbox - client questions, referral inquiries, supplement brand partnerships, and scheduling - for three years, and it's now costing her roughly two hours a day. She needs someone to respond to non-clinical questions, handle scheduling back-and-forth, and flag anything requiring her professional judgment.",
       "James Tran owns a boutique personal training studio with six trainers and a growing online program. His inbox includes client check-ins, new member inquiries, trainer scheduling requests, and equipment vendor emails, and he hasn't archived a single email in two years. He needs a full inbox audit, folder structure, templated responses for common questions, and daily triage going forward."
     ],
     'creative-agency': [
@@ -561,18 +562,18 @@ const BRIEFS = {
     ],
     'coaching': [
       "Patrick Hughes is a sales coach who creates LinkedIn and Instagram content in batches on Sunday afternoons. He has a Notion folder full of finished posts that never made it to any scheduling tool, and his posting consistency has dropped to once or twice a week. He needs a VA to take his existing content, load it into Buffer, and maintain a 5-day-a-week schedule across LinkedIn and Instagram.",
-      "Yemi Adeyemi is a mindset and productivity coach with an email list of 4,200 subscribers. She writes her newsletters in advance but often sends them late — sometimes by a week — because she forgets to log in and hit send. She needs a VA to take her finished copy, set it up in ConvertKit with the right segments and scheduling, and confirm back when it's queued."
+      "Yemi Adeyemi is a mindset and productivity coach with an email list of 4,200 subscribers. She writes her newsletters in advance but often sends them late - sometimes by a week - because she forgets to log in and hit send. She needs a VA to take her finished copy, set it up in ConvertKit with the right segments and scheduling, and confirm back when it's queued."
     ],
     'real-estate': [
-      "Chloe Brentwood is a real estate agent who creates just-listed and just-sold posts for every transaction, plus market update content for her newsletter. She has the raw content — photos, stats, and written copy — but can't keep up with formatting and posting it across Instagram, Facebook, and her email list. She needs a VA to own the publishing calendar and keep her channels active between transactions.",
+      "Chloe Brentwood is a real estate agent who creates just-listed and just-sold posts for every transaction, plus market update content for her newsletter. She has the raw content - photos, stats, and written copy - but can't keep up with formatting and posting it across Instagram, Facebook, and her email list. She needs a VA to own the publishing calendar and keep her channels active between transactions.",
       "Dean Fitzgerald runs a small property management company and wants to build authority through educational content on Instagram and LinkedIn. He batch-writes tips and short-form posts but has no scheduling system and often posts nothing for two weeks straight. He needs a VA to load his content into a scheduling tool, maintain a minimum of 4 posts per week, and alert him when he's running low on content."
     ],
     'health-wellness': [
-      "Amber Nguyen is an acupuncturist with a loyal local following who wants to grow her reach online. She photographs her treatments, writes educational captions about traditional Chinese medicine, and films short videos — but all of it sits in her camera roll unpublished. She needs a VA to select, caption if needed, and schedule her content across Instagram and Facebook three times a week.",
+      "Amber Nguyen is an acupuncturist with a loyal local following who wants to grow her reach online. She photographs her treatments, writes educational captions about traditional Chinese medicine, and films short videos - but all of it sits in her camera roll unpublished. She needs a VA to select, caption if needed, and schedule her content across Instagram and Facebook three times a week.",
       "Chris Dunmore runs a functional medicine clinic and sends a bi-weekly patient newsletter through Mailchimp. He writes the content himself and sends it to a VA for formatting, but every campaign goes live late because the handoff process is unclear. He needs a defined workflow: he sends copy, the VA formats it using his template, schedules it for Tuesday morning, and confirms."
     ],
     'creative-agency': [
-      "Helena Price is the founder of a motion graphics studio and wants her Instagram to show consistent work, behind-the-scenes content, and client results. She creates the content but has no one to organize and schedule it — her last post was three weeks ago. She needs a VA to take her Dropbox folder of finished assets, write brief captions using her voice guide, and schedule four posts a week.",
+      "Helena Price is the founder of a motion graphics studio and wants her Instagram to show consistent work, behind-the-scenes content, and client results. She creates the content but has no one to organize and schedule it - her last post was three weeks ago. She needs a VA to take her Dropbox folder of finished assets, write brief captions using her voice guide, and schedule four posts a week.",
       "Kofi Mensah runs a boutique video production company and has been meaning to start a LinkedIn content strategy for months. He has a Google Doc of 40 post ideas, three recorded videos, and a case study draft. He needs a VA to format and schedule the LinkedIn posts, edit the video transcripts into standalone posts, and get everything into a 90-day content calendar."
     ],
     'finance': [
@@ -591,43 +592,43 @@ const BRIEFS = {
       "Darnell Cross sells premium coffee equipment online and has an engaged Instagram following of 8,200. He's been managing the account himself but response times on DMs and comments have slipped and his posting cadence has dropped from daily to twice a week. He needs a VA to maintain a 5-day posting schedule, respond to all comments within 4 hours, and send him a weekly engagement summary."
     ],
     'coaching': [
-      "Layla Osei is a confidence coach for women in corporate who built her Instagram following to 12,000 through raw, personal posts. She wants to show up consistently but has been in a rut for two months and hasn't posted in three weeks. She needs a VA to manage her Instagram — writing captions in her voice, repurposing existing content, scheduling posts five days a week, and engaging with followers in comments.",
-      "Trevor Hall is a business strategy coach who's trying to grow on LinkedIn. He has a strong point of view but no consistency — he'll post six times in one week and then disappear for two. He needs a VA to manage his LinkedIn presence: turning his voice memos into polished posts, scheduling them daily, and responding to comments within a business day."
+      "Layla Osei is a confidence coach for women in corporate who built her Instagram following to 12,000 through raw, personal posts. She wants to show up consistently but has been in a rut for two months and hasn't posted in three weeks. She needs a VA to manage her Instagram - writing captions in her voice, repurposing existing content, scheduling posts five days a week, and engaging with followers in comments.",
+      "Trevor Hall is a business strategy coach who's trying to grow on LinkedIn. He has a strong point of view but no consistency - he'll post six times in one week and then disappear for two. He needs a VA to manage his LinkedIn presence: turning his voice memos into polished posts, scheduling them daily, and responding to comments within a business day."
     ],
     'real-estate': [
-      "Marina Cabrera is a luxury real estate agent who wants to grow her personal brand on Instagram and Facebook. She has great listing photos and a professional headshot session, but zero posting consistency and no engagement strategy. She needs a VA to manage both accounts — posting listings, market updates, and personal brand content three times a week each, and responding to all comments and inquiries.",
-      "Troy Higgins is a real estate investor who documents his property flips and wants to build a following on Instagram Reels. He films everything himself but doesn't have time to organize, caption, or post it. He needs a VA to manage his short-form video pipeline — downloading clips from his shared folder, writing captions, posting on schedule, and responding to comments."
+      "Marina Cabrera is a luxury real estate agent who wants to grow her personal brand on Instagram and Facebook. She has great listing photos and a professional headshot session, but zero posting consistency and no engagement strategy. She needs a VA to manage both accounts - posting listings, market updates, and personal brand content three times a week each, and responding to all comments and inquiries.",
+      "Troy Higgins is a real estate investor who documents his property flips and wants to build a following on Instagram Reels. He films everything himself but doesn't have time to organize, caption, or post it. He needs a VA to manage his short-form video pipeline - downloading clips from his shared folder, writing captions, posting on schedule, and responding to comments."
     ],
     'health-wellness': [
       "Claire Fontaine is a yoga instructor and wellness blogger with a following of 6,500 on Instagram. She was consistent for two years but took a break during a personal move and never re-established her rhythm. She needs a VA to rebuild her content calendar, write captions for her backlog of photos, schedule four posts per week, and re-engage her audience through comments and story interactions.",
-      "Ryan Cho is a physical therapist who creates educational content about injury prevention. He wants to grow on Instagram and TikTok but has been inconsistent — great months followed by total silence. He needs a VA to plan his content calendar, turn his clinical talking points into engaging short-form captions, and maintain a minimum of 5 posts per week across both platforms."
+      "Ryan Cho is a physical therapist who creates educational content about injury prevention. He wants to grow on Instagram and TikTok but has been inconsistent - great months followed by total silence. He needs a VA to plan his content calendar, turn his clinical talking points into engaging short-form captions, and maintain a minimum of 5 posts per week across both platforms."
     ],
     'creative-agency': [
       "Simone Laurent runs a graphic design agency and wants her Instagram to reflect the quality of her work. She posts sporadically when she remembers and her grid has no cohesion. She needs a VA to curate her project library, build a consistent posting schedule, write captions in her minimalist brand voice, and respond to collaboration inquiries in DMs.",
       "Elan Gregory is a brand photographer who wants to use Instagram as his primary lead generation channel. He has thousands of images but no strategy for which ones to post or when. He needs a VA to manage his Instagram account end-to-end: building a 60-day content calendar, writing captions, scheduling posts, engaging in comments, and tracking follower growth weekly."
     ],
     'finance': [
-      "Whitney Pace is a wealth advisor who wants to grow on LinkedIn by sharing personal finance education. She's cautious about compliance and only wants educational content that doesn't constitute advice — but she still struggles to maintain any presence at all. She needs a VA to manage her LinkedIn: writing pre-approved educational posts twice a week, responding to comments, and building a content queue she reviews monthly.",
+      "Whitney Pace is a wealth advisor who wants to grow on LinkedIn by sharing personal finance education. She's cautious about compliance and only wants educational content that doesn't constitute advice - but she still struggles to maintain any presence at all. She needs a VA to manage her LinkedIn: writing pre-approved educational posts twice a week, responding to comments, and building a content queue she reviews monthly.",
       "Andre Kim runs a financial literacy nonprofit and wants to grow their Instagram following among 18 to 30-year-olds. The account has 2,100 followers and they post inconsistently. He needs a VA to take their written content, format it for Instagram carousels and single images, maintain a daily posting schedule, and respond to DMs and comments."
     ],
     'other': [
       "Jonah Parker is a fitness coach who built his following through YouTube but wants to repurpose that content onto Instagram and TikTok. He films everything himself but doesn't understand short-form strategy and hasn't started either account. He needs a VA to clip his YouTube videos into Reels and TikToks, write platform-native captions, post daily, and track which clips perform best.",
-      "Miriam Stein runs a children's book author platform and uses Instagram to connect with teachers, parents, and librarians. She posts beautiful content but has no strategy for hashtags, engagement, or growth. She needs a VA to take ownership of the account — scheduling posts, writing captions that speak to educators, responding to every comment, and sending her a monthly performance report."
+      "Miriam Stein runs a children's book author platform and uses Instagram to connect with teachers, parents, and librarians. She posts beautiful content but has no strategy for hashtags, engagement, or growth. She needs a VA to take ownership of the account - scheduling posts, writing captions that speak to educators, responding to every comment, and sending her a monthly performance report."
     ]
   },
 
   'travel-coordination': {
     'ecommerce': [
-      "Theo Watts runs a growing e-commerce brand and needs to attend four trade shows this year — two domestic, two international. He's never managed his own travel before and doesn't know how to build an itinerary that accounts for booth setup days, buyer meetings, and buffer time. He needs a VA to research and book all flights, hotels, and ground transport for each conference, and build him a clean day-by-day itinerary he can follow without thinking.",
-      "Jasmine Reed is the founder of a gift box company who travels quarterly to meet wholesale buyers across the country. She spends hours searching for flights and hotels herself and always feels like she leaves money on the table on fares. She needs a VA to handle all booking logistics for her next two trips — including research, booking, confirmation tracking, and a full travel document per trip."
+      "Theo Watts runs a growing e-commerce brand and needs to attend four trade shows this year - two domestic, two international. He's never managed his own travel before and doesn't know how to build an itinerary that accounts for booth setup days, buyer meetings, and buffer time. He needs a VA to research and book all flights, hotels, and ground transport for each conference, and build him a clean day-by-day itinerary he can follow without thinking.",
+      "Jasmine Reed is the founder of a gift box company who travels quarterly to meet wholesale buyers across the country. She spends hours searching for flights and hotels herself and always feels like she leaves money on the table on fares. She needs a VA to handle all booking logistics for her next two trips - including research, booking, confirmation tracking, and a full travel document per trip."
     ],
     'coaching': [
-      "David Okonkwo is a keynote speaker and coach who speaks at 15 to 20 events per year and has an upcoming 8-city tour over 6 weeks. His current system is a spreadsheet that's three months out of date. He needs a VA to coordinate all travel for the tour — flights, hotels, ground transportation, and a master itinerary that includes venue arrival times, AV check deadlines, and travel buffer between cities.",
+      "David Okonkwo is a keynote speaker and coach who speaks at 15 to 20 events per year and has an upcoming 8-city tour over 6 weeks. His current system is a spreadsheet that's three months out of date. He needs a VA to coordinate all travel for the tour - flights, hotels, ground transportation, and a master itinerary that includes venue arrival times, AV check deadlines, and travel buffer between cities.",
       "Priscilla Huang is a high-performance coach who runs two in-person retreats per year plus regular client intensives. She needs to travel to venue sites in advance for walk-throughs and then manage logistics for herself and her assistant during the events themselves. She needs a VA to handle venue research, flight and hotel booking, car rental, and a detailed logistics doc for each trip."
     ],
     'real-estate': [
       "Kevin Stafford is a real estate investor who does two to three acquisition trips per year to markets outside his home state. He typically tours 10 to 15 properties per visit and needs his travel and property schedule perfectly timed. He needs a VA to book flights and hotels, build a day-by-day property tour itinerary using Google Maps routing, and confirm all appointments with agents and sellers.",
-      "Adriana Vidal is a commercial real estate broker who attends major industry conferences each year with complex schedules — panels, parties, and client dinners scattered across multiple venues. She needs a VA to handle all travel logistics and build her a conference schedule that layers her confirmed meetings onto the official event agenda."
+      "Adriana Vidal is a commercial real estate broker who attends major industry conferences each year with complex schedules - panels, parties, and client dinners scattered across multiple venues. She needs a VA to handle all travel logistics and build her a conference schedule that layers her confirmed meetings onto the official event agenda."
     ],
     'health-wellness': [
       "Mia Rosenberg is a functional nutritionist who is leading a wellness retreat in Costa Rica for 14 clients. She needs to coordinate her own travel plus help clients understand their logistics. She needs a VA to book her flights and accommodation, create a client travel guide with recommendations for flights and local transport, and build a retreat master schedule.",
@@ -642,34 +643,34 @@ const BRIEFS = {
       "Winston Leach runs a boutique investment firm and is traveling to three investor days and one conference this quarter. He prefers specific airline and hotel brands for points reasons and has a hard requirement for direct flights. He needs a VA to research and book all travel within his preferences, track his loyalty numbers, and build him a clean trip-by-trip briefing document."
     ],
     'other': [
-      "Camille Fontaine is a ceramics artist who does four art fair residencies per year — each one requiring travel, accommodation near the fair venue, and shipping of fragile work. She's lost money on bad hotel choices and slow shipping timing before. She needs a VA to research and book travel and lodging for her next two fair trips and create a shipping timeline and packing checklist for her pieces.",
+      "Camille Fontaine is a ceramics artist who does four art fair residencies per year - each one requiring travel, accommodation near the fair venue, and shipping of fragile work. She's lost money on bad hotel choices and slow shipping timing before. She needs a VA to research and book travel and lodging for her next two fair trips and create a shipping timeline and packing checklist for her pieces.",
       "Isaac Garza is an independent consultant who bills clients for travel time and needs accurate, well-organized travel records for reimbursement. He travels 3 to 4 days a week and has a backlog of receipts and confirmation emails he needs organized. He needs a VA to catch up on the last quarter's travel documentation, then build a system for organizing future trips in real time."
     ]
   },
 
   'client-onboarding': {
     'ecommerce': [
-      "Bianca Ola runs a subscription box company that onboards 40 to 60 new subscribers every month through a Shopify flow that works technically but leaves new members confused about what they're getting and when. She's been getting 'where is my box?' emails within 48 hours of sign-up. She needs a VA to redesign and execute her onboarding email sequence — three emails over seven days — that sets expectations, builds excitement, and reduces support tickets.",
-      "Felix Drummond runs a B2B wholesale business supplying handmade goods to boutique retailers. Each new retail partner needs to be walked through ordering minimums, lead times, payment terms, and reorder processes, but he has no standardized onboarding — it's all ad hoc phone calls. He needs a VA to build an onboarding checklist, welcome email, and a new partner information packet in Google Docs."
+      "Bianca Ola runs a subscription box company that onboards 40 to 60 new subscribers every month through a Shopify flow that works technically but leaves new members confused about what they're getting and when. She's been getting 'where is my box?' emails within 48 hours of sign-up. She needs a VA to redesign and execute her onboarding email sequence - three emails over seven days - that sets expectations, builds excitement, and reduces support tickets.",
+      "Felix Drummond runs a B2B wholesale business supplying handmade goods to boutique retailers. Each new retail partner needs to be walked through ordering minimums, lead times, payment terms, and reorder processes, but he has no standardized onboarding - it's all ad hoc phone calls. He needs a VA to build an onboarding checklist, welcome email, and a new partner information packet in Google Docs."
     ],
     'coaching': [
       "Nadia Clarke is a business coach who enrolls 5 to 10 new clients per month into her 1:1 coaching program. Her current onboarding is a single welcome email and a Calendly link, and new clients frequently email asking what to do next, where to find the resources, and when to expect their first session. She needs a VA to build a proper onboarding flow: intake form, welcome packet, portal setup guide, and a 3-email onboarding sequence.",
-      "Victor Santos runs a group coaching program for real estate agents with 85 active members. New members are added to a Slack workspace and a course platform, but no one walks them through the community norms, course structure, or support channels — and they often feel lost in week one. He needs a VA to create an onboarding checklist, a welcome video script, and a 5-day email sequence that orients new members step by step."
+      "Victor Santos runs a group coaching program for real estate agents with 85 active members. New members are added to a Slack workspace and a course platform, but no one walks them through the community norms, course structure, or support channels - and they often feel lost in week one. He needs a VA to create an onboarding checklist, a welcome video script, and a 5-day email sequence that orients new members step by step."
     ],
     'real-estate': [
-      "Tanya Osei is a real estate agent who works primarily with first-time buyers. Her buyer onboarding consists of a one-page PDF she made three years ago and a handshake. Clients come to the first showing without having done the mortgage pre-approval or knowing what to expect from the process. She needs a VA to build a modern buyer onboarding packet — process overview, glossary, checklist, and a 3-email nurture sequence that runs after first contact.",
+      "Tanya Osei is a real estate agent who works primarily with first-time buyers. Her buyer onboarding consists of a one-page PDF she made three years ago and a handshake. Clients come to the first showing without having done the mortgage pre-approval or knowing what to expect from the process. She needs a VA to build a modern buyer onboarding packet - process overview, glossary, checklist, and a 3-email nurture sequence that runs after first contact.",
       "Marcus Webb is a property manager who takes on 6 to 10 new landlord clients per year. There's no standardized intake, so every new client relationship starts chaotically with back-and-forth emails and missing information. He needs a VA to design and execute a new client onboarding system: intake questionnaire, property setup checklist, welcome call agenda template, and a 30-day communication plan."
     ],
     'health-wellness': [
       "Dr. Aisha Monroe runs an integrative medicine clinic and brings on about 8 new patients per month. Her current intake process involves two PDFs, a phone intake call, and a lot of back-and-forth that delays first appointment scheduling by an average of 5 days. She needs a VA to map the current flow, identify friction points, and redesign it so new patients are fully prepped and scheduled within 48 hours of first contact.",
-      "Luke Bennett is a personal trainer who sells 3-month transformation packages to online clients. When new clients pay, they receive a receipt and a PDF workout guide, but nothing orients them to the app, coaching check-in structure, or what they should do on day one. He needs a VA to build a client welcome kit — app setup guide, week-one schedule, FAQ doc, and an onboarding call agenda."
+      "Luke Bennett is a personal trainer who sells 3-month transformation packages to online clients. When new clients pay, they receive a receipt and a PDF workout guide, but nothing orients them to the app, coaching check-in structure, or what they should do on day one. He needs a VA to build a client welcome kit - app setup guide, week-one schedule, FAQ doc, and an onboarding call agenda."
     ],
     'creative-agency': [
-      "Isabel Reyes runs a small web design agency and kicks off 2 to 3 new projects per month. Her onboarding is chaotic: clients don't know the timeline, don't have access to the project management tool, and often don't submit the content she needs until week three. She needs a VA to build a standardized project kickoff kit — welcome email, Notion template, content checklist, and a kickoff call agenda — and run it for each new client.",
+      "Isabel Reyes runs a small web design agency and kicks off 2 to 3 new projects per month. Her onboarding is chaotic: clients don't know the timeline, don't have access to the project management tool, and often don't submit the content she needs until week three. She needs a VA to build a standardized project kickoff kit - welcome email, Notion template, content checklist, and a kickoff call agenda - and run it for each new client.",
       "Jordan Abrams is a freelance copywriter who takes on retainer clients. When a new client signs, she sends the contract and invoice and then nothing formal. Clients often don't know when to expect their first deliverable or how to submit feedback. She needs a VA to create and implement a client onboarding flow: welcome email, working agreement summary, feedback process guide, and a 3-step check-in schedule."
     ],
     'finance': [
-      "Raymond Cole is a CPA who brings on 15 to 20 new tax clients each season. His onboarding is purely reactive — clients email him their documents when they feel like it and he chases down what's missing, losing hours every season to document collection. He needs a VA to build an onboarding checklist per entity type, a structured intake form, a welcome email with clear deadlines, and a follow-up sequence for missing docs.",
+      "Raymond Cole is a CPA who brings on 15 to 20 new tax clients each season. His onboarding is purely reactive - clients email him their documents when they feel like it and he chases down what's missing, losing hours every season to document collection. He needs a VA to build an onboarding checklist per entity type, a structured intake form, a welcome email with clear deadlines, and a follow-up sequence for missing docs.",
       "Ingrid Sato is a financial planner who requires new clients to complete a detailed financial questionnaire, gather six months of statements, and read a client agreement before their first meeting. She does all of this via email threads that stretch on for weeks. She needs a VA to turn her onboarding into a structured process with automated touchpoints, a document submission guide, and a first-meeting prep email."
     ],
     'other': [
@@ -680,12 +681,12 @@ const BRIEFS = {
 
   'research-reporting': {
     'ecommerce': [
-      "Olivia Nash runs a sustainable apparel brand and wants to expand into two new product categories. Before she invests in sampling and inventory, she wants a competitive analysis of 3 to 5 brands already in those spaces — pricing, bestsellers, marketing approach, and customer sentiment from reviews. She needs a VA to compile a research report she can review before making a final category decision.",
+      "Olivia Nash runs a sustainable apparel brand and wants to expand into two new product categories. Before she invests in sampling and inventory, she wants a competitive analysis of 3 to 5 brands already in those spaces - pricing, bestsellers, marketing approach, and customer sentiment from reviews. She needs a VA to compile a research report she can review before making a final category decision.",
       "Brendan Chu manages paid advertising for his Shopify store and wants to understand which ad angles are working best in the women's fitness apparel market. He needs a VA to pull competitor ads from Facebook Ad Library, categorize them by messaging type, and summarize trends in a one-page doc he can share with his creative team."
     ],
     'coaching': [
       "Gabriella Moreno is a leadership coach preparing a keynote on burnout in high-growth companies. She needs research support: 5 to 8 current studies or articles on the topic, a summary of key statistics, and a brief competitive review of how other speakers are positioning the subject. She needs a VA to compile a research brief she can use to build her presentation.",
-      "Harold Kim is a business coach who wants to launch a podcast. Before investing time in production, he wants to know what the competitive landscape looks like in the business coaching podcast space — top shows, average episode frequency, typical format, guest strategies, and monetization approaches. He needs a VA to research and deliver a competitive landscape report."
+      "Harold Kim is a business coach who wants to launch a podcast. Before investing time in production, he wants to know what the competitive landscape looks like in the business coaching podcast space - top shows, average episode frequency, typical format, guest strategies, and monetization approaches. He needs a VA to research and deliver a competitive landscape report."
     ],
     'real-estate': [
       "Valerie Park is a commercial real estate broker analyzing a potential market entry in a mid-size southeastern city. She needs a research report covering population trends, major employers, vacancy rates, and recent notable commercial transactions in that market. She needs a VA to pull this from public data sources and compile it into a clean, shareable document.",
@@ -696,11 +697,11 @@ const BRIEFS = {
       "Melanie Cruz is a health and wellness blogger preparing a sponsored post for a probiotic brand. She needs a VA to pull recent peer-reviewed research on probiotic efficacy, summarize 3 to 5 key studies in plain language, and compile a source list with links. The deliverable is a research brief she'll use as the factual backbone for her post."
     ],
     'creative-agency': [
-      "Dominic Walsh is a brand strategist preparing a competitive audit for a new client in the meal-kit space. He needs a VA to research 8 direct and indirect competitors — analyzing their positioning, visual identity direction, tone of voice, and pricing strategy — and compile findings into a formatted presentation outline.",
+      "Dominic Walsh is a brand strategist preparing a competitive audit for a new client in the meal-kit space. He needs a VA to research 8 direct and indirect competitors - analyzing their positioning, visual identity direction, tone of voice, and pricing strategy - and compile findings into a formatted presentation outline.",
       "Alicia Moon is the creative director at a mid-size agency pitching a fintech client. She needs trend research for the pitch: visual design trends in fintech apps, color and typography patterns used by leading brands, and recent award-winning campaigns in financial services. She needs a VA to pull reference images and compile them into a Notion moodboard with annotations."
     ],
     'finance': [
-      "Marcus Greenfield is an independent financial analyst writing a quarterly market commentary for his clients. He needs a VA to pull recent economic data — CPI, interest rate movements, S&P sector performance, and two or three notable earnings reports — and compile it into a structured data brief he can write from. The deliverable should be a Google Doc with all data tables and source links.",
+      "Marcus Greenfield is an independent financial analyst writing a quarterly market commentary for his clients. He needs a VA to pull recent economic data - CPI, interest rate movements, S&P sector performance, and two or three notable earnings reports - and compile it into a structured data brief he can write from. The deliverable should be a Google Doc with all data tables and source links.",
       "Tamara Fox is a wealth management advisor who monitors five ETFs for a specific client segment. She needs a monthly performance report compiled from publicly available data: returns vs. benchmark, expense ratios, top holdings changes, and a brief note on any significant news affecting each fund. She needs a VA to build this reporting template and deliver the first report."
     ],
     'other': [
@@ -715,15 +716,15 @@ const BRIEFS = {
       "Nico James launched a Shopify brand nine months ago and has a growing pile of admin he keeps ignoring: unanswered vendor quotes, unpaid invoices in his email, a product returns log that hasn't been updated in six weeks, and a supplier contact sheet that's out of date. He needs a VA to spend a full week clearing the backlog and building a simple admin system he can maintain going forward."
     ],
     'coaching': [
-      "Heather Bloom is a productivity coach with an ironic problem: her own business is completely disorganized. She has client notes scattered across three apps, no consistent filing system, and has accidentally double-booked herself twice this month. She needs a VA to do a full admin audit — calendars, tools, files, and workflows — and build a simple, consistent system she'll actually stick to.",
+      "Heather Bloom is a productivity coach with an ironic problem: her own business is completely disorganized. She has client notes scattered across three apps, no consistent filing system, and has accidentally double-booked herself twice this month. She needs a VA to do a full admin audit - calendars, tools, files, and workflows - and build a simple, consistent system she'll actually stick to.",
       "Carlos Mendez is a business coach who is preparing to raise his prices and restructure his service offerings. Before he does, he needs a full admin cleanup: update his client tracker, reconcile his invoicing records against payments received, archive completed project files, and update his contact database. He needs a VA to handle this during two focused weeks."
     ],
     'real-estate': [
       "Paula Chen is a real estate agent who has been in the business for 12 years and has a digital filing system that reflects every bad habit she's ever had. She has duplicate contacts, contracts saved in five different locations, and a database of past clients she has never actually used for outreach. She needs a VA to clean up her CRM, consolidate her files, and build her a simple business reference document she can use daily.",
-      "Thomas Burke is a real estate investor who manages operations for seven properties using a combination of email, a spreadsheet, and memory. He needs a VA to build a simple property management admin system: a tenant contact log, a maintenance request tracker, a lease renewal calendar, and a monthly reporting template. He doesn't need software — Google Sheets is fine."
+      "Thomas Burke is a real estate investor who manages operations for seven properties using a combination of email, a spreadsheet, and memory. He needs a VA to build a simple property management admin system: a tenant contact log, a maintenance request tracker, a lease renewal calendar, and a monthly reporting template. He doesn't need software - Google Sheets is fine."
     ],
     'health-wellness': [
-      "Dr. Jin Park runs a chiropractic clinic and has struggled to keep up with admin since his office manager left. Files aren't being named consistently, vendor invoices are piling up unreconciled, and his staff scheduling spreadsheet hasn't been updated in three weeks. He needs a VA for a four-week admin stabilization — filing system, invoice log, scheduling doc, and a simple SOP for the tasks he needs someone to own ongoing.",
+      "Dr. Jin Park runs a chiropractic clinic and has struggled to keep up with admin since his office manager left. Files aren't being named consistently, vendor invoices are piling up unreconciled, and his staff scheduling spreadsheet hasn't been updated in three weeks. He needs a VA for a four-week admin stabilization - filing system, invoice log, scheduling doc, and a simple SOP for the tasks he needs someone to own ongoing.",
       "Lauren Ortega is a nutritionist and author who is preparing her second book proposal. She needs help getting her research files, interview notes, and publisher correspondence organized before she hires an editor. She needs a VA to set up a book project folder system, migrate existing files into it, and create a master document tracking every file, interview, and outstanding task related to the project."
     ],
     'creative-agency': [
@@ -735,7 +736,7 @@ const BRIEFS = {
       "Diane Wu is a financial planner who serves 60 households and tracks client touchpoints in a spreadsheet she built five years ago. It's outdated, full of duplicates, and she frequently misses annual review dates. She needs a VA to audit the tracker, clean and de-duplicate the data, add a review date alert column, and document the system so a future hire can maintain it."
     ],
     'other': [
-      "Stuart Lim is an event photographer who has been freelancing for four years and has never organized his business files. He has client contracts in email, model releases on his phone, and invoices in three different apps. He needs a VA to build a simple freelance admin system — one folder structure, one invoice template, one client tracker — and migrate his backlog of files into it.",
+      "Stuart Lim is an event photographer who has been freelancing for four years and has never organized his business files. He has client contracts in email, model releases on his phone, and invoices in three different apps. He needs a VA to build a simple freelance admin system - one folder structure, one invoice template, one client tracker - and migrate his backlog of files into it.",
       "Alice Chen is a virtual assistant herself, preparing to launch her own VA agency with two subcontractors. She needs help with the admin of her own business before she onboards clients: building an internal SOP library, creating subcontractor onboarding docs, setting up a client billing tracker, and drafting service agreement templates. She needs a VA to handle the setup so she can focus on sales."
     ]
   }
@@ -966,7 +967,7 @@ function renderStep2() {
 
       <div class="field-group">
         <label class="field-label" for="result">Estimated result or outcome</label>
-        <p class="field-hint">Made-up is fine &mdash; be specific. &ldquo;37% faster response time&rdquo; beats &ldquo;improved efficiency.&rdquo;</p>
+        <p class="field-hint">Made-up is fine - be specific. &ldquo;37% faster response time&rdquo; beats &ldquo;improved efficiency.&rdquo;</p>
         <textarea id="result" class="field-textarea" rows="4"
           placeholder="e.g. Reduced average email response time from 5 days to same-day. Cleared 200+ unread messages in 4 hours and set up a folder system that cut daily inbox processing time by 60%."
           oninput="state.result = this.value; clearErr('err-result')">${escapeHtml(state.result)}</textarea>
@@ -975,7 +976,7 @@ function renderStep2() {
 
       <div class="field-group">
         <label class="field-label">Screenshot or Sample <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:0.75rem">(optional)</span></label>
-        <p class="field-hint">Stored in your browser only &mdash; never sent anywhere.</p>
+        <p class="field-hint">Stored in your browser only - never sent anywhere.</p>
         <div class="file-upload-area" onclick="document.getElementById('file-input').click()">
           <input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleFileUpload(event)">
           <div class="file-upload-icon">&#x1F4F7;</div>

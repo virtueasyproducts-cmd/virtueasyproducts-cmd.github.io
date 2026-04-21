@@ -17,8 +17,8 @@ fbq('track', 'PageView');
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>VA Pricing Tool — VIRTUEASY</title>
-<meta name="description" content="Build your VA pricing — hourly rates, packages, and project quotes. Powered by VIRTUEASY">
+<title>VA Pricing Tool - VIRTUEASY</title>
+<meta name="description" content="Build your VA pricing - hourly rates, packages, and project quotes. Powered by VIRTUEASY">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -246,7 +246,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
       });
       result = await res.json();
     } catch (e) {
-      // Network error — fail open with a short grace period so users on bad
+      // Network error - fail open with a short grace period so users on bad
       // connections aren't locked out. Still don't show expired users.
       // We'll let them in but note the token must exist.
       result = { valid: true, type: "unknown", networkError: true };
@@ -256,14 +256,14 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
       if (result.reason === "expired") {
         window.location.replace("pay.html");
       } else {
-        // Invalid/tampered token — back to gate
+        // Invalid/tampered token - back to gate
         localStorage.removeItem(TOKEN_KEY);
         window.location.replace("get-access.html");
       }
       return;
     }
 
-    // Access confirmed — reveal the app
+    // Access confirmed - reveal the app
     document.getElementById("access-loading").style.display = "none";
     document.getElementById("app").style.display = "block";
 
