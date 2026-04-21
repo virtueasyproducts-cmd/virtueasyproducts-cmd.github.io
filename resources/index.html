@@ -23,9 +23,8 @@
     .stub-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 0;
-      overflow: hidden;
+      border-radius: 6px;
+      padding: 1.75rem;
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
@@ -36,8 +35,7 @@
 
     .stub-card:hover {
       border-color: rgba(255,31,122,0.4);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+      transform: translateY(-2px);
     }
 
     .stub-card-coming {
@@ -129,28 +127,15 @@
 
   <main>
 
-    <div style="width:100%;max-height:260px;overflow:hidden;position:relative;">
-      <img src="https://images.unsplash.com/photo-1499557354967-2b2d8910bcca?w=1200&q=75" alt="" aria-hidden="true" loading="lazy" style="width:100%;height:260px;object-fit:cover;object-position:center 30%;display:block;">
-      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.2),rgba(10,10,10,0.7));"></div>
-    </div>
-
-    <div class="stub-hero" style="text-align:center;padding:3rem 2rem 2rem;max-width:700px;margin:0 auto;">
-      <span class="label">Tools, templates, and frameworks</span>
-      <h1 style="margin:0.5rem 0 1rem;">Everything you need.<br>Most of it free.</h1>
-      <p style="font-size:1rem;color:var(--muted);line-height:1.65;max-width:500px;margin:0 auto;">Built specifically for VAs who are done guessing and ready to move. Every resource below is either free or the best $27 you'll spend.</p>
-    </div>
-
-    <div style="display:flex;align-items:center;justify-content:center;gap:0;max-width:1100px;margin:0 auto 3rem;padding:0 2rem;overflow:hidden;border-radius:10px;">
-      <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438d71?w=400&q=75" loading="lazy" aria-hidden="true" style="width:33.33%;height:160px;object-fit:cover;object-position:center top;display:block;">
-      <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=75" loading="lazy" aria-hidden="true" style="width:33.33%;height:160px;object-fit:cover;object-position:center top;display:block;">
-      <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&q=75" loading="lazy" aria-hidden="true" style="width:33.33%;height:160px;object-fit:cover;object-position:center top;display:block;">
+    <div class="stub-hero">
+      <span class="label">Free and paid</span>
+      <h1>Resource Library</h1>
+      <p>Everything Virtueasy has built for VAs, in one place. Updated regularly.</p>
     </div>
 
     <div class="stub-grid">
 
       <a href="/blueprint/" class="stub-card" target="_blank" rel="noopener">
-        <div style="width:100%;height:130px;background:#FF1F7A;position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&q=75" loading="lazy" aria-hidden="true" style="width:100%;height:100%;object-fit:cover;opacity:0.55;display:block;"></div>
-        <div style="padding:1.25rem 1.5rem 1.5rem;">
         <div class="stub-card-icon">&#x1F4CB;</div>
         <div class="stub-card-title">VA Blueprint</div>
         <p class="stub-card-desc">The 30-day system to land your first client. Structured, interactive, and built around real action.</p>
@@ -158,8 +143,6 @@
       </a>
 
       <a href="https://virtueasyproducts-cmd.github.io/va-blueprint-preview" class="stub-card" target="_blank" rel="noopener">
-        <div style="width:100%;height:130px;background:#c4006a;position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&q=75" loading="lazy" aria-hidden="true" style="width:100%;height:100%;object-fit:cover;opacity:0.55;display:block;"></div>
-        <div style="padding:1.25rem 1.5rem 1.5rem;">
         <div class="stub-card-icon">&#x1F440;</div>
         <div class="stub-card-title">Blueprint Preview</div>
         <p class="stub-card-desc">Try Days 10&#x2013;12 of the Blueprint for free before you commit to buying.</p>
@@ -167,8 +150,6 @@
       </a>
 
       <a href="/pricing-tool/" class="stub-card">
-        <div style="width:100%;height:130px;background:#1a1a2e;position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&q=75" loading="lazy" aria-hidden="true" style="width:100%;height:100%;object-fit:cover;opacity:0.55;display:block;"></div>
-        <div style="padding:1.25rem 1.5rem 1.5rem;">
         <div class="stub-card-icon">&#x1F4B0;</div>
         <div class="stub-card-title">VA Pricing Tool</div>
         <p class="stub-card-desc">Enter your income goals and expenses and get a clear hourly and project rate to charge clients.</p>
@@ -176,8 +157,6 @@
       </a>
 
       <a href="/260-prompts/" class="stub-card">
-        <div style="width:100%;height:130px;background:#0f2027;position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=400&q=75" loading="lazy" aria-hidden="true" style="width:100%;height:100%;object-fit:cover;opacity:0.55;display:block;"></div>
-        <div style="padding:1.25rem 1.5rem 1.5rem;">
         <div class="stub-card-icon">&#x1F916;</div>
         <div class="stub-card-title">260 ChatGPT Prompts</div>
         <p class="stub-card-desc">A full pack of ready-to-use prompts for VA work: content, client communication, proposals, and admin.</p>
@@ -185,8 +164,6 @@
       </a>
 
       <a href="/va-proposal-template/" class="stub-card">
-        <div style="width:100%;height:130px;background:#2d1b4e;position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&q=75" loading="lazy" aria-hidden="true" style="width:100%;height:100%;object-fit:cover;opacity:0.55;display:block;"></div>
-        <div style="padding:1.25rem 1.5rem 1.5rem;">
         <div class="stub-card-icon">&#x1F4DD;</div>
         <div class="stub-card-title">VA Proposal Template</div>
         <p class="stub-card-desc">A professional, ready-to-edit proposal template. Fill in your details, customize the scope, and send it today.</p>
@@ -194,8 +171,6 @@
       </a>
 
       <a href="/va-portfolio-builder/" class="stub-card">
-        <div style="width:100%;height:130px;background:#7c3aed;position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=75" loading="lazy" aria-hidden="true" style="width:100%;height:100%;object-fit:cover;opacity:0.55;display:block;"></div>
-        <div style="padding:1.25rem 1.5rem 1.5rem;">
         <div class="stub-card-icon">&#x1F5C2;&#xFE0F;</div>
         <div class="stub-card-title">VA Portfolio Builder</div>
         <p class="stub-card-desc">Pick a spec client, document your work, and download a polished portfolio card. No real client needed.</p>
