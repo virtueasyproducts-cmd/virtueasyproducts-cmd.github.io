@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Run a Discovery Call That Converts to a Paying Client | Virtueasy</title>
+  <meta name="description" content="A discovery call is not a job interview. It is a two-way conversation to decide if you are a good fit. Here is how to run one that ends with a yes." />
+  <meta property="og:title" content="How to Run a Discovery Call That Converts to a Paying Client | Virtueasy" />
+  <meta property="og:description" content="A discovery call is not a job interview. It is a two-way conversation to decide if you are a good fit. Here is how to run one that ends with a yes." />
+  <meta property="og:type" content="article" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --pink: #FF1F7A;
+  --black: #0A0A0A;
+  --white: #F8F8F8;
+  --gray: #141414;
+  --mid: #666;
+  --light: rgba(248,248,248,0.65);
+  --border: rgba(255,31,122,0.18);
+}
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 400; line-height: 1.75; }
+
+nav, .site-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem; height: 64px; gap: 1rem;
+}
+.nav-logo { display: flex; align-items: center; gap: 0.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.08em; color: var(--white); text-decoration: none; }
+.nav-logo img { height: 30px; width: auto; display: block; }
+.nav-logo-text { display: none; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; flex-direction: column; gap: 5px; }
+.nav-toggle span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
+.nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; flex-wrap: nowrap; }
+.nav-links li a { font-family: 'Barlow', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(248,248,248,0.65); text-decoration: none; padding: 0.4rem 0.6rem; white-space: nowrap; transition: color 0.2s; }
+.nav-links li a:hover { color: var(--white); }
+.nav-links .nav-community { color: var(--pink) !important; }
+.nav-links .nav-community:hover { color: #ff5fa0 !important; }
+.nav-links .nav-cta a, li.nav-cta a { background: var(--pink); color: var(--white) !important; padding: 0.45rem 1rem; }
+.nav-links .nav-cta a:hover, li.nav-cta a:hover { background: #d4005a; }
+@media (max-width: 768px) {
+  .nav-toggle { display: flex; }
+  .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: rgba(10,10,10,0.98); flex-direction: column; align-items: flex-start; padding: 1rem 2rem; gap: 0; border-bottom: 1px solid var(--border); }
+  .nav-links.open { display: flex; }
+  .nav-links li { width: 100%; }
+  .nav-links li a { display: block; padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+}
+
+.post-hero { padding: 4rem 2rem 2rem; max-width: 740px; margin: 0 auto; }
+.post-tag { display: inline-block; background: var(--pink); color: var(--white); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.25rem 0.65rem; margin-bottom: 1.2rem; }
+.post-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 6vw, 4.2rem); letter-spacing: 0.04em; line-height: 1.05; margin-bottom: 1rem; }
+.post-meta { font-size: 0.78rem; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2rem; }
+.post-meta span { color: var(--pink); margin: 0 0.4rem; }
+.post-intro { font-size: 1.15rem; color: var(--light); border-left: 3px solid var(--pink); padding-left: 1.2rem; margin-bottom: 2rem; font-style: italic; }
+
+article { max-width: 740px; margin: 0 auto; padding: 0 2rem 4rem; }
+article h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.04em; color: var(--white); margin: 2.5rem 0 0.6rem; }
+article h3 { font-family: 'Barlow', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pink); margin: 2rem 0 0.5rem; }
+article p { color: var(--light); margin-bottom: 1.1rem; font-size: 1rem; }
+article ul, article ol { color: var(--light); padding-left: 1.4rem; margin-bottom: 1.2rem; }
+article li { margin-bottom: 0.5rem; font-size: 1rem; }
+article strong { color: var(--white); font-weight: 700; }
+article a { color: var(--pink); text-decoration: none; }
+article a:hover { text-decoration: underline; }
+
+.callout {
+  background: var(--gray); border-left: 3px solid var(--pink);
+  padding: 1.2rem 1.4rem; margin: 2rem 0; border-radius: 0 2px 2px 0;
+}
+.callout p { margin: 0; color: var(--white); font-size: 0.95rem; }
+.callout strong { color: var(--pink); }
+
+.cta-block { background: var(--pink); padding: 4rem 2rem; text-align: center; }
+.cta-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 0.8rem; }
+.cta-block h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 5vw, 3.2rem); letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.8rem; }
+.cta-sub { font-size: 1rem; color: rgba(255,255,255,0.85); max-width: 480px; margin: 0 auto 1.8rem; }
+.cta-btn { display: inline-block; background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; text-decoration: none; }
+.cta-btn:hover { background: #1a1a1a; }
+
+footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); text-align: center; padding: 2rem; font-size: 0.78rem; color: var(--mid); }
+footer a { color: var(--pink); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="/">
+      <img src="/assets/virtueasy-logo.png" alt="Virtueasy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="nav-logo-text">VIRTUEASY</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/resources/">Resources</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/blueprint/">Blueprint</a></li>
+      <li><a href="/pricing-tool/">Pricing Tool</a></li>
+      <li><a href="https://www.facebook.com/groups/974455928445420" target="_blank" rel="noopener" class="nav-community"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.885v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>Community</a></li>
+      <li class="nav-cta"><a href="/blueprint/">Get Started</a></li>
+    </ul>
+  </nav>
+
+<div class="post-hero">
+  <span class="post-tag">Finding Clients</span>
+  <h1>How to Run a Discovery Call That Converts to a Paying Client</h1>
+  <p class="post-meta">Virtueasy <span>|</span> 8 min read</p>
+  <p class="post-intro">A discovery call is not a job interview. It is a two-way conversation to decide if you are a good fit. Here is how to run one that ends with a yes - and what to do when it does not.</p>
+</div>
+
+<article>
+
+<h2>What a Discovery Call Actually Is</h2>
+<p>New VAs often approach discovery calls like they are auditioning. They over-prepare their pitch, list their services nervously, and wait to be judged. That mindset puts you in the wrong position from the start.</p>
+<p>A discovery call is a conversation, not a performance. You are gathering information about whether this client is someone you want to work with. They are doing the same. The VA who walks in with that frame - two professionals deciding if they are a good fit - almost always comes across better than the one who is trying to impress.</p>
+
+<h2>Before the Call</h2>
+<p>Do five to ten minutes of research before every call. Look at their website, their social media, and any information they gave you when they booked. You should walk in knowing what they do, roughly how big they are, and what kind of help they might need. This research signals professionalism before you say a word.</p>
+<p>Have a short list of questions ready - not a script, just a framework. You want to understand their business, their biggest pain points, what they have tried before, and what success looks like to them. Write those down so you are not improvising.</p>
+
+<h2>The Call Structure That Works</h2>
+
+<h3>Open With Context, Not a Pitch</h3>
+<p>Start by setting the frame for the conversation. Something like: "Thanks for making time. I thought we could spend the first part of the call with you telling me a bit about your business and what you are looking for, and then I can share more about how I work and we can see if it makes sense to go further. Does that work for you?"</p>
+<p>This establishes that the call has a structure, that you are leading it, and that neither of you is committed to anything yet. That last part takes the pressure off both sides.</p>
+
+<h3>Ask, Then Listen</h3>
+<p>The best discovery calls are mostly the client talking. Your job in the first half is to ask good questions and shut up. The questions that matter most:</p>
+<ul>
+  <li>What does your day-to-day look like right now?</li>
+  <li>Where are you spending time that you wish you could hand off?</li>
+  <li>Have you worked with a VA before? How did that go?</li>
+  <li>What would it mean for your business if this got handled properly?</li>
+  <li>What does success look like to you in the first 90 days?</li>
+</ul>
+<p>Listen for the pain behind the answer, not just the answer itself. A client who says "I am drowning in email" is telling you their real problem is time and mental bandwidth, not just inbox management. Reflect that back when you respond.</p>
+
+<h3>Present Based on What You Heard</h3>
+<p>When it is your turn to talk, do not recite your service list. Speak directly to what they told you. "Based on what you described, it sounds like the biggest win for you would be getting your inbox under control and freeing up two to three hours a day. Here is how I would approach that." Specific, relevant, focused on their outcome - not your credentials.</p>
+
+<div class="callout">
+  <p><strong>The rule:</strong> Every service you mention should connect directly to a problem they told you about. If you cannot make that connection, leave it out for now.</p>
+</div>
+
+<h3>Handle the Rate Conversation With Confidence</h3>
+<p>Do not hide your pricing. When it is time to talk numbers, state them clearly and without hedging. "My packages start at $X per month" is a complete sentence. You do not need to justify, qualify, or apologize for it. Pause after you say it and let them respond.</p>
+<p>If they push back on price, that is a normal part of the conversation, not a sign you have done something wrong. Have a response ready. See the post on <a href="/blog/posts/handle-objections.html">handling objections</a> for exactly how to navigate that.</p>
+
+<h3>Close With a Clear Next Step</h3>
+<p>Do not end a discovery call with "I will send something over and you can let me know." That is a slow death. End with a specific next action and a timeline.</p>
+<p>"It sounds like this could be a great fit. I will send over a proposal by end of day tomorrow - it will outline the scope, the rate, and how we would get started. Does that work?" They say yes. You have a concrete follow-up with a deadline, not a vague open loop.</p>
+
+<h2>After the Call</h2>
+<p>Send a follow-up email within two hours. Thank them for their time, summarize the key things they told you about their needs, and confirm your next step. This email serves two purposes: it shows you were listening, and it keeps momentum alive while the conversation is fresh.</p>
+<p>Your proposal should follow within 24 hours. Use what you learned on the call to make it specific to them. A generic proposal after a personalized call is a jarring mismatch that costs you the close.</p>
+
+<h2>When the Call Does Not Go Well</h2>
+<p>Not every discovery call is going to convert and that is normal. If you get to the end of a call and it is clearly not a fit - wrong budget, wrong expectations, or just a bad vibe - it is completely fine to say so directly. "Based on what we have discussed, I do not think I am the right fit for what you need right now, but here is what I would suggest instead."</p>
+<p>That kind of honesty gets remembered. Referrals come from people who felt respected, even when the answer was no.</p>
+
+</article>
+
+<section class="cta-block">
+  <p class="cta-label">Want the full system?</p>
+  <h2>30 Days to Your First High-Ticket Client</h2>
+  <p class="cta-sub">The VA Blueprint gives you the exact steps, scripts, and strategy to go from zero to booked. No guesswork.</p>
+  <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="cta-btn">Get the Blueprint for $27</a>
+</section>
+<footer>
+  &copy; 2025 Virtueasy &nbsp;|&nbsp; <a href="https://virtueasy.com">virtueasy.com</a> &nbsp;|&nbsp; <a href="../index.html">Back to Blog</a>
+</footer>
+
+</body>
+</html>
