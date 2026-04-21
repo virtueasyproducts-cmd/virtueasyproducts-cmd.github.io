@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Write a VA Proposal That Converts (With a Template) | Virtueasy</title>
+  <meta name="description" content="Most VA proposals read like job applications. Yours should read like a business case. Here is how to write one that closes without sounding pushy." />
+  <meta property="og:title" content="How to Write a VA Proposal That Converts (With a Template) | Virtueasy" />
+  <meta property="og:description" content="Most VA proposals read like job applications. Yours should read like a business case. Here is how to write one that closes without sounding pushy." />
+  <meta property="og:type" content="article" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --pink: #FF1F7A;
+  --black: #0A0A0A;
+  --white: #F8F8F8;
+  --gray: #141414;
+  --mid: #666;
+  --light: rgba(248,248,248,0.65);
+  --border: rgba(255,31,122,0.18);
+}
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 400; line-height: 1.75; }
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,10,0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; height: 64px; gap: 1rem;
+}
+.nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.08em; color: var(--white); text-decoration: none; }
+.nav-logo span { color: var(--pink); }
+.nav-back { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); text-decoration: none; white-space: nowrap; }
+.nav-back:hover { color: var(--pink); }
+.nav-cta { background: var(--pink); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem 1rem; text-decoration: none; white-space: nowrap; }
+.nav-cta:hover { background: #d4005a; }
+
+.post-hero { padding: 4rem 2rem 2rem; max-width: 740px; margin: 0 auto; }
+.post-tag { display: inline-block; background: var(--pink); color: var(--white); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.25rem 0.65rem; margin-bottom: 1.2rem; }
+.post-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 6vw, 4.2rem); letter-spacing: 0.04em; line-height: 1.05; margin-bottom: 1rem; }
+.post-meta { font-size: 0.78rem; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2rem; }
+.post-meta span { color: var(--pink); margin: 0 0.4rem; }
+.post-intro { font-size: 1.15rem; color: var(--light); border-left: 3px solid var(--pink); padding-left: 1.2rem; margin-bottom: 2rem; font-style: italic; }
+
+article { max-width: 740px; margin: 0 auto; padding: 0 2rem 4rem; }
+article h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.04em; color: var(--white); margin: 2.5rem 0 0.6rem; }
+article h3 { font-family: 'Barlow', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pink); margin: 2rem 0 0.5rem; }
+article p { color: var(--light); margin-bottom: 1.1rem; font-size: 1rem; }
+article ul, article ol { color: var(--light); padding-left: 1.4rem; margin-bottom: 1.2rem; }
+article li { margin-bottom: 0.5rem; font-size: 1rem; }
+article strong { color: var(--white); font-weight: 700; }
+article a { color: var(--pink); text-decoration: none; }
+article a:hover { text-decoration: underline; }
+
+.callout {
+  background: var(--gray); border-left: 3px solid var(--pink);
+  padding: 1.2rem 1.4rem; margin: 2rem 0; border-radius: 0 2px 2px 0;
+}
+.callout p { margin: 0; color: var(--white); font-size: 0.95rem; }
+.callout strong { color: var(--pink); }
+
+.numbered-list { counter-reset: item; list-style: none; padding: 0; }
+.numbered-list li { counter-increment: item; display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; color: var(--light); }
+.numbered-list li::before { content: counter(item); background: var(--pink); color: var(--white); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; min-width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+
+.cta-block { background: var(--pink); padding: 4rem 2rem; text-align: center; }
+.cta-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 0.8rem; }
+.cta-block h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 5vw, 3.2rem); letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.8rem; }
+.cta-sub { font-size: 1rem; color: rgba(255,255,255,0.85); max-width: 480px; margin: 0 auto 1.8rem; }
+.cta-btn { display: inline-block; background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; text-decoration: none; }
+.cta-btn:hover { background: #1a1a1a; }
+
+footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); text-align: center; padding: 2rem; font-size: 0.78rem; color: var(--mid); }
+footer a { color: var(--pink); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://virtueasy.com" class="nav-logo">VIRTUE<span>EASY</span></a>
+  <a href="../index.html" class="nav-back">← All Posts</a>
+  <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="nav-cta">Get the Blueprint $27</a>
+</nav>
+
+<div class="post-hero">
+  <span class="post-tag">Proposals</span>
+  <h1>How to Write a VA Proposal That Converts (With a Template)</h1>
+  <p class="post-meta">Virtueasy <span>|</span> 8 min read</p>
+  <p class="post-intro">A proposal is not a resume. It is a sales document. Here is how to write one that makes the decision easy for your potential client.</p>
+</div>
+
+<article>
+
+<h2>What Most VA Proposals Get Wrong</h2>
+<p>Most new VAs write proposals that are really just descriptions of themselves. Here are my skills. Here is my experience. Here are my rates. Please hire me. This is the wrong approach because the client does not hire you based on your background. They hire you based on whether they believe you understand their problem and can solve it.</p>
+<p>A great proposal is not about you. It is about them.</p>
+
+<h2>The Structure That Closes</h2>
+
+<h3>Section 1: Their Situation (100-150 words)</h3>
+<p>Start by demonstrating that you understand their business, their challenge, and what they are trying to accomplish. Reference specific details from your conversation or from research you did on their business. This section should read like you have been paying attention, not like you copied a template.</p>
+<p>Example opening: "Based on our conversation, you are managing [X] with a team of [Y] and currently spending [Z] hours per week on inbox management and scheduling. That is time you could be spending on [outcome they mentioned wanting to focus on]."</p>
+
+<h3>Section 2: What You Will Do (Your Scope)</h3>
+<p>Be specific. List the exact services you will provide, the deliverables the client can expect, the frequency, and any tools you will use. Vague proposals lead to vague expectations. The more specific you are in the proposal, the fewer conversations you have to have later about what is and is not included.</p>
+<p>If you are offering a tiered service, lay out each tier clearly and let the client see the difference in value at each level.</p>
+
+<h3>Section 3: Investment (Your Rate)</h3>
+<p>State your rate or package price clearly and without apology. You have already demonstrated value in the first two sections. Do not undermine it by hedging on price. If you offer a payment structure, explain it simply.</p>
+<p>One sentence is enough: "This package is $[X]/month, billed on the first of each month, with a 30-day cancellation policy."</p>
+
+<div class="callout">
+  <p><strong>On discounts:</strong> Avoid offering discounts in the proposal itself. If a client asks for one, consider offering a shorter-term trial engagement instead of reducing your ongoing rate. Once a client knows you will discount, they will always expect it.</p>
+</div>
+
+<h3>Section 4: Why You (Brief)</h3>
+<p>This is where most VAs spend too much time. Keep it to two to three sentences. One specific result or outcome you have helped someone achieve, plus one sentence on why you are a good fit for this particular client. If you have a relevant testimonial, include one short quote. That is it.</p>
+
+<h3>Section 5: Next Steps</h3>
+<p>Tell them exactly what happens next. "If this looks like a good fit, reply to this email and I will send over the contract and onboarding questionnaire. I have availability to start [date]." Give them one clear action. Not three options. Not a Calendly link and a form and a follow-up suggestion. One next step.</p>
+
+<h2>Formatting That Works</h2>
+<p>A proposal can be a Google Doc, a PDF, or a platform like HoneyBook. Whatever format you use, keep it clean. Use headers. Keep paragraphs short. Make the price easy to find. A proposal that takes more than five minutes to read is too long.</p>
+<p>If you are using a PDF, a simple branded template in Canva takes an hour to build and can be reused indefinitely. The professionalism of the document reflects the professionalism of your service.</p>
+
+<h2>Following Up on a Proposal</h2>
+<p>Send your proposal within 24 hours of the conversation that prompted it. Follow up once, three to five days later, if you have not heard back. A single follow-up is professional. Anything beyond two touches without a response is a signal that the timing is not right. Move on and come back in 30 days if you think there is still potential there.</p>
+
+</article>
+
+<section class="cta-block">
+  <p class="cta-label">Want the full system?</p>
+  <h2>30 Days to Your First High-Ticket Client</h2>
+  <p class="cta-sub">The VA Blueprint gives you the exact steps, scripts, and strategy to go from zero to booked. No guesswork.</p>
+  <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="cta-btn">Get the Blueprint for $27</a>
+</section>
+<footer>
+  &copy; 2025 Virtueasy &nbsp;|&nbsp; <a href="https://virtueasy.com">virtueasy.com</a> &nbsp;|&nbsp; <a href="../index.html">Back to Resources</a>
+</footer>
+
+</body>
+</html>

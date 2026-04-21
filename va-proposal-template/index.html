@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free VA Proposal Template — Download & Edit | Virtueasy</title>
+  <meta name="description" content="A free, professional VA proposal template you can download, edit with your details, and send to clients today. No design skills needed.">
+  <meta property="og:title" content="Free VA Proposal Template | Virtueasy">
+  <meta property="og:description" content="A free, professional VA proposal template you can download, edit with your details, and send to clients today.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --pink: #FF1F7A;
+      --black: #0A0A0A;
+      --white: #F8F8F8;
+      --gray: #141414;
+      --gray2: #1e1a1e;
+      --mid: #666;
+      --light: rgba(248,248,248,0.65);
+      --border: rgba(255,31,122,0.18);
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 400; line-height: 1.75; overflow-x: hidden; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,10,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 64px; gap: 1rem;
+    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.08em; color: var(--white); text-decoration: none; }
+    .nav-logo span { color: var(--pink); }
+    .nav-back { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); text-decoration: none; white-space: nowrap; }
+    .nav-back:hover { color: var(--pink); }
+    .nav-cta { background: var(--pink); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem 1rem; text-decoration: none; white-space: nowrap; }
+    .nav-cta:hover { background: #d4005a; }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,31,122,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,31,122,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,31,122,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; max-width: 720px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,31,122,0.1); border: 1px solid rgba(255,31,122,0.25);
+      border-radius: 99px; padding: 0.35rem 1rem; margin-bottom: 1.75rem;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pink);
+    }
+    .hero-badge-dot { width: 6px; height: 6px; background: var(--pink); border-radius: 50%; }
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      letter-spacing: 0.03em; line-height: 0.95;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em { font-style: normal; color: var(--pink); display: block; }
+    .hero-sub { font-size: 1.05rem; color: var(--light); max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.7; }
+    .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+    .btn-primary {
+      display: inline-block; background: var(--pink); color: var(--white);
+      font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.85rem;
+      letter-spacing: 0.12em; text-transform: uppercase; padding: 0.9rem 2.2rem;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #d4005a; }
+    .btn-secondary {
+      display: inline-block; background: transparent; color: var(--white);
+      border: 1px solid rgba(255,255,255,0.2); font-family: 'Barlow', sans-serif;
+      font-weight: 700; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.9rem 2.2rem; text-decoration: none; transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--pink); color: var(--pink); }
+
+    /* TEMPLATE PREVIEW */
+    .preview-section {
+      max-width: 860px; margin: 0 auto;
+      padding: 0 2rem 5rem;
+    }
+    .preview-label {
+      text-align: center; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--pink); margin-bottom: 1.5rem;
+    }
+    .template-mockup {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,31,122,0.1);
+    }
+    .mockup-topbar {
+      background: #f0f0f0; padding: 0.65rem 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .mock-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .template-body { padding: 2.5rem 3rem; color: #1a1a1a; font-family: 'Barlow', sans-serif; }
+    .tpl-header { border-bottom: 2px solid #FF1F7A; padding-bottom: 1.2rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; }
+    .tpl-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; color: #0A0A0A; }
+    .tpl-brand span { color: #FF1F7A; }
+    .tpl-meta { text-align: right; font-size: 0.78rem; color: #666; line-height: 1.6; }
+    .tpl-section { margin-bottom: 1.4rem; }
+    .tpl-section-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #FF1F7A; margin-bottom: 0.3rem; }
+    .tpl-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.04em; color: #0A0A0A; margin-bottom: 0.35rem; }
+    .tpl-placeholder { height: 8px; background: #f0f0f0; border-radius: 4px; margin-bottom: 0.4rem; }
+    .tpl-placeholder.short { width: 60%; }
+    .tpl-placeholder.medium { width: 80%; }
+    .tpl-price-row { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0.8rem; background: #fff5f9; border-left: 3px solid #FF1F7A; margin-top: 0.5rem; }
+    .tpl-price-label { font-size: 0.75rem; font-weight: 700; color: #0A0A0A; }
+    .tpl-price-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: #FF1F7A; }
+
+    /* WHAT'S INCLUDED */
+    .includes-section {
+      background: var(--gray); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 5rem 2rem;
+    }
+    .includes-inner { max-width: 860px; margin: 0 auto; }
+    .section-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.75rem; text-align: center; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: 0.03em; text-align: center; margin-bottom: 3rem; }
+    .includes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+    .include-item {
+      background: var(--gray2); border: 1px solid var(--border);
+      padding: 1.5rem; border-radius: 4px;
+    }
+    .include-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .include-title { font-weight: 700; font-size: 0.95rem; color: var(--white); margin-bottom: 0.35rem; }
+    .include-desc { font-size: 0.82rem; color: var(--light); line-height: 1.55; }
+
+    /* HOW TO USE */
+    .how-section { padding: 5rem 2rem; max-width: 860px; margin: 0 auto; }
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step { display: flex; gap: 1.5rem; align-items: flex-start; padding: 1.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.04em;
+      color: var(--pink); min-width: 48px; line-height: 1;
+    }
+    .step-title { font-weight: 700; font-size: 1rem; color: var(--white); margin-bottom: 0.3rem; }
+    .step-desc { font-size: 0.9rem; color: var(--light); line-height: 1.6; }
+
+    /* BOTTOM CTA */
+    .bottom-cta { background: var(--pink); padding: 5rem 2rem; text-align: center; }
+    .bottom-cta-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 0.75rem; }
+    .bottom-cta h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: 0.03em; color: var(--white); margin-bottom: 0.75rem; }
+    .bottom-cta p { font-size: 1rem; color: rgba(255,255,255,0.85); max-width: 460px; margin: 0 auto 2rem; }
+    .btn-dark { display: inline-block; background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; text-decoration: none; }
+    .btn-dark:hover { background: #1a1a1a; }
+
+    footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); text-align: center; padding: 2rem; font-size: 0.78rem; color: var(--mid); }
+    footer a { color: var(--pink); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .template-body { padding: 1.5rem; }
+      .tpl-header { flex-direction: column; gap: 0.5rem; }
+      .tpl-meta { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://virtueasy.com" class="nav-logo">VIRTUE<span>EASY</span></a>
+  <a href="/resources/" class="nav-back">← All Resources</a>
+  <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="nav-cta">Get the Blueprint $27</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="hero-badge-dot" aria-hidden="true"></span>
+      Free Download
+    </div>
+    <h1>VA Proposal<br><em>Template</em></h1>
+    <p class="hero-sub">A professional, ready-to-edit proposal template for virtual assistants. Fill in your details, customize the scope, and send it today — no design skills needed.</p>
+    <div class="hero-ctas">
+      <a href="/va-proposal-template/template.html" class="btn-primary" target="_blank">Open Template — Free</a>
+      <a href="#how-to-use" class="btn-secondary">How It Works</a>
+    </div>
+  </div>
+</section>
+
+<!-- TEMPLATE PREVIEW -->
+<div class="preview-section">
+  <p class="preview-label">Template Preview</p>
+  <div class="template-mockup">
+    <div class="mockup-topbar">
+      <span class="mock-dot" style="background:#ff5f57"></span>
+      <span class="mock-dot" style="background:#febc2e"></span>
+      <span class="mock-dot" style="background:#28c840"></span>
+    </div>
+    <div class="template-body">
+      <div class="tpl-header">
+        <div>
+          <div class="tpl-brand">VIRTUE<span>EASY</span></div>
+          <div style="font-size:0.75rem;color:#999;margin-top:0.2rem;">[Your Name / Business Name]</div>
+        </div>
+        <div class="tpl-meta">
+          Proposal<br>
+          Prepared for: [Client Name]<br>
+          Date: [Date]
+        </div>
+      </div>
+      <div class="tpl-section">
+        <div class="tpl-section-label">01 — Their Situation</div>
+        <h3>What You're Working With</h3>
+        <div class="tpl-placeholder medium"></div>
+        <div class="tpl-placeholder"></div>
+        <div class="tpl-placeholder short"></div>
+      </div>
+      <div class="tpl-section">
+        <div class="tpl-section-label">02 — Scope of Work</div>
+        <h3>What I'll Do for You</h3>
+        <div class="tpl-placeholder medium"></div>
+        <div class="tpl-placeholder"></div>
+        <div class="tpl-placeholder short"></div>
+      </div>
+      <div class="tpl-section">
+        <div class="tpl-section-label">03 — Investment</div>
+        <div class="tpl-price-row">
+          <span class="tpl-price-label">[Package Name]</span>
+          <span class="tpl-price-value">$XXX/mo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT'S INCLUDED -->
+<section class="includes-section">
+  <div class="includes-inner">
+    <p class="section-eyebrow">What's Inside</p>
+    <h2 class="section-title">Everything in the Template</h2>
+    <div class="includes-grid">
+      <div class="include-item">
+        <div class="include-icon">&#x1F4CB;</div>
+        <div class="include-title">5-Section Structure</div>
+        <div class="include-desc">Their Situation, Scope of Work, Investment, Why You, and Next Steps — the exact sections that close proposals.</div>
+      </div>
+      <div class="include-item">
+        <div class="include-icon">&#x270F;&#xFE0F;</div>
+        <div class="include-title">Editable Placeholder Copy</div>
+        <div class="include-desc">Every section comes pre-filled with guiding copy in [brackets] so you know exactly what to write.</div>
+      </div>
+      <div class="include-item">
+        <div class="include-icon">&#x1F4B0;</div>
+        <div class="include-title">Pricing Block</div>
+        <div class="include-desc">A clean investment section with space for your package name, price, billing terms, and cancellation policy.</div>
+      </div>
+      <div class="include-item">
+        <div class="include-icon">&#x2705;</div>
+        <div class="include-title">Next Steps Section</div>
+        <div class="include-desc">A ready-to-use closing section that gives the client one clear action so they know exactly what to do next.</div>
+      </div>
+      <div class="include-item">
+        <div class="include-icon">&#x1F3A8;</div>
+        <div class="include-title">Clean, Professional Design</div>
+        <div class="include-desc">Print-ready and easy to copy into Google Docs, Notion, or your preferred proposal tool.</div>
+      </div>
+      <div class="include-item">
+        <div class="include-icon">&#x26A1;</div>
+        <div class="include-title">Works for Any Niche</div>
+        <div class="include-desc">Built for general VA services but flexible enough for social media, admin, email marketing, and more.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO USE -->
+<section class="how-section" id="how-to-use">
+  <p class="section-eyebrow">How It Works</p>
+  <h2 class="section-title" style="text-align:left">Three Steps to Your First Proposal</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div>
+        <div class="step-title">Open the template</div>
+        <div class="step-desc">Click the button above to open the template in your browser. Copy the full content into Google Docs, Notion, Word, or any tool you prefer.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div>
+        <div class="step-title">Replace the [brackets]</div>
+        <div class="step-desc">Every placeholder is in [brackets]. Fill in your client's name, their specific situation, your exact scope of work, and your rate. Delete anything that doesn't apply.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div>
+        <div class="step-title">Send it within 24 hours</div>
+        <div class="step-desc">The best proposals land in the client's inbox the same day as the conversation. Send as a PDF, a shared Google Doc link, or paste it into an email — whatever feels right for your relationship.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section class="bottom-cta">
+  <div class="bottom-cta-label">Free Download</div>
+  <h2>Get the Template Now</h2>
+  <p>Open it, copy it, make it yours. Free, no email required.</p>
+  <a href="/va-proposal-template/template.html" class="btn-dark" target="_blank">Open the Template →</a>
+</section>
+
+<footer>
+  &copy; 2025 Virtueasy &nbsp;|&nbsp; <a href="https://virtueasy.com">virtueasy.com</a> &nbsp;|&nbsp; <a href="/resources/">Back to Resources</a>
+</footer>
+
+</body>
+</html>
