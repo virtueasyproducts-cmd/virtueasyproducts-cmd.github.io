@@ -544,7 +544,6 @@
     </div>
   </div>
 
-  <!-- EMAIL CAPTURE POPUP -->
   <div class="popup-overlay" id="popup">
     <div class="popup">
       <div id="popup-form-wrap">
@@ -675,8 +674,11 @@
 
     // ── POPUP ────────────────────────────────────────────────────
     const POPUP_KEY = 've_jobs_access';
+    let popupTriggered = false;
 
     function showPopup() {
+      if (popupTriggered || localStorage.getItem(POPUP_KEY)) return;
+      popupTriggered = true;
       document.getElementById('popup').classList.add('active');
     }
 
@@ -686,7 +688,16 @@
 
     function initPopup() {
       if (localStorage.getItem(POPUP_KEY)) return;
-      setTimeout(showPopup, 60000);
+      
+      // Trigger 1: 15 seconds
+      setTimeout(showPopup, 15000);
+
+      // Trigger 2: Scrolled down twice (2x the viewport height)
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > (window.innerHeight * 2)) {
+          showPopup();
+        }
+      }, { passive: true });
     }
 
     document.getElementById('popup-submit').addEventListener('click', async () => {
