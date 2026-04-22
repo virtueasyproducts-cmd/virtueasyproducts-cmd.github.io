@@ -31,24 +31,44 @@
     }
 
     /* NAV */
-   <nav class="site-nav" role="navigation" aria-label="Main navigation">
-    <a class="nav-logo" href="/">
-      <img src="/assets/virtueasy-logo.png" alt="Virtueasy" onerror="this.style.display='none'">
-      <span class="nav-logo-text">VIRTUEASY</span>
-    </a>
-    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/resources/">Resources</a></li>
-      <li><a href="/blog/">Blog</a></li>
-      <li><a href="/blueprint/">Blueprint</a></li>
-      <li><a href="/pricing-tool/">Pricing Tool</a></li>
-      <li><a href="https://www.facebook.com/groups/974455928445420" target="_blank" rel="noopener" class="nav-community"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.885v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>Community</a></li>
-      <li class="nav-cta"><a href="/blueprint/">Get Started</a></li>
-    </ul>
-  </nav>
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--pink); }
+
+    .nav-cta {
+      background: var(--pink);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.25rem;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .nav-cta:hover { opacity: 0.85; }
 
     /* HERO */
     .hero {
