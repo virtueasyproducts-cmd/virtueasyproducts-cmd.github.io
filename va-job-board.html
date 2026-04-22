@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VA Job Board — Remote Virtual Assistant Jobs | Virtueasy</title>
+  <meta name="description" content="Browse the latest remote virtual assistant jobs, updated daily. Find VA, executive assistant, social media, and OBM roles — all remote." />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink: #FF1F7A;
+      --black: #0A0A0A;
+      --white: #F8F8F8;
+      --gray: #1a1a1a;
+      --gray2: #2a2a2a;
+      --muted: #888;
+      --border: rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--pink); }
+
+    .nav-cta {
+      background: var(--pink);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.25rem;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    .hero {
+      padding: 5rem 2rem 3rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 span { color: var(--pink); }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      font-weight: 300;
+    }
+
+    .hero-meta {
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .hero-meta .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--pink);
+      display: inline-block;
+    }
+
+    /* FILTERS */
+    .filters-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem 2rem;
+    }
+
+    .filters {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: var(--gray);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      padding: 0.45rem 1rem;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--pink);
+      border-color: var(--pink);
+      color: var(--white);
+    }
+
+    /* JOBS */
+    .jobs-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem 2rem;
+    }
+
+    .jobs-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .jobs-count {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .jobs-updated {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .jobs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .job-card {
+      background: var(--gray);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      transition: border-color 0.15s, background 0.15s;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .job-card:hover {
+      border-color: var(--pink);
+      background: var(--gray2);
+    }
+
+    .job-title {
+      font-family: 'Barlow', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+
+    .job-company {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .job-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .job-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      background: rgba(255,31,122,0.12);
+      color: var(--pink);
+      border: 1px solid rgba(255,31,122,0.2);
+    }
+
+    .job-tag.type {
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      border-color: var(--border);
+    }
+
+    .job-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.75rem;
+    }
+
+    .job-salary {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--white);
+      white-space: nowrap;
+    }
+
+    .job-date {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .job-apply {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pink);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .job-apply::after {
+      content: '→';
+    }
+
+    /* EMPTY / LOADING */
+    .state-msg {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .state-msg .label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--white);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    /* BLUEPRINT BANNER */
+    .blueprint-banner {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 2rem 4rem;
+    }
+
+    .blueprint-inner {
+      background: var(--pink);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .blueprint-text .eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.75;
+      margin-bottom: 0.4rem;
+    }
+
+    .blueprint-text h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+
+    .blueprint-text p {
+      font-size: 0.85rem;
+      opacity: 0.85;
+      margin-top: 0.4rem;
+      font-weight: 300;
+    }
+
+    .blueprint-btn {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.75rem;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+
+    .blueprint-btn:hover { opacity: 0.8; }
+
+    /* POPUP OVERLAY */
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,10,0.97);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .popup-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .popup {
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .popup-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 1.25rem;
+    }
+
+    .popup h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .popup p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .popup-form {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    .popup-input {
+      flex: 1;
+      background: var(--gray);
+      border: none;
+      padding: 0.9rem 1.25rem;
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .popup-input::placeholder { color: var(--muted); }
+
+    .popup-submit {
+      background: var(--pink);
+      border: none;
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.9rem 1.5rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+
+    .popup-submit:hover { opacity: 0.85; }
+
+    .popup-note {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .popup-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .popup-success .check {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,31,122,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .popup-success h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.02em;
+    }
+
+    .popup-success p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .job-card { grid-template-columns: 1fr; }
+      .job-right { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+      .blueprint-inner { flex-direction: column; }
+      nav { padding: 1rem; }
+      .hero { padding: 3rem 1.25rem 2rem; }
+      .filters-wrap, .jobs-wrap, .blueprint-banner { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .popup-form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="https://virtueasy.com" class="nav-logo">Virtue<span>easy</span></a>
+    <a href="https://blueprint.virtueasy.com" class="nav-cta">Get the Blueprint</a>
+  </nav>
+
+  <section class="hero">
+    <p class="hero-eyebrow">Updated Daily</p>
+    <h1>Remote <span>VA</span> Jobs</h1>
+    <p class="hero-sub">Hand-filtered remote opportunities for virtual assistants, executive assistants, social media managers, and OBMs.</p>
+    <div class="hero-meta">
+      <span class="dot"></span>
+      <span id="hero-count">Loading jobs...</span>
+      <span class="dot"></span>
+      <span>100% remote</span>
+      <span class="dot"></span>
+      <span>No agencies</span>
+    </div>
+  </section>
+
+  <div class="filters-wrap">
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="all">All Roles</button>
+      <button class="filter-btn" data-filter="virtual assistant">Virtual Assistant</button>
+      <button class="filter-btn" data-filter="executive assistant">Executive Assistant</button>
+      <button class="filter-btn" data-filter="social media">Social Media</button>
+      <button class="filter-btn" data-filter="administrative">Administrative</button>
+      <button class="filter-btn" data-filter="online business manager">OBM</button>
+    </div>
+  </div>
+
+  <div class="jobs-wrap">
+    <div class="jobs-header">
+      <span class="jobs-count" id="jobs-count"></span>
+      <span class="jobs-updated" id="jobs-updated"></span>
+    </div>
+    <div class="jobs-list" id="jobs-list">
+      <div class="state-msg">
+        <span class="label">Loading</span>
+        Fetching the latest remote VA jobs...
+      </div>
+    </div>
+  </div>
+
+  <div class="blueprint-banner">
+    <div class="blueprint-inner">
+      <div class="blueprint-text">
+        <p class="eyebrow">Land more clients</p>
+        <h2>The VA Blueprint</h2>
+        <p>Everything you need to launch, pitch, and scale your VA business.</p>
+      </div>
+      <a href="https://blueprint.virtueasy.com" class="blueprint-btn">Get the Blueprint →</a>
+    </div>
+  </div>
+
+  <!-- EMAIL CAPTURE POPUP -->
+  <div class="popup-overlay" id="popup">
+    <div class="popup">
+      <div id="popup-form-wrap">
+        <p class="popup-eyebrow">Free access</p>
+        <h2>Unlock the Full Job Board</h2>
+        <p>This job board is free to access — just drop your email to unlock full browsing.</p>
+        <div class="popup-form">
+          <input
+            type="email"
+            class="popup-input"
+            id="popup-email"
+            placeholder="your@email.com"
+            autocomplete="email"
+          />
+          <button class="popup-submit" id="popup-submit">Get Access</button>
+        </div>
+        <p class="popup-note">No spam. Unsubscribe anytime.</p>
+      </div>
+      <div class="popup-success" id="popup-success">
+        <div class="check">✓</div>
+        <h3>You're In</h3>
+        <p>Welcome to the board. Happy job hunting.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const WORKER_URL = 'https://virtueasy-va-job-board.morgan-2bf.workers.dev/jobs';
+    const MAILERLITE_API = 'https://connect.mailerlite.com/api/subscribers';
+    // Replace with your MailerLite API key and VA Job Board group ID
+    const ML_API_KEY = 'YOUR_MAILERLITE_API_KEY';
+    const ML_GROUP_ID = 'YOUR_VA_JOB_BOARD_GROUP_ID';
+
+    let allJobs = [];
+    let activeFilter = 'all';
+
+    // ── FETCH JOBS ──────────────────────────────────────────────
+    async function loadJobs() {
+      try {
+        const res = await fetch(WORKER_URL);
+        const data = await res.json();
+        allJobs = data.jobs || [];
+
+        document.getElementById('hero-count').textContent =
+          allJobs.length > 0 ? `${allJobs.length} open roles` : 'Jobs updating soon';
+
+        if (data.updatedAt) {
+          const d = new Date(data.updatedAt);
+          document.getElementById('jobs-updated').textContent =
+            'Updated ' + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        renderJobs(allJobs);
+      } catch (err) {
+        document.getElementById('jobs-list').innerHTML = `
+          <div class="state-msg">
+            <span class="label">Coming Soon</span>
+            Jobs are being pulled in. Check back shortly.
+          </div>`;
+      }
+    }
+
+    // ── RENDER ──────────────────────────────────────────────────
+    function timeAgo(dateStr) {
+      const diff = Date.now() - new Date(dateStr).getTime();
+      const days = Math.floor(diff / 86400000);
+      if (days === 0) return 'Today';
+      if (days === 1) return 'Yesterday';
+      if (days < 7) return `${days}d ago`;
+      if (days < 30) return `${Math.floor(days / 7)}w ago`;
+      return `${Math.floor(days / 30)}mo ago`;
+    }
+
+    function renderJobs(jobs) {
+      const list = document.getElementById('jobs-list');
+      const count = document.getElementById('jobs-count');
+
+      if (!jobs.length) {
+        list.innerHTML = `
+          <div class="state-msg">
+            <span class="label">No Matches</span>
+            Try a different filter or check back tomorrow.
+          </div>`;
+        count.textContent = '0 jobs';
+        return;
+      }
+
+      count.textContent = `${jobs.length} ${jobs.length === 1 ? 'job' : 'jobs'} found`;
+
+      list.innerHTML = jobs.map(job => {
+        const tags = (job.tags || []).slice(0, 3);
+        return `
+          <a class="job-card" href="${job.url}" target="_blank" rel="noopener noreferrer">
+            <div class="job-left">
+              <div class="job-title">${job.title}</div>
+              <div class="job-company">${job.company}</div>
+              <div class="job-tags">
+                <span class="job-tag type">${job.type || 'Remote'}</span>
+                ${tags.map(t => `<span class="job-tag">${t}</span>`).join('')}
+              </div>
+            </div>
+            <div class="job-right">
+              ${job.salary ? `<span class="job-salary">${job.salary}</span>` : ''}
+              <span class="job-date">${timeAgo(job.postedAt)}</span>
+              <span class="job-apply">Apply</span>
+            </div>
+          </a>`;
+      }).join('');
+    }
+
+    // ── FILTERS ─────────────────────────────────────────────────
+    document.getElementById('filters').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+
+      const filtered = activeFilter === 'all'
+        ? allJobs
+        : allJobs.filter(j =>
+            (j.title + ' ' + (j.tags || []).join(' ')).toLowerCase().includes(activeFilter)
+          );
+
+      renderJobs(filtered);
+    });
+
+    // ── POPUP ────────────────────────────────────────────────────
+    const POPUP_KEY = 've_jobs_access';
+
+    function showPopup() {
+      document.getElementById('popup').classList.add('active');
+    }
+
+    function hidePopup() {
+      document.getElementById('popup').classList.remove('active');
+    }
+
+    function initPopup() {
+      if (localStorage.getItem(POPUP_KEY)) return;
+      setTimeout(showPopup, 60000);
+    }
+
+    document.getElementById('popup-submit').addEventListener('click', async () => {
+      const email = document.getElementById('popup-email').value.trim();
+      if (!email || !email.includes('@')) {
+        document.getElementById('popup-email').style.borderBottom = '1px solid var(--pink)';
+        return;
+      }
+
+      const btn = document.getElementById('popup-submit');
+      btn.textContent = '...';
+      btn.disabled = true;
+
+      try {
+        await fetch(MAILERLITE_API, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${ML_API_KEY}`,
+          },
+          body: JSON.stringify({
+            email,
+            groups: [ML_GROUP_ID],
+          }),
+        });
+      } catch (err) {
+        console.error('MailerLite error:', err);
+      }
+
+      localStorage.setItem(POPUP_KEY, '1');
+
+      document.getElementById('popup-form-wrap').style.display = 'none';
+      const success = document.getElementById('popup-success');
+      success.style.display = 'flex';
+
+      setTimeout(hidePopup, 2500);
+    });
+
+    // ── INIT ─────────────────────────────────────────────────────
+    loadJobs();
+    initPopup();
+  </script>
+</body>
+</html>
