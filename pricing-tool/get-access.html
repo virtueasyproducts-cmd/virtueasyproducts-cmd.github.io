@@ -90,8 +90,27 @@ body{font-family:var(--font-body);background:var(--white);color:var(--black);min
 .gate>*:nth-child(6){animation-delay:0.25s}
 .gate>*:nth-child(7){animation-delay:0.3s}
 </style>
+  <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="/">
+      <img src="/assets/virtueasy-logo.png" alt="Virtueasy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="nav-logo-text">VIRTUEASY</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/resources/">Resources</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/blueprint/">Blueprint</a></li>
+      <li><a href="/pricing-tool/" class="active">Pricing Tool</a></li>
+      <li><a href="/job-board/">Job Board</a></li>
+      <li class="nav-cta"><a href="/blueprint/">Get Started</a></li>
+    </ul>
+  </nav>
 
 <div class="gate">
   <div class="logo">VIRTU<span>EASY</span></div>

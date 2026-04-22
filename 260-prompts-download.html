@@ -307,8 +307,27 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       .btn-download { padding: 16px 28px; font-size: 1.1rem; }
     }
   </style>
+  <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="/">
+      <img src="/assets/virtueasy-logo.png" alt="Virtueasy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="nav-logo-text">VIRTUEASY</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/resources/">Resources</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/blueprint/">Blueprint</a></li>
+      <li><a href="/pricing-tool/">Pricing Tool</a></li>
+      <li><a href="/job-board/">Job Board</a></li>
+      <li class="nav-cta"><a href="/blueprint/">Get Started</a></li>
+    </ul>
+  </nav>
   <div class="page">
 
     <div class="logo">VIRTUEASY</div>

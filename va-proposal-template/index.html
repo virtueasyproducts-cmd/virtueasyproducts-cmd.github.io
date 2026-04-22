@@ -177,11 +177,24 @@
 </head>
 <body>
 
-<nav>
-  <a href="https://virtueasy.com" class="nav-logo">VIRTUE<span>EASY</span></a>
-  <a href="/resources/" class="nav-back">← All Resources</a>
-  <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="nav-cta">Get the Blueprint $27</a>
-</nav>
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="/">
+      <img src="/assets/virtueasy-logo.png" alt="Virtueasy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="nav-logo-text">VIRTUEASY</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/resources/" class="active">Resources</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/blueprint/">Blueprint</a></li>
+      <li><a href="/pricing-tool/">Pricing Tool</a></li>
+      <li><a href="/job-board/">Job Board</a></li>
+      <li class="nav-cta"><a href="/blueprint/">Get Started</a></li>
+    </ul>
+  </nav>
 
 <!-- HERO -->
 <div style="width:100%;max-height:220px;overflow:hidden;position:relative;">
