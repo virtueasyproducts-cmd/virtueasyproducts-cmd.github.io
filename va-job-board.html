@@ -628,7 +628,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     if (data.updatedAt) {
       const d = new Date(data.updatedAt);
       document.getElementById('jobs-updated').textContent =
-        'Updated ' + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        'Updated ' + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
     }
 
     renderJobs(allJobs);
