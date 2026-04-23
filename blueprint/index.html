@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The VA Blueprint: Land Your First Client in 30 Days - Virtueasy</title>
-  <meta name="description" content="A 30-day interactive system that helps virtual assistants land their first high-paying client. No experience required. $27, instant access.">
-  <meta property="og:title" content="The VA Blueprint: Land Your First Client in 30 Days">
+  <title>The 30-Day VA System: Land Your First Client - Virtueasy</title>
+  <meta name="description" content="A 30-day interactive system that helps you package your existing skills into a booked freelance business. No experience required. $27, instant access.">
+  <meta property="og:title" content="The 30-Day VA System: Land Your First Client">
   <meta property="og:description" content="A 30-day interactive system built for virtual assistants. No experience required. $27, instant access.">
   <meta property="og:image" content="https://virtueasy.com/og-image.jpg">
   <meta property="og:url" content="https://virtueasy.com/blueprint/">
   <meta property="og:type" content="website">
 
-  <!-- Meta Pixel -->
   <script>
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -228,11 +227,40 @@
       letter-spacing: 0.05em;
     }
 
+    /* ── VELVET ROPE (NEW) ── */
+    .velvet-rope-section {
+      background: var(--black);
+      padding: 6rem 2rem;
+    }
+
+    .velvet-rope-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .velvet-rope-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .velvet-rope-header h2 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      margin-top: 0.5rem;
+    }
+
+    .rope-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
     /* ── WHAT IS A VA ── */
 
     .what-section {
       padding: 6rem 2rem;
-      background: var(--black);
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
 
     .what-inner {
@@ -309,9 +337,7 @@
     /* ── NOT A PDF ── */
 
     .not-pdf-section {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      background: var(--black);
       padding: 6rem 2rem;
     }
 
@@ -337,7 +363,7 @@
     }
 
     .day-preview {
-      background: var(--black);
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 1.75rem;
@@ -419,7 +445,8 @@
 
     .testimonials-section {
       padding: 6rem 2rem;
-      background: var(--black);
+      background: var(--surface);
+      border-top: 1px solid var(--border);
     }
 
     .testimonials-inner {
@@ -444,7 +471,7 @@
     }
 
     .testimonial-card {
-      background: var(--surface);
+      background: var(--black);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 2rem;
@@ -479,7 +506,7 @@
     /* ── FOR YOU IF ── */
 
     .fit-section {
-      background: var(--surface);
+      background: var(--black);
       border-top: 1px solid var(--border);
       padding: 6rem 2rem;
     }
@@ -523,7 +550,8 @@
 
     .curriculum-section {
       padding: 6rem 2rem;
-      background: var(--black);
+      background: var(--surface);
+      border-top: 1px solid var(--border);
     }
 
     .curriculum-inner {
@@ -549,7 +577,7 @@
     }
 
     .week-card {
-      background: var(--surface);
+      background: var(--black);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 2rem;
@@ -605,7 +633,7 @@
     /* ── FINAL CTA ── */
 
     .final-cta-section {
-      background: var(--surface);
+      background: var(--black);
       border-top: 1px solid var(--border);
       padding: 7rem 2rem;
       text-align: center;
@@ -669,12 +697,13 @@
       .fit-inner { grid-template-columns: 1fr; }
       .curriculum-grid { grid-template-columns: 1fr; }
       .proof-bar-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .rope-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 600px) {
       .sales-hero { padding: 5rem 1.25rem 6rem; }
       .what-section, .not-pdf-section, .testimonials-section,
-      .fit-section, .curriculum-section, .final-cta-section { padding: 4rem 1.25rem; }
+      .fit-section, .curriculum-section, .final-cta-section, .velvet-rope-section { padding: 4rem 1.25rem; }
       .proof-bar { padding: 2rem 1.25rem; }
     }
 
@@ -682,7 +711,6 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav class="site-nav" role="navigation" aria-label="Main navigation">
     <a class="nav-logo" href="/">
       <img src="/assets/virtueasy-logo.png" alt="Virtueasy" onerror="this.style.display='none'">
@@ -703,7 +731,6 @@
 
   <main>
 
-    <!-- HERO -->
     <section class="sales-hero" aria-label="Hero">
       <div class="sales-hero-bg" aria-hidden="true"></div>
       <div class="sales-hero-grid" aria-hidden="true"></div>
@@ -711,12 +738,12 @@
 
         <div class="hero-enrolled">
           <span class="hero-enrolled-dot" aria-hidden="true"></span>
-          247+ VAs enrolled and counting
+          247+ students enrolled
         </div>
 
         <h1>
-          Turn skills you already have into a 
-          <em>booked freelance business</em>
+          <span>Turn skills you already have into</span><br>
+          <em>a booked freelance business.</em>
         </h1>
 
         <p class="sales-hero-sub">
@@ -738,7 +765,7 @@
           <span class="trust-item">&#x2705; No app, no subscription</span>
         </div>
 
-        <div class="hero-video-wrap">
+        <div class="hero-video-wrap" id="demo">
           <div class="video-frame">
             <div class="video-frame-bar">
               <div class="browser-dots">
@@ -746,17 +773,17 @@
                 <span class="browser-dot browser-dot-y"></span>
                 <span class="browser-dot browser-dot-g"></span>
               </div>
-              <span class="video-frame-title">VA Blueprint - Live Demo</span>
+              <span class="video-frame-title">30-Day VA System - Live Demo</span>
             </div>
             <video
-              id="blueprintVideoHero"
+              id="systemVideoHero"
               class="feature-video"
               autoplay
               muted
               loop
               playsinline
               oncanplay="this.playbackRate=3"
-              aria-label="VA Blueprint product demo video"
+              aria-label="30-Day VA System product demo video"
             >
               <source src="/BlueprintDemo(1).mp4" type="video/mp4">
             </video>
@@ -767,7 +794,6 @@
       </div>
     </section>
 
-    <!-- PROOF BAR -->
     <section class="proof-bar" aria-label="Results">
       <div class="proof-bar-inner">
         <div class="proof-stat">
@@ -785,7 +811,27 @@
       </div>
     </section>
 
-    <!-- WHAT IS A VA -->
+    <section class="velvet-rope-section" aria-label="Two Choices">
+      <div class="velvet-rope-inner">
+        <div class="velvet-rope-header">
+          <span class="label">Stop researching. Start doing.</span>
+          <h2>You Have Two Choices</h2>
+        </div>
+        
+        <div class="rope-grid">
+          <div class="what-card" style="border: 1px solid rgba(255,255,255,0.08); background: var(--surface);">
+            <h3 style="color: white; margin-bottom: 1rem; font-size: 1.5rem;">Option 1: The "Free" Route</h3>
+            <p style="color: rgba(248,248,248,0.65); line-height: 1.6; font-size: 0.95rem;">Spend the next 6 months saving TikToks to your favorites, watching outdated YouTube tutorials, and trying to guess what to say when a client actually asks for your rates.</p>
+          </div>
+          
+          <div class="what-card" style="border: 1px solid var(--pink); background: var(--surface);">
+            <h3 style="color: var(--pink); margin-bottom: 1rem; font-size: 1.5rem;">Option 2: The 30-Day VA System</h3>
+            <p style="color: rgba(248,248,248,0.65); line-height: 1.6; font-size: 0.95rem;">Skip the guesswork. Get the exact daily checklist, cold outreach templates, discovery call scripts, and pricing strategies that 247+ other VAs used to set up their business and get hired.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="what-section" aria-label="What is a virtual assistant">
       <div class="what-inner">
 
@@ -806,7 +852,7 @@
           </p>
           <div style="margin-top:2rem;">
             <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn btn-primary" target="_blank" rel="noopener">
-              I'm Ready - $27
+              Get The System - $27
             </a>
           </div>
         </div>
@@ -843,7 +889,27 @@
       </div>
     </section>
 
-    <!-- SKILLS QUIZ -->
+    <section class="not-pdf-section" aria-label="How it works">
+      <div class="not-pdf-inner">
+        <div class="not-pdf-content">
+          <span class="label">What's Inside</span>
+          <h2>A complete business setup, not a fluffy PDF.</h2>
+          <p>You aren't paying for a motivational speech. The 30-Day VA System is an interactive, step-by-step checklist. Open it up, complete the daily task, and check it off.</p>
+          <p>By the end of the 30 days, your freelance business is fully set up, your prices are locked in, your outreach messages are sent, and you are ready to hold discovery calls.</p>
+        </div>
+        <div class="day-preview">
+          <div class="day-preview-label">Daily Checklist Preview</div>
+          <div class="day-preview-title">Day 14: Cold Outreach</div>
+          <ul class="day-task-list">
+            <li><span class="task-check done"></span> Customize the outreach template</li>
+            <li><span class="task-check done"></span> Identify 5 potential clients</li>
+            <li><span class="task-check"></span> Send DM / Email to all 5</li>
+          </ul>
+          <div class="day-progress"><div class="day-progress-fill"></div></div>
+        </div>
+      </div>
+    </section>
+
     <section class="quiz-section" aria-label="Skills quiz">
       <div class="quiz-container-wrap">
         <div class="quiz-eyebrow-pill">Skill check</div>
@@ -928,14 +994,13 @@
             <h3 class="quiz-result-title" id="quizResultTitle"></h3>
             <p class="quiz-result-body" id="quizResultBody"></p>
             <div class="badge-skills" id="badgeSkills"></div>
-            <p class="quiz-result-note">The VA Blueprint meets you exactly where you are and moves you forward -- one day at a time.</p>
+            <p class="quiz-result-note">The 30-Day VA System meets you exactly where you are and moves you forward -- one day at a time.</p>
             <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn btn-primary" target="_blank" rel="noopener" style="margin-top:1.5rem;">Turn These Skills Into Income - $27</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TESTIMONIALS -->
     <section class="testimonials-section" aria-label="Student results">
       <div class="testimonials-inner">
 
@@ -975,7 +1040,6 @@
       </div>
     </section>
 
-    <!-- FOR YOU IF -->
     <section class="fit-section" aria-label="Who this is for">
       <div class="fit-inner">
 
@@ -1022,14 +1086,13 @@
             </li>
           </ul>
           <p style="font-size:0.875rem;color:var(--muted);line-height:1.65;margin-top:1.5rem;">
-            The Blueprint is built for beginners who are serious. The answer is not more research. It is the right system.
+            The 30-Day VA System is built for beginners who are serious. The answer is not more research. It is the right system.
           </p>
         </div>
 
       </div>
     </section>
 
-    <!-- CURRICULUM -->
     <section class="curriculum-section" aria-label="What is inside">
       <div class="curriculum-inner">
 
@@ -1073,8 +1136,7 @@
       </div>
     </section>
 
-    <!-- FINAL CTA -->
-    <section class="final-cta-section" aria-label="Get the Blueprint">
+    <section class="final-cta-section" aria-label="Get the System">
       <div class="final-cta-inner">
 
         <span class="label">Ready when you are</span>
@@ -1105,7 +1167,6 @@
 
   </main>
 
-  <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
     <div class="footer-inner">
       <div class="footer-top">
@@ -1125,7 +1186,7 @@
           <div class="footer-nav-col">
             <h4>Tools</h4>
             <ul>
-              <li><a href="/blueprint/">Blueprint</a></li>
+              <li><a href="/blueprint/">30-Day System</a></li>
               <li><a href="/pricing-tool/">Pricing Tool</a></li>
               <li><a href="/260-prompts/">260 Prompts</a></li>
             </ul>
@@ -1144,7 +1205,6 @@
     </div>
   </footer>
 
-  <!-- VIDEO + QUIZ STYLES & SCRIPTS -->
   <style>
     /* ── VIDEO SECTION ── */
     .feature-video-wrap { position: relative; }
@@ -1315,7 +1375,7 @@
   <script>
     // Lazy-load video when section scrolls into view
     (function(){
-      var video = document.getElementById('blueprintVideo');
+      var video = document.getElementById('systemVideoHero');
       if (!video) return;
       var obs = new IntersectionObserver(function(entries) {
         if (!entries[0].isIntersecting) return;
@@ -1409,7 +1469,7 @@
           var u=document.getElementById('unlock'+qIndex);
           u.classList.add('visible','no-skill');
           u.querySelector('.unlock-icon').textContent='\u2014';
-          u.querySelector('.unlock-text').innerHTML='<strong>Not yet</strong> -- the Blueprint teaches this from scratch.';
+          u.querySelector('.unlock-text').innerHTML='<strong>Not yet</strong> -- the 30-Day VA System teaches this from scratch.';
           u.querySelector('.unlock-sub').textContent='';
         }
 
@@ -1457,13 +1517,13 @@
           var title=document.getElementById('quizResultTitle'), body=document.getElementById('quizResultBody'), skills=document.getElementById('badgeSkills');
           if(yc>=3){
             title.innerHTML='You Already Have <span style="color:var(--pink)">'+yc+' Out of 4</span> VA Skills.';
-            body.textContent="You're not starting from scratch. The skills you already use every day are the same ones businesses pay $1,000+/month for. You just need the roadmap to turn them into income.";
+            body.textContent="You're not starting from scratch. The skills you already use every day are the same ones businesses pay $1,000+/month for. You just need the system to turn them into income.";
           } else if(yc>=1){
             title.innerHTML="You're Not Starting From <span style=\"color:var(--pink)\">Zero.</span>";
-            body.textContent="You already have real, billable skills. The VA Blueprint is built for exactly where you are right now. No experience required.";
+            body.textContent="You already have real, billable skills. The 30-Day VA System is built for exactly where you are right now. No experience required.";
           } else {
             title.innerHTML="That's Exactly Why <span style=\"color:var(--pink)\">This Exists.</span>";
-            body.textContent="You don't need to walk in with a skillset. The VA Blueprint starts at absolute zero and builds you up -- one simple task per day, no assumptions.";
+            body.textContent="You don't need to walk in with a skillset. The 30-Day VA System starts at absolute zero and builds you up -- one simple task per day, no assumptions.";
           }
 
           var ph='';
@@ -1480,9 +1540,8 @@
     });
   </script>
 
-  <!-- STICKY BAR -->
   <div class="sticky-bar" id="stickyBar" role="complementary" aria-label="Purchase prompt">
-    <span class="sticky-bar-text">The VA Blueprint &nbsp;&#xB7;&nbsp; <span>$27 - Instant Access</span></span>
+    <span class="sticky-bar-text">The 30-Day VA System &nbsp;&#xB7;&nbsp; <span>$27 - Instant Access</span></span>
     <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn btn-primary" target="_blank" rel="noopener">
       Get Access Now
     </a>
