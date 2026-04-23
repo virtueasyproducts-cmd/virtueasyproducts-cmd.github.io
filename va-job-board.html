@@ -613,29 +613,34 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
     // ── FETCH JOBS ──────────────────────────────────────────────
     async function loadJobs() {
-      try {
-        const res = await fetch(WORKER_URL);
-        const data = await res.json();
-        allJobs = data.jobs || [];
+  try {
+    // 1. Added cache-busting timestamp
+    const res = await fetch(`${WORKER_URL}?t=${Date.now()}`, { cache: "no-store" });
+    const data = await res.json();
+    
+    // 2. Extract and SORT jobs newest first
+    allJobs = data.jobs || [];
+    allJobs.sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
 
-        document.getElementById('hero-count').textContent =
-          allJobs.length > 0 ? `${allJobs.length} open roles` : 'Jobs updating soon';
+    document.getElementById('hero-count').textContent =
+      allJobs.length > 0 ? `${allJobs.length} open roles` : 'Jobs updating soon';
 
-        if (data.updatedAt) {
-          const d = new Date(data.updatedAt);
-          document.getElementById('jobs-updated').textContent =
-            'Updated ' + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        }
-
-        renderJobs(allJobs);
-      } catch (err) {
-        document.getElementById('jobs-list').innerHTML = `
-          <div class="state-msg">
-            <span class="label">Coming Soon</span>
-            Jobs are being pulled in. Check back shortly.
-          </div>`;
-      }
+    if (data.updatedAt) {
+      const d = new Date(data.updatedAt);
+      document.getElementById('jobs-updated').textContent =
+        'Updated ' + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     }
+
+    renderJobs(allJobs);
+  } catch (err) {
+    console.error('Job board fetch error:', err);
+    document.getElementById('jobs-list').innerHTML = `
+      <div class="state-msg">
+        <span class="label">Update in Progress</span>
+        We're refreshing the job list. Please check back in a few minutes.
+      </div>`;
+  }
+}
 
     // ── RENDER ──────────────────────────────────────────────────
     function timeAgo(dateStr) {
