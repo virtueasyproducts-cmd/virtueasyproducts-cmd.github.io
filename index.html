@@ -2783,11 +2783,20 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       var thanks = document.getElementById('poll-thanks');
       var selected = null;
 
-      // Show after 20s
-      setTimeout(function() {
-        overlay.classList.add('visible');
-        popup.classList.add('visible');
-      }, 20000);
+      // Show after 7s of scrolling
+      var pollTriggered = false;
+      var pollTimer = null;
+      function startPollTimer() {
+        if (pollTriggered || pollTimer) return;
+        pollTimer = setTimeout(function() {
+          if (!pollTriggered) {
+            pollTriggered = true;
+            overlay.classList.add('visible');
+            popup.classList.add('visible');
+          }
+        }, 7000);
+      }
+      window.addEventListener('scroll', startPollTimer, { once: true });
 
       // Option selection
       document.querySelectorAll('.poll-option').forEach(function(btn) {
