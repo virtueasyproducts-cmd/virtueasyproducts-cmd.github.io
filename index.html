@@ -2802,8 +2802,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
         var value = selected === 'other' ? (otherInput.value.trim() || 'Other') : selected;
         localStorage.setItem(STORAGE_KEY, value);
 
-        // Send to MailerLite or just log for now
-        console.log('Poll vote:', value);
+        window.open('https://forms.gle/oiN6oMmaMpFKJ9WC7', '_blank');
 
         formWrap.style.display = 'none';
         thanks.style.display = 'block';
