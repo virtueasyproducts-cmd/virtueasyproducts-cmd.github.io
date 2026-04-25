@@ -280,5 +280,286 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     document.getElementById('footer-year').textContent = new Date().getFullYear();
   </script>
 
+
+  <!-- Poll Popup -->
+  <style>
+    #poll-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 9998;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    #poll-overlay.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #poll-popup {
+      position: fixed;
+      bottom: -400px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      background: #141414;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      padding: 2rem;
+      width: 90%;
+      max-width: 420px;
+      transition: bottom 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    #poll-popup.visible {
+      bottom: 2rem;
+    }
+    #poll-popup .poll-eyebrow {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #FF1F7A;
+      margin-bottom: 0.6rem;
+    }
+    #poll-popup h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+      color: #F8F8F8;
+      margin-bottom: 0.4rem;
+      line-height: 1.1;
+    }
+    #poll-popup p {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 1.25rem;
+    }
+    .poll-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .poll-option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 3px;
+      padding: 0.65rem 1rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.88rem;
+      color: #F8F8F8;
+      text-align: left;
+      width: 100%;
+    }
+    .poll-option:hover {
+      border-color: #FF1F7A;
+      background: rgba(255,31,122,0.06);
+    }
+    .poll-option.selected {
+      border-color: #FF1F7A;
+      background: rgba(255,31,122,0.1);
+    }
+    .poll-option .poll-radio {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.25);
+      flex-shrink: 0;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .poll-option.selected .poll-radio {
+      border-color: #FF1F7A;
+      background: #FF1F7A;
+    }
+    #poll-other-wrap {
+      margin-bottom: 1rem;
+      display: none;
+    }
+    #poll-other-wrap.visible {
+      display: block;
+    }
+    #poll-other {
+      width: 100%;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 3px;
+      padding: 0.6rem 1rem;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.85rem;
+      color: #F8F8F8;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    #poll-other:focus {
+      border-color: #FF1F7A;
+    }
+    #poll-other::placeholder {
+      color: #555;
+    }
+    #poll-submit {
+      width: 100%;
+      background: #FF1F7A;
+      color: #F8F8F8;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 3px;
+      padding: 0.75rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    #poll-submit:hover { opacity: 0.85; }
+    #poll-close {
+      position: absolute;
+      top: 0.75rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: #555;
+      font-size: 1.2rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.15s;
+    }
+    #poll-close:hover { color: #F8F8F8; }
+    #poll-thanks {
+      text-align: center;
+      display: none;
+    }
+    #poll-thanks .thanks-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    #poll-thanks h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: #F8F8F8;
+      margin-bottom: 0.4rem;
+    }
+    #poll-thanks p {
+      font-size: 0.85rem;
+      color: #888;
+    }
+  </style>
+
+  <div id="poll-overlay"></div>
+  <div id="poll-popup" role="dialog" aria-modal="true" aria-label="Poll">
+    <button id="poll-close" aria-label="Close">&times;</button>
+
+    <div id="poll-form-wrap">
+      <div class="poll-eyebrow">Quick Question</div>
+      <h3>What should we build next?</h3>
+      <p>You tell us, we build it. Pick the tool that would help your VA business the most.</p>
+
+      <div class="poll-options">
+        <button class="poll-option" data-value="Client Onboarding Kit">
+          <span class="poll-radio"></span> Client Onboarding Kit
+        </button>
+        <button class="poll-option" data-value="Niche Finder Quiz">
+          <span class="poll-radio"></span> Niche Finder Quiz
+        </button>
+        <button class="poll-option" data-value="VA Contract Template">
+          <span class="poll-radio"></span> VA Contract Template
+        </button>
+        <button class="poll-option" data-value="other">
+          <span class="poll-radio"></span> Other (tell us below)
+        </button>
+      </div>
+
+      <div id="poll-other-wrap">
+        <input id="poll-other" type="text" placeholder="What would help you most?" maxlength="100" />
+      </div>
+
+      <button id="poll-submit">Submit Vote</button>
+    </div>
+
+    <div id="poll-thanks">
+      <div class="thanks-icon">🎉</div>
+      <h3>Got it. Thank you!</h3>
+      <p>Your vote helps us decide what to build next for VAs like you.</p>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var STORAGE_KEY = 'virtueasy_poll_v1';
+      if (localStorage.getItem(STORAGE_KEY)) return;
+
+      var overlay = document.getElementById('poll-overlay');
+      var popup = document.getElementById('poll-popup');
+      var closeBtn = document.getElementById('poll-close');
+      var submitBtn = document.getElementById('poll-submit');
+      var otherWrap = document.getElementById('poll-other-wrap');
+      var otherInput = document.getElementById('poll-other');
+      var formWrap = document.getElementById('poll-form-wrap');
+      var thanks = document.getElementById('poll-thanks');
+      var selected = null;
+
+      // Show after 20s
+      setTimeout(function() {
+        overlay.classList.add('visible');
+        popup.classList.add('visible');
+      }, 20000);
+
+      // Option selection
+      document.querySelectorAll('.poll-option').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.poll-option').forEach(function(b) { b.classList.remove('selected'); });
+          btn.classList.add('selected');
+          selected = btn.getAttribute('data-value');
+          otherWrap.classList.toggle('visible', selected === 'other');
+        });
+      });
+
+      // Submit
+      submitBtn.addEventListener('click', function() {
+        if (!selected) return;
+        var value = selected === 'other' ? (otherInput.value.trim() || 'Other') : selected;
+        localStorage.setItem(STORAGE_KEY, value);
+
+        // Silent background submit via hidden iframe
+        var iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.name = 'poll-iframe';
+        document.body.appendChild(iframe);
+        var form = document.createElement('form');
+        form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdh21HvBc7hB30AT_H-0iK4jlx1KPG8yuGpISazTTr3dbNZkw/formResponse';
+        form.method = 'POST';
+        form.target = 'poll-iframe';
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'entry.508491427';
+        input.value = value;
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+
+        formWrap.style.display = 'none';
+        thanks.style.display = 'block';
+        setTimeout(closePoll, 2500);
+      });
+
+      // Close
+      closeBtn.addEventListener('click', closePoll);
+      overlay.addEventListener('click', closePoll);
+
+      function closePoll() {
+        overlay.classList.remove('visible');
+        popup.classList.remove('visible');
+        localStorage.setItem(STORAGE_KEY, 'dismissed');
+      }
+    })();
+  </script>
+
 </body>
 </html>
