@@ -2802,7 +2802,22 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
         var value = selected === 'other' ? (otherInput.value.trim() || 'Other') : selected;
         localStorage.setItem(STORAGE_KEY, value);
 
-        window.open('https://forms.gle/oiN6oMmaMpFKJ9WC7', '_blank');
+        // Silent background submit via hidden iframe
+        var iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.name = 'poll-iframe';
+        document.body.appendChild(iframe);
+        var form = document.createElement('form');
+        form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdh21HvBc7hB30AT_H-0iK4jlx1KPG8yuGpISazTTr3dbNZkw/formResponse';
+        form.method = 'POST';
+        form.target = 'poll-iframe';
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'entry.508491427';
+        input.value = value;
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
 
         formWrap.style.display = 'none';
         thanks.style.display = 'block';
