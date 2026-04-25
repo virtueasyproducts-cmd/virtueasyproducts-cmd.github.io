@@ -149,6 +149,220 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       <p>Everything Virtueasy has built for VAs, in one place. Updated regularly.</p>
     </div>
 
+  <!-- Poll Section -->
+  <style>
+    .poll-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 3rem;
+    }
+    .poll-section-inner {
+      background: #141414;
+      border: 1px solid rgba(255,31,122,0.2);
+      border-radius: 6px;
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .poll-section-left {
+      flex: 0 0 auto;
+    }
+    .poll-section-eyebrow {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #FF1F7A;
+      margin-bottom: 0.4rem;
+    }
+    .poll-section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: #F8F8F8;
+      line-height: 1.1;
+      margin-bottom: 0.3rem;
+    }
+    .poll-section-sub {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.82rem;
+      color: #888;
+    }
+    .poll-section-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      flex: 1;
+      align-items: center;
+    }
+    .poll-section-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 3px;
+      padding: 0.6rem 1rem;
+      cursor: pointer;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.85rem;
+      color: #F8F8F8;
+      transition: border-color 0.15s, background 0.15s;
+      white-space: nowrap;
+    }
+    .poll-section-option:hover {
+      border-color: #FF1F7A;
+      background: rgba(255,31,122,0.06);
+    }
+    .poll-section-option.selected {
+      border-color: #FF1F7A;
+      background: rgba(255,31,122,0.1);
+    }
+    .poll-section-radio {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.25);
+      flex-shrink: 0;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .poll-section-option.selected .poll-section-radio {
+      border-color: #FF1F7A;
+      background: #FF1F7A;
+    }
+    #poll-section-other-wrap {
+      display: none;
+      width: 100%;
+    }
+    #poll-section-other-wrap.visible { display: flex; gap: 0.6rem; align-items: center; }
+    #poll-section-other {
+      flex: 1;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 3px;
+      padding: 0.55rem 0.9rem;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.85rem;
+      color: #F8F8F8;
+      outline: none;
+    }
+    #poll-section-other:focus { border-color: #FF1F7A; }
+    #poll-section-other::placeholder { color: #555; }
+    #poll-section-submit {
+      background: #FF1F7A;
+      color: #F8F8F8;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 3px;
+      padding: 0.65rem 1.5rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    #poll-section-submit:hover { opacity: 0.85; }
+    #poll-section-thanks {
+      display: none;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.9rem;
+      color: #F8F8F8;
+    }
+    #poll-section-thanks strong { color: #FF1F7A; }
+    @media (max-width: 700px) {
+      .poll-section-inner { flex-direction: column; gap: 1.5rem; }
+      .poll-section-options { flex-direction: column; align-items: stretch; }
+      .poll-section-option { white-space: normal; }
+    }
+  </style>
+
+  <div class="poll-section">
+    <div class="poll-section-inner">
+      <div class="poll-section-left">
+        <div class="poll-section-eyebrow">Quick Question</div>
+        <h2>What should we<br>build next?</h2>
+        <p class="poll-section-sub">You tell us, we build it.</p>
+      </div>
+      <div id="poll-section-form" style="display:flex;flex:1;flex-wrap:wrap;gap:0.6rem;align-items:center;">
+        <div class="poll-section-options">
+          <button class="poll-section-option" data-value="Client Onboarding Kit">
+            <span class="poll-section-radio"></span> Client Onboarding Kit
+          </button>
+          <button class="poll-section-option" data-value="Niche Finder Quiz">
+            <span class="poll-section-radio"></span> Niche Finder Quiz
+          </button>
+          <button class="poll-section-option" data-value="VA Contract Template">
+            <span class="poll-section-radio"></span> VA Contract Template
+          </button>
+          <button class="poll-section-option" data-value="other">
+            <span class="poll-section-radio"></span> Other
+          </button>
+        </div>
+        <div id="poll-section-other-wrap">
+          <input id="poll-section-other" type="text" placeholder="What would help you most?" maxlength="100" />
+        </div>
+        <button id="poll-section-submit">Submit Vote</button>
+      </div>
+      <div id="poll-section-thanks">
+        🎉 Thanks for voting! <strong>Your input shapes what we build next.</strong>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var STORAGE_KEY = 'virtueasy_poll_v1';
+      var selected = null;
+
+      if (localStorage.getItem(STORAGE_KEY)) {
+        document.getElementById('poll-section-form').style.display = 'none';
+        document.getElementById('poll-section-thanks').style.display = 'block';
+      }
+
+      document.querySelectorAll('.poll-section-option').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.poll-section-option').forEach(function(b) { b.classList.remove('selected'); });
+          btn.classList.add('selected');
+          selected = btn.getAttribute('data-value');
+          document.getElementById('poll-section-other-wrap').classList.toggle('visible', selected === 'other');
+        });
+      });
+
+      document.getElementById('poll-section-submit').addEventListener('click', function() {
+        if (!selected) return;
+        var value = selected === 'other'
+          ? (document.getElementById('poll-section-other').value.trim() || 'Other')
+          : selected;
+        localStorage.setItem(STORAGE_KEY, value);
+
+        var iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.name = 'poll-section-iframe';
+        document.body.appendChild(iframe);
+        var form = document.createElement('form');
+        form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdh21HvBc7hB30AT_H-0iK4jlx1KPG8yuGpISazTTr3dbNZkw/formResponse';
+        form.method = 'POST';
+        form.target = 'poll-section-iframe';
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'entry.508491427';
+        input.value = value;
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+
+        document.getElementById('poll-section-form').style.display = 'none';
+        document.getElementById('poll-section-thanks').style.display = 'block';
+      });
+    })();
+  </script>
+
+
     <div class="stub-grid">
 
       <a href="/system/" class="stub-card" target="_blank" rel="noopener">
@@ -281,250 +495,4 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   </script>
 
 
-  <!-- Poll Side Widget -->
-  <style>
-    #poll-widget {
-      position: fixed;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 999;
-      display: flex;
-      align-items: flex-start;
-      gap: 0;
-    }
-    #poll-tab {
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      transform: rotate(180deg);
-      background: #FF1F7A;
-      color: #F8F8F8;
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 1rem 0.6rem;
-      cursor: pointer;
-      border-radius: 4px 0 0 4px;
-      user-select: none;
-      transition: background 0.2s;
-      flex-shrink: 0;
-    }
-    #poll-tab:hover { background: #e0005f; }
-    #poll-panel {
-      background: #141414;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-right: none;
-      border-radius: 4px 0 0 4px;
-      width: 260px;
-      padding: 1.5rem;
-      transform: translateX(100%);
-      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
-    }
-    #poll-panel.open {
-      transform: translateX(0);
-    }
-    #poll-widget .poll-eyebrow {
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #FF1F7A;
-      margin-bottom: 0.5rem;
-    }
-    #poll-widget h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.3rem;
-      color: #F8F8F8;
-      line-height: 1.1;
-      margin-bottom: 0.35rem;
-    }
-    #poll-widget p {
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.78rem;
-      color: #888;
-      margin-bottom: 1rem;
-    }
-    .poll-widget-options {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      margin-bottom: 0.75rem;
-    }
-    .poll-widget-option {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: #1a1a1a;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 3px;
-      padding: 0.55rem 0.75rem;
-      cursor: pointer;
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.82rem;
-      color: #F8F8F8;
-      text-align: left;
-      width: 100%;
-      transition: border-color 0.15s, background 0.15s;
-    }
-    .poll-widget-option:hover {
-      border-color: #FF1F7A;
-      background: rgba(255,31,122,0.06);
-    }
-    .poll-widget-option.selected {
-      border-color: #FF1F7A;
-      background: rgba(255,31,122,0.1);
-    }
-    .poll-widget-radio {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.25);
-      flex-shrink: 0;
-      transition: border-color 0.15s, background 0.15s;
-    }
-    .poll-widget-option.selected .poll-widget-radio {
-      border-color: #FF1F7A;
-      background: #FF1F7A;
-    }
-    #poll-widget-other-wrap {
-      display: none;
-      margin-bottom: 0.75rem;
-    }
-    #poll-widget-other-wrap.visible { display: block; }
-    #poll-widget-other {
-      width: 100%;
-      background: #1a1a1a;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 3px;
-      padding: 0.5rem 0.75rem;
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.82rem;
-      color: #F8F8F8;
-      outline: none;
-    }
-    #poll-widget-other:focus { border-color: #FF1F7A; }
-    #poll-widget-other::placeholder { color: #555; }
-    #poll-widget-submit {
-      width: 100%;
-      background: #FF1F7A;
-      color: #F8F8F8;
-      font-family: 'Barlow', sans-serif;
-      font-weight: 700;
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border: none;
-      border-radius: 3px;
-      padding: 0.65rem;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-    #poll-widget-submit:hover { opacity: 0.85; }
-    #poll-widget-thanks {
-      display: none;
-      text-align: center;
-      padding: 0.5rem 0;
-    }
-    #poll-widget-thanks .thanks-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
-    #poll-widget-thanks h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.2rem;
-      color: #F8F8F8;
-      margin-bottom: 0.25rem;
-    }
-    #poll-widget-thanks p { font-size: 0.78rem; color: #888; }
-  </style>
-
-  <div id="poll-widget">
-    <div id="poll-tab" onclick="togglePollPanel()">Quick Poll</div>
-    <div id="poll-panel">
-      <div id="poll-widget-form">
-        <div class="poll-eyebrow">Quick Question</div>
-        <h3>What should we build next?</h3>
-        <p>Pick the tool that would help your VA business the most.</p>
-        <div class="poll-widget-options">
-          <button class="poll-widget-option" data-value="Client Onboarding Kit">
-            <span class="poll-widget-radio"></span> Client Onboarding Kit
-          </button>
-          <button class="poll-widget-option" data-value="Niche Finder Quiz">
-            <span class="poll-widget-radio"></span> Niche Finder Quiz
-          </button>
-          <button class="poll-widget-option" data-value="VA Contract Template">
-            <span class="poll-widget-radio"></span> VA Contract Template
-          </button>
-          <button class="poll-widget-option" data-value="other">
-            <span class="poll-widget-radio"></span> Other
-          </button>
-        </div>
-        <div id="poll-widget-other-wrap">
-          <input id="poll-widget-other" type="text" placeholder="What would help you most?" maxlength="100" />
-        </div>
-        <button id="poll-widget-submit">Submit Vote</button>
-      </div>
-      <div id="poll-widget-thanks">
-        <div class="thanks-icon">🎉</div>
-        <h3>Got it. Thank you!</h3>
-        <p>Your vote helps us decide what to build next.</p>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    var pollPanelOpen = false;
-    function togglePollPanel() {
-      pollPanelOpen = !pollPanelOpen;
-      document.getElementById('poll-panel').classList.toggle('open', pollPanelOpen);
-    }
-
-    (function() {
-      var selected = null;
-      var STORAGE_KEY = 'virtueasy_poll_v1';
-
-      if (localStorage.getItem(STORAGE_KEY)) {
-        document.getElementById('poll-widget-form').style.display = 'none';
-        document.getElementById('poll-widget-thanks').style.display = 'block';
-      }
-
-      document.querySelectorAll('.poll-widget-option').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('.poll-widget-option').forEach(function(b) { b.classList.remove('selected'); });
-          btn.classList.add('selected');
-          selected = btn.getAttribute('data-value');
-          document.getElementById('poll-widget-other-wrap').classList.toggle('visible', selected === 'other');
-        });
-      });
-
-      document.getElementById('poll-widget-submit').addEventListener('click', function() {
-        if (!selected) return;
-        var value = selected === 'other'
-          ? (document.getElementById('poll-widget-other').value.trim() || 'Other')
-          : selected;
-        localStorage.setItem(STORAGE_KEY, value);
-
-        var iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.name = 'poll-widget-iframe';
-        document.body.appendChild(iframe);
-        var form = document.createElement('form');
-        form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdh21HvBc7hB30AT_H-0iK4jlx1KPG8yuGpISazTTr3dbNZkw/formResponse';
-        form.method = 'POST';
-        form.target = 'poll-widget-iframe';
-        var input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'entry.508491427';
-        input.value = value;
-        form.appendChild(input);
-        document.body.appendChild(form);
-        form.submit();
-
-        document.getElementById('poll-widget-form').style.display = 'none';
-        document.getElementById('poll-widget-thanks').style.display = 'block';
-      });
-    })();
-  </script>
-
 </body>
-</html>
