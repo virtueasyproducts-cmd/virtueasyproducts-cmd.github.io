@@ -939,7 +939,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     }
 
     .video-frame {
-      background: #120f12;
+      background: #0a0a0a;
       border: 1px solid rgba(255,31,122,0.2);
       border-radius: 12px;
       overflow: hidden;
@@ -970,6 +970,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       width: 100%;
       display: block;
       max-height: 340px;
+      min-height: 220px;
       object-fit: cover;
       background: #0a0a0a;
     }
@@ -2422,7 +2423,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
             </p>
           </div>
           <div id="mlb2-40125544" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-40125544">
-            <div class="ml-form-align-center">
+            <div class="ml-form-align-left">
               <div class="ml-form-embedWrapper embedForm">
                 <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
                   <div class="ml-form-embedContent" style="margin-bottom: 0px;"></div>
@@ -2559,21 +2560,19 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   <!-- Poll Popup -->
   <style>
     #poll-overlay {
+      display: none;
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.6);
       z-index: 9998;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
     }
     #poll-overlay.visible {
-      opacity: 1;
-      pointer-events: all;
+      display: block;
     }
     #poll-popup {
+      display: none;
       position: fixed;
-      bottom: -400px;
+      bottom: 2rem;
       left: 50%;
       transform: translateX(-50%);
       z-index: 9999;
@@ -2583,10 +2582,14 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       padding: 2rem;
       width: 90%;
       max-width: 420px;
-      transition: bottom 0.4s cubic-bezier(0.22,1,0.36,1);
+      animation: slideUp 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    @keyframes slideUp {
+      from { transform: translateX(-50%) translateY(40px); opacity: 0; }
+      to { transform: translateX(-50%) translateY(0); opacity: 1; }
     }
     #poll-popup.visible {
-      bottom: 2rem;
+      display: block;
     }
     #poll-popup .poll-eyebrow {
       font-family: 'Barlow', sans-serif;
