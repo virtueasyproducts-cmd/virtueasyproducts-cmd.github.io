@@ -347,6 +347,97 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
   .module-header,.dash-hero,.prompt-header,.jb-header,.tool-panel-header{padding:1.5rem 1.25rem}
   .tool-iframe-wrap{padding:1rem 1.25rem;height:70vh}
 }
+
+/* ── PRICING TOOL NATIVE ── */
+.pt-wrap{padding:1.5rem 2rem 3rem;max-width:680px}
+.pt-steps{display:flex;align-items:center;gap:0;margin-bottom:2rem;background:var(--surface);border:1px solid var(--border-subtle);border-radius:3px;overflow:hidden}
+.pt-step-btn{flex:1;padding:0.6rem 0.25rem;font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);background:none;border:none;border-right:1px solid var(--border-subtle);cursor:pointer;transition:all 0.15s;text-align:center}
+.pt-step-btn:last-child{border-right:none}
+.pt-step-btn.pt-done{color:#4ade80;background:rgba(74,222,128,0.05)}
+.pt-step-btn.pt-current{color:var(--pink);background:var(--pink-pale);font-weight:800}
+.pt-step-btn:disabled{cursor:default}
+.pt-card{background:var(--surface);border:1px solid var(--border-subtle);border-radius:3px;padding:1.5rem;margin-bottom:1rem}
+.pt-card-title{font-family:var(--font-display);font-size:1.5rem;letter-spacing:0.03em;margin-bottom:0.3rem}
+.pt-card-sub{font-size:0.83rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.55}
+.pt-label{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;margin-top:1rem;display:block}
+.pt-label:first-of-type{margin-top:0}
+.pt-input{width:100%;background:var(--surface-2);border:1px solid var(--border-subtle);border-radius:3px;padding:0.7rem 0.9rem;font-family:var(--font-body);font-size:0.88rem;color:var(--white);outline:none;transition:border-color 0.2s;margin-bottom:0.25rem}
+.pt-input:focus{border-color:rgba(255,31,122,0.35)}
+.pt-input::placeholder{color:rgba(255,255,255,0.2)}
+.pt-chips{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.5rem}
+.pt-chip{background:var(--surface-2);border:1px solid var(--border-subtle);color:rgba(248,248,248,0.65);font-size:0.75rem;font-weight:600;padding:0.4rem 0.8rem;border-radius:2px;cursor:pointer;transition:all 0.15s}
+.pt-chip:hover{border-color:rgba(255,31,122,0.3);color:var(--white)}
+.pt-chip.pt-active{background:rgba(255,31,122,0.12);border-color:var(--pink);color:var(--pink)}
+.pt-exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem}
+.pt-exp-btn{background:var(--surface-2);border:1px solid var(--border-subtle);color:rgba(248,248,248,0.65);font-size:0.8rem;font-weight:600;padding:0.75rem;border-radius:3px;cursor:pointer;transition:all 0.15s;text-align:center}
+.pt-exp-btn:hover{border-color:rgba(255,31,122,0.3);color:var(--white)}
+.pt-exp-btn.pt-active{background:rgba(255,31,122,0.12);border-color:var(--pink);color:var(--pink)}
+.pt-model-card{display:flex;align-items:center;gap:1rem;background:var(--surface-2);border:1px solid var(--border-subtle);border-radius:3px;padding:1rem;margin-bottom:0.5rem;cursor:pointer;transition:all 0.15s}
+.pt-model-card:hover{border-color:rgba(255,31,122,0.3)}
+.pt-model-card.pt-active{background:rgba(255,31,122,0.08);border-color:var(--pink)}
+.pt-model-icon{font-size:1.4rem;flex-shrink:0}
+.pt-model-text{flex:1}
+.pt-model-title{font-weight:700;font-size:0.88rem;display:block;margin-bottom:0.15rem}
+.pt-model-desc{font-size:0.75rem;color:var(--muted)}
+.pt-model-check{width:20px;height:20px;border:1.5px solid var(--border-subtle);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.6rem;flex-shrink:0;transition:all 0.15s}
+.pt-model-card.pt-active .pt-model-check{background:var(--pink);border-color:var(--pink);color:#fff}
+.pt-rate-display{text-align:center;margin:1rem 0 0.5rem}
+.pt-rate-big{font-family:var(--font-display);font-size:4rem;letter-spacing:0.04em;color:var(--white);line-height:1}
+.pt-rate-per{font-size:1rem;color:var(--muted);margin-left:0.25rem}
+.pt-slider{width:100%;accent-color:var(--pink);height:4px;margin:0.5rem 0}
+.pt-rate-labels{display:flex;justify-content:space-between;font-size:0.7rem;color:var(--muted);margin-bottom:1rem}
+.pt-projs{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-bottom:1rem}
+.pt-proj-card{background:var(--surface-3);border-radius:3px;padding:0.75rem;text-align:center}
+.pt-proj-label{font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:0.25rem}
+.pt-proj-val{font-family:var(--font-display);font-size:1.1rem;color:var(--pink)}
+.pt-pkg-card{background:var(--surface-2);border:1px solid var(--border-subtle);border-radius:3px;padding:1rem;margin-bottom:0.75rem}
+.pt-pkg-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem}
+.pt-pkg-name{background:transparent;border:none;border-bottom:1px solid var(--border-subtle);color:var(--white);font-family:var(--font-display);font-size:1.2rem;letter-spacing:0.04em;outline:none;padding:0.1rem 0;width:60%}
+.pt-pkg-price{font-family:var(--font-display);font-size:1.4rem;color:var(--pink)}
+.pt-pkg-per{font-size:0.75rem;color:var(--muted)}
+.pt-pkg-controls{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.75rem}
+.pt-pkg-field label{font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.25rem}
+.pt-pkg-input{width:100%;background:var(--surface-3);border:1px solid var(--border-subtle);border-radius:3px;padding:0.5rem;font-family:var(--font-body);font-size:0.85rem;color:var(--white);outline:none}
+.pt-chip-sm{background:var(--surface-3);border:1px solid var(--border-subtle);color:rgba(248,248,248,0.55);font-size:0.68rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:2px;cursor:pointer;transition:all 0.12s}
+.pt-chip-sm.pt-active{background:rgba(255,31,122,0.1);border-color:rgba(255,31,122,0.4);color:var(--pink)}
+.pt-add-row{display:flex;gap:0.5rem;margin-bottom:0.75rem}
+.pt-add-row .pt-input{margin:0;flex:1}
+.pt-add-btn{background:var(--pink);color:#fff;border:none;padding:0.7rem 1rem;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:3px;cursor:pointer;white-space:nowrap;transition:background 0.15s;flex-shrink:0}
+.pt-add-btn:hover{background:var(--pink-dark)}
+.pt-project-item{display:flex;align-items:center;justify-content:space-between;padding:0.65rem 0.75rem;background:var(--surface-3);border-radius:3px;margin-bottom:0.4rem}
+.pt-project-name{font-size:0.85rem;font-weight:600;display:block}
+.pt-project-meta{font-size:0.72rem;color:var(--muted)}
+.pt-project-price{font-family:var(--font-display);font-size:1.1rem;color:var(--pink);margin-right:0.5rem}
+.pt-remove-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.8rem}
+.pt-remove-btn:hover{color:var(--white)}
+.pt-summary-rate{display:flex;align-items:baseline;gap:0.25rem;margin:0.5rem 0 1rem}
+.pt-summary-big{font-family:var(--font-display);font-size:3rem;color:var(--white)}
+.pt-summary-per{font-size:0.9rem;color:var(--muted)}
+.pt-summary-title{font-family:var(--font-display);font-size:1.2rem;margin-bottom:0.5rem}
+.pt-chip-ro{background:var(--surface-2);border:1px solid var(--border-subtle);color:rgba(248,248,248,0.7);font-size:0.72rem;padding:0.3rem 0.65rem;border-radius:2px}
+.pt-pkg-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-top:0.75rem}
+.pt-pkg-sum-card{background:var(--surface-2);border:1px solid var(--border-subtle);border-radius:3px;padding:1rem;text-align:center}
+.pt-pkg-sum-card.pt-featured{border-color:var(--pink);background:rgba(255,31,122,0.06)}
+.pt-pkg-sum-name{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.35rem}
+.pt-pkg-sum-price{font-family:var(--font-display);font-size:1.8rem;color:var(--white);line-height:1}
+.pt-pkg-sum-mo{font-size:0.75rem;color:var(--muted)}
+.pt-pkg-sum-hours{font-size:0.75rem;color:var(--muted);margin-top:0.25rem}
+.pt-feat-badge{display:inline-block;background:var(--pink);color:#fff;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.15rem 0.5rem;border-radius:2px;margin-bottom:0.35rem}
+.pt-pkg-sum-list{list-style:none;text-align:left;margin-top:0.6rem;font-size:0.72rem;color:rgba(248,248,248,0.6);display:flex;flex-direction:column;gap:0.2rem}
+.pt-nav{display:flex;align-items:center;justify-content:space-between;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border-subtle)}
+.pt-back-btn{background:none;border:1px solid var(--border-subtle);color:var(--muted);font-family:var(--font-body);font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.7rem 1.25rem;border-radius:3px;cursor:pointer;transition:all 0.15s}
+.pt-back-btn:hover{border-color:var(--white);color:var(--white)}
+.pt-next-btn{background:var(--pink);color:#fff;border:none;font-family:var(--font-body);font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.75rem 1.75rem;border-radius:3px;cursor:pointer;transition:all 0.2s}
+.pt-next-btn:hover{background:var(--pink-dark);box-shadow:0 0 16px var(--pink-glow)}
+.pt-next-btn:disabled{opacity:0.35;cursor:not-allowed}
+.pt-save-row{display:flex;gap:0.75rem;margin-top:1rem}
+.pt-save-btn{background:var(--pink);color:#fff;border:none;font-family:var(--font-body);font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.75rem 1.5rem;border-radius:3px;cursor:pointer;transition:all 0.2s}
+.pt-save-btn:hover{background:var(--pink-dark)}
+.pt-reset-btn{background:none;border:1px solid var(--border-subtle);color:var(--muted);font-family:var(--font-body);font-size:0.72rem;font-weight:600;padding:0.7rem 1rem;border-radius:3px;cursor:pointer;transition:all 0.15s}
+.pt-reset-btn:hover{border-color:var(--white);color:var(--white)}
+.pt-toast{position:fixed;top:72px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--surface-2);border:1px solid var(--border-subtle);color:var(--white);padding:0.65rem 1.25rem;border-radius:3px;font-size:0.8rem;font-weight:600;opacity:0;transition:all 0.25s;z-index:300;pointer-events:none}
+.pt-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:768px){.pt-wrap{padding:1rem 1.25rem 3rem}.pt-projs{grid-template-columns:1fr 1fr}.pt-exp-grid{grid-template-columns:1fr}.pt-pkg-summary{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -710,16 +801,14 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
     </div>
   </div>
 
-  <!-- PRICING TOOL -->
+  <!-- PRICING TOOL (native inline) -->
   <div class="panel" id="panel-pricing">
     <div class="tool-panel-header">
       <div class="module-eyebrow">Tool — Pricing Calculator</div>
       <h1>Price It Like You Mean It</h1>
-      <p>Answer 5 questions. Get a personalized rate recommendation you can say without flinching.</p>
+      <p>5 steps. A rate you can say without flinching — and the numbers to back it up.</p>
     </div>
-    <div class="tool-iframe-wrap">
-      <iframe src="https://virtueasy.com/pricing-tool" title="Pricing Tool" loading="lazy"></iframe>
-    </div>
+    <div class="pt-wrap" id="ptApp"></div>
   </div>
 
   <!-- JOB BOARD -->
@@ -1371,6 +1460,345 @@ function launchConfetti(x, y){
   }
   setTimeout(function(){burst.remove();},900);
 }
+
+
+// ── PRICING TOOL (native) ──
+(function(){
+  var PT_KEY = 'sk_pricing_v1';
+  var VA_TYPES = ['Executive/Admin','Social media','Bookkeeping','Tech/Dev','Real estate','E-commerce','Creative/Design','Customer support','General'];
+  var EXP_LEVELS = [
+    {label:'Just starting out',value:'beginner',mult:0.8},
+    {label:'1-2 years',value:'junior',mult:1.0},
+    {label:'3-5 years',value:'mid',mult:1.25},
+    {label:'5+ years',value:'senior',mult:1.5}
+  ];
+  var SUGGESTED = {
+    'Executive/Admin':['Email management','Calendar scheduling','Travel booking','Data entry','Document formatting','Meeting notes'],
+    'Social media':['Content creation','Post scheduling','Community management','Analytics reporting','Hashtag research','Story design'],
+    'Bookkeeping':['Invoice processing','Expense tracking','Bank reconciliation','Financial reports','Payroll support','Tax prep'],
+    'Tech/Dev':['Website maintenance','Bug fixes','Plugin setup','API integration','Database management','Tech support'],
+    'Real estate':['Listing management','Lead follow-up','CRM updates','Transaction coordination','Market research','Open house prep'],
+    'E-commerce':['Product listings','Order management','Customer emails','Inventory tracking','Review management','Storefront updates'],
+    'Creative/Design':['Graphic design','Brand assets','Presentation design','Video editing','Photo retouching','Template creation'],
+    'Customer support':['Email support','Live chat','Ticket management','FAQ updates','Returns processing','Feedback collection'],
+    'General':['Email management','Calendar scheduling','Data entry','Research','Social media','Customer support']
+  };
+  var BASE_RATES = {'Executive/Admin':30,'Social media':28,'Bookkeeping':35,'Tech/Dev':45,'Real estate':25,'E-commerce':28,'Creative/Design':40,'Customer support':22,'General':25};
+  var STEP_LABELS = ['Profile','Services','Model','Builder','Summary'];
+
+  var pt = {
+    step:0,
+    profile:{vaType:'',experience:'',name:''},
+    services:[],
+    pricingModels:[],
+    hourlyRate:25,
+    packages:[
+      {name:'Starter',hours:10,discount:0,services:[]},
+      {name:'Growth',hours:20,discount:5,services:[]},
+      {name:'Premium',hours:40,discount:10,services:[]}
+    ],
+    projects:[]
+  };
+
+  function ptLoad(){
+    try{var d=localStorage.getItem(PT_KEY);if(d){var p=JSON.parse(d);Object.assign(pt,p);}}catch(e){}
+  }
+  function ptSave(){
+    try{localStorage.setItem(PT_KEY,JSON.stringify(pt));}catch(e){}
+  }
+  function ptToast(msg){
+    var el=document.querySelector('.pt-toast');
+    if(!el)return;
+    el.textContent=msg;el.classList.add('show');
+    setTimeout(function(){el.classList.remove('show');},2000);
+  }
+  function ptSuggestedRate(){
+    var base=BASE_RATES[pt.profile.vaType]||25;
+    var exp=EXP_LEVELS.find(function(e){return e.value===pt.profile.experience;});
+    return Math.round(base*(exp?exp.mult:1));
+  }
+  function ptCanAdvance(){
+    if(pt.step===0)return pt.profile.vaType&&pt.profile.experience;
+    if(pt.step===1)return pt.services.length>0;
+    if(pt.step===2)return pt.pricingModels.length>0;
+    return true;
+  }
+  function ptEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+  function ptRender(){
+    var app=document.getElementById('ptApp');
+    if(!app)return;
+    var h='<div class="pt-toast"></div>';
+
+    // Step nav
+    h+='<div class="pt-steps">';
+    STEP_LABELS.forEach(function(l,i){
+      var cls='pt-step-btn';
+      if(i<pt.step)cls+=' pt-done';
+      else if(i===pt.step)cls+=' pt-current';
+      var dis=(i>pt.step)?'disabled':'';
+      h+='<button class="'+cls+'" '+dis+' onclick="ptGoStep('+i+')">'+(i<pt.step?'✓ ':'')+l+'</button>';
+    });
+    h+='</div>';
+
+    // Steps
+    h+=ptStep0()+ptStep1()+ptStep2()+ptStep3()+ptStep4();
+
+    // Nav
+    h+='<div class="pt-nav">';
+    if(pt.step>0){
+      h+='<button class="pt-back-btn" onclick="ptGoStep('+(pt.step-1)+')">← Back</button>';
+    } else {
+      h+='<span></span>';
+    }
+    if(pt.step<4){
+      h+='<button class="pt-next-btn" '+(ptCanAdvance()?'':'disabled')+' onclick="ptAdvance()">'+(pt.step===3?'View Summary →':'Continue →')+'</button>';
+    }
+    h+='</div>';
+
+    app.innerHTML=h;
+  }
+
+  function ptVis(i){return pt.step===i?'block':'none';}
+
+  function ptStep0(){
+    var h='<div style="display:'+ptVis(0)+'">';
+    h+='<div class="pt-card">';
+    h+='<div class="pt-card-title">Set up your profile</div>';
+    h+='<p class="pt-card-sub">This calibrates your rate suggestions.</p>';
+    h+='<label class="pt-label">Your name</label>';
+    h+='<input class="pt-input" placeholder="e.g. Sarah" value="'+ptEsc(pt.profile.name)+'" oninput="ptUpdateName(this.value)">';
+    h+='<label class="pt-label">What type of VA are you?</label>';
+    h+='<div class="pt-chips">';
+    VA_TYPES.forEach(function(t){
+      h+='<button class="pt-chip'+(pt.profile.vaType===t?' pt-active':'')+'" onclick="ptSetVAType(\''+t+'\')">'+t+'</button>';
+    });
+    h+='</div>';
+    h+='<label class="pt-label">Experience level</label>';
+    h+='<div class="pt-exp-grid">';
+    EXP_LEVELS.forEach(function(e){
+      h+='<button class="pt-exp-btn'+(pt.profile.experience===e.value?' pt-active':'')+'" onclick="ptSetExp(\''+e.value+'\')">'+e.label+'</button>';
+    });
+    h+='</div>';
+    h+='</div></div>';
+    return h;
+  }
+
+  function ptStep1(){
+    var sug=SUGGESTED[pt.profile.vaType]||[];
+    var h='<div style="display:'+ptVis(1)+'">';
+    h+='<div class="pt-card">';
+    h+='<div class="pt-card-title">What services do you offer?</div>';
+    h+='<p class="pt-card-sub">Pick from suggestions or add your own.</p>';
+    if(sug.length){
+      h+='<label class="pt-label">Suggested for '+ptEsc((pt.profile.vaType||'').toLowerCase())+' VAs</label>';
+      h+='<div class="pt-chips">';
+      sug.forEach(function(s){
+        var active=pt.services.includes(s);
+        h+='<button class="pt-chip'+(active?' pt-active':'')+'" onclick="ptToggleService(\''+ptEsc(s)+'\')">'+ptEsc(s)+'</button>';
+      });
+      h+='</div>';
+    }
+    h+='<label class="pt-label">Add a custom service</label>';
+    h+='<div class="pt-add-row"><input class="pt-input" id="ptCustomSvc" placeholder="e.g. Podcast editing" onkeydown="if(event.key===\'Enter\')ptAddCustomSvc()"><button class="pt-add-btn" onclick="ptAddCustomSvc()">Add</button></div>';
+    if(pt.services.length){
+      h+='<label class="pt-label">Your services ('+pt.services.length+')</label>';
+      h+='<div class="pt-chips">';
+      pt.services.forEach(function(s){
+        h+='<button class="pt-chip pt-active" onclick="ptRemoveSvc(\''+ptEsc(s)+'\')">'+ptEsc(s)+' ✕</button>';
+      });
+      h+='</div>';
+    }
+    h+='</div></div>';
+    return h;
+  }
+
+  function ptStep2(){
+    var models=[
+      {id:'hourly',icon:'⏱',title:'Hourly rate',desc:'Charge by the hour - simple and flexible'},
+      {id:'package',icon:'📦',title:'Packages',desc:'Bundle hours into tiered monthly plans'},
+      {id:'project',icon:'🎯',title:'Per-project',desc:'Fixed price based on scope and complexity'}
+    ];
+    var h='<div style="display:'+ptVis(2)+'">';
+    h+='<div class="pt-card">';
+    h+='<div class="pt-card-title">Choose your pricing model</div>';
+    h+='<p class="pt-card-sub">Pick one or more - you can build each out in the next step.</p>';
+    models.forEach(function(m){
+      var active=pt.pricingModels.includes(m.id);
+      h+='<div class="pt-model-card'+(active?' pt-active':'')+'" onclick="ptToggleModel(\''+m.id+'\')">';
+      h+='<span class="pt-model-icon">'+m.icon+'</span>';
+      h+='<div class="pt-model-text"><span class="pt-model-title">'+m.title+'</span><span class="pt-model-desc">'+m.desc+'</span></div>';
+      h+='<div class="pt-model-check">'+(active?'✓':'')+'</div></div>';
+    });
+    h+='</div></div>';
+    return h;
+  }
+
+  function ptStep3(){
+    var h='<div style="display:'+ptVis(3)+'">';
+    if(pt.pricingModels.includes('hourly')){
+      var sr=ptSuggestedRate();
+      var hr=pt.hourlyRate;
+      h+='<div class="pt-card">';
+      h+='<div class="pt-card-title">Hourly rate</div>';
+      h+='<p class="pt-card-sub">Suggested for your profile: <strong style="color:var(--pink)">$'+sr+'/hr</strong></p>';
+      h+='<div class="pt-rate-display"><span class="pt-rate-big">$'+hr+'</span><span class="pt-rate-per">/hr</span></div>';
+      h+='<input type="range" class="pt-slider" min="10" max="150" value="'+hr+'" oninput="ptSetRate(this.value)">';
+      h+='<div class="pt-rate-labels"><span>$10</span><span>$150</span></div>';
+      h+='<div class="pt-projs">';
+      h+='<div class="pt-proj-card"><span class="pt-proj-label">10 hrs/wk</span><span class="pt-proj-val">$'+(hr*10*4).toLocaleString()+'/mo</span></div>';
+      h+='<div class="pt-proj-card"><span class="pt-proj-label">20 hrs/wk</span><span class="pt-proj-val">$'+(hr*20*4).toLocaleString()+'/mo</span></div>';
+      h+='<div class="pt-proj-card"><span class="pt-proj-label">40 hrs/wk</span><span class="pt-proj-val">$'+(hr*40*4).toLocaleString()+'/mo</span></div>';
+      h+='</div></div>';
+    }
+    if(pt.pricingModels.includes('package')){
+      h+='<div class="pt-card">';
+      h+='<div class="pt-card-title">Package builder</div>';
+      h+='<p class="pt-card-sub">Bundle hours and services into tiered plans.</p>';
+      pt.packages.forEach(function(pkg,i){
+        var price=Math.round(pt.hourlyRate*pkg.hours*(1-pkg.discount/100));
+        h+='<div class="pt-pkg-card">';
+        h+='<div class="pt-pkg-head"><input class="pt-pkg-name" value="'+ptEsc(pkg.name)+'" oninput="ptUpdatePkg('+i+',\'name\',this.value)" placeholder="Package name"><div><span class="pt-pkg-price">$'+price+'</span><span class="pt-pkg-per">/mo</span></div></div>';
+        h+='<div class="pt-pkg-controls"><div class="pt-pkg-field"><label>Hours/month</label><input type="number" class="pt-pkg-input" value="'+pkg.hours+'" oninput="ptUpdatePkg('+i+',\'hours\',+this.value)"></div>';
+        h+='<div class="pt-pkg-field"><label>Discount %</label><input type="number" class="pt-pkg-input" value="'+pkg.discount+'" min="0" max="50" oninput="ptUpdatePkg('+i+',\'discount\',+this.value)"></div></div>';
+        h+='<label class="pt-label" style="margin-top:0.5rem">Included services</label><div class="pt-chips">';
+        pt.services.forEach(function(s){
+          var a=pkg.services.includes(s);
+          h+='<button class="pt-chip-sm'+(a?' pt-active':'')+'" onclick="ptTogglePkgSvc('+i+',\''+ptEsc(s)+'\')">'+ptEsc(s)+'</button>';
+        });
+        h+='</div></div>';
+      });
+      h+='</div>';
+    }
+    if(pt.pricingModels.includes('project')){
+      h+='<div class="pt-card">';
+      h+='<div class="pt-card-title">Per-project pricing</div>';
+      h+='<p class="pt-card-sub">Fixed prices based on estimated hours and complexity.</p>';
+      h+='<label class="pt-label">Project name</label><input class="pt-input" id="ptProjName" placeholder="e.g. Website content refresh">';
+      h+='<div class="pt-add-row" style="margin-top:0.5rem">';
+      h+='<input type="number" class="pt-input" id="ptProjHours" placeholder="Est. hours">';
+      h+='<select class="pt-input" id="ptProjComplexity"><option value="simple">Simple (0.75x)</option><option value="standard" selected>Standard (1x)</option><option value="complex">Complex (1.5x)</option></select>';
+      h+='<button class="pt-add-btn" onclick="ptAddProject()">Add</button></div>';
+      if(pt.projects.length){
+        pt.projects.forEach(function(p,i){
+          h+='<div class="pt-project-item"><div><span class="pt-project-name">'+ptEsc(p.name)+'</span><span class="pt-project-meta">'+p.hours+' hrs - '+p.complexity+'</span></div>';
+          h+='<div style="display:flex;align-items:center"><span class="pt-project-price">$'+p.price+'</span><button class="pt-remove-btn" onclick="ptRemoveProject('+i+')">✕</button></div></div>';
+        });
+      }
+      h+='</div>';
+    }
+    h+='</div>';
+    return h;
+  }
+
+  function ptStep4(){
+    var expLabel=EXP_LEVELS.find(function(e){return e.value===pt.profile.experience;});
+    var h='<div style="display:'+ptVis(4)+'">';
+    h+='<div class="pt-card">';
+    h+='<div class="pt-card-title">Your pricing summary</div>';
+    h+='<p class="pt-card-sub">'+(pt.profile.name?ptEsc(pt.profile.name)+' &middot; ':'')+ptEsc(pt.profile.vaType||'VA')+' &middot; '+(expLabel?expLabel.label:'')+'</p>';
+    h+='<label class="pt-label">Services</label><div class="pt-chips">';
+    pt.services.forEach(function(s){h+='<span class="pt-chip-ro">'+ptEsc(s)+'</span>';});
+    h+='</div></div>';
+    if(pt.pricingModels.includes('hourly')){
+      var hr=pt.hourlyRate;
+      h+='<div class="pt-card"><div class="pt-summary-title">Hourly rate</div>';
+      h+='<div class="pt-summary-rate"><span class="pt-summary-big">$'+hr+'</span><span class="pt-summary-per">/hour</span></div>';
+      h+='<div class="pt-projs"><div class="pt-proj-card"><span class="pt-proj-label">Part-time</span><span class="pt-proj-val">$'+(hr*10*4).toLocaleString()+'/mo</span></div>';
+      h+='<div class="pt-proj-card"><span class="pt-proj-label">Half-time</span><span class="pt-proj-val">$'+(hr*20*4).toLocaleString()+'/mo</span></div>';
+      h+='<div class="pt-proj-card"><span class="pt-proj-label">Full-time</span><span class="pt-proj-val">$'+(hr*40*4).toLocaleString()+'/mo</span></div></div></div>';
+    }
+    if(pt.pricingModels.includes('package')){
+      h+='<div class="pt-card"><div class="pt-summary-title">Packages</div>';
+      h+='<div class="pt-pkg-summary">';
+      pt.packages.forEach(function(pkg,i){
+        var price=Math.round(pt.hourlyRate*pkg.hours*(1-pkg.discount/100));
+        h+='<div class="pt-pkg-sum-card'+(i===1?' pt-featured':'')+'">';
+        if(i===1)h+='<span class="pt-feat-badge">Popular</span>';
+        h+='<span class="pt-pkg-sum-name">'+ptEsc(pkg.name)+'</span>';
+        h+='<div class="pt-pkg-sum-price">$'+price+'<span class="pt-pkg-sum-mo">/mo</span></div>';
+        h+='<div class="pt-pkg-sum-hours">'+pkg.hours+' hrs/month</div>';
+        if(pkg.services.length){
+          h+='<ul class="pt-pkg-sum-list">';
+          pkg.services.forEach(function(s){h+='<li>+ '+ptEsc(s)+'</li>';});
+          h+='</ul>';
+        }
+        h+='</div>';
+      });
+      h+='</div></div>';
+    }
+    if(pt.pricingModels.includes('project')&&pt.projects.length){
+      h+='<div class="pt-card"><div class="pt-summary-title">Per-project pricing</div>';
+      pt.projects.forEach(function(p){
+        h+='<div class="pt-project-item"><div><span class="pt-project-name">'+ptEsc(p.name)+'</span><span class="pt-project-meta">'+p.hours+' hrs - '+p.complexity+'</span></div><span class="pt-project-price">$'+p.price+'</span></div>';
+      });
+      h+='</div>';
+    }
+    h+='<div class="pt-save-row"><button class="pt-save-btn" onclick="ptSaveAndToast()">Save pricing</button><button class="pt-reset-btn" onclick="ptResetAll()">Start over</button></div>';
+    h+='</div>';
+    return h;
+  }
+
+  // Handlers
+  window.ptGoStep=function(i){pt.step=i;ptSave();ptRender();};
+  window.ptAdvance=function(){if(ptCanAdvance()&&pt.step<4){pt.step++;ptSave();ptRender();}};
+  window.ptUpdateName=function(v){pt.profile.name=v;ptSave();};
+
+  var _ptRt=null;
+  function ptSchedRender(){if(_ptRt)cancelAnimationFrame(_ptRt);_ptRt=requestAnimationFrame(function(){ptRender();_ptRt=null;});}
+
+  window.ptSetVAType=function(t){
+    pt.profile.vaType=t;
+    if(pt.profile.experience){
+      pt.hourlyRate=Math.round((BASE_RATES[t]||25)*(EXP_LEVELS.find(function(e){return e.value===pt.profile.experience;})||{mult:1}).mult);
+    }
+    ptSave();ptSchedRender();
+  };
+  window.ptSetExp=function(v){
+    pt.profile.experience=v;
+    if(pt.profile.vaType){
+      pt.hourlyRate=Math.round((BASE_RATES[pt.profile.vaType]||25)*(EXP_LEVELS.find(function(e){return e.value===v;})||{mult:1}).mult);
+    }
+    ptSave();ptSchedRender();
+  };
+  window.ptToggleService=function(s){var i=pt.services.indexOf(s);if(i>=0)pt.services.splice(i,1);else pt.services.push(s);ptSave();ptSchedRender();};
+  window.ptRemoveSvc=function(s){pt.services=pt.services.filter(function(x){return x!==s;});ptSave();ptSchedRender();};
+  window.ptAddCustomSvc=function(){var el=document.getElementById('ptCustomSvc');if(!el)return;var v=el.value.trim();if(v&&!pt.services.includes(v)){pt.services.push(v);ptSave();ptSchedRender();}};
+  window.ptToggleModel=function(m){var i=pt.pricingModels.indexOf(m);if(i>=0)pt.pricingModels.splice(i,1);else pt.pricingModels.push(m);ptSave();ptSchedRender();};
+  window.ptSetRate=function(v){pt.hourlyRate=+v;ptSave();ptSchedRender();};
+  window.ptUpdatePkg=function(i,field,val){pt.packages[i][field]=val;ptSave();ptSchedRender();};
+  window.ptTogglePkgSvc=function(i,s){var svcs=pt.packages[i].services;var idx=svcs.indexOf(s);if(idx>=0)svcs.splice(idx,1);else svcs.push(s);ptSave();ptSchedRender();};
+  window.ptAddProject=function(){
+    var name=(document.getElementById('ptProjName')||{}).value||'';name=name.trim();
+    var hours=+(document.getElementById('ptProjHours')||{}).value||0;
+    var complexity=(document.getElementById('ptProjComplexity')||{}).value||'standard';
+    if(!name||!hours)return;
+    var mult=complexity==='complex'?1.5:complexity==='simple'?0.75:1;
+    pt.projects.push({name:name,hours:hours,complexity:complexity,price:Math.round(hours*pt.hourlyRate*mult)});
+    ptSave();ptSchedRender();
+  };
+  window.ptRemoveProject=function(i){pt.projects.splice(i,1);ptSave();ptSchedRender();};
+  window.ptSaveAndToast=function(){ptSave();ptToast('Pricing saved!');};
+  window.ptResetAll=function(){
+    if(!confirm('Start over? This clears your pricing data.'))return;
+    pt={step:0,profile:{vaType:'',experience:'',name:''},services:[],pricingModels:[],hourlyRate:25,
+      packages:[{name:'Starter',hours:10,discount:0,services:[]},{name:'Growth',hours:20,discount:5,services:[]},{name:'Premium',hours:40,discount:10,services:[]}],
+      projects:[]};
+    localStorage.removeItem(PT_KEY);ptRender();
+  };
+
+  // Init + re-render when panel becomes active
+  ptLoad();
+  var _ptOrig = showPanel;
+  showPanel = function(id){
+    _ptOrig(id);
+    if(id==='pricing') ptRender();
+  };
+  // Also render on first load if already on pricing panel
+  if(document.getElementById('panel-pricing') && document.getElementById('panel-pricing').classList.contains('active')){
+    ptRender();
+  }
+})();
 
 </script>
 </body>
