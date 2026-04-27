@@ -1243,41 +1243,35 @@ function buildProposal(){
   }
 
   var lines = [];
-  if(name) lines.push('Hi '+name+',
-');
+  if(name) lines.push('Hi '+name+',');
+  lines.push('');
 
-  if(problem) lines.push('After our conversation, I completely understand where you're at. '+problem+' — and I know how much that's costing you in time and missed opportunities.
-');
+  if(problem) lines.push('After our conversation, I completely understand where you are at. '+problem+' -- and I know how much that is costing you in time and missed opportunities.');
+  lines.push('');
 
   if(service||price){
-    lines.push('Here's what I'm proposing:
-');
+    lines.push('Here is what I am proposing:');
+    lines.push('');
     if(service) lines.push('Package: '+service);
     if(price) lines.push('Investment: '+price);
     if(timeline) lines.push('Timeline: '+timeline);
   }
 
   if(deliverables){
-    lines.push('
-What's included:');
-    deliverables.split('
-').filter(function(l){return l.trim();}).forEach(function(l){
-      lines.push('  • '+l.trim());
-    });
+    lines.push('');
+    lines.push('What is included:');
+    deliverables.split('\n').filter(function(l){return l.trim();}).forEach(function(l){ lines.push('  - '+l.trim()); });
   }
 
-  if(whyme) lines.push('
-Why me: '+whyme);
+  if(whyme){ lines.push(''); lines.push('Why me: '+whyme); }
 
-  if(deadline) lines.push('
-To move forward, simply reply with a YES by '+deadline+' and I'll send over the agreement and get us started.');
+  if(deadline){ lines.push(''); lines.push('To move forward, simply reply YES by '+deadline+' and I will send over the agreement.'); }
 
-  lines.push('
-Looking forward to working together,');
+  lines.push('');
+  lines.push('Looking forward to working together,');
 
   var preview = document.getElementById('proposalPreview');
-  preview.textContent = lines.join('
-');
+  preview.textContent = lines.join('\n');
 }
 
 function copyProposal(){
@@ -1318,8 +1312,7 @@ function renderPortEntries(){
 }
 
 function buildPortfolio(){
-  var lines = ['VIRTUAL ASSISTANT PORTFOLIO
-'];
+  var lines = ['VIRTUAL ASSISTANT PORTFOLIO\n'];
   portEntries.forEach(function(e,i){
     var title = (document.getElementById('pe_title_'+e.id)||{}).value||'Untitled Project';
     var client = (document.getElementById('pe_client_'+e.id)||{}).value||'';
@@ -1328,10 +1321,8 @@ function buildPortfolio(){
     lines.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     lines.push('PROJECT '+(i+1)+': '+title.toUpperCase());
     if(client) lines.push('Client: '+client);
-    if(what){ lines.push('
-What I did:'); lines.push(what); }
-    if(result){ lines.push('
-Result:'); lines.push(result); }
+    if(what){ lines.push('\nWhat I did:'); lines.push(what); }
+    if(result){ lines.push('\nResult:'); lines.push(result); }
     lines.push('');
   });
   var preview = document.getElementById('portfolioPreview');
@@ -1339,8 +1330,7 @@ Result:'); lines.push(result); }
   if(portEntries.length===0){
     preview.innerHTML='<div class="itool-preview-label">Add an entry above to see your portfolio build out</div>';
   } else {
-    preview.textContent = lines.join('
-');
+    preview.textContent = lines.join('\n');
   }
 }
 
