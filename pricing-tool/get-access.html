@@ -184,6 +184,11 @@
     const ACCESS_API = 'https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev';
     const APP_URL = 'https://virtueasy.com/pricing-tool/app.html';
 
+    // FIX 1: single flags prevent double-redirect and double-grant when
+    //         multiple mechanisms (callback + observer + fallback) all fire
+    let _redirected = false;
+    let _grantStarted = false;
+
     document.addEventListener('input', function(e) {
       if (e.target && e.target.type === 'email') {
         window._capturedEmail = e.target.value.trim();
@@ -191,21 +196,34 @@
     });
 
     function redirectToApp() {
+      if (_redirected) return;
+      _redirected = true;
       window.location.href = APP_URL;
     }
 
-    function ml_webform_success_39513813() {
-      const email = window._capturedEmail || document.getElementById('ml-email-input')?.value?.trim() || '';
+    // FIX 2: centralised grant + redirect used by ALL paths so logic runs once
+    function doGrantAndRedirect(email) {
+      if (_grantStarted) return;
+      _grantStarted = true;
 
       localStorage.setItem('ve-pricing-pending', '1');
+
+      // FIX 3: guaranteed redirect after 4 s even if fetch never resolves
+      setTimeout(redirectToApp, 4000);
+
+      // FIX 4: AbortController ensures fetch gives up after 5 s so
+      //         finally() always fires and the redirect is not blocked
+      var controller = new AbortController();
+      setTimeout(function() { controller.abort(); }, 5000);
 
       fetch(ACCESS_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'grant', email: email })
+        body: JSON.stringify({ action: 'grant', email: email }),
+        signal: controller.signal
       })
-      .then(res => res.json())
-      .then(data => {
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
         if (data.token) {
           localStorage.setItem('ve-pricing-token', data.token);
           localStorage.setItem('ve-pricing-email', email);
@@ -213,25 +231,58 @@
           localStorage.removeItem('lifetimeAccess');
         }
       })
-      .catch(() => {
+      .catch(function() {
         if (email) localStorage.setItem('ve-pricing-email', email);
         if (!localStorage.getItem('trialStart')) {
           localStorage.setItem('trialStart', Date.now().toString());
         }
       })
-      .finally(() => {
+      .finally(function() {
         localStorage.removeItem('ve-pricing-pending');
         redirectToApp();
       });
     }
 
+    // MailerLite success callback
+    function ml_webform_success_39513813() {
+      // FIX 5: also read from input here in case _capturedEmail is stale
+      var email = window._capturedEmail
+        || (document.getElementById('ml-email-input') && document.getElementById('ml-email-input').value.trim())
+        || '';
+      doGrantAndRedirect(email);
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-      const form = document.querySelector('.ml-block-form');
+
+      // FIX 6: MutationObserver watches for MailerLite showing the success
+      //         div — catches embed versions that never fire the JS callback
+      var wrapper = document.querySelector('.ml-form-embedWrapper');
+      if (wrapper) {
+        var observer = new MutationObserver(function() {
+          var successBody = document.querySelector('.ml-form-successBody');
+          if (successBody && successBody.style.display !== 'none') {
+            observer.disconnect();
+            var email = window._capturedEmail
+              || localStorage.getItem('ve-pricing-email')
+              || '';
+            doGrantAndRedirect(email);
+          }
+        });
+        observer.observe(wrapper, { attributes: true, childList: true, subtree: true });
+      }
+
+      var form = document.querySelector('.ml-block-form');
       if (form) {
         form.addEventListener('submit', function() {
+          // FIX 7: capture email at the moment of submit before ML can clear it
+          var emailInput = form.querySelector('input[type="email"]');
+          if (emailInput && emailInput.value) {
+            window._capturedEmail = emailInput.value.trim();
+          }
+          // last-resort fallback if nothing else fires within 8 s
           setTimeout(function() {
-            if (!window.location.href.includes('app.html')) {
-              redirectToApp();
+            if (!_redirected) {
+              doGrantAndRedirect(window._capturedEmail || '');
             }
           }, 8000);
         });
@@ -239,7 +290,7 @@
     });
 
     (function() {
-      const token = localStorage.getItem('ve-pricing-token');
+      var token = localStorage.getItem('ve-pricing-token');
       if (!token) return;
 
       fetch(ACCESS_API, {
@@ -247,13 +298,13 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'verify', token: token })
       })
-      .then(res => res.json())
-      .then(data => {
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
         if (data.valid) {
           redirectToApp();
         }
       })
-      .catch(() => {});
+      .catch(function() {});
     })();
   </script>
 </body>
