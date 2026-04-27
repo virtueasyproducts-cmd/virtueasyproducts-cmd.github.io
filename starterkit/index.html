@@ -384,7 +384,29 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
 .pt-rate-display{text-align:center;margin:1rem 0 0.5rem}
 .pt-rate-big{font-family:var(--font-display);font-size:4rem;letter-spacing:0.04em;color:var(--white);line-height:1}
 .pt-rate-per{font-size:1rem;color:var(--muted);margin-left:0.25rem}
-.pt-slider{width:100%;accent-color:var(--pink);height:4px;margin:0.5rem 0}
+.pt-slider{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:4px;border-radius:2px;outline:none;
+  background:linear-gradient(to right,var(--pink) var(--pct,50%),var(--surface-3) var(--pct,50%));
+  margin:0.75rem 0;cursor:pointer;
+}
+.pt-slider::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:22px;height:22px;border-radius:50%;
+  background:var(--pink);border:3px solid var(--black);
+  box-shadow:0 0 0 2px var(--pink),0 2px 8px rgba(255,31,122,0.4);
+  cursor:grab;transition:transform 0.1s,box-shadow 0.1s;
+}
+.pt-slider:active::-webkit-slider-thumb{
+  cursor:grabbing;transform:scale(1.2);
+  box-shadow:0 0 0 3px var(--pink),0 4px 16px rgba(255,31,122,0.6);
+}
+.pt-slider::-moz-range-thumb{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--pink);border:3px solid var(--black);
+  box-shadow:0 0 0 2px var(--pink);cursor:grab;
+}
+.pt-slider::-moz-range-track{height:4px;border-radius:2px;background:var(--surface-3);}
 .pt-rate-labels{display:flex;justify-content:space-between;font-size:0.7rem;color:var(--muted);margin-bottom:1rem}
 .pt-projs{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-bottom:1rem}
 .pt-proj-card{background:var(--surface-3);border-radius:3px;padding:0.75rem;text-align:center}
@@ -1642,13 +1664,13 @@ function launchConfetti(x, y){
       h+='<div class="pt-card">';
       h+='<div class="pt-card-title">Hourly rate</div>';
       h+='<p class="pt-card-sub">Suggested for your profile: <strong style="color:var(--pink)">$'+sr+'/hr</strong></p>';
-      h+='<div class="pt-rate-display"><span class="pt-rate-big">$'+hr+'</span><span class="pt-rate-per">/hr</span></div>';
-      h+='<input type="range" class="pt-slider" min="10" max="150" value="'+hr+'" oninput="ptSetRate(this.value)">';
+      h+='<div class="pt-rate-display"><span class="pt-rate-big" id="ptRateBig">$'+hr+'</span><span class="pt-rate-per">/hr</span></div>';
+      h+='<input type="range" class="pt-slider" id="ptRateSlider" min="10" max="150" value="'+hr+'" oninput="ptSliderMove(this.value)" onchange="ptSliderCommit(this.value)">';
       h+='<div class="pt-rate-labels"><span>$10</span><span>$150</span></div>';
       h+='<div class="pt-projs">';
-      h+='<div class="pt-proj-card"><span class="pt-proj-label">10 hrs/wk</span><span class="pt-proj-val">$'+(hr*10*4).toLocaleString()+'/mo</span></div>';
-      h+='<div class="pt-proj-card"><span class="pt-proj-label">20 hrs/wk</span><span class="pt-proj-val">$'+(hr*20*4).toLocaleString()+'/mo</span></div>';
-      h+='<div class="pt-proj-card"><span class="pt-proj-label">40 hrs/wk</span><span class="pt-proj-val">$'+(hr*40*4).toLocaleString()+'/mo</span></div>';
+      h+='<div class="pt-proj-card"><span class="pt-proj-label">10 hrs/wk</span><span class="pt-proj-val" id="ptProj10">$'+(hr*10*4).toLocaleString()+'/mo</span></div>';
+      h+='<div class="pt-proj-card"><span class="pt-proj-label">20 hrs/wk</span><span class="pt-proj-val" id="ptProj20">$'+(hr*20*4).toLocaleString()+'/mo</span></div>';
+      h+='<div class="pt-proj-card"><span class="pt-proj-label">40 hrs/wk</span><span class="pt-proj-val" id="ptProj40">$'+(hr*40*4).toLocaleString()+'/mo</span></div>';
       h+='</div></div>';
     }
     if(pt.pricingModels.includes('package')){
@@ -1765,6 +1787,22 @@ function launchConfetti(x, y){
   window.ptRemoveSvc=function(s){pt.services=pt.services.filter(function(x){return x!==s;});ptSave();ptSchedRender();};
   window.ptAddCustomSvc=function(){var el=document.getElementById('ptCustomSvc');if(!el)return;var v=el.value.trim();if(v&&!pt.services.includes(v)){pt.services.push(v);ptSave();ptSchedRender();}};
   window.ptToggleModel=function(m){var i=pt.pricingModels.indexOf(m);if(i>=0)pt.pricingModels.splice(i,1);else pt.pricingModels.push(m);ptSave();ptSchedRender();};
+  window.ptSliderMove=function(v){
+    var n=+v;
+    var pct=((n-10)/(150-10)*100).toFixed(1)+'%';
+    var slider=document.getElementById('ptRateSlider');
+    if(slider)slider.style.setProperty('--pct',pct);
+    var big=document.getElementById('ptRateBig');
+    var p10=document.getElementById('ptProj10');
+    var p20=document.getElementById('ptProj20');
+    var p40=document.getElementById('ptProj40');
+    if(big)big.textContent='$'+n;
+    if(p10)p10.textContent='$'+(n*10*4).toLocaleString()+'/mo';
+    if(p20)p20.textContent='$'+(n*20*4).toLocaleString()+'/mo';
+    if(p40)p40.textContent='$'+(n*40*4).toLocaleString()+'/mo';
+    pt.hourlyRate=n;
+  };
+  window.ptSliderCommit=function(v){pt.hourlyRate=+v;ptSave();ptSchedRender();};
   window.ptSetRate=function(v){pt.hourlyRate=+v;ptSave();ptSchedRender();};
   window.ptUpdatePkg=function(i,field,val){pt.packages[i][field]=val;ptSave();ptSchedRender();};
   window.ptTogglePkgSvc=function(i,s){var svcs=pt.packages[i].services;var idx=svcs.indexOf(s);if(idx>=0)svcs.splice(idx,1);else svcs.push(s);ptSave();ptSchedRender();};
@@ -1786,6 +1824,16 @@ function launchConfetti(x, y){
       projects:[]};
     localStorage.removeItem(PT_KEY);ptRender();
   };
+
+  function ptSyncSlider(){
+    var slider=document.getElementById('ptRateSlider');
+    if(slider){
+      var pct=((pt.hourlyRate-10)/(150-10)*100).toFixed(1)+'%';
+      slider.style.setProperty('--pct',pct);
+    }
+  }
+  var _ptOrigRender=ptRender;
+  ptRender=function(){_ptOrigRender();ptSyncSlider();};
 
   // Init + re-render when panel becomes active
   ptLoad();
