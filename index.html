@@ -975,6 +975,53 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       background: #0a0a0a;
     }
 
+    .kit-carousel {
+      position: relative;
+      overflow: hidden;
+      background: #0a0a0a;
+      line-height: 0;
+    }
+
+    .kit-carousel-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    .kit-carousel-img {
+      width: 100%;
+      flex-shrink: 0;
+      display: block;
+      max-height: 340px;
+      min-height: 220px;
+      object-fit: cover;
+      object-position: top left;
+    }
+
+    .kit-carousel-dots {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 2;
+    }
+
+    .kit-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .kit-dot.active {
+      background: var(--pink);
+      transform: scale(1.3);
+    }
+
     .video-glow {
       position: absolute;
       bottom: -30px;
@@ -2105,28 +2152,26 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
                 <span class="browser-dot browser-dot-y"></span>
                 <span class="browser-dot browser-dot-g"></span>
               </div>
-              <span class="video-frame-title">VA System Demo</span>
+              <span class="video-frame-title">virtueasy.com/starterkit</span>
             </div>
-            <video
-              class="feature-video"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              src="/BlueprintDemo(1).mp4"
-              aria-label="VA Starter Kit demo video"
-              oncanplay="this.playbackRate=3"
-            >
-              <p style="padding:2rem;text-align:center;color:var(--muted);font-size:0.85rem;">
-                Your browser does not support video.
-                <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" target="_blank" rel="noopener" style="color:var(--pink)">Get the Starter Kit.</a>
-              </p>
-            </video>
+            <div class="kit-carousel" aria-label="VA Starter Kit screenshots">
+              <div class="kit-carousel-track" id="kitCarousel">
+                <img src="/assets/kit-dashboard.png" alt="VA Starter Kit dashboard" class="kit-carousel-img" loading="lazy">
+                <img src="/assets/kit-module.png" alt="Module view with AI toolkit" class="kit-carousel-img" loading="lazy">
+                <img src="/assets/kit-lessons.png" alt="Client targeting module lessons" class="kit-carousel-img" loading="lazy">
+                <img src="/assets/kit-proposal.png" alt="Proposal builder tool" class="kit-carousel-img" loading="lazy">
+              </div>
+              <div class="kit-carousel-dots" aria-hidden="true">
+                <span class="kit-dot active" onclick="kitGoTo(0)"></span>
+                <span class="kit-dot" onclick="kitGoTo(1)"></span>
+                <span class="kit-dot" onclick="kitGoTo(2)"></span>
+                <span class="kit-dot" onclick="kitGoTo(3)"></span>
+              </div>
+            </div>
           </div>
           <div class="video-glow" aria-hidden="true"></div>
           <div class="video-badge" aria-hidden="true">
-            &#x26A1; Opens in<br>your browser
+            &#x26A1; Inside<br>your browser
           </div>
         </div>
 
@@ -2802,5 +2847,44 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     })();
   </script>
 
+
+<script>
+(function(){
+  var idx = 0;
+  var total = 4;
+  var interval;
+
+  function kitGoTo(n){
+    idx = n;
+    var track = document.getElementById('kitCarousel');
+    if(track) track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+    document.querySelectorAll('.kit-dot').forEach(function(d,i){
+      d.classList.toggle('active', i===idx);
+    });
+  }
+
+  function kitNext(){
+    kitGoTo((idx + 1) % total);
+  }
+
+  function startCarousel(){
+    interval = setInterval(kitNext, 3000);
+  }
+
+  function stopCarousel(){
+    clearInterval(interval);
+  }
+
+  window.kitGoTo = kitGoTo;
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var carousel = document.querySelector('.kit-carousel');
+    if(!carousel) return;
+    startCarousel();
+    carousel.addEventListener('mouseenter', stopCarousel);
+    carousel.addEventListener('mouseleave', startCarousel);
+  });
+})();
+</script>
 </body>
 </html>
