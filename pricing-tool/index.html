@@ -1,55 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VA Pricing Tool - Stop Guessing What to Charge | VIRTUEASY</title>
-  <meta name="description" content="Free tool for virtual assistants. Enter your niche, experience, and services - get your exact hourly rate, package pricing, and monthly income projections in under 2 minutes." />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../assets/css/main.css" />
-
+  <meta name="description" content="Free tool for virtual assistants. Enter your niche, experience, and services - get your exact hourly rate, package pricing, and monthly income projections in under 2 minutes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
   <!-- Meta Pixel -->
   <script>
-    !function(f,b,e,v,n,t,s){
-      if(f.fbq)return;
-      n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;
-      n.push=n;
-      n.loaded=!0;
-      n.version='2.0';
-      n.queue=[];
-      t=b.createElement(e);
-      t.async=!0;
-      t.src=v;
-      s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s);
-    }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-
-    fbq('init', '1552355892525925');
-    fbq('track', 'PageView');
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}
+  (window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1552355892525925');
+  fbq('track', 'PageView');
   </script>
-  <noscript>
-    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1" alt="" />
-  </noscript>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"/></noscript>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --pink: #ff1f7a;
-      --pink-dark: #d91565;
-      --pink-pale: #ffe6f0;
-      --black: #0a0a0a;
-      --off-white: #f8f8f8;
-      --white: #ffffff;
+      --pink: #FF1F7A;
+      --pink-dark: #D91565;
+      --pink-pale: #FFE6F0;
+      --black: #0A0A0A;
+      --off-white: #F8F8F8;
+      --white: #FFFFFF;
       --gray: #888;
-      --gray-light: #e8e8e8;
-      --muted: rgba(255,255,255,0.55);
-      --muted-light: rgba(255,255,255,0.72);
-      --border: rgba(255,255,255,0.08);
+      --gray-light: #E8E8E8;
       --font-display: 'Bebas Neue', sans-serif;
       --font-cond: 'Barlow Condensed', sans-serif;
       --font-body: 'Barlow', sans-serif;
@@ -65,14 +49,11 @@
       overflow-x: hidden;
     }
 
-    img { max-width: 100%; display: block; }
-    a { color: inherit; }
-
-    /* NAV */
+    /* ── NAV ── */
     nav {
       position: fixed;
-      inset: 0 0 auto 0;
-      z-index: 1000;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
       padding: 18px 40px;
       display: flex;
       align-items: center;
@@ -86,267 +67,927 @@
       font-family: var(--font-display);
       font-size: 22px;
       letter-spacing: 0.08em;
-      text-decoration: none;
       color: var(--white);
-      flex-shrink: 0;
+      text-decoration: none;
     }
-
     .nav-logo span { color: var(--pink); }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 32px;
       list-style: none;
     }
-
-    .nav-links li { display: flex; align-items: center; }
-
     .nav-links a {
       font-size: 13px;
       font-weight: 600;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.55);
       text-decoration: none;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      transition: color 0.2s ease;
+      transition: color 0.2s;
     }
-
     .nav-links a:hover { color: var(--white); }
 
-    .nav-links li.nav-cta a {
-      padding: 10px 22px;
+    .nav-cta {
+      padding: 9px 22px;
       background: var(--pink);
-      color: var(--white);
-      border-radius: 8px;
-      font-weight: 700;
+      color: var(--white) !important;
+      border-radius: 6px;
+      font-size: 13px !important;
+      font-weight: 700 !important;
+      transition: background 0.2s !important;
     }
+    .nav-cta:hover { background: var(--pink-dark) !important; color: var(--white) !important; }
 
-    .nav-links li.nav-cta a:hover {
-      background: var(--pink-dark);
-      color: var(--white);
-    }
-
-    /* Existing page styles omitted for brevity in this preview */
-
-    /* FOOTER - FIXED */
-    .site-footer {
-      margin-top: 0;
-      border-top: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%);
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 72px 24px 32px;
-    }
-
-    .footer-top {
-      display: grid;
-      grid-template-columns: minmax(280px, 1.2fr) 2fr;
-      gap: 64px;
-      align-items: start;
-    }
-
-    .footer-brand {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      letter-spacing: 0.08em;
-      color: var(--white);
-      margin-bottom: 0.75rem;
-    }
-
-    .footer-brand::after {
-      content: '';
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      margin-left: 8px;
-      border-radius: 50%;
-      background: var(--pink);
-      vertical-align: middle;
-    }
-
-    .footer-tagline {
-      color: var(--muted);
-      font-size: 0.98rem;
-      line-height: 1.7;
-      max-width: 320px;
-    }
-
-    .footer-social-wrap h4,
-    .footer-nav-col h4 {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.38);
-      margin-bottom: 1rem;
-    }
-
-    .footer-socials {
-      list-style: none;
-      display: grid;
-      gap: 0.8rem;
-    }
-
-    .footer-socials a {
-      display: inline-flex;
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 10px;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s ease, transform 0.2s ease;
-    }
-
-    .footer-socials a:hover {
-      color: var(--white);
-      transform: translateX(3px);
-    }
-
-    .footer-nav {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-    }
-
-    .footer-nav-col ul {
-      list-style: none;
-      display: grid;
-      gap: 0.9rem;
-    }
-
-    .footer-nav-col a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: color 0.2s ease;
-    }
-
-    .footer-nav-col a:hover { color: var(--white); }
-
-    .footer-bottom {
-      margin-top: 56px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      justify-content: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
       text-align: center;
     }
 
-    .footer-copy {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.45);
-      line-height: 1.6;
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,31,122,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 60%, rgba(255,31,122,0.07) 0%, transparent 60%);
+      pointer-events: none;
     }
 
-    .footer-copy a {
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      background: rgba(255,31,122,0.12);
+      border: 1px solid rgba(255,31,122,0.3);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--pink);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      position: relative;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--pink);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(64px, 10vw, 110px);
+      line-height: 0.92;
+      letter-spacing: 0.01em;
       color: var(--white);
-      text-decoration: underline;
-      text-underline-offset: 3px;
+      margin-bottom: 8px;
+      position: relative;
+      animation: fadeUp 0.6s 0.1s ease both;
     }
 
-    @media (max-width: 960px) {
+    .hero-headline .accent {
+      color: var(--pink);
+      display: block;
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2.5vw, 20px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      max-width: 520px;
+      line-height: 1.6;
+      margin: 24px auto 40px;
+      position: relative;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-sub strong {
+      color: rgba(255,255,255,0.85);
+      font-weight: 600;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 17px 36px;
+      background: var(--pink);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: all 0.2s;
+      box-shadow: 0 4px 24px rgba(255,31,122,0.35);
+    }
+    .btn-primary:hover {
+      background: var(--pink-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(255,31,122,0.45);
+    }
+
+    .btn-primary svg { transition: transform 0.2s; }
+    .btn-primary:hover svg { transform: translateX(3px); }
+
+    .hero-note {
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+      font-weight: 500;
+    }
+
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      margin-top: 72px;
+      position: relative;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 42px;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+    .hero-stat-num span { color: var(--pink); }
+    .hero-stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 4px;
+    }
+    .stat-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 100px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-family: var(--font-cond);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--pink);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 64px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .section-body {
+      font-size: 17px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    /* ── PROBLEM SECTION ── */
+    .problem-section {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 100px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2px;
+      margin-top: 60px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .problem-card {
+      padding: 36px 32px;
+      background: rgba(255,255,255,0.02);
+      position: relative;
+      transition: background 0.3s;
+    }
+    .problem-card:hover {
+      background: rgba(255,255,255,0.04);
+    }
+    .problem-card + .problem-card {
+      border-left: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .problem-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .problem-card h3 {
+      font-family: var(--font-cond);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+    .problem-card p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .how-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: end;
+      margin-bottom: 70px;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step-item {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 0;
+      position: relative;
+    }
+
+    .step-item:not(:last-child) .step-line {
+      position: absolute;
+      left: 31px;
+      top: 54px;
+      bottom: -10px;
+      width: 2px;
+      background: linear-gradient(to bottom, rgba(255,31,122,0.3), rgba(255,31,122,0.05));
+    }
+
+    .step-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 6px;
+    }
+
+    .step-num {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(255,31,122,0.12);
+      border: 1.5px solid rgba(255,31,122,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-cond);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--pink);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-content {
+      padding: 4px 0 48px 20px;
+    }
+    .step-content h3 {
+      font-family: var(--font-cond);
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+    }
+    .step-content p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+    }
+    .step-content .step-detail {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .step-chip {
+      padding: 4px 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      font-weight: 500;
+    }
+
+    /* Output mockup */
+    .output-mockup {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 32px;
+      position: sticky;
+      top: 100px;
+    }
+
+    .mockup-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--pink);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .mockup-rate {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .mockup-dollar { font-size: 24px; font-weight: 700; color: var(--pink); }
+    .mockup-amount { font-family: var(--font-display); font-size: 72px; color: var(--white); line-height: 1; letter-spacing: -0.02em; }
+    .mockup-per { font-size: 18px; color: rgba(255,255,255,0.3); font-weight: 500; }
+
+    .mockup-subtitle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 28px;
+    }
+    .mockup-subtitle strong { color: rgba(255,31,122,0.8); }
+
+    .mockup-projections {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .mockup-proj {
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+    .mockup-proj-label { font-size: 11px; color: rgba(255,255,255,0.35); margin-bottom: 4px; }
+    .mockup-proj-val { font-size: 15px; font-weight: 700; color: var(--white); }
+
+    .mockup-packages {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .mockup-pkg {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+    }
+    .mockup-pkg.featured {
+      border-color: rgba(255,31,122,0.3);
+      background: rgba(255,31,122,0.06);
+    }
+    .mockup-pkg-name { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.7); }
+    .mockup-pkg-price { font-size: 16px; font-weight: 700; color: var(--pink); }
+
+    /* ── WHAT YOU GET ── */
+    .output-section {
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .output-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 60px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .output-card {
+      padding: 40px 36px;
+      background: rgba(255,255,255,0.02);
+      transition: background 0.3s;
+    }
+    .output-card:hover { background: rgba(255,255,255,0.04); }
+    .output-card:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.06); }
+    .output-card:nth-child(1), .output-card:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+    .output-card-num {
+      font-family: var(--font-display);
+      font-size: 48px;
+      color: rgba(255,31,122,0.2);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .output-card h3 {
+      font-family: var(--font-cond);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+    .output-card p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      padding: 0 24px 120px;
+    }
+
+    .cta-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(255,31,122,0.12) 0%, rgba(255,31,122,0.04) 100%);
+      border: 1px solid rgba(255,31,122,0.2);
+      border-radius: 24px;
+      padding: 80px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-inner::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: 50%;
+      transform: translateX(-50%);
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(255,31,122,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-inner .section-title {
+      margin-bottom: 16px;
+    }
+
+    .cta-inner .section-body {
+      margin: 0 auto 40px;
+      max-width: 460px;
+      font-size: 16px;
+    }
+
+    .cta-sub {
+      margin-top: 16px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+    }
+    .footer-logo span { color: var(--pink); }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.25);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.6); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
-
-      .footer-top {
-        grid-template-columns: 1fr;
-        gap: 48px;
-      }
-
-      .footer-nav {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .problem-grid { grid-template-columns: 1fr; }
+      .problem-card + .problem-card { border-left: none; border-top: 1px solid rgba(255,255,255,0.06); }
+      .how-header { grid-template-columns: 1fr; gap: 40px; }
+      .output-mockup { position: static; }
+      .output-grid { grid-template-columns: 1fr; }
+      .output-card:nth-child(odd) { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .hero-stats { gap: 24px; }
+      .cta-inner { padding: 50px 28px; }
+      footer { flex-direction: column; gap: 20px; text-align: center; }
     }
 
-    @media (max-width: 640px) {
-      .footer-inner {
-        padding: 56px 20px 28px;
-      }
-
-      .footer-nav {
-        grid-template-columns: 1fr;
-        gap: 28px;
-      }
-
-      .footer-bottom {
-        margin-top: 40px;
-      }
+    @media (max-width: 600px) {
+      .hero-stats { flex-direction: column; gap: 20px; }
+      .stat-divider { width: 40px; height: 1px; }
     }
   </style>
+  <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body>
-  <!-- Keep your existing page content exactly as-is above the footer -->
 
-  <!-- Updated NAV structure -->
+  <!-- NAV -->
   <nav>
     <a href="https://virtueasy.com" class="nav-logo">VIRTU<span>EASY</span></a>
-    <ul class="nav-links">
+            <ul class="nav-links">
       <li><a href="/">Home</a></li>
       <li><a href="/resources/">Resources</a></li>
       <li><a href="/blog/">Blog</a></li>
       <li><a href="/va-job-board">Job Board</a></li>
-      <li><a href="https://www.facebook.com/groups/974455928445420" target="_blank" rel="noopener">Community</a></li>
+      <li><a href="https://www.facebook.com/groups/974455928445420" target="_blank" rel="noopener" class="nav-community"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.885v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>Community</a></li>
       <li class="nav-cta"><a href="/system/">Get Started</a></li>
     </ul>
   </nav>
 
-  <!-- Your existing sections go here -->
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
 
-  <footer class="site-footer" role="contentinfo">
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand-wrap">
-          <div class="footer-brand">VIRTUEASY</div>
-          <p class="footer-tagline">Everything you need to build your VA business.</p>
+    <div class="hero-tag">Free tool for virtual assistants</div>
 
-          <div class="footer-social-wrap" style="margin-top: 2rem;">
-            <h4>Follow Us</h4>
-            <ul class="footer-socials">
-              <li><a href="https://www.instagram.com/itsvirtueasy" target="_blank" rel="noopener">Instagram</a></li>
-              <li><a href="https://www.facebook.com/virtueasy/" target="_blank" rel="noopener">Facebook</a></li>
-              <li><a href="https://www.tiktok.com/@itsvirtueasy" target="_blank" rel="noopener">TikTok</a></li>
-              <li><a href="https://www.youtube.com/@itsvirtueasy" target="_blank" rel="noopener">YouTube</a></li>
-            </ul>
-          </div>
-        </div>
+    <h1 class="hero-headline">
+      Stop Guessing
+      <span class="accent">What to Charge</span>
+    </h1>
 
-        <nav class="footer-nav" aria-label="Footer navigation">
-          <div class="footer-nav-col">
-            <h4>Hub</h4>
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/resources/">Resources</a></li>
-              <li><a href="/blog/">Blog</a></li>
-            </ul>
-          </div>
+    <p class="hero-sub">
+      Most VAs undercharge by <strong>30–50%</strong> because they picked a number out of thin air.
+      This tool calculates your actual rate based on your niche, experience, and services
+      in under 2 minutes.
+    </p>
 
-          <div class="footer-nav-col">
-            <h4>Tools</h4>
-            <ul>
-              <li><a href="/system/">VA System ↗</a></li>
-              <li><a href="/pricing-tool/">Pricing Tool</a></li>
-              <li><a href="/260-prompts/">260 Prompts</a></li>
-            </ul>
-          </div>
+    <div class="hero-cta-group">
+      <a href="https://virtueasy.com/pricing-tool/get-access.html" class="btn-primary">
+        Calculate my rate - it's free
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <span class="hero-note">No credit card. Takes 2 minutes.</span>
+    </div>
 
-          <div class="footer-nav-col">
-            <h4>Legal</h4>
-            <ul>
-              <li><a href="/privacy-policy.html">Privacy Policy</a></li>
-            </ul>
-          </div>
-        </nav>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">9<span>+</span></div>
+        <div class="hero-stat-label">VA niches covered</div>
       </div>
-
-      <div class="footer-bottom">
-        <p class="footer-copy">
-          &copy; <span id="footer-year"></span> Virtueasy. Owned and operated by
-          <a href="https://messickmarketing.com" target="_blank" rel="noopener">Messick Marketing</a>.
-        </p>
+      <div class="stat-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">3<span>x</span></div>
+        <div class="hero-stat-label">Pricing models built</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">2<span>min</span></div>
+        <div class="hero-stat-label">To your full rate card</div>
       </div>
     </div>
-  </footer>
+  </div>
+
+  <!-- PROBLEM -->
+  <div style="width:100%;overflow:hidden;max-height:280px;position:relative;">
+    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=75" alt="" aria-hidden="true" loading="lazy" style="width:100%;height:280px;object-fit:cover;object-position:center 40%;display:block;">
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,31,122,0.45) 0%,rgba(10,10,10,0.75) 100%);"></div>
+  </div>
+
+  <section class="problem-section">
+    <span class="section-tag">The problem</span>
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <div style="display:flex;">
+        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&q=80" loading="lazy" aria-hidden="true" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #0A0A0A;margin-right:-8px;">
+        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" loading="lazy" aria-hidden="true" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #0A0A0A;margin-right:-8px;">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&q=80" loading="lazy" aria-hidden="true" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #0A0A0A;">
+      </div>
+      <span style="font-size:0.82rem;color:rgba(248,248,248,0.5);">Hundreds of VAs have used this tool to set confident rates</span>
+    </div>
+    <h2 class="section-title">Pricing yourself wrong<br>is costing you clients</h2>
+    <p class="section-body">Undercharging signals inexperience. Overcharging without a clear structure loses the deal. Both are fixable once you know your actual numbers.</p>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <span class="problem-icon">💸</span>
+        <h3>Undercharging to stay competitive</h3>
+        <p>You set your rate low thinking it'll help you get hired faster. It doesn't. It just attracts clients who don't value the work.</p>
+      </div>
+      <div class="problem-card">
+        <span class="problem-icon">🤷</span>
+        <h3>Different number every proposal</h3>
+        <p>No consistent structure means you're guessing every time. Clients sense the uncertainty and it costs you the yes.</p>
+      </div>
+      <div class="problem-card">
+        <span class="problem-icon">📉</span>
+        <h3>No idea what packages should cost</h3>
+        <p>Hourly is one thing. But building retainer packages that actually make sense financially? Most VAs skip it entirely.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <div class="how-header">
+      <div>
+        <span class="section-tag">How it works</span>
+        <h2 class="section-title">Five steps.<br>Your full rate card.</h2>
+        <p class="section-body">Answer a few questions about your niche and experience. The tool handles the math and gives you numbers you can actually use.</p>
+      </div>
+      <div class="output-mockup">
+        <div class="mockup-label">Your output looks like this</div>
+        <div class="mockup-rate">
+          <span class="mockup-dollar">$</span>
+          <span class="mockup-amount">45</span>
+          <span class="mockup-per">/hr</span>
+        </div>
+        <div class="mockup-subtitle">Suggested for Social Media VAs with <strong>3–5 years experience</strong></div>
+        <div class="mockup-projections">
+          <div class="mockup-proj">
+            <div class="mockup-proj-label">Part-time</div>
+            <div class="mockup-proj-val">$1,800/mo</div>
+          </div>
+          <div class="mockup-proj">
+            <div class="mockup-proj-label">Half-time</div>
+            <div class="mockup-proj-val">$3,600/mo</div>
+          </div>
+          <div class="mockup-proj">
+            <div class="mockup-proj-label">Full-time</div>
+            <div class="mockup-proj-val">$7,200/mo</div>
+          </div>
+        </div>
+        <div class="mockup-packages">
+          <div class="mockup-pkg">
+            <span class="mockup-pkg-name">Starter - 10 hrs/mo</span>
+            <span class="mockup-pkg-price">$450/mo</span>
+          </div>
+          <div class="mockup-pkg featured">
+            <span class="mockup-pkg-name">Growth - 20 hrs/mo</span>
+            <span class="mockup-pkg-price">$855/mo</span>
+          </div>
+          <div class="mockup-pkg">
+            <span class="mockup-pkg-name">Premium - 40 hrs/mo</span>
+            <span class="mockup-pkg-price">$1,620/mo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-line"></div>
+        <div class="step-left"><div class="step-num">01</div></div>
+        <div class="step-content">
+          <h3>Build your profile</h3>
+          <p>Choose your VA niche and experience level. The tool uses real market rate data for your specific specialty, not a one-size-fits-all average.</p>
+          <div class="step-detail">
+            <span class="step-chip">Executive/Admin</span>
+            <span class="step-chip">Social Media</span>
+            <span class="step-chip">Tech/Dev</span>
+            <span class="step-chip">Bookkeeping</span>
+            <span class="step-chip">+ 5 more</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-line"></div>
+        <div class="step-left"><div class="step-num">02</div></div>
+        <div class="step-content">
+          <h3>Select your services</h3>
+          <p>Pick from suggested services for your niche or add your own. This builds the foundation for your packages and gives clients a clear picture of what they're paying for.</p>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-line"></div>
+        <div class="step-left"><div class="step-num">03</div></div>
+        <div class="step-content">
+          <h3>Choose your pricing model</h3>
+          <p>Hourly, retainer packages, per-project, or all three. You decide what works for how you want to work. Most VAs end up with a mix.</p>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-line"></div>
+        <div class="step-left"><div class="step-num">04</div></div>
+        <div class="step-content">
+          <h3>Fine-tune the numbers</h3>
+          <p>See your suggested rate based on your profile. Adjust it with a slider, set package hours and discounts, or add specific project types with complexity pricing built in.</p>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-left"><div class="step-num">05</div></div>
+        <div class="step-content">
+          <h3>Get your full pricing summary</h3>
+          <p>A complete rate card with your hourly rate, monthly income projections, all three package tiers with pricing, and a breakdown of exactly how many clients you need to hit your income goal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section class="output-section">
+    <span class="section-tag">What you leave with</span>
+    <h2 class="section-title">Not a ballpark.<br>An actual rate card.</h2>
+    <p class="section-body">Everything the tool outputs is based on your inputs, not generic averages. Save it, screenshot it, use it in your next proposal today.</p>
+
+    <div class="output-grid">
+      <div class="output-card">
+        <div class="output-card-num">01</div>
+        <h3>Your exact hourly rate</h3>
+        <p>Calculated from your niche's market baseline, adjusted for your experience level. You'll also see the suggested rate so you know where you land relative to the market.</p>
+      </div>
+      <div class="output-card">
+        <div class="output-card-num">02</div>
+        <h3>Monthly income projections</h3>
+        <p>Part-time, half-time, and full-time estimates based on your rate. Gives you a realistic picture of what this business can actually pay you.</p>
+      </div>
+      <div class="output-card">
+        <div class="output-card-num">03</div>
+        <h3>Three retainer packages</h3>
+        <p>Starter, Growth, and Premium tiers with auto-calculated prices, hours per month, and your selected services listed in each. Ready to drop into a proposal.</p>
+      </div>
+      <div class="output-card">
+        <div class="output-card-num">04</div>
+        <h3>Per-project pricing</h3>
+        <p>Add specific project types with simple, standard, or complex pricing built in. No more quoting a number and hoping it was right.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-inner">
+      <span class="section-tag">Free. No catch.</span>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,31,122,0.2);border-radius:12px;padding:1.5rem 1.75rem;margin-bottom:2.5rem;display:flex;gap:1rem;align-items:flex-start;text-align:left;max-width:600px;margin-left:auto;margin-right:auto;">
+        <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=100&q=80" loading="lazy" aria-hidden="true" style="width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center top;flex-shrink:0;">
+        <div>
+          <p style="font-size:0.9rem;font-style:italic;color:rgba(248,248,248,0.75);line-height:1.6;margin-bottom:0.5rem;">"I was charging $18/hr for two years. This tool showed me I should be at $45. I raised my rates and kept every client."</p>
+          <span style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--pink);">Melissa R. - VA System Student</span>
+        </div>
+      </div>
+      <h2 class="section-title">Know your number<br>before your next call</h2>
+      <p class="section-body">Takes 2 minutes. You'll walk away with a rate you can confidently quote without second-guessing yourself mid-proposal.</p>
+      <a href="https://virtueasy.com/pricing-tool/get-access.html" class="btn-primary">
+        Build my rate card free
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <p class="cta-sub">No credit card needed. Your pricing saves automatically.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand-wrap">
+        <div class="footer-brand">VIRTUEASY</div>
+        <p class="footer-tagline">Everything you need to build your VA business.</p>
+        
+        <div class="footer-social-wrap" style="margin-top: 2rem;">
+          <h4 style="font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;">Follow Us</h4>
+          <ul class="footer-socials" style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+            <li>
+              <a href="https://www.instagram.com/itsvirtueasy" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--muted); transition: color 0.2s;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a href="https://www.facebook.com/virtueasy/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--muted); transition: color 0.2s;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.885v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+                Facebook
+              </a>
+            </li>
+            <li>
+              <a href="https://www.tiktok.com/@itsvirtueasy" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--muted); transition: color 0.2s;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.81.33-.85.51-1.44 1.43-1.58 2.41-.14 1.15.22 2.35 1.04 3.19.7.75 1.72 1.13 2.73 1.05 1.12-.04 2.22-.56 2.87-1.48.49-.66.75-1.48.78-2.31-.04-6.63.02-13.26-.03-19.89z"/></svg>
+                TikTok
+              </a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/@itsvirtueasy" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--muted); transition: color 0.2s;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                YouTube
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <nav class="footer-nav">
+        <div class="footer-nav-col">
+          <h4>Hub</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/resources/">Resources</a></li>
+            <li><a href="/blog/">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <h4>Tools</h4>
+          <ul>
+            <li><a href="/system/">VA System &#x2197;</a></li>
+            <li><a href="/pricing-tool/">Pricing Tool</a></li>
+            <li><a href="/260-prompts/">260 Prompts</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+  <p class="footer-copy">
+    &copy; <span id="footer-year"></span> Virtueasy. 
+    Owned and operated by <a href="https://messickmarketing.com" target="_blank" rel="noopener" style="color: var(--white); text-decoration: underline;">Messick Marketing</a>.
+  </p>
+</div>
+</footer>
 
   <script>
     document.getElementById('footer-year').textContent = new Date().getFullYear();
