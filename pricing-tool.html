@@ -191,6 +191,23 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
   <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="/">
+      <img src="/assets/virtueasy-logo.png" alt="Virtueasy" width="140" height="32" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="nav-logo-text">VIRTUEASY</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/resources/">Resources</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/va-job-board">Job Board</a></li>
+      <li><a href="https://www.facebook.com/groups/974455928445420" target="_blank" rel="noopener" class="nav-community"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.885v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>Community</a></li>
+      <li class="nav-cta"><a href="/system/">Get Started</a></li>
+    </ul>
+  </nav>
 <div class="shell" id="app">
   <div class="loading" id="loading">
     <div class="loading-dot"></div>
@@ -271,10 +288,9 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     const app=document.getElementById("app");
     let h="";
 
-    // Header
+    // Header badge (site-nav handles logo/branding)
     h+=`<div class="header">
       <div class="logo-row">
-        <a class="logo" href="https://virtueasy.com" target="_blank">VIRTU<span>EASY</span></a>
         <span class="badge">Pricing builder</span>
       </div>
       ${state.profile.name?`<p class="greeting">Hey, ${esc(state.profile.name)}</p>`:""}
