@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VA Starter Kit — Access</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#FF1F7A;--pink-dark:#D91565;--pink-glow:rgba(255,31,122,0.3);
+  --black:#0A0A0A;--surface:#141214;--surface-2:#1e1a1e;
+  --border:rgba(255,31,122,0.1);--white:#F8F8F8;--muted:#999;
+  --font-display:'Bebas Neue',sans-serif;--font-body:'Barlow',sans-serif;
+}
+html,body{height:100%}
+body{
+  font-family:var(--font-body);background:var(--black);color:var(--white);
+  -webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;
+  min-height:100vh;padding:1.5rem;
+}
+body::before{
+  content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);
+  width:600px;height:400px;background:radial-gradient(ellipse,rgba(255,31,122,0.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.login-wrap{width:100%;max-width:420px}
+.login-brand{text-align:center;margin-bottom:2.5rem}
+.login-brand a{display:inline-block;font-family:var(--font-display);font-size:2rem;letter-spacing:0.08em;color:var(--white);text-decoration:none}
+.login-brand a span{color:var(--pink)}
+.login-tag{display:inline-block;margin-top:0.5rem;font-size:0.7rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);border:1px solid rgba(255,31,122,0.3);padding:0.2rem 0.75rem;border-radius:2px}
+.login-card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:2.5rem 2rem}
+.login-card h1{font-family:var(--font-display);font-size:2.4rem;letter-spacing:0.03em;line-height:1;margin-bottom:0.5rem}
+.login-card p{font-size:0.9rem;color:var(--muted);margin-bottom:2rem;line-height:1.55}
+.field-label{display:block;font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem}
+.field-input{
+  width:100%;background:var(--surface-2);border:1px solid rgba(255,255,255,0.08);
+  border-radius:3px;padding:0.85rem 1rem;font-family:var(--font-body);font-size:1rem;
+  color:var(--white);outline:none;transition:border-color 0.2s;letter-spacing:0.1em;
+}
+.field-input:focus{border-color:var(--pink)}
+.field-input::placeholder{color:rgba(255,255,255,0.2);letter-spacing:0.05em}
+.error-msg{display:none;color:var(--pink);font-size:0.8rem;margin-top:0.5rem}
+.error-msg.show{display:block}
+.login-btn{
+  width:100%;margin-top:1.5rem;background:var(--pink);color:#fff;
+  font-family:var(--font-body);font-size:0.875rem;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;padding:1rem;border:none;
+  border-radius:3px;cursor:pointer;transition:all 0.2s;
+}
+.login-btn:hover{background:var(--pink-dark);box-shadow:0 0 24px var(--pink-glow)}
+.login-footer{text-align:center;margin-top:1.75rem;font-size:0.78rem;color:var(--muted)}
+.login-footer a{color:var(--pink);text-decoration:none}
+.login-footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="login-wrap">
+  <div class="login-brand">
+    <a href="https://virtueasy.com">VIRTUE<span>EASY</span></a>
+    <div class="login-tag">VA Starter Kit</div>
+  </div>
+  <div class="login-card">
+    <h1>Welcome Back</h1>
+    <p>Enter your access code to open the Starter Kit.</p>
+    <label class="field-label" for="code">Access Code</label>
+    <input class="field-input" id="code" type="password" placeholder="••••••••••••••" autocomplete="off" autocapitalize="characters">
+    <div class="error-msg" id="err">Incorrect code. Check your email or purchase confirmation.</div>
+    <button class="login-btn" onclick="checkCode()">Enter the Kit →</button>
+  </div>
+  <div class="login-footer">
+    Don't have access? <a href="https://virtueasy.com/system/">Get the Starter Kit</a>
+  </div>
+</div>
+<script>
+function checkCode(){
+  var val = document.getElementById('code').value.trim().toUpperCase();
+  if(val === 'STARTERKIT2026'){
+    sessionStorage.setItem('sk_auth','1');
+    window.location.href = 'index.html';
+  } else {
+    document.getElementById('err').classList.add('show');
+    document.getElementById('code').style.borderColor = 'var(--pink)';
+  }
+}
+document.getElementById('code').addEventListener('keydown',function(e){
+  if(e.key==='Enter') checkCode();
+  document.getElementById('err').classList.remove('show');
+  document.getElementById('code').style.borderColor='';
+});
+// Already authed
+if(sessionStorage.getItem('sk_auth')==='1') window.location.href='index.html';
+</script>
+</body>
+</html>
