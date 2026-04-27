@@ -559,47 +559,50 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
   window.advance=function(){if(canAdvance()&&state.step<4){state.step++;save();render();window.scrollTo(0,0)}};
 
   window.updateName=function(v){state.profile.name=v;save()};
+  let _rt=null;
+  function schedRender(){if(_rt)cancelAnimationFrame(_rt);_rt=requestAnimationFrame(()=>{render();_rt=null;});}
+
   window.setVAType=function(t){
     state.profile.vaType=t;
     if(state.profile.experience){
       state.hourlyRate=Math.round((BASE_RATES[t]||25)*(EXP_LEVELS.find(e=>e.value===state.profile.experience)?.mult||1));
     }
-    save();render();
+    save();schedRender();
   };
   window.setExp=function(v){
     state.profile.experience=v;
     if(state.profile.vaType){
       state.hourlyRate=Math.round((BASE_RATES[state.profile.vaType]||25)*(EXP_LEVELS.find(e=>e.value===v)?.mult||1));
     }
-    save();render();
+    save();schedRender();
   };
 
   window.toggleService=function(s){
     const i=state.services.indexOf(s);
     if(i>=0)state.services.splice(i,1);else state.services.push(s);
-    save();render();
+    save();schedRender();
   };
-  window.removeSvc=function(s){state.services=state.services.filter(x=>x!==s);save();render()};
+  window.removeSvc=function(s){state.services=state.services.filter(x=>x!==s);save();schedRender()};
   window.addCustomSvc=function(){
     const el=document.getElementById("customSvc");if(!el)return;
     const v=el.value.trim();
-    if(v&&!state.services.includes(v)){state.services.push(v);save();render()}
+    if(v&&!state.services.includes(v)){state.services.push(v);save();schedRender()}
   };
 
   window.toggleModel=function(m){
     const i=state.pricingModels.indexOf(m);
     if(i>=0)state.pricingModels.splice(i,1);else state.pricingModels.push(m);
-    save();render();
+    save();schedRender();
   };
 
-  window.setRate=function(v){state.hourlyRate=+v;save();render()};
+  window.setRate=function(v){state.hourlyRate=+v;save();schedRender()};
 
-  window.updatePkg=function(i,field,val){state.packages[i][field]=val;save();render()};
+  window.updatePkg=function(i,field,val){state.packages[i][field]=val;save();schedRender()};
   window.togglePkgSvc=function(i,s){
     const svcs=state.packages[i].services;
     const idx=svcs.indexOf(s);
     if(idx>=0)svcs.splice(idx,1);else svcs.push(s);
-    save();render();
+    save();schedRender();
   };
 
   window.addProject=function(){
@@ -609,9 +612,9 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     if(!name||!hours)return;
     const mult=complexity==="complex"?1.5:complexity==="simple"?0.75:1;
     state.projects.push({name,hours,complexity,price:Math.round(hours*state.hourlyRate*mult)});
-    save();render();
+    save();schedRender();
   };
-  window.removeProject=function(i){state.projects.splice(i,1);save();render()};
+  window.removeProject=function(i){state.projects.splice(i,1);save();schedRender()};
 
   window.saveAndToast=function(){save();toast("Pricing saved!")};
   window.resetAll=function(){
