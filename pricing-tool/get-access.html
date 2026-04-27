@@ -18,7 +18,7 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Free VA Pricing Calculator -> VIRTUEASY</title>
+  <title>Free VA Pricing Calculator - VIRTUEASY</title>
   <meta name="description" content="Calculate your ideal VA rate in minutes. Try free - only $7 to upgrade for lifetime access.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -177,135 +177,87 @@
     <p class="bottom-note">A free tool by <a href="https://virtueasy.com">VIRTUEASY</a></p>
   </div>
 
-  <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v95037e5bac78f29ed026832ca21a7c7b"></script>
-  <script>fetch('https://assets.mailerlite.com/jsonp/2199748/forms/184021092538517454/takel');</script>
+ <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v95037e5bac78f29ed026832ca21a7c7b"></script>
+<script>fetch('https://assets.mailerlite.com/jsonp/2199748/forms/184021092538517454/takel');</script>
 
-  <script>
-    const ACCESS_API = 'https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev';
-    const APP_URL = 'https://virtueasy.com/pricing-tool/app.html';
+<script>
+  const ACCESS_API = 'https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev';
+  const APP_URL    = 'https://virtueasy.com/pricing-tool/app.html';
 
-    // FIX 1: single flags prevent double-redirect and double-grant when
-    //         multiple mechanisms (callback + observer + fallback) all fire
-    let _redirected = false;
-    let _grantStarted = false;
+  function redirectToApp() {
+    window.location.href = APP_URL;
+  }
 
-    document.addEventListener('input', function(e) {
-      if (e.target && e.target.type === 'email') {
-        window._capturedEmail = e.target.value.trim();
+  function grantAndRedirect(email) {
+    localStorage.setItem('ve-pricing-pending', '1');
+
+    fetch(ACCESS_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'grant', email })
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.token) {
+        localStorage.setItem('ve-pricing-token', data.token);
+        localStorage.setItem('ve-pricing-email', email);
+        localStorage.removeItem('trialStart');
+        localStorage.removeItem('lifetimeAccess');
       }
+    })
+    .catch(() => {
+      if (email) localStorage.setItem('ve-pricing-email', email);
+      if (!localStorage.getItem('trialStart')) {
+        localStorage.setItem('trialStart', Date.now().toString());
+      }
+    })
+    .finally(() => {
+      localStorage.removeItem('ve-pricing-pending');
+      redirectToApp();
     });
+  }
 
-    function redirectToApp() {
-      if (_redirected) return;
-      _redirected = true;
-      window.location.href = APP_URL;
-    }
+  // ── MailerLite success callback (keep for compatibility) ──────────────────
+  function ml_webform_success_39513813() {
+    const email = window._capturedEmail || '';
+    grantAndRedirect(email);
+  }
 
-    // FIX 2: centralised grant + redirect used by ALL paths so logic runs once
-    function doGrantAndRedirect(email) {
-      if (_grantStarted) return;
-      _grantStarted = true;
+  // ── Override form submit — THE CRITICAL FIX ───────────────────────────────
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('.ml-block-form');
+    if (!form) return;
 
-      localStorage.setItem('ve-pricing-pending', '1');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // ← stops native POST / page navigation
 
-      // FIX 3: guaranteed redirect after 4 s even if fetch never resolves
-      setTimeout(redirectToApp, 4000);
+      const emailInput = document.getElementById('ml-email-input');
+      const email = emailInput ? emailInput.value.trim() : '';
+      window._capturedEmail = email;
 
-      // FIX 4: AbortController ensures fetch gives up after 5 s so
-      //         finally() always fires and the redirect is not blocked
-      var controller = new AbortController();
-      setTimeout(function() { controller.abort(); }, 5000);
+      // Fire MailerLite subscription in the background (non-blocking)
+      const formData = new FormData(form);
+      fetch(form.action, { method: 'POST', body: formData }).catch(() => {});
 
-      fetch(ACCESS_API, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'grant', email: email }),
-        signal: controller.signal
-      })
-      .then(function(res) { return res.json(); })
-      .then(function(data) {
-        if (data.token) {
-          localStorage.setItem('ve-pricing-token', data.token);
-          localStorage.setItem('ve-pricing-email', email);
-          localStorage.removeItem('trialStart');
-          localStorage.removeItem('lifetimeAccess');
-        }
-      })
-      .catch(function() {
-        if (email) localStorage.setItem('ve-pricing-email', email);
-        if (!localStorage.getItem('trialStart')) {
-          localStorage.setItem('trialStart', Date.now().toString());
-        }
-      })
-      .finally(function() {
-        localStorage.removeItem('ve-pricing-pending');
-        redirectToApp();
-      });
-    }
-
-    // MailerLite success callback
-    function ml_webform_success_39513813() {
-      // FIX 5: also read from input here in case _capturedEmail is stale
-      var email = window._capturedEmail
-        || (document.getElementById('ml-email-input') && document.getElementById('ml-email-input').value.trim())
-        || '';
-      doGrantAndRedirect(email);
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-
-      // FIX 6: MutationObserver watches for MailerLite showing the success
-      //         div — catches embed versions that never fire the JS callback
-      var wrapper = document.querySelector('.ml-form-embedWrapper');
-      if (wrapper) {
-        var observer = new MutationObserver(function() {
-          var successBody = document.querySelector('.ml-form-successBody');
-          if (successBody && successBody.style.display !== 'none') {
-            observer.disconnect();
-            var email = window._capturedEmail
-              || localStorage.getItem('ve-pricing-email')
-              || '';
-            doGrantAndRedirect(email);
-          }
-        });
-        observer.observe(wrapper, { attributes: true, childList: true, subtree: true });
-      }
-
-      var form = document.querySelector('.ml-block-form');
-      if (form) {
-        form.addEventListener('submit', function() {
-          // FIX 7: capture email at the moment of submit before ML can clear it
-          var emailInput = form.querySelector('input[type="email"]');
-          if (emailInput && emailInput.value) {
-            window._capturedEmail = emailInput.value.trim();
-          }
-          // last-resort fallback if nothing else fires within 8 s
-          setTimeout(function() {
-            if (!_redirected) {
-              doGrantAndRedirect(window._capturedEmail || '');
-            }
-          }, 8000);
-        });
-      }
+      // Redirect regardless of MailerLite's response
+      grantAndRedirect(email);
     });
+  });
 
-    (function() {
-      var token = localStorage.getItem('ve-pricing-token');
-      if (!token) return;
+  // ── Auto-redirect returning users with valid token ─────────────────────────
+  (function () {
+    const token = localStorage.getItem('ve-pricing-token');
+    if (!token) return;
 
-      fetch(ACCESS_API, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'verify', token: token })
-      })
-      .then(function(res) { return res.json(); })
-      .then(function(data) {
-        if (data.valid) {
-          redirectToApp();
-        }
-      })
-      .catch(function() {});
-    })();
-  </script>
+    fetch(ACCESS_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'verify', token })
+    })
+    .then(r => r.json())
+    .then(data => { if (data.valid) redirectToApp(); })
+    .catch(() => {});
+  })();
+</script>
 </body>
 </html>
