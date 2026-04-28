@@ -57,74 +57,7 @@
       border-radius: 4px;
     }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 18px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(10,10,10,0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 22px;
-      letter-spacing: 0.08em;
-      color: var(--white);
-      text-decoration: none;
-    }
-    .nav-logo span { color: var(--pink); }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      list-style: none;
-    }
-    .nav-links > li > a {
-      font-size: 13px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.55);
-      text-decoration: none;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-      display: inline-flex;
-      align-items: center;
-    }
-    .nav-links > li > a:hover { color: var(--white); }
-
-    .nav-links > li > .nav-community {
-      color: rgba(255,255,255,0.55);
-    }
-    .nav-links > li > .nav-community:hover { color: var(--pink); }
-
-    /* FIX: Apply button styles to the anchor inside .nav-cta li, not the li itself */
-    .nav-cta { list-style: none; }
-    .nav-cta > a {
-      padding: 9px 22px;
-      background: var(--pink);
-      color: var(--white) !important;
-      border-radius: 6px;
-      font-size: 13px !important;
-      font-weight: 700 !important;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
-      display: inline-block;
-    }
-    .nav-cta > a:hover {
-      background: var(--pink-dark) !important;
-      color: var(--white) !important;
-      transform: translateY(-1px);
-    }
+    /* ── NAV — uses main.css site-nav ── */
 
     /* Mobile menu toggle */
     .nav-toggle {
@@ -762,16 +695,15 @@
 <body>
 
   <!-- NAV -->
-  <nav>
-    <a href="https://virtueasy.com" class="nav-logo">VIRTU<span>EASY</span></a>
-    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="3" y1="6" x2="21" y2="6"/>
-        <line x1="3" y1="12" x2="21" y2="12"/>
-        <line x1="3" y1="18" x2="21" y2="18"/>
-      </svg>
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="/">
+      <img src="/assets/virtueasy-logo.png" alt="Virtueasy" width="140" height="32" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="nav-logo-text">VIRTUEASY</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
     </button>
-    <ul class="nav-links" id="primary-nav">
+    <ul class="nav-links">
       <li><a href="/">Home</a></li>
       <li><a href="/resources/">Resources</a></li>
       <li><a href="/blog/">Blog</a></li>
