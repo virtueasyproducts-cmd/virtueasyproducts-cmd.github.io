@@ -78,7 +78,7 @@ function checkCode(){
   var val = document.getElementById('code').value.trim().toUpperCase();
   if(val === 'STARTERKIT2026'){
     sessionStorage.setItem('sk_auth','1');
-    window.location.href = 'index.html';
+    window.location.href = 'dashboard.html';
   } else {
     document.getElementById('err').classList.add('show');
     document.getElementById('code').style.borderColor = 'var(--pink)';
@@ -90,7 +90,7 @@ document.getElementById('code').addEventListener('keydown',function(e){
   document.getElementById('code').style.borderColor='';
 });
 // Already authed
-if(sessionStorage.getItem('sk_auth')==='1') window.location.href='index.html';
+if(sessionStorage.getItem('sk_auth')==='1') window.location.href='dashboard.html';
 </script>
 </body>
 </html>

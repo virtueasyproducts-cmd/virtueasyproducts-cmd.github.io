@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VA Starter Kit — Virtueasy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#FF1F7A;--pink-dark:#D91565;--pink-glow:rgba(255,31,122,0.3);--pink-pale:rgba(255,31,122,0.08);
+  --black:#0A0A0A;--surface:#141214;--surface-2:#1e1a1e;--surface-3:#252025;
+  --border:rgba(255,31,122,0.1);--border-subtle:rgba(255,255,255,0.06);
+  --white:#F8F8F8;--muted:#999;
+  --font-display:'Bebas Neue',sans-serif;--font-body:'Barlow',sans-serif;
+  --sidebar-w:260px;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--black);color:var(--white);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button{cursor:pointer;font-family:var(--font-body)}
+
+/* ── NAV ── */
+.site-nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);padding:0 1.5rem;height:60px;
+  display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-shrink:0;
+}
+.nav-left{display:flex;align-items:center;gap:1rem}
+.nav-logo{font-family:var(--font-display);font-size:1.4rem;letter-spacing:0.08em;color:var(--white)}
+.nav-logo span{color:var(--pink)}
+.nav-kit-badge{font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);border:1px solid rgba(255,31,122,0.35);padding:0.2rem 0.6rem;border-radius:2px}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-progress-wrap{display:flex;align-items:center;gap:0.6rem;font-size:0.75rem;color:var(--muted)}
+.nav-progress-bar{width:80px;height:3px;background:var(--surface-3);border-radius:2px;overflow:hidden}
+.nav-progress-fill{height:100%;background:var(--pink);border-radius:2px;transition:width 0.4s ease}
+.nav-logout{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);background:none;border:none;padding:0.3rem 0}
+.nav-logout:hover{color:var(--white)}
+.nav-menu-btn{display:none;background:none;border:none;flex-direction:column;gap:5px;padding:4px}
+.nav-menu-btn span{display:block;width:20px;height:2px;background:var(--white);border-radius:2px}
+
+/* ── LAYOUT ── */
+.app{display:flex;flex:1;min-height:0}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:var(--sidebar-w);flex-shrink:0;background:var(--surface);
+  border-right:1px solid var(--border);display:flex;flex-direction:column;
+  position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;
+}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-track{background:transparent}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px}
+
+.sb-section{padding:1.25rem 1rem 0.5rem}
+.sb-section-label{font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);padding:0 0.5rem;margin-bottom:0.5rem}
+
+.sb-item{
+  display:flex;align-items:center;gap:0.65rem;padding:0.6rem 0.75rem;
+  border-radius:3px;font-size:0.82rem;font-weight:500;color:rgba(248,248,248,0.65);
+  cursor:pointer;transition:all 0.15s;border:none;background:none;width:100%;text-align:left;
+}
+.sb-item:hover{background:var(--surface-2);color:var(--white)}
+.sb-item.active{background:var(--pink-pale);color:var(--white);border-left:2px solid var(--pink)}
+.sb-item.active .sb-icon{color:var(--pink)}
+.sb-icon{font-size:1rem;width:18px;text-align:center;flex-shrink:0}
+.sb-check{margin-left:auto;width:16px;height:16px;border:1.5px solid rgba(255,255,255,0.2);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.6rem}
+.sb-check.done{background:var(--pink);border-color:var(--pink);color:#fff}
+
+.sb-divider{height:1px;background:var(--border);margin:0.75rem 1rem}
+
+.sb-tool-item{
+  display:flex;align-items:center;gap:0.65rem;padding:0.55rem 0.75rem;
+  border-radius:3px;font-size:0.8rem;font-weight:500;color:rgba(248,248,248,0.55);
+  cursor:pointer;transition:all 0.15s;border:none;background:none;width:100%;text-align:left;
+}
+.sb-tool-item:hover{background:var(--surface-2);color:var(--white)}
+.sb-tool-item.active{background:var(--pink-pale);color:var(--white)}
+
+.sb-upsell{margin:1rem;padding:1rem;background:linear-gradient(135deg,rgba(255,31,122,0.15),rgba(255,31,122,0.05));border:1px solid rgba(255,31,122,0.2);border-radius:3px}
+.sb-upsell-label{font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);margin-bottom:0.4rem}
+.sb-upsell h4{font-family:var(--font-display);font-size:1.1rem;letter-spacing:0.04em;margin-bottom:0.35rem}
+.sb-upsell p{font-size:0.75rem;color:var(--muted);line-height:1.5;margin-bottom:0.75rem}
+.sb-upsell-btn{width:100%;background:var(--pink);color:#fff;border:none;padding:0.6rem;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;transition:background 0.2s}
+.sb-upsell-btn:hover{background:var(--pink-dark)}
+
+/* ── MAIN ── */
+.main{flex:1;overflow-y:auto;min-width:0}
+.main::-webkit-scrollbar{width:4px}
+.main::-webkit-scrollbar-track{background:transparent}
+.main::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:2px}
+
+.panel{display:none;animation:fadeIn 0.25s ease}
+.panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ── DASHBOARD PANEL ── */
+.dash-hero{padding:2.5rem 2rem 0;border-bottom:1px solid var(--border-subtle)}
+.dash-greeting{font-size:0.75rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);margin-bottom:0.4rem}
+.dash-hero h1{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);letter-spacing:0.03em;line-height:1;margin-bottom:0.75rem}
+.dash-hero p{font-size:0.92rem;color:var(--muted);max-width:540px;line-height:1.6;padding-bottom:1.75rem}
+
+.dash-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-subtle);border-bottom:1px solid var(--border-subtle)}
+.stat-card{background:var(--black);padding:1.25rem 1.5rem}
+.stat-num{font-family:var(--font-display);font-size:2.2rem;letter-spacing:0.04em;color:var(--white);line-height:1}
+.stat-num span{color:var(--pink)}
+.stat-label{font-size:0.72rem;color:var(--muted);margin-top:0.2rem;letter-spacing:0.05em}
+
+.dash-body{padding:2rem}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+
+.dash-card{background:var(--surface);border:1px solid var(--border-subtle);border-radius:3px;padding:1.5rem;transition:border-color 0.2s;cursor:pointer}
+.dash-card:hover{border-color:rgba(255,31,122,0.25)}
+.dash-card-icon{font-size:1.4rem;margin-bottom:0.75rem}
+.dash-card-mod{font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);margin-bottom:0.3rem}
+.dash-card h3{font-family:var(--font-display);font-size:1.35rem;letter-spacing:0.03em;line-height:1.1;margin-bottom:0.5rem}
+.dash-card p{font-size:0.8rem;color:var(--muted);line-height:1.55}
+.dash-card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border-subtle)}
+.dash-card-status{font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted)}
+.dash-card-status.started{color:var(--pink)}
+.dash-card-status.done{color:#4ade80}
+.dash-card-arrow{color:var(--pink);font-size:1rem}
+
+.tools-row{margin-top:1.25rem}
+.tools-row h3{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem}
+.tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem}
+.tool-chip{
+  background:var(--surface);border:1px solid var(--border-subtle);border-radius:3px;
+  padding:1rem 0.75rem;text-align:center;cursor:pointer;transition:all 0.15s;
+}
+.tool-chip:hover{border-color:rgba(255,31,122,0.3);background:var(--surface-2)}
+.tool-chip-icon{font-size:1.3rem;margin-bottom:0.4rem}
+.tool-chip-label{font-size:0.7rem;font-weight:600;letter-spacing:0.06em;color:var(--muted)}
+
+/* ── MODULE PANEL ── */
+.module-header{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--border-subtle)}
+.module-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);margin-bottom:0.5rem}
+.module-header h1{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.8rem);letter-spacing:0.03em;line-height:1;margin-bottom:0.5rem}
+.module-header p{font-size:0.9rem;color:var(--muted);max-width:600px;line-height:1.6}
+.module-meta{display:flex;align-items:center;gap:1.5rem;margin-top:1rem;flex-wrap:wrap}
+.module-meta-item{display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--muted)}
+.module-meta-item strong{color:var(--white)}
+
+.module-body{padding:1.5rem 2rem 3rem}
+.lesson-list{display:flex;flex-direction:column;gap:0.75rem}
+
+.lesson-item{
+  background:var(--surface);border:1px solid var(--border-subtle);border-radius:3px;
+  overflow:hidden;transition:border-color 0.2s;
+}
+.lesson-item:hover{border-color:rgba(255,31,122,0.2)}
+.lesson-header{
+  display:flex;align-items:center;gap:1rem;padding:1.1rem 1.25rem;cursor:pointer;
+}
+.lesson-num{font-family:var(--font-display);font-size:1.6rem;color:rgba(255,31,122,0.3);line-height:1;min-width:36px}
+.lesson-info{flex:1}
+.lesson-title{font-weight:600;font-size:0.92rem;margin-bottom:0.15rem}
+.lesson-meta{font-size:0.72rem;color:var(--muted)}
+.lesson-toggle{color:var(--muted);transition:transform 0.2s;font-size:0.8rem}
+.lesson-check{width:22px;height:22px;border:1.5px solid rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;flex-shrink:0;cursor:pointer;transition:all 0.2s}
+.lesson-check.done{background:var(--pink);border-color:var(--pink);color:#fff}
+
+.lesson-body{display:none;padding:0 1.25rem 1.25rem;border-top:1px solid var(--border-subtle)}
+.lesson-body.open{display:block}
+
+.lesson-focus{background:var(--surface-2);border-radius:3px;padding:1rem 1.1rem;margin-bottom:1rem;font-size:0.85rem;color:rgba(248,248,248,0.8);line-height:1.6;border-left:2px solid var(--pink)}
+.lesson-tip{font-size:0.8rem;color:var(--muted);line-height:1.65;margin-bottom:1rem;font-style:italic}
+.lesson-tip strong{color:rgba(248,248,248,0.7);font-style:normal}
+
+.task-list{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1rem}
+.task-item{display:flex;align-items:flex-start;gap:0.75rem;font-size:0.83rem;padding:0.65rem 0.85rem;background:var(--surface-3);border-radius:3px;transition:background 0.2s,border-color 0.2s;border:1px solid transparent}
+.task-item:hover{border-color:rgba(255,31,122,0.15);background:var(--surface-2)}
+.task-item.just-done{background:rgba(255,31,122,0.06);border-color:rgba(255,31,122,0.25)}
+.task-item.just-done .task-text{color:rgba(248,248,248,0.4);text-decoration:line-through}
+.task-cb{width:18px;height:18px;border:1.5px solid rgba(255,255,255,0.2);border-radius:4px;flex-shrink:0;margin-top:1px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.6rem;transition:all 0.2s cubic-bezier(0.175,0.885,0.32,1.275)}
+.task-cb:hover{border-color:var(--pink)}
+.task-cb.done{background:var(--pink);border-color:var(--pink);color:#fff;transform:scale(1.2)}
+.task-text{flex:1;line-height:1.5;transition:color 0.2s}
+.task-tag{font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2px;white-space:nowrap;flex-shrink:0}
+
+.journal-box{background:var(--surface-3);border-radius:3px;padding:1rem;margin-bottom:1rem}
+.journal-label{font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);margin-bottom:0.5rem}
+.journal-q{font-size:0.82rem;color:rgba(248,248,248,0.7);margin-bottom:0.6rem;line-height:1.5}
+textarea.journal-input{
+  width:100%;background:var(--surface-2);border:1px solid var(--border-subtle);border-radius:3px;
+  padding:0.75rem;font-family:var(--font-body);font-size:0.83rem;color:var(--white);
+  resize:vertical;min-height:80px;outline:none;line-height:1.6;transition:border-color 0.2s;
+}
+textarea.journal-input:focus{border-color:rgba(255,31,122,0.3)}
+textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
+
+.affirmation{font-family:var(--font-display);font-size:1.1rem;letter-spacing:0.04em;color:rgba(248,248,248,0.4);line-height:1.3;padding:0.75rem 0}
+.affirmation span{color:var(--white)}
+
+/* ── AI GENERATOR ── */
+.ai-gen-box{background:var(--surface-2);border:1px solid rgba(255,31,122,0.15);border-radius:3px;padding:1.25rem;margin-bottom:1rem}
+.ai-gen-head{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem}
+.ai-badge{display:flex;align-items:center;gap:0.35rem;background:rgba(255,31,122,0.12);border:1px solid rgba(255,31,122,0.25);padding:0.2rem 0.6rem;border-radius:2px;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--pink)}
+.ai-pulse{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.ai-gen-title{font-weight:700;font-size:0.88rem;margin-bottom:0.2rem}
+.ai-gen-sub{font-size:0.78rem;color:var(--muted);margin-bottom:1rem}
+.ai-fields{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem}
+.ai-field-group{display:flex;flex-direction:column;gap:0.3rem}
+.ai-field-group.full{grid-column:1/-1}
+.ai-field-label{font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+.ai-field-input,.ai-field-select,.ai-field-textarea{
+  background:var(--surface-3);border:1px solid rgba(255,255,255,0.07);border-radius:3px;
+  padding:0.65rem 0.75rem;font-family:var(--font-body);font-size:0.83rem;color:var(--white);
+  outline:none;transition:border-color 0.2s;width:100%;
+}
+.ai-field-input:focus,.ai-field-select:focus,.ai-field-textarea:focus{border-color:rgba(255,31,122,0.3)}
+.ai-field-select{appearance:none;cursor:pointer}
+.ai-field-textarea{resize:vertical;min-height:60px;line-height:1.5}
+.ai-field-input::placeholder,.ai-field-textarea::placeholder{color:rgba(255,255,255,0.18)}
+.ai-gen-btn{
+  background:var(--pink);color:#fff;border:none;padding:0.75rem 1.5rem;
+  font-family:var(--font-body);font-size:0.8rem;font-weight:700;letter-spacing:0.1em;
+  text-transform:uppercase;border-radius:3px;transition:all 0.2s;
+}
+.ai-gen-btn:hover{background:var(--pink-dark);box-shadow:0 0 16px var(--pink-glow)}
+.ai-gen-btn:disabled{opacity:0.4;cursor:not-allowed}
+.ai-limit{font-size:0.7rem;color:var(--muted);margin-top:0.6rem}
+.ai-result-box{display:none;margin-top:1rem;background:var(--surface-3);border-radius:3px;padding:1rem}
+.ai-result-label{font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);margin-bottom:0.5rem}
+.ai-result-text{font-size:0.85rem;line-height:1.7;color:var(--white);white-space:pre-wrap}
+.ai-result-actions{display:flex;gap:0.5rem;margin-top:0.75rem;flex-wrap:wrap}
+.ai-action-btn{background:var(--surface-2);border:1px solid var(--border-subtle);color:var(--white);font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.4rem 0.8rem;border-radius:2px;transition:all 0.15s}
+.ai-action-btn:hover{border-color:var(--pink);color:var(--pink)}
+
+/* ── PROMPT LIBRARY ── */
+.prompt-header{padding:2rem 2rem 0}
+.prompt-header h1{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);letter-spacing:0.03em;line-height:1;margin-bottom:0.5rem}
+.prompt-header p{font-size:0.88rem;color:var(--muted);margin-bottom:1.25rem}
+.prompt-search-row{display:flex;gap:0.75rem;flex-wrap:wrap;padding-bottom:1.5rem;border-bottom:1px solid var(--border-subtle)}
+.prompt-search{
+  flex:1;min-width:200px;background:var(--surface);border:1px solid var(--border-subtle);
+  border-radius:3px;padding:0.65rem 1rem;font-family:var(--font-body);font-size:0.85rem;
+  color:var(--white);outline:none;transition:border-color 0.2s;
+}
+.prompt-search:focus{border-color:rgba(255,31,122,0.3)}
+.prompt-search::placeholder{color:rgba(255,255,255,0.25)}
+.prompt-filter-btns{display:flex;gap:0.4rem;flex-wrap:wrap}
+.prompt-filter-btn{
+  background:var(--surface);border:1px solid var(--border-subtle);color:var(--muted);
+  font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  padding:0.5rem 0.9rem;border-radius:2px;transition:all 0.15s;
+}
+.prompt-filter-btn:hover{border-color:rgba(255,31,122,0.3);color:var(--white)}
+.prompt-filter-btn.active{background:var(--pink);border-color:var(--pink);color:#fff}
+
+.prompt-body{padding:1.5rem 2rem 3rem}
+.prompt-count{font-size:0.75rem;color:var(--muted);margin-bottom:1rem;letter-spacing:0.05em}
+.prompt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:0.75rem}
+.prompt-card{
+  background:var(--surface);border:1px solid var(--border-subtle);border-radius:3px;
+  padding:1rem 1.1rem;transition:border-color 0.2s;
+}
+.prompt-card:hover{border-color:rgba(255,31,122,0.25)}
+.prompt-card-cat{font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--pink);margin-bottom:0.5rem}
+.prompt-card-num{font-family:var(--font-display);font-size:0.85rem;color:rgba(255,31,122,0.4);margin-bottom:0.3rem}
+.prompt-card-text{font-size:0.82rem;line-height:1.6;color:rgba(248,248,248,0.8);margin-bottom:0.75rem}
+.prompt-copy-btn{
+  background:none;border:1px solid var(--border-subtle);color:var(--muted);
+  font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  padding:0.3rem 0.65rem;border-radius:2px;transition:all 0.15s;
+}
+.prompt-copy-btn:hover{border-color:var(--pink);color:var(--pink)}
+.prompt-copy-btn.copied{border-color:var(--pink);color:var(--pink)}
+
+/* ── TOOLS ── */
+.tool-panel-header{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--border-subtle)}
+.tool-panel-header h1{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.6rem);letter-spacing:0.03em;margin-bottom:0.5rem}
+.tool-panel-header p{font-size:0.88rem;color:var(--muted);max-width:560px;line-height:1.6}
+.tool-iframe-wrap{padding:1.5rem 2rem;height:calc(100vh - 200px);min-height:500px}
+.tool-iframe-wrap iframe{width:100%;height:100%;border:none;border-radius:3px;background:var(--surface)}
+
+/* ── JOB BOARD ── */
+.jb-header{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--border-subtle)}
+.jb-header h1{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);letter-spacing:0.03em;margin-bottom:0.5rem}
+.jb-header p{font-size:0.88rem;color:var(--muted);max-width:560px;line-height:1.6}
+.jb-body{padding:1.5rem 2rem 3rem}
+.jb-upsell-card{background:linear-gradient(135deg,rgba(255,31,122,0.12),rgba(255,31,122,0.04));border:1px solid rgba(255,31,122,0.25);border-radius:3px;padding:2rem;text-align:center;max-width:540px;margin:0 auto}
+.jb-upsell-card .jb-icon{font-size:2.5rem;margin-bottom:1rem}
+.jb-upsell-card h2{font-family:var(--font-display);font-size:2rem;letter-spacing:0.04em;margin-bottom:0.5rem}
+.jb-upsell-card p{font-size:0.88rem;color:var(--muted);line-height:1.6;margin-bottom:1.5rem}
+.jb-cta-btn{display:inline-block;background:var(--pink);color:#fff;font-family:var(--font-body);font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.9rem 2rem;border-radius:3px;transition:all 0.2s}
+.jb-cta-btn:hover{background:var(--pink-dark);box-shadow:0 0 20px var(--pink-glow)}
+.jb-features{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;max-width:540px;margin:1.5rem auto 0;text-align:left}
+.jb-feature{display:flex;align-items:flex-start;gap:0.5rem;font-size:0.8rem;color:var(--muted)}
+.jb-feature::before{content:'✓';color:var(--pink);font-weight:700;flex-shrink:0}
+
+
+/* ── INLINE TOOLS ── */
+.inline-tool-wrap{padding:1.5rem 2rem 3rem}
+.inline-tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-bottom:1.25rem}
+.itool-group{display:flex;flex-direction:column;gap:0.3rem}
+.itool-group.full{grid-column:1/-1}
+.itool-label{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+.itool-input,.itool-textarea{background:var(--surface);border:1px solid var(--border-subtle);border-radius:3px;padding:0.7rem 0.85rem;font-family:var(--font-body);font-size:0.85rem;color:var(--white);outline:none;transition:border-color 0.2s;width:100%}
+.itool-input:focus,.itool-textarea:focus{border-color:rgba(255,31,122,0.35)}
+.itool-input::placeholder,.itool-textarea::placeholder{color:rgba(255,255,255,0.18)}
+.itool-textarea{resize:vertical;min-height:70px;line-height:1.55}
+.itool-preview{background:var(--surface);border:1px solid var(--border-subtle);border-radius:3px;padding:1.5rem;min-height:120px;white-space:pre-wrap;font-size:0.85rem;line-height:1.75;color:rgba(248,248,248,0.85);margin-bottom:0.85rem}
+.itool-preview-label{color:var(--muted);font-size:0.8rem;font-style:italic}
+.itool-copy-btn{background:var(--pink);color:#fff;border:none;padding:0.8rem 1.75rem;font-family:var(--font-body);font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-radius:3px;transition:all 0.2s;cursor:pointer}
+.itool-copy-btn:hover{background:var(--pink-dark);box-shadow:0 0 16px var(--pink-glow)}
+.itool-add-btn{background:var(--surface-2);border:1px solid var(--border-subtle);color:var(--white);font-family:var(--font-body);font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.25rem;border-radius:3px;cursor:pointer;transition:all 0.15s;margin-bottom:0.85rem}
+.itool-add-btn:hover{border-color:var(--pink);color:var(--pink)}
+.port-entry-card{background:var(--surface);border:1px solid var(--border-subtle);border-radius:3px;padding:1.1rem;margin-bottom:0.75rem}
+.port-entry-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem}
+.port-entry-title{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--pink)}
+.port-entry-remove{background:none;border:none;color:var(--muted);font-size:0.8rem;cursor:pointer}
+.port-entry-remove:hover{color:var(--white)}
+.port-entry-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem}
+@media(max-width:768px){.inline-tool-grid,.port-entry-grid{grid-template-columns:1fr}.inline-tool-wrap{padding:1rem 1.25rem 3rem}}
+
+/* ── CONFETTI + TASK DOPAMINE ── */
+.task-item{position:relative;overflow:visible}
+.task-cb{transition:all 0.2s cubic-bezier(0.175,0.885,0.32,1.275)}
+.task-cb.done{transform:scale(1.15)}
+.task-item.just-done .task-text{color:rgba(248,248,248,0.4);text-decoration:line-through}
+.task-tag-time{color:#a78bfa;background:rgba(167,139,250,0.12)}
+.task-tag-action{color:#34d399;background:rgba(52,211,153,0.1)}
+.task-tag-research{color:#60a5fa;background:rgba(96,165,250,0.1)}
+.task-tag-practice{color:#fbbf24;background:rgba(251,191,36,0.1)}
+.task-tag-pink{color:var(--pink);background:rgba(255,31,122,0.1)}
+.confetti-burst{pointer-events:none;position:fixed;z-index:9999}
+.confetti-piece{position:absolute;width:8px;height:8px;border-radius:2px;animation:confettiFly 0.8s ease-out forwards}
+@keyframes confettiFly{0%{opacity:1;transform:translate(0,0) rotate(0deg) scale(1)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) rotate(var(--rot)) scale(0.5)}}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .sidebar{display:none;position:fixed;top:60px;left:0;bottom:0;z-index:150;width:260px}
+  .sidebar.open{display:flex}
+  .nav-menu-btn{display:flex}
+  .dash-grid{grid-template-columns:1fr}
+  .tools-grid{grid-template-columns:repeat(2,1fr)}
+  .ai-fields{grid-template-columns:1fr}
+  .prompt-grid{grid-template-columns:1fr}
+  .jb-features{grid-template-columns:1fr}
+  .dash-stats{grid-template-columns:1fr 1fr 1fr}
+  .module-body,.dash-body,.prompt-body,.jb-body{padding:1rem 1.25rem 3rem}
+  .module-header,.dash-hero,.prompt-header,.jb-header,.tool-panel-header{padding:1.5rem 1.25rem}
+  .tool-iframe-wrap{padding:1rem 1.25rem;height:70vh}
+}
+
+/* ── PRICING TOOL NATIVE ── */
+.pt-wrap{padding:1.5rem 2rem 3rem;max-width:680px}
+.pt-steps{display:flex;align-items:center;gap:0;margin-bottom:2rem;background:var(--surface);border:1px solid var(--border-subtle);border-radius:3px;overflow:hidden}
+.pt-step-btn{flex:1;padding:0.6rem 0.25rem;font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);background:none;border:none;border-right:1px solid var(--border-subtle);cursor:pointer;transition:all 0.15s;text-align:center}
+.pt-step-btn:last-child{border-right:none}
+.pt-step-btn.pt-done{color:#4ade80;background:rgba(74,222,128,0.05)}
+.pt-step-btn.pt-current{color:var(--pink);background:var(--pink-pale);font-weight:800}
+.pt-step-btn:disabled{cursor:default}
+.pt-card{background:var(--surface);border:1px solid var(--border-subtle);border-radius:3px;padding:1.5rem;margin-bottom:1rem}
+.pt-card-title{font-family:var(--font-display);font-size:1.5rem;letter-spacing:0.03em;margin-bottom:0.3rem}
+.pt-card-sub{font-size:0.83rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.55}
+.pt-label{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;margin-top:1rem;display:block}
+.pt-label:first-of-type{margin-top:0}
+.pt-input{width:100%;background:var(--surface-2);border:1px solid var(--border-subtle);border-radius:3px;padding:0.7rem 0.9rem;font-family:var(--font-body);font-size:0.88rem;color:var(--white);outline:none;transition:border-color 0.2s;margin-bottom:0.25rem}
+.pt-input:focus{border-color:rgba(255,31,122,0.35)}
+.pt-input::placeholder{color:rgba(255,255,255,0.2)}
+.pt-chips{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.5rem}
+.pt-chip{background:var(--surface-2);border:1px solid var(--border-subtle);color:rgba(248,248,248,0.65);font-size:0.75rem;font-weight:600;padding:0.4rem 0.8rem;border-radius:2px;cursor:pointer;transition:all 0.15s}
+.pt-chip:hover{border-color:rgba(255,31,122,0.3);color:var(--white)}
+.pt-chip.pt-active{background:rgba(255,31,122,0.12);border-color:var(--pink);color:var(--pink)}
+.pt-exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem}
+.pt-exp-btn{background:var(--surface-2);border:1px solid var(--border-subtle);color:rgba(248,248,248,0.65);font-size:0.8rem;font-weight:600;padding:0.75rem;border-radius:3px;cursor:pointer;transition:all 0.15s;text-align:center}
+.pt-exp-btn:hover{border-color:rgba(255,31,122,0.3);color:var(--white)}
+.pt-exp-btn.pt-active{background:rgba(255,31,122,0.12);border-color:var(--pink);color:var(--pink)}
+.pt-model-card{display:flex;align-items:center;gap:1rem;background:var(--surface-2);border:1px solid var(--border-subtle);border-radius:3px;padding:1rem;margin-bottom:0.5rem;cursor:pointer;transition:all 0.15s}
+.pt-model-card:hover{border-color:rgba(255,31,122,0.3)}
+.pt-model-card.pt-active{background:rgba(255,31,122,0.08);border-color:var(--pink)}
+.pt-model-icon{font-size:1.4rem;flex-shrink:0}
+.pt-model-text{flex:1}
+.pt-model-title{font-weight:700;font-size:0.88rem;display:block;margin-bottom:0.15rem}
+.pt-model-desc{font-size:0.75rem;color:var(--muted)}
+.pt-model-check{width:20px;height:20px;border:1.5px solid var(--border-subtle);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.6rem;flex-shrink:0;transition:all 0.15s}
+.pt-model-card.pt-active .pt-model-check{background:var(--pink);border-color:var(--pink);color:#fff}
+.pt-rate-display{text-align:center;margin:1rem 0 0.5rem}
+.pt-rate-big{font-family:var(--font-display);font-size:4rem;letter-spacing:0.04em;color:var(--white);line-height:1}
+.pt-rate-per{font-size:1rem;color:var(--muted);margin-left:0.25rem}
+.pt-slider{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:4px;border-radius:2px;outline:none;
+  background:linear-gradient(to right,var(--pink) var(--pct,50%),var(--surface-3) var(--pct,50%));
+  margin:0.75rem 0;cursor:pointer;
+}
+.pt-slider::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:22px;height:22px;border-radius:50%;
+  background:var(--pink);border:3px solid var(--black);
+  box-shadow:0 0 0 2px var(--pink),0 2px 8px rgba(255,31,122,0.4);
+  cursor:grab;transition:transform 0.1s,box-shadow 0.1s;
+}
+.pt-slider:active::-webkit-slider-thumb{
+  cursor:grabbing;transform:scale(1.2);
+  box-shadow:0 0 0 3px var(--pink),0 4px 16px rgba(255,31,122,0.6);
+}
+.pt-slider::-moz-range-thumb{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--pink);border:3px solid var(--black);
+  box-shadow:0 0 0 2px var(--pink);cursor:grab;
+}
+.pt-slider::-moz-range-track{height:4px;border-radius:2px;background:var(--surface-3);}
+.pt-rate-labels{display:flex;justify-content:space-between;font-size:0.7rem;color:var(--muted);margin-bottom:1rem}
+.pt-projs{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-bottom:1rem}
+.pt-proj-card{background:var(--surface-3);border-radius:3px;padding:0.75rem;text-align:center}
+.pt-proj-label{font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:0.25rem}
+.pt-proj-val{font-family:var(--font-display);font-size:1.1rem;color:var(--pink)}
+.pt-pkg-card{background:var(--surface-2);border:1px solid var(--border-subtle);border-radius:3px;padding:1rem;margin-bottom:0.75rem}
+.pt-pkg-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem}
+.pt-pkg-name{background:transparent;border:none;border-bottom:1px solid var(--border-subtle);color:var(--white);font-family:var(--font-display);font-size:1.2rem;letter-spacing:0.04em;outline:none;padding:0.1rem 0;width:60%}
+.pt-pkg-price{font-family:var(--font-display);font-size:1.4rem;color:var(--pink)}
+.pt-pkg-per{font-size:0.75rem;color:var(--muted)}
+.pt-pkg-controls{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.75rem}
+.pt-pkg-field label{font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.25rem}
+.pt-pkg-input{width:100%;background:var(--surface-3);border:1px solid var(--border-subtle);border-radius:3px;padding:0.5rem;font-family:var(--font-body);font-size:0.85rem;color:var(--white);outline:none}
+.pt-chip-sm{background:var(--surface-3);border:1px solid var(--border-subtle);color:rgba(248,248,248,0.55);font-size:0.68rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:2px;cursor:pointer;transition:all 0.12s}
+.pt-chip-sm.pt-active{background:rgba(255,31,122,0.1);border-color:rgba(255,31,122,0.4);color:var(--pink)}
+.pt-add-row{display:flex;gap:0.5rem;margin-bottom:0.75rem}
+.pt-add-row .pt-input{margin:0;flex:1}
+.pt-add-btn{background:var(--pink);color:#fff;border:none;padding:0.7rem 1rem;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:3px;cursor:pointer;white-space:nowrap;transition:background 0.15s;flex-shrink:0}
+.pt-add-btn:hover{background:var(--pink-dark)}
+.pt-project-item{display:flex;align-items:center;justify-content:space-between;padding:0.65rem 0.75rem;background:var(--surface-3);border-radius:3px;margin-bottom:0.4rem}
+.pt-project-name{font-size:0.85rem;font-weight:600;display:block}
+.pt-project-meta{font-size:0.72rem;color:var(--muted)}
+.pt-project-price{font-family:var(--font-display);font-size:1.1rem;color:var(--pink);margin-right:0.5rem}
+.pt-remove-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.8rem}
+.pt-remove-btn:hover{color:var(--white)}
+.pt-summary-rate{display:flex;align-items:baseline;gap:0.25rem;margin:0.5rem 0 1rem}
+.pt-summary-big{font-family:var(--font-display);font-size:3rem;color:var(--white)}
+.pt-summary-per{font-size:0.9rem;color:var(--muted)}
+.pt-summary-title{font-family:var(--font-display);font-size:1.2rem;margin-bottom:0.5rem}
+.pt-chip-ro{background:var(--surface-2);border:1px solid var(--border-subtle);color:rgba(248,248,248,0.7);font-size:0.72rem;padding:0.3rem 0.65rem;border-radius:2px}
+.pt-pkg-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-top:0.75rem}
+.pt-pkg-sum-card{background:var(--surface-2);border:1px solid var(--border-subtle);border-radius:3px;padding:1rem;text-align:center}
+.pt-pkg-sum-card.pt-featured{border-color:var(--pink);background:rgba(255,31,122,0.06)}
+.pt-pkg-sum-name{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.35rem}
+.pt-pkg-sum-price{font-family:var(--font-display);font-size:1.8rem;color:var(--white);line-height:1}
+.pt-pkg-sum-mo{font-size:0.75rem;color:var(--muted)}
+.pt-pkg-sum-hours{font-size:0.75rem;color:var(--muted);margin-top:0.25rem}
+.pt-feat-badge{display:inline-block;background:var(--pink);color:#fff;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.15rem 0.5rem;border-radius:2px;margin-bottom:0.35rem}
+.pt-pkg-sum-list{list-style:none;text-align:left;margin-top:0.6rem;font-size:0.72rem;color:rgba(248,248,248,0.6);display:flex;flex-direction:column;gap:0.2rem}
+.pt-nav{display:flex;align-items:center;justify-content:space-between;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border-subtle)}
+.pt-back-btn{background:none;border:1px solid var(--border-subtle);color:var(--muted);font-family:var(--font-body);font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.7rem 1.25rem;border-radius:3px;cursor:pointer;transition:all 0.15s}
+.pt-back-btn:hover{border-color:var(--white);color:var(--white)}
+.pt-next-btn{background:var(--pink);color:#fff;border:none;font-family:var(--font-body);font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.75rem 1.75rem;border-radius:3px;cursor:pointer;transition:all 0.2s}
+.pt-next-btn:hover{background:var(--pink-dark);box-shadow:0 0 16px var(--pink-glow)}
+.pt-next-btn:disabled{opacity:0.35;cursor:not-allowed}
+.pt-save-row{display:flex;gap:0.75rem;margin-top:1rem}
+.pt-save-btn{background:var(--pink);color:#fff;border:none;font-family:var(--font-body);font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.75rem 1.5rem;border-radius:3px;cursor:pointer;transition:all 0.2s}
+.pt-save-btn:hover{background:var(--pink-dark)}
+.pt-reset-btn{background:none;border:1px solid var(--border-subtle);color:var(--muted);font-family:var(--font-body);font-size:0.72rem;font-weight:600;padding:0.7rem 1rem;border-radius:3px;cursor:pointer;transition:all 0.15s}
+.pt-reset-btn:hover{border-color:var(--white);color:var(--white)}
+.pt-toast{position:fixed;top:72px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--surface-2);border:1px solid var(--border-subtle);color:var(--white);padding:0.65rem 1.25rem;border-radius:3px;font-size:0.8rem;font-weight:600;opacity:0;transition:all 0.25s;z-index:300;pointer-events:none}
+.pt-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:768px){.pt-wrap{padding:1rem 1.25rem 3rem}.pt-projs{grid-template-columns:1fr 1fr}.pt-exp-grid{grid-template-columns:1fr}.pt-pkg-summary{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="nav-left">
+    <button class="nav-menu-btn" onclick="toggleSidebar()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="https://virtueasy.com" class="nav-logo">VIRTU<span>EASY</span></a>
+    <div class="nav-kit-badge">Starter Kit</div>
+  </div>
+  <div class="nav-right">
+    <div class="nav-progress-wrap">
+      <span id="progressLabel">0%</span>
+      <div class="nav-progress-bar"><div class="nav-progress-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+    <button class="nav-logout" onclick="logout()">Sign Out</button>
+  </div>
+</nav>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+  <div class="sb-section">
+    <div class="sb-section-label">Overview</div>
+    <button class="sb-item active" id="sb-dashboard" onclick="showPanel('dashboard')">
+      <span class="sb-icon">⚡</span> Dashboard
+    </button>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-section-label">Modules</div>
+    <button class="sb-item" id="sb-m1" onclick="showPanel('m1')">
+      <span class="sb-icon">🔵</span> Foundation
+      <div class="sb-check" id="chk-m1"></div>
+    </button>
+    <button class="sb-item" id="sb-m2" onclick="showPanel('m2')">
+      <span class="sb-icon">🟡</span> Client Targeting
+      <div class="sb-check" id="chk-m2"></div>
+    </button>
+    <button class="sb-item" id="sb-m3" onclick="showPanel('m3')">
+      <span class="sb-icon">🔴</span> Outreach System
+      <div class="sb-check" id="chk-m3"></div>
+    </button>
+    <button class="sb-item" id="sb-m4" onclick="showPanel('m4')">
+      <span class="sb-icon">🟠</span> Conversion
+      <div class="sb-check" id="chk-m4"></div>
+    </button>
+    <button class="sb-item" id="sb-m5" onclick="showPanel('m5')">
+      <span class="sb-icon">🟣</span> 7–14 Day Sprint
+      <div class="sb-check" id="chk-m5"></div>
+    </button>
+    <button class="sb-item" id="sb-m6" onclick="showPanel('m6')">
+      <span class="sb-icon">⚫</span> AI Toolkit
+      <div class="sb-check" id="chk-m6"></div>
+    </button>
+  </div>
+
+  <div class="sb-divider"></div>
+
+  <div class="sb-section">
+    <div class="sb-section-label">Tools</div>
+    <button class="sb-tool-item" id="sb-prompts" onclick="showPanel('prompts')">
+      <span class="sb-icon">💬</span> 260 Prompts
+    </button>
+    <button class="sb-tool-item" id="sb-proposal" onclick="showPanel('proposal')">
+      <span class="sb-icon">📄</span> Proposal Builder
+    </button>
+    <button class="sb-tool-item" id="sb-portfolio" onclick="showPanel('portfolio')">
+      <span class="sb-icon">📁</span> Portfolio Builder
+    </button>
+    <button class="sb-tool-item" id="sb-pricing" onclick="showPanel('pricing')">
+      <span class="sb-icon">💰</span> Pricing Tool
+    </button>
+  </div>
+
+  <div class="sb-divider"></div>
+
+  <div class="sb-upsell">
+    <div class="sb-upsell-label">🟢 Next Step</div>
+    <h4>Job Board</h4>
+    <p>Real VA gigs, filtered for beginners. Apply and land consistent clients.</p>
+    <button class="sb-upsell-btn" onclick="showPanel('jobboard')">Browse Jobs →</button>
+  </div>
+
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main" id="main">
+
+  <!-- DASHBOARD -->
+  <div class="panel active" id="panel-dashboard">
+    <div class="dash-hero">
+      <div class="dash-greeting">Welcome to the VA Starter Kit</div>
+      <h1>Your Business.<br>Built Step by Step.</h1>
+      <p>Everything you need to land your first paying VA client — modules, tools, prompts, and a real-client pipeline. Work through the modules in order, use the tools anytime.</p>
+    </div>
+    <div class="dash-stats">
+      <div class="stat-card">
+        <div class="stat-num" id="statLessons">0<span>/30</span></div>
+        <div class="stat-label">Lessons Complete</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statModules">0<span>/6</span></div>
+        <div class="stat-label">Modules Done</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statAI">15<span> left</span></div>
+        <div class="stat-label">AI Generations</div>
+      </div>
+    </div>
+    <div class="dash-body">
+      <div class="dash-grid">
+        <div class="dash-card" onclick="showPanel('m1')">
+          <div class="dash-card-icon">🔵</div>
+          <div class="dash-card-mod">Module 1</div>
+          <h3>Foundation</h3>
+          <p>Define your service, pick your lane, set your pricing. Remove the confusion before anything else.</p>
+          <div class="dash-card-foot">
+            <span class="dash-card-status" id="ds-m1">Not started</span>
+            <span class="dash-card-arrow">→</span>
+          </div>
+        </div>
+        <div class="dash-card" onclick="showPanel('m2')">
+          <div class="dash-card-icon">🟡</div>
+          <div class="dash-card-mod">Module 2</div>
+          <h3>Client Targeting</h3>
+          <p>Find where money actually exists. Build a real list of real people to contact — not just ideas.</p>
+          <div class="dash-card-foot">
+            <span class="dash-card-status" id="ds-m2">Not started</span>
+            <span class="dash-card-arrow">→</span>
+          </div>
+        </div>
+        <div class="dash-card" onclick="showPanel('m3')">
+          <div class="dash-card-icon">🔴</div>
+          <div class="dash-card-mod">Module 3</div>
+          <h3>Outreach System</h3>
+          <p>Turn leads into conversations. DM templates, email scripts, follow-up sequences that get replies.</p>
+          <div class="dash-card-foot">
+            <span class="dash-card-status" id="ds-m3">Not started</span>
+            <span class="dash-card-arrow">→</span>
+          </div>
+        </div>
+        <div class="dash-card" onclick="showPanel('m4')">
+          <div class="dash-card-icon">🟠</div>
+          <div class="dash-card-mod">Module 4</div>
+          <h3>Conversion</h3>
+          <p>Discovery call scripts, objection handling, proposal that closes. Get from conversation to cash.</p>
+          <div class="dash-card-foot">
+            <span class="dash-card-status" id="ds-m4">Not started</span>
+            <span class="dash-card-arrow">→</span>
+          </div>
+        </div>
+        <div class="dash-card" onclick="showPanel('m5')">
+          <div class="dash-card-icon">🟣</div>
+          <div class="dash-card-mod">Module 5</div>
+          <h3>7–14 Day Sprint</h3>
+          <p>Stop thinking. Start executing. Day-by-day actions engineered to get your first paying client.</p>
+          <div class="dash-card-foot">
+            <span class="dash-card-status" id="ds-m5">Not started</span>
+            <span class="dash-card-arrow">→</span>
+          </div>
+        </div>
+        <div class="dash-card" onclick="showPanel('m6')">
+          <div class="dash-card-icon">⚫</div>
+          <div class="dash-card-mod">Module 6</div>
+          <h3>AI Toolkit</h3>
+          <p>Outreach generators, proposal openers, follow-up writers. AI does the heavy lifting.</p>
+          <div class="dash-card-foot">
+            <span class="dash-card-status" id="ds-m6">Not started</span>
+            <span class="dash-card-arrow">→</span>
+          </div>
+        </div>
+      </div>
+      <div class="tools-row">
+        <h3>Quick Access — Tools</h3>
+        <div class="tools-grid">
+          <div class="tool-chip" onclick="showPanel('prompts')">
+            <div class="tool-chip-icon">💬</div>
+            <div class="tool-chip-label">260 Prompts</div>
+          </div>
+          <div class="tool-chip" onclick="showPanel('proposal')">
+            <div class="tool-chip-icon">📄</div>
+            <div class="tool-chip-label">Proposal Builder</div>
+          </div>
+          <div class="tool-chip" onclick="showPanel('portfolio')">
+            <div class="tool-chip-icon">📁</div>
+            <div class="tool-chip-label">Portfolio Builder</div>
+          </div>
+          <div class="tool-chip" onclick="showPanel('pricing')">
+            <div class="tool-chip-icon">💰</div>
+            <div class="tool-chip-label">Pricing Tool</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 1 -->
+  <div class="panel" id="panel-m1">
+    <div class="module-header">
+      <div class="module-eyebrow">Module 1 — Foundation</div>
+      <h1>What Am I Selling,<br>And Why Would Anyone Pay Me?</h1>
+      <p>Remove confusion immediately. No execution yet. Walk out knowing exactly what you offer, who it's for, and what to charge — with total confidence.</p>
+      <div class="module-meta">
+        <div class="module-meta-item">⏱ <strong>~3 hours total</strong></div>
+        <div class="module-meta-item">📚 <strong>7 lessons</strong></div>
+        <div class="module-meta-item">🎯 <strong>Output: one clear service + pricing</strong></div>
+      </div>
+    </div>
+    <div class="module-body">
+      <div class="lesson-list" id="lessons-m1"></div>
+    </div>
+  </div>
+
+  <!-- MODULE 2 -->
+  <div class="panel" id="panel-m2">
+    <div class="module-header">
+      <div class="module-eyebrow">Module 2 — Client Targeting</div>
+      <h1>Who Am I Actually<br>Going to Work For?</h1>
+      <p>Fix the #1 failure point: no leads. You'll leave with real people to contact — not ideas, not hypotheticals. Real names in real places.</p>
+      <div class="module-meta">
+        <div class="module-meta-item">⏱ <strong>~3 hours total</strong></div>
+        <div class="module-meta-item">📚 <strong>6 lessons</strong></div>
+        <div class="module-meta-item">🎯 <strong>Output: 10–50 targets to contact</strong></div>
+      </div>
+    </div>
+    <div class="module-body">
+      <div class="lesson-list" id="lessons-m2"></div>
+    </div>
+  </div>
+
+  <!-- MODULE 3 -->
+  <div class="panel" id="panel-m3">
+    <div class="module-header">
+      <div class="module-eyebrow">Module 3 — Outreach System</div>
+      <h1>How Do I Actually<br>Get Responses?</h1>
+      <p>Turn leads into conversations. Copy-paste templates, a proven 3-step message flow, and a daily routine you can sustain without burning out.</p>
+      <div class="module-meta">
+        <div class="module-meta-item">⏱ <strong>~4 hours total</strong></div>
+        <div class="module-meta-item">📚 <strong>5 lessons</strong></div>
+        <div class="module-meta-item">🎯 <strong>Output: actively sending messages</strong></div>
+      </div>
+    </div>
+    <div class="module-body">
+      <div class="lesson-list" id="lessons-m3"></div>
+    </div>
+  </div>
+
+  <!-- MODULE 4 -->
+  <div class="panel" id="panel-m4">
+    <div class="module-header">
+      <div class="module-eyebrow">Module 4 — Conversion</div>
+      <h1>How Do I Get Paid<br>Without Overthinking?</h1>
+      <p>Close your first $100–$500. Pricing scripts, objection handling, and a proposal template that seals deals without second-guessing yourself.</p>
+      <div class="module-meta">
+        <div class="module-meta-item">⏱ <strong>~3 hours total</strong></div>
+        <div class="module-meta-item">📚 <strong>5 lessons</strong></div>
+        <div class="module-meta-item">🎯 <strong>Output: first paying client</strong></div>
+      </div>
+    </div>
+    <div class="module-body">
+      <div class="lesson-list" id="lessons-m4"></div>
+    </div>
+  </div>
+
+  <!-- MODULE 5 -->
+  <div class="panel" id="panel-m5">
+    <div class="module-header">
+      <div class="module-eyebrow">Module 5 — 7–14 Day Execution Sprint</div>
+      <h1>Just Follow This<br>And Get Results.</h1>
+      <p>The magic layer. Stop thinking, start doing. A day-by-day execution sequence engineered to get your first client outcome — or get you so close you can taste it.</p>
+      <div class="module-meta">
+        <div class="module-meta-item">⏱ <strong>14 days</strong></div>
+        <div class="module-meta-item">📚 <strong>14 daily actions</strong></div>
+        <div class="module-meta-item">🎯 <strong>Output: first client or active pipeline</strong></div>
+      </div>
+    </div>
+    <div class="module-body">
+      <div class="lesson-list" id="lessons-m5"></div>
+    </div>
+  </div>
+
+  <!-- MODULE 6 -->
+  <div class="panel" id="panel-m6">
+    <div class="module-header">
+      <div class="module-eyebrow">Module 6 — AI Toolkit</div>
+      <h1>Do It Faster,<br>Not Differently.</h1>
+      <p>AI-powered tools embedded directly in your workflow — not a separate library to browse. Use them inside your tasks to execute faster.</p>
+      <div class="module-meta">
+        <div class="module-meta-item">🤖 <strong>5 AI tools</strong></div>
+        <div class="module-meta-item">⚡ <strong>Embedded in workflow</strong></div>
+        <div class="module-meta-item">💬 <strong>15 generations included</strong></div>
+      </div>
+    </div>
+    <div class="module-body">
+      <div class="lesson-list" id="lessons-m6"></div>
+    </div>
+  </div>
+
+  <!-- 260 PROMPTS -->
+  <div class="panel" id="panel-prompts">
+    <div class="prompt-header">
+      <h1>260 ChatGPT Prompts</h1>
+      <p>Plug-and-play prompts across 8 categories. Replace [brackets] with your details and hit send.</p>
+      <div class="prompt-search-row">
+        <input class="prompt-search" id="promptSearch" type="text" placeholder="Search prompts..." oninput="filterPrompts()">
+        <div class="prompt-filter-btns" id="promptFilters"></div>
+      </div>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-count" id="promptCount"></div>
+      <div class="prompt-grid" id="promptGrid"></div>
+    </div>
+  </div>
+
+  <!-- PROPOSAL BUILDER (inline) -->
+  <div class="panel" id="panel-proposal">
+    <div class="tool-panel-header">
+      <div class="module-eyebrow">Tool — Proposal Builder</div>
+      <h1>Build a Proposal That Closes</h1>
+      <p>Fill in your call notes below. Copy the finished proposal and send it within minutes.</p>
+    </div>
+    <div class="inline-tool-wrap">
+      <div class="inline-tool-grid">
+        <div class="itool-group"><label class="itool-label">Client name</label><input class="itool-input" id="prop_name" placeholder="e.g. Sarah Johnson" oninput="buildProposal()"></div>
+        <div class="itool-group"><label class="itool-label">Their business type</label><input class="itool-input" id="prop_biz" placeholder="e.g. Online fitness coach" oninput="buildProposal()"></div>
+        <div class="itool-group full"><label class="itool-label">Their problem (their exact words)</label><textarea class="itool-textarea" id="prop_problem" placeholder="e.g. I spend 3 hours a day on emails and keep missing sales calls..." oninput="buildProposal()"></textarea></div>
+        <div class="itool-group"><label class="itool-label">Your service / package name</label><input class="itool-input" id="prop_service" placeholder="e.g. The CEO Inbox System" oninput="buildProposal()"></div>
+        <div class="itool-group"><label class="itool-label">Monthly investment</label><input class="itool-input" id="prop_price" placeholder="e.g. $1,200/month" oninput="buildProposal()"></div>
+        <div class="itool-group full"><label class="itool-label">What's included (one per line)</label><textarea class="itool-textarea" id="prop_deliverables" placeholder="Inbox zero management (Mon–Fri)&#10;Calendar blocking + scheduling&#10;Weekly status report&#10;Same-day Slack response" oninput="buildProposal()"></textarea></div>
+        <div class="itool-group"><label class="itool-label">Timeline to results</label><input class="itool-input" id="prop_timeline" placeholder="e.g. First 30 days" oninput="buildProposal()"></div>
+        <div class="itool-group"><label class="itool-label">Reply-by date (urgency)</label><input class="itool-input" id="prop_deadline" placeholder="e.g. Friday, May 2" oninput="buildProposal()"></div>
+        <div class="itool-group full"><label class="itool-label">Why you (1–2 sentences)</label><textarea class="itool-textarea" id="prop_whyme" placeholder="e.g. I've helped 3 coaches reclaim 10+ hours/week in their first month..." oninput="buildProposal()"></textarea></div>
+      </div>
+      <div class="itool-preview" id="proposalPreview">
+        <div class="itool-preview-label">Your proposal will appear here as you fill in the fields above</div>
+      </div>
+      <button class="itool-copy-btn" onclick="copyProposal()">Copy Full Proposal</button>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO BUILDER (inline) -->
+  <div class="panel" id="panel-portfolio">
+    <div class="tool-panel-header">
+      <div class="module-eyebrow">Tool — Portfolio Builder</div>
+      <h1>Build a Portfolio From Scratch</h1>
+      <p>No clients yet? Build spec work entries that look just as credible. Copy and paste into a Google Doc, Notion page, or Canva.</p>
+    </div>
+    <div class="inline-tool-wrap">
+      <div class="port-entries" id="portEntries"></div>
+      <button class="itool-add-btn" onclick="addPortEntry()">+ Add Portfolio Entry</button>
+      <div class="itool-preview" id="portfolioPreview" style="margin-top:1.25rem">
+        <div class="itool-preview-label">Add an entry above to see your portfolio build out</div>
+      </div>
+      <button class="itool-copy-btn" onclick="copyPortfolio()">Copy Full Portfolio</button>
+    </div>
+  </div>
+
+  <!-- PRICING TOOL (native inline) -->
+  <div class="panel" id="panel-pricing">
+    <div class="tool-panel-header">
+      <div class="module-eyebrow">Tool — Pricing Calculator</div>
+      <h1>Price It Like You Mean It</h1>
+      <p>5 steps. A rate you can say without flinching — and the numbers to back it up.</p>
+    </div>
+    <div class="pt-wrap" id="ptApp"></div>
+  </div>
+
+  <!-- JOB BOARD -->
+  <div class="panel" id="panel-jobboard">
+    <div class="jb-header">
+      <div class="module-eyebrow">Module 7 — Opportunity Engine</div>
+      <h1>Now Get Consistent Clients</h1>
+      <p>You've built the foundation. Time to plug into a stream of real, curated VA opportunities — filtered for beginners, updated regularly.</p>
+    </div>
+    <div class="jb-body">
+      <div class="jb-upsell-card">
+        <div class="jb-icon">🟢</div>
+        <h2>VA Job Board</h2>
+        <p>Curated job listings, beginner-friendly gigs, apply-now suggestions, and alerts when new roles drop. Stop searching cold — let the pipeline come to you.</p>
+        <a href="https://virtueasy.com/va-job-board" target="_blank" class="jb-cta-btn">Access the Job Board →</a>
+        <div class="jb-features">
+          <div class="jb-feature">Curated beginner-friendly gigs</div>
+          <div class="jb-feature">Filtered by VA specialty</div>
+          <div class="jb-feature">Apply-now suggestions</div>
+          <div class="jb-feature">New listings regularly</div>
+          <div class="jb-feature">Built for first-time VAs</div>
+          <div class="jb-feature">Free to browse</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<script>
+// ── AUTH ──
+if(sessionStorage.getItem('sk_auth')!=='1') window.location.href='login.html';
+function logout(){ sessionStorage.removeItem('sk_auth'); window.location.href='login.html'; }
+function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
+
+// ── STORAGE ──
+var STORE_KEY = 'sk_v1';
+var state = JSON.parse(localStorage.getItem(STORE_KEY)||'{}');
+function save(){ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
+
+// ── PROGRESS ──
+function updateProgress(){
+  var total = 0, done = 0;
+  MODULES.forEach(function(m){
+    m.lessons.forEach(function(l,i){
+      total++;
+      if((state['done_'+m.id+'_'+i])) done++;
+    });
+  });
+  var pct = total ? Math.round((done/total)*100) : 0;
+  document.getElementById('progressLabel').textContent = pct+'%';
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('statLessons').innerHTML = done+'<span>/'+total+'</span>';
+  var mDone = 0;
+  MODULES.forEach(function(m){
+    var allDone = m.lessons.every(function(l,i){ return state['done_'+m.id+'_'+i]; });
+    if(allDone && m.lessons.length) mDone++;
+    var chk = document.getElementById('chk-'+m.id);
+    if(chk){ chk.classList.toggle('done', allDone && m.lessons.length>0); chk.textContent = (allDone && m.lessons.length>0) ? '✓' : ''; }
+    var ds = document.getElementById('ds-'+m.id);
+    if(ds){
+      var started = m.lessons.some(function(l,i){ return state['done_'+m.id+'_'+i]; });
+      ds.textContent = allDone && m.lessons.length ? 'Complete' : (started ? 'In progress' : 'Not started');
+      ds.className = 'dash-card-status' + (allDone && m.lessons.length ? ' done' : (started ? ' started' : ''));
+    }
+  });
+  document.getElementById('statModules').innerHTML = mDone+'<span>/6</span>';
+  var aiLeft = 15 - (parseInt(state.ai_gens||0));
+  document.getElementById('statAI').innerHTML = aiLeft+'<span> left</span>';
+}
+
+// ── PANELS ──
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.sb-item,.sb-tool-item').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('panel-'+id).classList.add('active');
+  var sb = document.getElementById('sb-'+id);
+  if(sb) sb.classList.add('active');
+  document.getElementById('sidebar').classList.remove('open');
+  window.scrollTo(0,0);
+  document.getElementById('main').scrollTop=0;
+}
+
+// ── MODULE DATA ──
+var MODULES = [
+{id:'m1', lessons:[
+  {day:1, title:'What a VA Actually Does in 2026', time:'20 min', focus:'The VA industry has changed. Stop thinking of yourself as a "helper" — understand the real market, real rates, and why demand is at an all-time high.', tip:'Most VAs underestimate themselves from day one by positioning too broadly. The word "virtual assistant" covers $8/hr Fiverr gigs and $5,000/month executive ops roles. Where you sit in that range is decided now.', tasks:[{text:'Write down every professional skill you have — no filter, no editing',tag:'10 min'},{text:'Circle the top 5 that someone would pay a monthly retainer for',tag:'5 min'},{text:'Research one VA job post in your skill area — note the rate and requirements',tag:'Research'}], prompt:'If I had to describe my most valuable skill to a CEO who is overwhelmed, what would I say?', affirmation:'"You don\'t need to learn new skills. <span>You need to charge for the ones you already have.</span>"'},
+  {day:2, title:'Pick Your Lane in 10 Minutes', time:'15 min', focus:'3–5 VA service paths explained plainly. No overwhelm — just a clear decision framework so you can commit to one direction and move.', tip:'The fastest path to your first client is a clear, specific offer. "I do social media" loses to "I manage Instagram for fitness coaches." Specificity is a competitive advantage, not a limiter.', tasks:[{text:'Review the 5 VA service paths: admin, social media, bookkeeping, tech, content',tag:'5 min'},{text:'Score each 1–5 on: skill level, interest, market demand in your niche',tag:'5 min'},{text:'Pick ONE. Write it on paper. This is your service for the next 90 days.',tag:'Commit'}], prompt:'What\'s the one service I could deliver confidently on day one — without needing more training?', affirmation:'"Choosing one thing feels like closing doors. <span>It\'s actually the only door that opens.</span>"'},
+  {day:3, title:'Define Your Ideal Client', time:'20 min', focus:'Stop selling to everyone. Define the one person you want to work with — the more specific you get, the easier everything that follows becomes.', tip:'Most VAs pick a niche that feels safe instead of one they\'re genuinely excited about. Clients can feel the difference. Enthusiasm is a competitive advantage you can\'t fake.', tasks:[{text:'Write down 3 industries you have experience or genuine interest in',tag:'10 min'},{text:'For each, name one type of business owner inside it (e.g. "solo real estate agent")',tag:'5 min'},{text:'Fill in: "I help [niche] do [result] so they can [bigger outcome]"',tag:'5 min'}], prompt:'Who is the one person I would wake up excited to serve? What do they struggle with that I can genuinely solve?', affirmation:'"The riches are in the niches. <span>The right one client beats ten wrong ones, every time.</span>"'},
+  {day:4, title:'What NOT to Offer Yet', time:'15 min', focus:'Beginner positioning is about confidence, not limitation. Learn what to avoid offering until you have proof — so you don\'t undersell yourself into bad gigs.', tip:'The biggest beginner mistake is saying yes to everything and ending up doing $10/hr data entry when you\'re capable of $50+/hr work. Set the ceiling first, then work up to it.', tasks:[{text:'List every service you could technically offer',tag:'5 min'},{text:'Cross out anything you\'d dread delivering every week',tag:'5 min'},{text:'Circle what remains. That\'s your clean offer set.',tag:'5 min'}], prompt:'If I took on a client tomorrow and had to deliver for 30 days straight, what work would energize me — and what would drain me?', affirmation:'"Saying no to bad work isn\'t picky. <span>It\'s how you make room for work that actually pays.</span>"'},
+  {day:5, title:'Price It Like You Mean It', time:'20 min', focus:'Most VAs undercharge by 40–60%. Do the math, set a number you can say without flinching, and understand why higher prices attract better clients.', tip:'When you raise your prices, you don\'t lose clients — you filter them. Lower prices attract clients who nickel-and-dime. Higher prices attract clients who trust your expertise.', tasks:[{text:'Calculate your minimum: monthly expenses + profit goal ÷ client slots',tag:'Math'},{text:'Research 3 established VAs in your niche — note their rates',tag:'Research'},{text:'Set your starting rate. It should feel slightly uncomfortable — that\'s the point.',tag:'Set it'},{text:'Practice saying your price out loud 5 times without adding "...is that okay?"',tag:'Practice'}], prompt:'What would I charge if I fully believed in the value I deliver? What story keeps me charging less?', affirmation:'"Charging what you\'re worth isn\'t arrogance. <span>Undercharging is just fear wearing a discount tag.</span>"', aiGen:{type:'pricing', title:'AI pricing confidence script', sub:'Get a confident way to state your rate when a client asks.', fields:[{id:'rate',label:'Your monthly rate',ph:'e.g. $1,200/month'},{id:'niche',label:'Your niche',ph:'e.g. online coaches'},{id:'service',label:'Your main service',ph:'e.g. inbox + calendar management'}], buildPrompt:function(v){return 'Write a confident, natural-sounding 2–3 sentence response a virtual assistant can say when a client asks their rate. The VA charges '+v.rate+' per month. They serve '+v.niche+' and specialize in '+v.service+'. No apologies, no hedging, no "is that okay?" — just confident, clear, and value-focused. Return ONLY the script.';}}},
+  {day:6, title:'Create a Named Signature Package', time:'30 min', focus:'Stop selling "VA services." Create one named, outcome-focused package that a client can immediately understand and justify paying for.', tip:'Name your package something that speaks to the transformation, not the tasks. "The CEO Support System" justifies premium pricing in a way that "monthly retainer" never will.', tasks:[{text:'Choose a package name — specific, not "VA Package"',tag:'5 min'},{text:'List exactly what\'s included: deliverables, response times, communication',tag:'15 min'},{text:'Write the outcome: what will their business look like after working with you?',tag:'5 min'},{text:'Set your price and write the one-paragraph pitch',tag:'5 min'}], prompt:'If I could only offer one service to one type of person, what would it be — and why would they pay a premium for it?', affirmation:'"Clarity converts. <span>The more specific your offer, the easier it is for the right person to say yes.</span>"'},
+  {day:7, title:'Set Up Your Simple Systems', time:'30 min', focus:'High-ticket clients expect professionalism before they see your work. Set up the backend that makes you look like a real business from day one.', tip:'Send a welcome email within 24 hours of every new client signing — before you\'ve started the work. It says: I am organized, I am excited, and I run a real business.', tasks:[{text:'Create a simple contract template (use HelloSign free or Google Docs)',tag:'10 min'},{text:'Set up a Calendly or TidyCal link for discovery calls',tag:'10 min'},{text:'Create an invoice template in Wave (free) or Google Sheets',tag:'5 min'},{text:'Draft a welcome email you\'ll send to every new client the day they sign',tag:'5 min'}], prompt:'What would a client\'s first 72 hours working with me feel like? Have I made it easy for them to say yes?', affirmation:'"Systems aren\'t sexy. <span>But they\'re what separate the booked-out VA from the one still chasing invoices.</span>"'}
+]},
+{id:'m2', lessons:[
+  {day:8, title:'Where Real Clients Actually Come From', time:'20 min', focus:'Not theory — the actual channels where VA clients hire today. Understand each one so you know where to spend your limited time.', tip:'The fastest path to your first client isn\'t posting more content — it\'s showing up where your ideal client already complains. Find the groups where they vent. Read. Then show up with answers.', tasks:[{text:'Map the 4 channels: job boards, social media, cold outreach, niche communities',tag:'10 min'},{text:'Score each channel for your niche: 1–5 on ease + speed to first client',tag:'5 min'},{text:'Pick your top 2 channels to focus on first. Write them down.',tag:'5 min'}], prompt:'Where does my ideal client go when they\'re frustrated? When they need help? Am I showing up in those spaces?', affirmation:'"You don\'t need to be everywhere. <span>You need to be exactly where your client already is.</span>"'},
+  {day:9, title:'Job Board Strategy for Beginners', time:'30 min', focus:'Upwork, Contra, Fiverr — done right. Most VAs use these wrong. Learn the beginner-friendly approach that gets responses.', tip:'Your first Upwork job isn\'t about the rate — it\'s about getting one review. That review is worth more than the paycheck. Price to win the first one, then raise your rate immediately after.', tasks:[{text:'Create or optimize your Upwork or Contra profile today',tag:'15 min'},{text:'Apply to 3 jobs in your niche — tailor each proposal, don\'t copy-paste',tag:'10 min'},{text:'Note what makes the top-rated profiles different from yours',tag:'5 min'}], prompt:'What would make a client choose my profile over the 30 other VAs who applied? What\'s my actual competitive edge?', affirmation:'"Your first gig is proof of concept. <span>Your second gig is where the real career begins.</span>"'},
+  {day:10, title:'Social Media — The Organic Play', time:'30 min', focus:'One piece of content that demonstrates expertise is worth a hundred "I\'m available" posts. Learn the content approach that actually attracts clients.', tip:'The posts that get VAs hired are never the ones that say "I\'m available." They\'re the ones that demonstrate expertise — a system you built, a mistake you see businesses make, a result you got.', tasks:[{text:'Write a post that starts with a bold statement about your niche\'s biggest problem',tag:'15 min'},{text:'Include a specific insight — not generic advice',tag:'Edit'},{text:'End with a soft CTA: a question, a DM invite, or a comment prompt',tag:'5 min'},{text:'Post it on LinkedIn AND in the Facebook groups where your niche lives',tag:'Publish'}], prompt:'What\'s one thing I know about my niche that most people get wrong? What would I tell them if they were sitting right across from me?', affirmation:'"Content doesn\'t build audiences. <span>It builds trust. One right person reading the right post changes everything.</span>"'},
+  {day:11, title:'Cold Outreach — Beginner-Friendly Sources', time:'20 min', focus:'Not all cold outreach is created equal. Learn which sources make cold outreach manageable for beginners — and which ones to avoid until you have traction.', tip:'Start with warm-cold: people who have engaged with content you\'ve commented on, who are in the same groups, or who you have a 1-degree connection to. True cold is harder. Warm-cold is where beginners win.', tasks:[{text:'List 10 people in your existing network who might know your ideal client',tag:'10 min'},{text:'Search your niche Facebook group for people asking for help with your service area',tag:'5 min'},{text:'Identify 5 LinkedIn profiles of ideal clients who are actively posting',tag:'5 min'}], prompt:'Who do I already know — or almost know — who could connect me to my first client? Have I actually asked?', affirmation:'"Your network is bigger than you think. <span>You just haven\'t activated it yet.</span>"'},
+  {day:12, title:'Build Your Lead List: 10–50 Targets', time:'45 min', focus:'Walk out of this lesson with a real spreadsheet of real people you can contact. Not ideas. Actual names, platforms, and notes.', tip:'Quantity matters at the start — but only if you\'re actually sending. A list of 50 with no outreach does nothing. A list of 10 with 10 messages sent is a pipeline.', tasks:[{text:'Open a Google Sheet: columns for Name, Business, Platform, Notes, Status',tag:'5 min'},{text:'Find 10 ideal clients on LinkedIn using your niche + pain point keywords',tag:'15 min'},{text:'Find 10 more in your top Facebook group — people who post problems you solve',tag:'15 min'},{text:'Add 10 more from Upwork job posts or Instagram using niche hashtags',tag:'10 min'}], prompt:'What does each person on my list actually need? Am I looking at them as targets — or as people with real problems I can solve?', affirmation:'"A lead list isn\'t a hit list. <span>It\'s a list of people who need exactly what you\'re offering. Treat it that way.</span>"'},
+  {day:13, title:'Niche Communities — The Hidden Channel', time:'20 min', focus:'Facebook groups, Slack communities, subreddits — the places where your ideal clients gather and ask questions. This is where organic authority builds fastest.', tip:'The fastest way to get clients from communities is to answer questions so well that people DM you. Not to pitch. Answer publicly, pitch nothing, and let your value speak. The pitch happens in the DMs.', tasks:[{text:'Join 3 active Facebook or LinkedIn groups where your niche hangs out',tag:'10 min'},{text:'Set a timer for 10 minutes: find every post asking for help with your service area',tag:'5 min'},{text:'Reply to at least 2 posts with genuinely helpful, specific answers',tag:'5 min'}], prompt:'If I spent 20 minutes a day in one community answering questions, what would my reputation look like in 30 days?', affirmation:'"Visibility without value is noise. <span>Value without visibility is a waste. Do both.</span>"'}
+]},
+{id:'m3', lessons:[
+  {day:14, title:'The Simple Outreach Formula', time:'20 min', focus:'One formula. Every effective cold message follows a version of it. Learn it, internalize it, and stop overthinking what to say.', tip:'The #1 reason cold messages get ignored isn\'t the pitch — it\'s that they\'re clearly copy-pasted. One specific detail about their business is worth more than a perfect opening line.', tasks:[{text:'Study 3 cold messages you\'ve received. Write down what made them annoying.',tag:'10 min'},{text:'Write a message using the formula: Specific Observation + Pain Point + Soft CTA',tag:'7 min'},{text:'Read it out loud. Would you respond to this?',tag:'3 min'}], prompt:'If I received this message, would I reply? What would make me actually want to respond to a stranger reaching out?', affirmation:'"The best cold outreach doesn\'t feel cold. <span>It feels like someone actually paid attention.</span>"'},
+  {day:15, title:'DM + Email Templates (Copy-Paste Ready)', time:'30 min', focus:'Proven templates you can use today — Instagram DM, LinkedIn connection note, cold email, Facebook group pitch. Personalize one detail per message.', tip:'Personalization doesn\'t have to take 20 minutes per message. Swap the first sentence with one specific detail. That single change moves reply rates from 2% to 15–25%.', tasks:[{text:'Review each template and choose the 2 that fit your channel + niche best',tag:'5 min'},{text:'Personalize each for 3 specific prospects from your lead list',tag:'15 min'},{text:'Send them. No second-guessing, no tweaking after the fact.',tag:'Send it'}], prompt:'What\'s the story I tell myself when I hesitate to reach out? What would happen if I just sent the message anyway?', affirmation:'"You miss 100% of the messages you don\'t send. <span>Ship the outreach.</span>"', aiGen:{type:'dm', title:'AI cold DM generator', sub:'Fill in the details below and get a personalized DM script in seconds.', fields:[{id:'niche',label:'Your niche',ph:'e.g. fitness coaches'},{id:'pain',label:'Their biggest pain',ph:'e.g. no time for admin'},{id:'platform',label:'Platform',type:'select',opts:['Instagram','LinkedIn','Facebook','Email']},{id:'observation',label:'One specific thing you noticed about them',ph:'e.g. They post Reels constantly but their bio link goes nowhere',full:true}], buildPrompt:function(v){return 'Write a personalized cold '+v.platform+' outreach message from a virtual assistant targeting '+v.niche+' business owners. Their biggest pain: '+v.pain+'. Specific observation about this prospect: '+v.observation+'. Use the formula: Specific observation → Pain point connection → Soft CTA. Under 5 sentences. No emojis. Do not say "I hope this message finds you well." Confident, natural, not salesy. Return ONLY the message.';}}}  ,
+  {day:16, title:'Send 10 Outreach Messages Today', time:'45 min', focus:'Today is a doing day. No more prep. Ten messages go out before you close your laptop. That\'s the entire assignment.', tip:'Track every message in your lead list spreadsheet: name, platform, date sent, response. The habit of tracking is what separates a real pipeline from scattered activity.', tasks:[{text:'Pull up your lead list — identify your top 10 prospects',tag:'5 min'},{text:'Personalize your template for each: one specific detail per message',tag:'20 min'},{text:'Send all 10. No second-guessing.',tag:'Send it'},{text:'Log every message: name, platform, date, status',tag:'Track'}], prompt:'What\'s the worst that realistically happens if I send 10 messages today? What\'s the best?', affirmation:'"10 outreach attempts today beats a perfect strategy you never execute. <span>Send the messages.</span>"'},
+  {day:17, title:'The Follow-Up System', time:'20 min', focus:'80% of sales happen after the 5th follow-up. Most VAs stop after one. Build a 3-touch follow-up sequence you can run on autopilot.', tip:'The best follow-up message isn\'t a nudge — it\'s a value drop. Share something genuinely useful. You\'re not reminding them you exist. You\'re proving it was a good idea to talk to you.', tasks:[{text:'Write Follow-Up #1: 3 days after first message — add value, not pressure',tag:'7 min'},{text:'Write Follow-Up #2: 7 days later — share a relevant insight or resource',tag:'7 min'},{text:'Write Follow-Up #3: 14 days — the graceful "breakup" close',tag:'6 min'}], prompt:'Why do I avoid following up? Is it fear of rejection — or fear of actually getting a yes?', affirmation:'"Most people don\'t ignore your message. They forget. <span>Remind them.</span>"', aiGen:{type:'followup', title:'AI follow-up message generator', sub:'Write a follow-up that adds value instead of just chasing a reply.', fields:[{id:'name',label:'Prospect first name',ph:'e.g. Sarah'},{id:'niche',label:'Their business',ph:'e.g. real estate coach'},{id:'goal',label:'Their main goal',ph:'e.g. free up 10hrs/week'},{id:'days',label:'Days since first message',type:'select',opts:['3 days','7 days','14 days']}], buildPrompt:function(v){return 'Write a follow-up message for a virtual assistant to send to '+v.name+', a '+v.niche+', '+v.days+' after their first outreach. Their goal: '+v.goal+'. Do NOT say "just checking in." Add one small piece of value. Under 5 sentences. Soft CTA only. Warm and confident. Return ONLY the message.';}}}  ,
+  {day:18, title:'Daily Outreach Routine', time:'15 min', focus:'Consistency beats intensity. Build a daily 30-minute outreach block you can actually sustain — because sporadic outreach produces sporadic results.', tip:'Block time in your calendar before 10am for outreach. Before you check email, before you scroll social. It\'s the most important business-building activity you have right now.', tasks:[{text:'Block 30 minutes in your calendar every weekday for outreach',tag:'2 min'},{text:'Create a daily checklist: 5 new messages + 3 follow-ups + 2 community replies',tag:'5 min'},{text:'Commit to this routine for the next 14 days — no skipping',tag:'Commit'}], prompt:'What has to be true about my schedule for outreach to happen consistently? What gets in the way — and how do I remove that obstacle?', affirmation:'"Results come from systems, not streaks. <span>Build the routine and the results follow.</span>"'}
+]},
+{id:'m4', lessons:[
+  {day:19, title:'Master the Discovery Call', time:'25 min', focus:'Discovery calls aren\'t interviews — they\'re diagnostic conversations. Build a 5-question framework that positions you as an expert before you say a word about price.', tip:'The most powerful thing you can do on a discovery call is repeat their words back to them. When you present your offer, use their language — not yours. It makes the solution feel tailor-made.', tasks:[{text:'Write 5 open-ended questions that uncover the prospect\'s problem and urgency',tag:'15 min'},{text:'Script your opening 90 seconds: who you are, what the call covers, what to expect',tag:'5 min'},{text:'Plan your close: how you\'ll present your offer at the end',tag:'5 min'}], prompt:'What questions, if answered, would tell me everything I need to know about whether this is the right client?', affirmation:'"The best closer isn\'t the best talker. <span>They\'re the best listener.</span>"', aiGen:{type:'discovery', title:'AI discovery call question generator', sub:'Get a customized set of diagnostic questions for your specific niche.', fields:[{id:'niche',label:'Your niche',ph:'e.g. online course creators'},{id:'pain',label:'Their main pain point',ph:'e.g. overwhelmed with launch admin'},{id:'goal',label:'Outcome you help them achieve',ph:'e.g. a stress-free launch'}], buildPrompt:function(v){return 'Write 5 powerful open-ended discovery call questions for a virtual assistant serving '+v.niche+'. Their main pain: '+v.pain+'. The VA helps them achieve: '+v.goal+'. Questions should diagnose urgency, budget readiness, and decision timeline — without sounding like an interrogation. Natural, consultative. Return ONLY the 5 numbered questions.';}}}  ,
+  {day:20, title:'Handle Objections Before They Happen', time:'20 min', focus:'"I need to think about it" is code for something. Learn to decode the 3 most common objections — and respond with confidence instead of deflation.', tip:'The objection you fear most is the one you\'re least prepared for — and prospects sense that hesitation. Rehearse your responses until they feel natural, not defensive.', tasks:[{text:'List the top 3 objections you expect: price, timing, "I\'ll do it myself"',tag:'5 min'},{text:'Write a response to each: acknowledge → reframe → redirect',tag:'12 min'},{text:'Role-play each objection out loud — with a friend or in the mirror',tag:'Practice'}], prompt:'What am I most afraid someone will say on a call? What\'s the truth underneath that fear?', affirmation:'"An objection is not a rejection. <span>It\'s a question wearing a trench coat.</span>"'},
+  {day:21, title:'Send a Proposal That Closes', time:'45 min', focus:'A weak proposal loses clients a strong call already won. Build one that seals the deal — starting with their own words.', tip:'Start your proposal with their problem — in their exact words from the call. It signals you listened and makes everything that follows feel specifically written for them. Because it was.', tasks:[{text:'Open with their problem — in their own words from the call',tag:'10 min'},{text:'Present your offer: name, deliverables, timeline, price. No fluff.',tag:'15 min'},{text:'Add a short "why me" section — specific, one paragraph',tag:'10 min'},{text:'Close with a clear CTA and deadline: "Reply YES by [date]"',tag:'10 min'}], prompt:'If I were the prospect reading this proposal, what would make me say yes immediately? What would make me hesitate?', affirmation:'"A proposal isn\'t a document. <span>It\'s a decision made easy.</span>"', aiGen:{type:'proposal', title:'AI proposal opener generator', sub:'Turn your call notes into a powerful opening paragraph that makes the prospect feel heard.', fields:[{id:'niche',label:'Prospect\'s business type',ph:'e.g. online fitness coach'},{id:'problem',label:'Their problem in their own words',ph:'e.g. I spend 3hrs a day on emails and miss sales calls',full:true},{id:'goal',label:'What outcome do they want?',ph:'e.g. get their time back and focus on coaching'}], buildPrompt:function(v){return 'Write a powerful opening paragraph for a virtual assistant\'s proposal to a '+v.niche+'. Use the prospect\'s own words where possible: "'+v.problem+'". Their goal: '+v.goal+'. Make them feel completely understood, remind them of the cost of inaction, and set up the offer that follows. Warm, confident, specific. 3–4 sentences. Return ONLY the paragraph.';}}}  ,
+  {day:22, title:'Handle Post-Proposal Silence', time:'15 min', focus:'Silence after a proposal feels personal. It isn\'t. Learn to follow up with confidence — and know exactly when to close the loop and move on.', tip:'The worst follow-up is "Just checking in." The best follow-up adds something — a relevant stat, a quick thought about their business. Make every touch a reason to re-engage.', tasks:[{text:'Wait 48 hours after sending the proposal before following up',tag:'Timing'},{text:'Send a short, warm check-in with a soft question and a touch of value',tag:'10 min'},{text:'Set a hard date in your calendar for when you\'ll consider this lead closed',tag:'Mindset'}], prompt:'What story am I telling myself in the silence after a proposal? Is it true — or is my brain filling in the worst case?', affirmation:'"Silence is not rejection. <span>It\'s just timing. Follow up with confidence, not apology.</span>"'},
+  {day:23, title:'Close Your First Client', time:'All day', focus:'This is the day things get real. Your entire mission: close one deal. Sign the contract. Collect the first payment. Everything you\'ve built leads here.', tip:'If they say yes on the call, send the contract within the hour. Not tomorrow. The deal cools the moment the call ends. Strike while the energy is there.', tasks:[{text:'Review your active leads — who is closest to a yes?',tag:'10 min'},{text:'Send a direct, confident close message to your top 3 prospects',tag:'20 min'},{text:'If you get a yes: send the contract immediately, invoice within 24 hours',tag:'Close'},{text:'If not yet: run your follow-up sequence and book two more discovery calls',tag:'Pipeline'}], prompt:'What does it mean — really — if I close my first client this week? What changes? What becomes possible?', affirmation:'"One client proves you can do it. <span>A system proves you\'ve built something real.</span>"'}
+]},
+{id:'m5', lessons:[
+  {day:24, title:'Day 1–2: Service + Niche Lock', time:'Day 1–2', focus:'Execute your Module 1 decisions. Finalize your service, your niche, your rate. Make it real — update your LinkedIn, write your one-liner, set up your systems.', tip:'You\'ve done the thinking. These two days are about making it official. A profile that doesn\'t reflect your offer is invisible to your ideal client. Fix it before you outreach.', tasks:[{text:'Finalize your service and niche — no more changing until you\'ve tested it',tag:'Day 1'},{text:'Update your LinkedIn headline and About section to reflect your offer',tag:'Day 1'},{text:'Create your lead list spreadsheet and add 20 targets',tag:'Day 2'},{text:'Send your first 5 messages — today, not tomorrow',tag:'Day 2'}], prompt:'Am I stalling on setup as a way to avoid the discomfort of actually sending messages? What\'s the real reason I\'m not done yet?', affirmation:'"Setup is not the work. <span>Outreach is the work. Start the work.</span>"'},
+  {day:25, title:'Day 3: Refine Your Message', time:'Day 3', focus:'Take the message you sent yesterday and make it better. Look at what got opened, what didn\'t, what got a reply. Iterate before you scale.', tip:'One reply — even a "no" — tells you more than 50 unopened messages. A "not right now" is data. A "who are you?" is data. Treat every response as feedback, not a verdict.', tasks:[{text:'Review your sent messages — any opens, replies, or engagement?',tag:'Audit'},{text:'Rewrite your DM/email based on what you know now',tag:'Improve'},{text:'Send 5 more messages with the improved version',tag:'Send'}], prompt:'What did my first messages teach me? What would I do differently if I wrote them today?', affirmation:'"Version 2 is always better than version 1. <span>You can\'t write version 2 without sending version 1.</span>"'},
+  {day:26, title:'Days 4–7: Outreach Cycle', time:'Days 4–7', focus:'Pure execution. 10 new messages per day, logged, tracked, followed up. No other business-building activity until this is done.', tip:'Four days of consistent outreach will generate more results than four weeks of inconsistent effort. Show up every day. The compound effect of outreach is real.', tasks:[{text:'Send 10 new personalized messages every day — from your lead list',tag:'Daily'},{text:'Log every message: name, platform, date, status',tag:'Track'},{text:'Reply to every response within 2 hours during business hours',tag:'Respond'},{text:'Book any discovery call that comes through — priority one',tag:'Book'}], prompt:'What would my outreach numbers look like at the end of Day 7 if I showed up consistently? What\'s my actual number goal?', affirmation:'"40 messages in 4 days. <span>Most VAs send 4 in 40 days. That\'s the gap you\'re closing.</span>"'},
+  {day:27, title:'Days 8–10: Follow-Up Cycle', time:'Days 8–10', focus:'The money is in the follow-up. Run your 3-touch sequence on every lead from Days 4–7 who hasn\'t replied. Add value. Stay persistent without being desperate.', tip:'By day 8, you should have prospects in multiple follow-up stages. Work the pipeline — not just the new leads. The person you messaged on Day 4 might convert on Day 10.', tasks:[{text:'Send Follow-Up #1 to everyone messaged on Day 4–5',tag:'Day 8'},{text:'Send Follow-Up #2 to everyone messaged in your first week',tag:'Day 9'},{text:'Continue new outreach alongside follow-ups — 5 new + all follow-ups',tag:'Day 10'},{text:'Book or confirm any discovery calls that came from follow-ups',tag:'Pipeline'}], prompt:'How many people in my pipeline are waiting on a follow-up right now? What\'s stopping me from sending it?', affirmation:'"The pipeline doesn\'t fill itself. <span>You fill it — one follow-up at a time.</span>"'},
+  {day:28, title:'Days 11–14: Close the Pipeline', time:'Days 11–14', focus:'Final push. Run your closing sequence on every warm lead. Book calls. Send proposals. Follow up on proposals. Move every active conversation to a decision.', tip:'By day 14, you should have at least one discovery call completed, one proposal sent, or one client signed. If not — something in the process needs diagnosing, not more activity.', tasks:[{text:'Identify your top 5 warmest leads — anyone who replied, engaged, or showed interest',tag:'Day 11'},{text:'Send a direct close message to each: "Are you open to a 20-minute call this week?"',tag:'Day 11'},{text:'Run all booked discovery calls — listen, diagnose, present your offer',tag:'Day 12–13'},{text:'Send proposals within 24 hours of every discovery call',tag:'Day 13–14'},{text:'Follow up on any outstanding proposals with the value-add follow-up',tag:'Day 14'}], prompt:'At the end of Day 14, what result would make me proud? What\'s the one action I could take right now that would move me closest to that result?', affirmation:'"14 days of real execution changes everything. <span>You\'re not the same VA you were 2 weeks ago.</span>"'}
+]},
+{id:'m6', lessons:[
+  {day:29, title:'Outreach Prompt Generator', time:'Use anytime', focus:'Generate personalized cold DMs, email openers, and LinkedIn messages in seconds. Fill in your niche + their pain — the AI writes the first draft.', tip:'Use AI to generate, then edit with your voice. The goal isn\'t to send an AI message — it\'s to get a strong first draft in 10 seconds instead of 20 minutes.', tasks:[{text:'Use the generator below to write your next 3 outreach messages',tag:'Tool'},{text:'Edit each one: add a personal observation specific to that prospect',tag:'Personalize'},{text:'Send immediately — don\'t save for later',tag:'Send'}], prompt:'What would my outreach volume look like if writing one message took 3 minutes instead of 20?', affirmation:'"AI does the heavy lifting. <span>You do the thinking. That combination is unstoppable.</span>"', aiGen:{type:'dm', title:'Outreach Message Generator', sub:'Your niche + their pain = a first-draft message in seconds.', fields:[{id:'niche',label:'Target niche',ph:'e.g. real estate agents'},{id:'pain',label:'Their biggest pain',ph:'e.g. overwhelmed with admin'},{id:'platform',label:'Platform',type:'select',opts:['Instagram','LinkedIn','Email','Facebook']},{id:'observation',label:'Specific observation about this person',ph:'e.g. They just launched a new listing page with no follow-up system',full:true}], buildPrompt:function(v){return 'Write a personalized cold '+v.platform+' message from a VA targeting '+v.niche+'. Their pain: '+v.pain+'. Observation: '+v.observation+'. Formula: Observation → Pain connection → Soft CTA. Under 5 sentences. No emojis. Not salesy. Return ONLY the message.';}}}  ,
+  {day:30, title:'Proposal Generator', time:'Use anytime', focus:'Turn your discovery call notes into a powerful proposal opening paragraph — in their words, about their problem, building straight into your solution.', tip:'The proposal opener is the highest-leverage paragraph you\'ll write. Get it right and everything that follows lands differently. Use the generator, then refine it with your own voice.', tasks:[{text:'Pull up your most recent discovery call notes',tag:'Prep'},{text:'Use the generator below with their actual words from the call',tag:'Tool'},{text:'Drop the output into the top of your proposal template',tag:'Apply'}], prompt:'How would my close rate change if every proposal opened with the client\'s own words staring back at them?', affirmation:'"The proposal that feels most personal closes fastest. <span>Make it about them.</span>"', aiGen:{type:'proposal', title:'Proposal Opener Generator', sub:'Their words + their goal = an opening that makes them feel completely understood.', fields:[{id:'niche',label:'Their business type',ph:'e.g. wellness coach'},{id:'problem',label:'Their problem in their words',ph:'e.g. I spend all day on emails instead of coaching',full:true},{id:'goal',label:'Their desired outcome',ph:'e.g. more time with clients, less time on admin'}], buildPrompt:function(v){return 'Write a powerful opening paragraph for a VA proposal sent to a '+v.niche+'. Their exact problem: "'+v.problem+'". Their goal: '+v.goal+'. Start with empathy for their situation. Use their language. Create urgency around the cost of doing nothing. Set up the offer that follows. 3–4 sentences. Warm, confident, specific. Return ONLY the paragraph.';}}}  ,
+  {day:31, title:'Follow-Up Writer', time:'Use anytime', focus:'Write a value-add follow-up that gets responses — not a "just checking in" message that gets ignored. Input the context, get a draft that sounds human.', tip:'The best follow-up messages don\'t feel like follow-ups. They feel like someone thought of you and shared something useful. That\'s exactly what this tool generates.', tasks:[{text:'Pull up your outreach tracker — who needs a follow-up today?',tag:'Audit'},{text:'Use the generator for your top 3 prospects',tag:'Tool'},{text:'Personalize each with one specific detail before sending',tag:'Send'}], prompt:'How many people in my pipeline right now are sitting on a yes — waiting for me to follow up?', affirmation:'"Every unanswered message is a second chance. <span>Take it.</span>"', aiGen:{type:'followup', title:'Follow-Up Message Writer', sub:'Value-add follow-ups that get replies — not "just checking in" noise.', fields:[{id:'name',label:'Prospect name',ph:'e.g. Jessica'},{id:'niche',label:'Their business',ph:'e.g. life coach'},{id:'goal',label:'Their goal from your conversation',ph:'e.g. get their calendar under control'},{id:'days',label:'Days since last contact',type:'select',opts:['3 days','7 days','14 days','Over 2 weeks']}], buildPrompt:function(v){return 'Write a follow-up message for a VA to send to '+v.name+', a '+v.niche+', '+v.days+' after their last contact. Their goal: '+v.goal+'. Add one small piece of value or insight. Under 5 sentences. Warm and confident. No "just checking in." No pressure. Return ONLY the message.';}}}  ,
+  {day:32, title:'Pricing Confidence Script', time:'Use anytime', focus:'Generate a confident, natural way to state your rate when a client asks. Say your price clearly — no apologies, no hedging.', tip:'Practice saying your price out loud until the number feels normal in your mouth. If you hesitate when you say it, so does your client. Confidence in the rate is contagious.', tasks:[{text:'Use the generator with your current rate and niche',tag:'Tool'},{text:'Practice saying the output out loud 5 times',tag:'Practice'},{text:'Record yourself saying your rate on your phone — listen back',tag:'Audit'}], prompt:'What would change about my sales conversations if I could state my rate with total confidence every single time?', affirmation:'"Your rate is your rate. <span>State it like a fact, not a question.</span>"', aiGen:{type:'pricing', title:'Pricing Confidence Script', sub:'Say your rate clearly — and make it land right.', fields:[{id:'rate',label:'Your monthly rate',ph:'e.g. $1,500/month'},{id:'niche',label:'Your niche',ph:'e.g. e-commerce brands'},{id:'service',label:'Your core service',ph:'e.g. email marketing management'}], buildPrompt:function(v){return 'Write a confident, natural-sounding 2–3 sentence response a VA can say when a client asks their rate. Rate: '+v.rate+' per month. Niche: '+v.niche+'. Service: '+v.service+'. No apologies. No hedging. No "is that okay?" Just confident, clear, and value-focused. Return ONLY the script.';}}}  ,
+  {day:33, title:'Rewrite Any Message', time:'Use anytime', focus:'Paste any message — outreach, follow-up, proposal section — and get an improved version that\'s more confident, clearer, or shorter. Your universal editing tool.', tip:'Use this before sending any important message. "Is this as strong as it can be?" costs you 30 seconds. Sending a weak message costs you the client.', tasks:[{text:'Paste your most recent outreach message into the generator',tag:'Tool'},{text:'Compare the original and the rewrite — what changed?',tag:'Learn'},{text:'Send the stronger version',tag:'Send'}], prompt:'What\'s one message sitting in my drafts right now that I haven\'t sent because I don\'t think it\'s good enough? What if I just made it better and sent it?', affirmation:'"Done is better than perfect. <span>Better is better than done. Use the tool.</span>"', aiGen:{type:'rewrite', title:'Message Rewriter', sub:'Paste any message. Get a stronger version back.', fields:[{id:'message',label:'Paste your message here',ph:'Paste your outreach, follow-up, or proposal section...',full:true,type:'textarea'},{id:'goal',label:'What should it do better?',type:'select',opts:['More confident','More concise','Clearer CTA','Less salesy','More personal']}], buildPrompt:function(v){return 'Rewrite the following message to make it '+v.goal.toLowerCase()+'. Keep the core intent but improve the execution. Do not add fluff or change the voice entirely. Return ONLY the rewritten message.\n\nOriginal:\n'+v.message;}}}
+]}
+];
+
+// ── RENDER MODULES ──
+var AI_MAX = 15;
+function getAIRem(){ return AI_MAX - (parseInt(state.ai_gens||0)); }
+
+function renderLesson(m, lesson, idx){
+  var doneKey = 'done_'+m.id+'_'+idx;
+  var isDone = !!state[doneKey];
+  var journalKey = 'journal_'+m.id+'_'+idx;
+
+  var tasksHtml = lesson.tasks.map(function(t,ti){
+    var taskKey = 'task_'+m.id+'_'+idx+'_'+ti;
+    var tDone = !!state[taskKey];
+    var tagLower=t.tag.toLowerCase();var tagCls=tagLower.includes('min')||tagLower.includes('hr')||tagLower.includes('day')?'task-tag task-tag-time':tagLower.includes('send')||tagLower.includes('publish')||tagLower.includes('post')||tagLower.includes('commit')?'task-tag task-tag-action':tagLower.includes('research')||tagLower.includes('audit')?'task-tag task-tag-research':tagLower.includes('practice')||tagLower.includes('record')?'task-tag task-tag-practice':'task-tag task-tag-pink';return '<div class="task-item'+(tDone?' just-done':'')+'">'+'<div class="task-cb'+(tDone?' done':'')+'" onclick="toggleTask(\''+taskKey+'\',\''+m.id+'\','+idx+')">'+(tDone?'✓':'')+'</div><div class="task-text">'+t.text+'</div><div class="'+tagCls+'">'+t.tag+'</div></div>';
+  }).join('');
+
+  var aiHtml = '';
+  if(lesson.aiGen){
+    var gen = lesson.aiGen;
+    var fieldsHtml = gen.fields.map(function(f){
+      var fid = 'ai_'+m.id+'_'+idx+'_'+f.id;
+      var cls = 'ai-field-group'+(f.full?' full':'');
+      var inp = '';
+      if(f.type==='select'&&f.opts){
+        inp = '<select class="ai-field-select" id="'+fid+'">'+f.opts.map(function(o){return '<option>'+o+'</option>';}).join('')+'</select>';
+      } else if(f.type==='textarea'||f.full){
+        inp = '<textarea class="ai-field-textarea" id="'+fid+'" placeholder="'+(f.ph||'')+'"></textarea>';
+      } else {
+        inp = '<input class="ai-field-input" id="'+fid+'" type="text" placeholder="'+(f.ph||'')+'">';
+      }
+      return '<div class="'+cls+'"><div class="ai-field-label">'+f.label+'</div>'+inp+'</div>';
+    }).join('');
+    var rem = getAIRem();
+    aiHtml = '<div class="ai-gen-box"><div class="ai-gen-head"><div class="ai-badge"><div class="ai-pulse"></div> AI Powered</div></div><div class="ai-gen-title">'+gen.title+'</div><div class="ai-gen-sub">'+gen.sub+'</div><div class="ai-fields">'+fieldsHtml+'</div><button class="ai-gen-btn" id="aiBtn_'+m.id+'_'+idx+'" onclick="aiGenerate(\''+m.id+'\','+idx+')">Generate →</button><div class="ai-limit" id="aiLim_'+m.id+'_'+idx+'">'+rem+' generation'+(rem!==1?'s':'')+' remaining</div><div class="ai-result-box" id="aiRes_'+m.id+'_'+idx+'"><div class="ai-result-label">Your Script</div><div class="ai-result-text" id="aiText_'+m.id+'_'+idx+'"></div><div class="ai-result-actions"><button class="ai-action-btn" onclick="aiCopy(\''+m.id+'\','+idx+')">Copy</button><button class="ai-action-btn" onclick="aiGenerate(\''+m.id+'\','+idx+')">Regenerate</button></div></div></div>';
+  }
+
+  return '<div class="lesson-item" id="li_'+m.id+'_'+idx+'">'+
+    '<div class="lesson-header" onclick="toggleLesson(\''+m.id+'\','+idx+')">'+
+    '<div class="lesson-num">'+String(idx+1).padStart(2,'0')+'</div>'+
+    '<div class="lesson-info"><div class="lesson-title">'+lesson.title+'</div><div class="lesson-meta">'+lesson.time+'</div></div>'+
+    '<div class="lesson-toggle" id="lt_'+m.id+'_'+idx+'">▼</div>'+
+    '<div class="lesson-check'+(isDone?' done':'')+'" id="lc_'+m.id+'_'+idx+'" onclick="event.stopPropagation();toggleLesson_done(\''+m.id+'\','+idx+')">'+(isDone?'✓':'')+'</div>'+
+    '</div>'+
+    '<div class="lesson-body" id="lb_'+m.id+'_'+idx+'">'+
+    '<div class="lesson-focus">'+lesson.focus+'</div>'+
+    '<p class="lesson-tip"><strong>Pro Tip:</strong> '+lesson.tip+'</p>'+
+    '<div class="task-list">'+tasksHtml+'</div>'+
+    (lesson.prompt?'<div class="journal-box"><div class="journal-label">Journal Prompt</div><div class="journal-q">'+lesson.prompt+'</div><textarea class="journal-input" placeholder="Write your thoughts here..." onchange="saveJournal(\''+journalKey+'\',this.value)">'+escape_html(state[journalKey]||'')+'</textarea></div>':'')+
+    aiHtml+
+    '<div class="affirmation">'+lesson.affirmation+'</div>'+
+    '</div>'+
+    '</div>';
+}
+
+function escape_html(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function toggleLesson(mid, idx){
+  var body = document.getElementById('lb_'+mid+'_'+idx);
+  var tog = document.getElementById('lt_'+mid+'_'+idx);
+  var open = body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  tog.textContent = open ? '▼' : '▲';
+}
+
+function toggleLesson_done(mid, idx){
+  var key = 'done_'+mid+'_'+idx;
+  state[key] = !state[key];
+  save();
+  var chk = document.getElementById('lc_'+mid+'_'+idx);
+  chk.classList.toggle('done', !!state[key]);
+  chk.textContent = state[key] ? '✓' : '';
+  updateProgress();
+}
+
+function toggleTask(taskKey, mid, idx){
+  var wasUndone = !state[taskKey];
+  state[taskKey] = !state[taskKey];
+  save();
+  var el = event.currentTarget;
+  el.classList.toggle('done', !!state[taskKey]);
+  el.textContent = state[taskKey] ? '✓' : '';
+  var row = el.closest('.task-item');
+  if(row) row.classList.toggle('just-done', !!state[taskKey]);
+  if(wasUndone && state[taskKey]){
+    var rect = el.getBoundingClientRect();
+    launchConfetti(rect.left + rect.width/2, rect.top + rect.height/2);
+  }
+  var allDone = true;
+  var m = MODULES.find(function(x){return x.id===mid;});
+  var lesson = m.lessons[idx];
+  lesson.tasks.forEach(function(t,ti){
+    if(!state['task_'+mid+'_'+idx+'_'+ti]) allDone = false;
+  });
+  if(allDone){ state['done_'+mid+'_'+idx]=true; save(); var chk=document.getElementById('lc_'+mid+'_'+idx); if(chk){chk.classList.add('done');chk.textContent='✓';} }
+  updateProgress();
+}
+
+function saveJournal(key, val){ state[key]=val; save(); }
+
+// ── AI ──
+var PROXY_URL = 'https://workbook-theta.vercel.app/api/generate';
+
+function aiGenerate(mid, idx){
+  var rem = getAIRem();
+  if(rem<=0){ alert('You\'ve used all your AI generations for this kit.'); return; }
+  var m = MODULES.find(function(x){return x.id===mid;});
+  var lesson = m.lessons[idx];
+  var gen = lesson.aiGen;
+  var values = {};
+  gen.fields.forEach(function(f){
+    var el = document.getElementById('ai_'+mid+'_'+idx+'_'+f.id);
+    if(el) values[f.id] = el.value.trim();
+  });
+  if(!values[gen.fields[0].id]){ document.getElementById('ai_'+mid+'_'+idx+'_'+gen.fields[0].id).focus(); return; }
+  var prompt = gen.buildPrompt(values);
+  var btn = document.getElementById('aiBtn_'+mid+'_'+idx);
+  btn.textContent = 'Generating...'; btn.disabled=true;
+  fetch(PROXY_URL, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({prompt: prompt})
+  }).then(function(r){return r.json();}).then(function(d){
+    var text = d.result || (d.content&&d.content[0]&&d.content[0].text) || 'Error generating. Please try again.';
+    document.getElementById('aiText_'+mid+'_'+idx).textContent = text;
+    document.getElementById('aiRes_'+mid+'_'+idx).style.display='block';
+    state.ai_gens = (parseInt(state.ai_gens||0))+1; save();
+    var newRem = getAIRem();
+    document.getElementById('aiLim_'+mid+'_'+idx).textContent = newRem+' generation'+(newRem!==1?'s':'')+' remaining';
+    document.getElementById('statAI').innerHTML = newRem+'<span> left</span>';
+  }).catch(function(){
+    document.getElementById('aiText_'+mid+'_'+idx).textContent = 'Something went wrong. Check your connection and try again.';
+    document.getElementById('aiRes_'+mid+'_'+idx).style.display='block';
+  }).finally(function(){
+    btn.textContent='Generate →'; btn.disabled=false;
+  });
+}
+
+function aiCopy(mid, idx){
+  var text = document.getElementById('aiText_'+mid+'_'+idx).textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var btns = document.querySelectorAll('#aiRes_'+mid+'_'+idx+' .ai-action-btn');
+    if(btns[0]){ btns[0].textContent='Copied!'; setTimeout(function(){btns[0].textContent='Copy';},1500); }
+  });
+}
+
+// ── INIT MODULES ──
+MODULES.forEach(function(m){
+  var el = document.getElementById('lessons-'+m.id);
+  if(!el) return;
+  el.innerHTML = m.lessons.map(function(l,i){ return renderLesson(m,l,i); }).join('');
+});
+
+// ── 260 PROMPTS ──
+var PROMPTS = [
+  {num:'001',cat:'Business Setup',text:'Write a professional bio for a virtual assistant who specializes in [niche, e.g., social media management for coaches]. Keep it under 150 words, written in third person, and end with a call to action.'},
+  {num:'002',cat:'Business Setup',text:'Generate a list of 10 virtual assistant service packages I can offer as a beginner, priced between $300 and $1,500/month, for [target client type, e.g., real estate agents].'},
+  {num:'003',cat:'Business Setup',text:'Draft a simple one-page business plan for a virtual assistant business targeting [niche]. Include mission statement, services, target clients, income goal, and a 90-day action plan.'},
+  {num:'004',cat:'Business Setup',text:'Create a professional email signature for my VA business. Business name: [name]. Services: [list]. Email: [email]. Website: [url]. Include a short tagline.'},
+  {num:'005',cat:'Business Setup',text:'Write an FAQ page for my virtual assistant website targeting [niche clients]. Include 8 common questions and clear, confident answers.'},
+  {num:'006',cat:'Business Setup',text:'Generate a 30-60-90 day launch plan for a new virtual assistant business in the [niche] space. Include specific actions for each phase.'},
+  {num:'007',cat:'Business Setup',text:'Write a refund and cancellation policy for a monthly retainer VA service. Keep it professional but client-friendly.'},
+  {num:'008',cat:'Business Setup',text:'Create a client onboarding checklist for a virtual assistant that covers everything from first payment to first deliverable.'},
+  {num:'009',cat:'Business Setup',text:'Draft a scope of work document for a VA retainer package that includes [list of services]. Make it professional and contract-ready.'},
+  {num:'010',cat:'Business Setup',text:'Write three different versions of a value proposition statement for a virtual assistant who specializes in helping [niche clients] with [specific tasks].'},
+  {num:'011',cat:'Business Setup',text:'Create a list of 15 tools every virtual assistant should know how to use, organized by category (communication, project management, design, etc.).'},
+  {num:'012',cat:'Business Setup',text:'Help me name my virtual assistant business. My niche is [niche]. My name is [name]. Give me 10 creative, professional name options.'},
+  {num:'013',cat:'Business Setup',text:'Write a services page for my VA website. I offer [list services]. My target client is [describe ideal client]. Tone: professional but warm.'},
+  {num:'014',cat:'Business Setup',text:'Generate a pricing guide document I can send to potential clients. Include three package tiers for [niche VA services] with what is included at each level.'},
+  {num:'015',cat:'Business Setup',text:'Write a professional voicemail script for my virtual assistant business that is friendly, clear, and prompts the caller to leave a detailed message.'},
+  {num:'016',cat:'Business Setup',text:'Create an automated welcome email sequence (3 emails) for new clients of my VA business. Include: welcome, what to expect, and getting started instructions.'},
+  {num:'017',cat:'Business Setup',text:'Draft a client feedback form with 8 questions that helps me improve my services and gather testimonials after a 30-day engagement.'},
+  {num:'018',cat:'Business Setup',text:'Write a professional out-of-office email template for when I am on vacation or unavailable. Make it warm but set clear expectations.'},
+  {num:'019',cat:'Business Setup',text:'Generate a list of 10 internal systems and processes a virtual assistant should document before taking on clients at scale.'},
+  {num:'020',cat:'Business Setup',text:'Write the copy for a simple About page for a virtual assistant website. Focus on connecting with [niche clients] and building trust.'},
+  {num:'021',cat:'Client Outreach',text:'Write a cold DM pitch for Instagram targeting [type of business owner, e.g., online coaches] who look like they are overwhelmed with admin tasks. Keep it under 100 words and do not sound salesy.'},
+  {num:'022',cat:'Client Outreach',text:'Draft a cold email pitch to a [niche business owner] offering virtual assistant services. Subject line should create curiosity. Body should identify a pain point and offer a solution.'},
+  {num:'023',cat:'Client Outreach',text:'Write 5 different cold outreach opening lines I can use on LinkedIn when reaching out to [target client type] about VA services.'},
+  {num:'024',cat:'Client Outreach',text:'Generate a follow-up message I can send 3 days after a discovery call that did not result in a signed contract. Be professional, not pushy.'},
+  {num:'025',cat:'Client Outreach',text:'Write a proposal email for a potential client who asked me to send over my packages. Include a summary of what I offer, pricing, and a clear next step.'},
+  {num:'026',cat:'Client Outreach',text:'Create a script for a 30-minute discovery call with a potential VA client. Include opening, qualifying questions, needs assessment, and soft close.'},
+  {num:'027',cat:'Client Outreach',text:'Write a compelling pitch for my VA services to share in a Facebook group where business owners ask for referrals and recommendations.'},
+  {num:'028',cat:'Client Outreach',text:'Draft a LinkedIn post that positions me as an expert virtual assistant and subtly invites [niche business owners] to reach out without being salesy.'},
+  {num:'029',cat:'Client Outreach',text:'Write 3 different subject lines for a cold outreach email targeting [niche] business owners. Each should create a different emotional trigger: curiosity, urgency, relatability.'},
+  {num:'030',cat:'Client Outreach',text:'Generate a 5-message DM sequence for warming up a cold prospect on Instagram before making an offer. Space them naturally over 5 days.'},
+  {num:'031',cat:'Client Outreach',text:'Write a referral request email I can send to past clients or business contacts asking them to refer me to anyone who might need a virtual assistant.'},
+  {num:'032',cat:'Client Outreach',text:'Draft a re-engagement email for a prospect who went cold after an initial conversation 2 months ago. Be light, not desperate.'},
+  {num:'033',cat:'Client Outreach',text:'Write a short pitch I can use on Upwork or Fiverr to stand out from other VAs applying for [type of project].'},
+  {num:'034',cat:'Client Outreach',text:'Create a response template for when a prospect asks "What makes you different from other virtual assistants?" Make it specific to [my niche/specialty].'},
+  {num:'035',cat:'Client Outreach',text:'Write an objection response for when a potential client says "I don\'t think I\'m ready to hire a VA yet." Help me educate them without being aggressive.'},
+  {num:'036',cat:'Client Outreach',text:'Draft a follow-up email after sending a proposal that has not received a response in 5 business days.'},
+  {num:'037',cat:'Client Outreach',text:'Write a short, magnetic pitch I can use at networking events when someone asks what I do as a virtual assistant. Under 30 seconds when spoken.'},
+  {num:'038',cat:'Client Outreach',text:'Generate 5 conversation starters I can use in Facebook groups to build relationships with [ideal client type] without pitching immediately.'},
+  {num:'039',cat:'Client Outreach',text:'Write a testimonial request message to send to a happy client asking them to leave a Google review or provide a short written testimonial.'},
+  {num:'040',cat:'Client Outreach',text:'Draft a polite but confident response to a client who is trying to lowball my rates. Help me hold my price while keeping the relationship intact.'},
+  {num:'041',cat:'Service Delivery',text:'Write a professional email response on behalf of my client [name/business type] to a customer complaint about [issue]. Keep it empathetic, solution-focused, and on-brand.'},
+  {num:'042',cat:'Service Delivery',text:'Summarize this meeting transcript into 5 bullet point action items: [paste transcript]. Identify who is responsible for each item if mentioned.'},
+  {num:'043',cat:'Service Delivery',text:'Create a weekly status report template for a virtual assistant to send to clients every Friday. Include: tasks completed, tasks in progress, blockers, and next week\'s priorities.'},
+  {num:'044',cat:'Service Delivery',text:'Write a professional email from my client [type of business] following up with a lead who attended their webinar but has not booked a call.'},
+  {num:'045',cat:'Service Delivery',text:'Draft a client communication email announcing a price increase for services. Make it professional, warm, and value-focused.'},
+  {num:'046',cat:'Service Delivery',text:'Create a project management board template for [type of project, e.g., launching a podcast] with phases, tasks, owners, and due dates.'},
+  {num:'047',cat:'Service Delivery',text:'Write a series of 3 reminder emails for an event happening in [30 days, 7 days, 1 day]. The event is [event name and type]. Tone: excited and professional.'},
+  {num:'048',cat:'Service Delivery',text:'Proofread and improve this piece of writing for grammar, clarity, and tone: [paste text]. Keep the original voice intact.'},
+  {num:'049',cat:'Service Delivery',text:'Write a standard operating procedure (SOP) for [task, e.g., scheduling social media posts in Buffer]. Include step-by-step instructions a new team member could follow.'},
+  {num:'050',cat:'Service Delivery',text:'Create a contact list management system template in spreadsheet format for a [type of business] with columns for name, email, phone, status, last contact, and notes.'},
+  {num:'051',cat:'Service Delivery',text:'Draft a polite but firm email to a client\'s contractor or vendor about a late deliverable. My client is [business type], the issue is [describe issue].'},
+  {num:'052',cat:'Service Delivery',text:'Write a professional response to a negative online review for my client, a [type of business]. The complaint is: [paste review]. Stay calm, empathetic, and professional.'},
+  {num:'053',cat:'Service Delivery',text:'Create a content repurposing plan for one long-form blog post by my client. The post is about [topic]. Give me 10 pieces of micro-content I can create from it.'},
+  {num:'054',cat:'Service Delivery',text:'Write a script for a client\'s 2-minute brand introduction video. Their business is [describe business]. Audience is [describe audience]. Tone: [warm/bold/professional].'},
+  {num:'055',cat:'Service Delivery',text:'Draft a weekly newsletter template for a [type of business] client. Include sections for a featured tip, product/service highlight, and a personal note from the owner.'},
+  {num:'056',cat:'Service Delivery',text:'Help me create a simple CRM process for my client who needs to track [number] leads per week. They use [tool, e.g., Notion or Google Sheets].'},
+  {num:'057',cat:'Service Delivery',text:'Write 5 responses to common customer service questions for a [type of business]. The questions are: [list questions]. Keep answers friendly and on-brand.'},
+  {num:'058',cat:'Service Delivery',text:'Create a content calendar for one month of Instagram posts for a [niche business]. Include post type, topic, caption hook, and hashtag category.'},
+  {num:'059',cat:'Service Delivery',text:'Draft a product launch email sequence (4 emails) for my client who is launching [product/service]. Include: announcement, value, urgency, and last chance emails.'},
+  {num:'060',cat:'Service Delivery',text:'Write an executive summary of this business document or report: [paste content]. Keep it under 200 words and highlight the 3 most important points.'},
+  {num:'061',cat:'Social Media',text:'Write 10 Instagram caption hooks for a [niche business] that stop the scroll. Each hook should speak directly to a pain point of [target audience].'},
+  {num:'062',cat:'Social Media',text:'Generate a 30-day Instagram content plan for a [type of business]. Include post topic, content format (reel, carousel, static), and a one-line caption angle for each day.'},
+  {num:'063',cat:'Social Media',text:'Write 5 TikTok video script outlines for a [niche business] using the hook-content-CTA format. Each should be under 60 seconds.'},
+  {num:'064',cat:'Social Media',text:'Create 10 engaging question prompts for a Facebook group for [niche audience]. The goal is to spark conversation and build community.'},
+  {num:'065',cat:'Social Media',text:'Write a LinkedIn article outline for a [profession] on the topic of [topic]. Include intro, 3-5 main sections, and a closing CTA.'},
+  {num:'066',cat:'Social Media',text:'Generate 15 hashtag sets for a [niche business] Instagram account. Group them by theme: niche, audience, content type.'},
+  {num:'067',cat:'Social Media',text:'Write a caption for a before-and-after post for a [type of business]. The transformation is [describe transformation]. Add an engaging CTA.'},
+  {num:'068',cat:'Social Media',text:'Create a Pinterest board description and 5 pin descriptions for a [niche business] promoting [product or service].'},
+  {num:'069',cat:'Social Media',text:'Write a YouTube video description template for a [niche] channel. Include keyword placement, timestamp format, and a subscribe CTA.'},
+  {num:'070',cat:'Social Media',text:'Generate 10 story prompts for Instagram Stories that will drive engagement and sales for a [type of business or product].'},
+  {num:'071',cat:'Social Media',text:'Write a Facebook ad copy for a [product or service] targeting [audience]. Include a strong hook, benefit statement, social proof placeholder, and CTA. Keep it under 125 words.'},
+  {num:'072',cat:'Social Media',text:'Create a social media bio for [platform] for a [type of business or personal brand]. Include what they do, who they help, and a CTA in under 150 characters.'},
+  {num:'073',cat:'Social Media',text:'Write 5 email subject lines for a weekly newsletter sent by a [type of business or coach]. Each should achieve a different goal: curiosity, urgency, personal, value, question.'},
+  {num:'074',cat:'Social Media',text:'Generate 10 reel ideas for a [niche] brand that would perform well with [target audience]. Include a one-sentence hook for each.'},
+  {num:'075',cat:'Social Media',text:'Write a Twitter/X thread outline on the topic of [topic] for a [profession or brand]. Include 8-10 tweets, starting with a bold statement and ending with a CTA.'},
+  {num:'076',cat:'Social Media',text:'Create a caption series for 5 consecutive Instagram posts that tell a story arc for a [type of business launching a product or offer].'},
+  {num:'077',cat:'Social Media',text:'Write 3 carousel post scripts for LinkedIn on the topic of [topic] targeting [professional audience]. Each slide should have a title and 2-3 lines of copy.'},
+  {num:'078',cat:'Social Media',text:'Generate content ideas for 4 weeks of email newsletters for a [niche business]. Include subject line, main topic, and one content element per week.'},
+  {num:'079',cat:'Social Media',text:'Write an Instagram reel script using the viral "nobody talks about this" format for a [niche] brand. Hook: nobody talks about [topic]. Deliver 3-5 insights.'},
+  {num:'080',cat:'Social Media',text:'Create a social proof post template a virtual assistant can use to share a client win without revealing confidential details. Make it relatable and credibility-building.'},
+  {num:'081',cat:'Research',text:'Research and summarize the top 5 competitors for a [type of business] in the [location or niche] market. Include their pricing, strengths, and weaknesses based on publicly available information.'},
+  {num:'082',cat:'Research',text:'Create a market research summary for a [type of business] wanting to expand into [new market or niche]. Cover audience demographics, demand indicators, and potential barriers.'},
+  {num:'083',cat:'Research',text:'Write a SWOT analysis framework for a [type of business]. Leave placeholder fields so my client can fill in specific details.'},
+  {num:'084',cat:'Research',text:'Generate a list of 20 blog post topics for a [niche business] that are likely to rank well and attract [target audience]. Include a target keyword for each.'},
+  {num:'085',cat:'Research',text:'Summarize the key trends in the [industry] space for 2024-2025 that a [type of business owner] should know about.'},
+  {num:'086',cat:'Research',text:'Create a competitive analysis spreadsheet template with column headers and sample rows for a [type of service business].'},
+  {num:'087',cat:'Research',text:'Write a research brief on [topic] that I can present to my client in a 1-page summary. Include key stats, trends, and 3 actionable takeaways.'},
+  {num:'088',cat:'Research',text:'Generate a list of 15 podcast names in the [niche] space that my client could pitch as a guest. Include what each podcast covers and estimated audience size if known.'},
+  {num:'089',cat:'Research',text:'Write a survey template with 10 questions my client can use to gather feedback from their [customers/email list/community members] about [topic].'},
+  {num:'090',cat:'Research',text:'Compile a list of 20 influencers or content creators in the [niche] space on [platform] that a [type of business] might consider for collaboration.'},
+  {num:'091',cat:'Research',text:'Summarize this article or report in 5 bullet points, identifying the most important insight for a [type of business owner]: [paste content].'},
+  {num:'092',cat:'Research',text:'Generate a keyword research list of 25 search terms a person would use to find a [type of business or service] online. Group by intent: informational, navigational, transactional.'},
+  {num:'093',cat:'Research',text:'Create a media contact list template for a [type of business] doing PR outreach. Include columns for outlet name, contact name, email, beat, and last interaction.'},
+  {num:'094',cat:'Research',text:'Write a trend report outline on [industry topic] for a client presentation. Include sections for current state, key players, emerging trends, and predictions.'},
+  {num:'095',cat:'Research',text:'Help me build a client avatar document for a [type of business]. Include demographics, psychographics, goals, pain points, objections, and where they hang out online.'},
+  {num:'096',cat:'Research',text:'Generate a list of 10 speaking topics a [type of professional or business owner] could pitch to industry conferences or podcasts in the [niche] space.'},
+  {num:'097',cat:'Research',text:'Write a gap analysis framework for a [type of business] comparing where they are now versus where they want to be in 12 months.'},
+  {num:'098',cat:'Research',text:'Create a social listening report template a VA can use to track brand mentions and competitor activity for a [type of business] client.'},
+  {num:'099',cat:'Research',text:'Summarize the pros and cons of the top 3 project management tools ([tool 1, tool 2, tool 3]) for a small [type of business]. Help my client decide which one to use.'},
+  {num:'100',cat:'Research',text:'Build a lead research template a VA can use to pre-qualify prospects for a [type of sales business]. Include columns for company, contact, revenue estimate, tech stack, and notes.'},
+  {num:'101',cat:'Writing',text:'Rewrite this paragraph to be more engaging and easier to read for a general audience. Keep the core message but improve flow and remove jargon: [paste text].'},
+  {num:'102',cat:'Writing',text:'Edit this email for tone. The current draft sounds too passive. Make it confident, professional, and action-oriented without being aggressive: [paste email].'},
+  {num:'103',cat:'Writing',text:'Write a press release for [company name] announcing [news or event]. Include: headline, dateline, body with quotes, boilerplate, and contact info.'},
+  {num:'104',cat:'Writing',text:'Convert this bullet point list into a cohesive, professional paragraph suitable for a client proposal or executive summary: [paste bullets].'},
+  {num:'105',cat:'Writing',text:'Write a 500-word blog post introduction for the topic [topic] targeting [audience]. The intro should hook the reader, establish the problem, and promise a solution.'},
+  {num:'106',cat:'Writing',text:'Draft a thank-you email my client can send after a sales call, even if the prospect did not buy. Make it personal, genuine, and leave the door open.'},
+  {num:'107',cat:'Writing',text:'Write a brand voice guide for a [type of business]. Include: tone, vocabulary to use, vocabulary to avoid, sample sentence rewrites, and examples of on-brand vs off-brand copy.'},
+  {num:'108',cat:'Writing',text:'Proofread this social media caption for grammar and clarity. Also suggest one way to make the hook stronger: [paste caption].'},
+  {num:'109',cat:'Writing',text:'Write a ghostwritten LinkedIn post for a [type of professional] on the topic of [topic]. Voice should feel personal, authoritative, and approachable. No buzzwords.'},
+  {num:'110',cat:'Writing',text:'Turn this long, rambling paragraph into 3 clear, concise sentences without losing the original meaning: [paste paragraph].'},
+  {num:'111',cat:'Writing',text:'Write a script for a 60-second explainer video about [product or service] for [target audience]. Use simple language. End with a strong CTA.'},
+  {num:'112',cat:'Writing',text:'Draft a grant proposal opening section for a nonprofit focused on [mission]. Include: statement of need, target population, and proposed solution.'},
+  {num:'113',cat:'Writing',text:'Write a professional letter of recommendation template for a client to use when vouching for a team member, contractor, or business partner.'},
+  {num:'114',cat:'Writing',text:'Create a style guide checklist for a VA to use when editing content for a [type of business] client. Include tone, formatting, preferred punctuation, and vocabulary notes.'},
+  {num:'115',cat:'Writing',text:'Write 3 versions of the same marketing headline for [product or service]: one emotional, one logical, one curiosity-driven.'},
+  {num:'116',cat:'Writing',text:'Draft a script for a client podcast episode intro. The podcast is [name]. The host is [name]. The episode topic is [topic]. Make it energetic and set expectations.'},
+  {num:'117',cat:'Writing',text:'Write a case study outline for a [type of business] showcasing a client success story. Include: challenge, approach, results, and client quote placeholder.'},
+  {num:'118',cat:'Writing',text:'Create a 5-day email welcome sequence for new subscribers to a [niche] email list. Each email should build trust and lead toward a soft pitch for [product or service].'},
+  {num:'119',cat:'Writing',text:'Edit this web page copy for conversions. The goal is to get the visitor to [specific action]. Highlight what is weak and rewrite the 3 most important sections: [paste copy].'},
+  {num:'120',cat:'Writing',text:'Write a personal story post for a [type of business owner] to share on social media. The story should build connection with [audience] and subtly lead to their offer.'},
+  {num:'121',cat:'VA Growth',text:'Write a plan for how I can transition from hourly VA work to retainer-based packages. I currently work with [number] clients at [$X/hour]. Help me map out the shift.'},
+  {num:'122',cat:'VA Growth',text:'Generate 10 passive or semi-passive income ideas a virtual assistant with skills in [list skills] could launch alongside their client work.'},
+  {num:'123',cat:'VA Growth',text:'Write a strategic plan for raising my VA rates by [amount or percentage] without losing current clients. Include email template and timing recommendations.'},
+  {num:'124',cat:'VA Growth',text:'Create a pitch deck outline for a virtual assistant who wants to partner with a digital marketing agency as a white-label service provider.'},
+  {num:'125',cat:'VA Growth',text:'Help me build a referral partner program for my VA business. Include how I would structure it, commission rate ideas, and an outreach pitch template.'},
+  {num:'126',cat:'VA Growth',text:'Write a hiring plan for bringing on a subcontractor VA to help with overflow work. Include: job posting, interview questions, onboarding checklist, and rate structure.'},
+  {num:'127',cat:'VA Growth',text:'Draft a business development strategy for growing my VA client base from [current number] to [goal number] in the next [timeframe].'},
+  {num:'128',cat:'VA Growth',text:'Write a case for why I should specialize in [niche] as a virtual assistant instead of being a generalist. Include income potential and competitive advantages.'},
+  {num:'129',cat:'VA Growth',text:'Create a 12-month revenue plan for a VA business targeting [$X/month] by month 12. Include milestones, client load assumptions, and income sources.'},
+  {num:'130',cat:'VA Growth',text:'Help me write a LinkedIn headline and summary that positions me as a premium VA specialist for [niche clients], not just a general assistant.'},
+  {num:'140',cat:'VA Growth',text:'Generate 10 ways I can add value to existing clients that would justify a rate increase and make them hesitant to ever leave.'},
+  {num:'141',cat:'Power Prompts',text:'Write a positioning statement for my VA business that clearly differentiates me from generalist VAs. My specialty is [niche]. My target client is [describe client]. Keep it under 2 sentences.'},
+  {num:'142',cat:'Power Prompts',text:'Help me craft a unique selling proposition for a VA who has a background in [previous career or skill]. How do I turn that background into a competitive advantage?'},
+  {num:'145',cat:'Power Prompts',text:'Help me build a signature offer around my top VA skill: [skill]. Include name, deliverable, timeline, price range, and 3-bullet value pitch.'},
+  {num:'146',cat:'Power Prompts',text:'Write a "Why Me" statement I can use on my website and in pitches. Background: [briefly describe your experience, skills, and personality]. Make it sound human and confident.'},
+  {num:'147',cat:'Power Prompts',text:'Create a brand messaging document for my VA business including: tagline, mission statement, elevator pitch, and 3 core content pillars.'},
+  {num:'156',cat:'Power Prompts',text:'Write a client welcome packet template for a VA business. Include: welcome letter, services overview, communication preferences, tools used, and what the client can expect in week one.'},
+  {num:'157',cat:'Power Prompts',text:'Create an offboarding process template for when a client contract ends. Include a final delivery checklist, feedback request, and a template for staying in touch.'},
+  {num:'159',cat:'Power Prompts',text:'Write a scope creep response template for when a client asks for tasks outside the agreed contract. Be firm but keep the relationship warm.'},
+  {num:'160',cat:'Power Prompts',text:'Create a client check-in email template I can send monthly to proactively update clients on progress, flag any concerns, and reinforce my value.'},
+  {num:'164',cat:'Power Prompts',text:'Write a "contract renewal pitch" email for 30 days before a client\'s retainer expires. Position the renewal as a natural next step, not a hard sell.'},
+  {num:'168',cat:'Power Prompts',text:'Draft a professional email for when I need to fire a client. Be direct, kind, and clear about the end date and transition process.'},
+  {num:'172',cat:'Power Prompts',text:'I have [number] hours this week and the following tasks: [list tasks]. Help me prioritize them using the Eisenhower Matrix and build a realistic daily schedule.'},
+  {num:'176',cat:'Power Prompts',text:'Write a prompt I can use to generate a first draft of any type of document. The prompt should include: role, context, format, tone, and output requirements.'},
+  {num:'179',cat:'Power Prompts',text:'Write a set of 5 "meta-prompts" I can use to improve any AI output. Examples: make it shorter, more professional, easier to skim, more persuasive, less formal.'},
+  {num:'186',cat:'Power Prompts',text:'Help me rewrite my VA service offer to sound premium. Current description: [paste current copy]. Make it feel like a high-value investment, not a task service.'},
+  {num:'187',cat:'Power Prompts',text:'Write a sales email for my highest-tier VA package. The package is [describe package at $X/month]. Position it as a strategic partnership, not an expense.'},
+  {num:'190',cat:'Power Prompts',text:'Write a premium pricing rationale I can use in sales conversations when a prospect says my rate is higher than they expected.'},
+  {num:'197',cat:'Power Prompts',text:'Write a "transformation statement" for my VA business that answers: before working with me, clients [struggle with X]. After working with me, they [achieve Y].'},
+  {num:'216',cat:'Power Prompts',text:'Write a confidence script I can say out loud before a discovery call to get into the right mindset as a new VA.'},
+  {num:'217',cat:'Power Prompts',text:'Help me reframe this fear about my VA business: [describe fear]. Give me a logical counter-argument and an empowering belief to replace it.'},
+  {num:'218',cat:'Power Prompts',text:'Write a 5-minute journaling prompt series I can use each morning to stay focused, motivated, and strategic as a VA business owner.'},
+  {num:'224',cat:'Power Prompts',text:'Create a 30-day habit tracker template for a VA building consistency in: client outreach, skill development, content creation, and financial tracking.'},
+  {num:'226',cat:'Power Prompts',text:'Draft a response I can give myself (or a new VA friend) who says "I don\'t know enough to start yet." Make it honest, motivating, and practical.'},
+  {num:'228',cat:'Power Prompts',text:'Create a simple financial tracking template for a self-employed VA including: monthly income, client breakdown, expenses, savings goal, and tax set-aside.'},
+  {num:'231',cat:'Power Prompts',text:'Act as an expert [role, e.g., copywriter, project manager, social media strategist]. My client is a [type of business]. Their goal is [goal]. Give me a step-by-step plan.'},
+  {num:'244',cat:'Power Prompts',text:'Act as a skeptical client. I\'m going to pitch you my VA services and you\'re going to give me your real objections. After I respond, tell me how I did: [deliver your pitch].'},
+  {num:'247',cat:'Power Prompts',text:'Create a master list of questions a VA should ask during a client kickoff call. Organize by category: goals, communication, tools, and deliverables.'},
+  {num:'251',cat:'Power Prompts',text:'Write a batch of 10 email subject lines for a promotional campaign around [offer or event] happening on [date]. Mix urgency, curiosity, and benefit-driven angles.'},
+  {num:'256',cat:'Power Prompts',text:'Help me write a client contract one-pager that summarizes the key terms of a VA retainer in plain English so both parties are crystal clear.'},
+  {num:'259',cat:'Power Prompts',text:'Create a "not right now" holding response I can send to inbound leads when I am at capacity but don\'t want to lose the opportunity permanently.'},
+  {num:'260',cat:'Power Prompts',text:'Write a 3-email nurture sequence for a VA\'s own email list. Goal: build trust, show expertise in [niche], and warm leads toward a discovery call booking.'}
+];
+
+var CATS = ['All','Business Setup','Client Outreach','Service Delivery','Social Media','Research','Writing','VA Growth','Power Prompts'];
+var currentCat = 'All';
+var currentSearch = '';
+
+function buildFilters(){
+  var el = document.getElementById('promptFilters');
+  el.innerHTML = CATS.map(function(c){
+    return '<button class="prompt-filter-btn'+(c===currentCat?' active':'')+'" onclick="setCat(\''+c+'\')">'+c+'</button>';
+  }).join('');
+}
+
+function setCat(cat){
+  currentCat=cat;
+  buildFilters();
+  renderPrompts();
+}
+
+function filterPrompts(){
+  currentSearch = document.getElementById('promptSearch').value.toLowerCase();
+  renderPrompts();
+}
+
+function renderPrompts(){
+  var filtered = PROMPTS.filter(function(p){
+    var matchCat = currentCat==='All' || p.cat===currentCat;
+    var matchSearch = !currentSearch || p.text.toLowerCase().includes(currentSearch) || p.cat.toLowerCase().includes(currentSearch);
+    return matchCat && matchSearch;
+  });
+  document.getElementById('promptCount').textContent = filtered.length+' prompts';
+  document.getElementById('promptGrid').innerHTML = filtered.map(function(p){
+    return '<div class="prompt-card">'+
+      '<div class="prompt-card-cat">'+p.cat+'</div>'+
+      '<div class="prompt-card-num">Prompt #'+p.num+'</div>'+
+      '<div class="prompt-card-text">'+p.text+'</div>'+
+      '<button class="prompt-copy-btn" onclick="copyPrompt(this,\''+p.num+'\')">Copy Prompt</button>'+
+      '</div>';
+  }).join('');
+}
+
+function copyPrompt(btn, num){
+  var p = PROMPTS.find(function(x){return x.num===num;});
+  if(!p) return;
+  navigator.clipboard.writeText(p.text).then(function(){
+    btn.textContent='Copied!'; btn.classList.add('copied');
+    setTimeout(function(){btn.textContent='Copy Prompt';btn.classList.remove('copied');},1500);
+  });
+}
+
+// ── INIT ──
+buildFilters();
+renderPrompts();
+updateProgress();
+
+// ── PROPOSAL BUILDER ──
+var portEntries = [];
+var portCounter = 0;
+
+function buildProposal(){
+  var name = (document.getElementById('prop_name')||{}).value||'';
+  var biz = (document.getElementById('prop_biz')||{}).value||'';
+  var problem = (document.getElementById('prop_problem')||{}).value||'';
+  var service = (document.getElementById('prop_service')||{}).value||'';
+  var price = (document.getElementById('prop_price')||{}).value||'';
+  var deliverables = (document.getElementById('prop_deliverables')||{}).value||'';
+  var timeline = (document.getElementById('prop_timeline')||{}).value||'';
+  var deadline = (document.getElementById('prop_deadline')||{}).value||'';
+  var whyme = (document.getElementById('prop_whyme')||{}).value||'';
+
+  if(!name && !problem && !service){
+    document.getElementById('proposalPreview').innerHTML='<div class="itool-preview-label">Your proposal will appear here as you fill in the fields above</div>';
+    return;
+  }
+
+  var lines = [];
+  if(name) lines.push('Hi '+name+',');
+  lines.push('');
+
+  if(problem) lines.push('After our conversation, I completely understand where you are at. '+problem+' -- and I know how much that is costing you in time and missed opportunities.');
+  lines.push('');
+
+  if(service||price){
+    lines.push('Here is what I am proposing:');
+    lines.push('');
+    if(service) lines.push('Package: '+service);
+    if(price) lines.push('Investment: '+price);
+    if(timeline) lines.push('Timeline: '+timeline);
+  }
+
+  if(deliverables){
+    lines.push('');
+    lines.push('What is included:');
+    deliverables.split('\n').filter(function(l){return l.trim();}).forEach(function(l){ lines.push('  - '+l.trim()); });
+  }
+
+  if(whyme){ lines.push(''); lines.push('Why me: '+whyme); }
+
+  if(deadline){ lines.push(''); lines.push('To move forward, simply reply YES by '+deadline+' and I will send over the agreement.'); }
+
+  lines.push('');
+  lines.push('Looking forward to working together,');
+
+  var preview = document.getElementById('proposalPreview');
+  preview.textContent = lines.join('\n');
+}
+
+function copyProposal(){
+  var text = document.getElementById('proposalPreview').textContent;
+  if(!text || text.includes('will appear here')) return;
+  navigator.clipboard.writeText(text).then(function(){
+    var btn = document.querySelector('#panel-proposal .itool-copy-btn');
+    if(btn){ btn.textContent='Copied!'; setTimeout(function(){btn.textContent='Copy Full Proposal';},1800); }
+  });
+}
+
+// ── PORTFOLIO BUILDER ──
+function addPortEntry(){
+  var id = portCounter++;
+  portEntries.push({id:id});
+  renderPortEntries();
+}
+
+function removePortEntry(id){
+  portEntries = portEntries.filter(function(e){return e.id!==id;});
+  renderPortEntries();
+}
+
+function renderPortEntries(){
+  var el = document.getElementById('portEntries');
+  if(!el) return;
+  el.innerHTML = portEntries.map(function(e,i){
+    return '<div class="port-entry-card">'+
+      '<div class="port-entry-head"><div class="port-entry-title">Entry '+(i+1)+'</div><button class="port-entry-remove" onclick="removePortEntry('+e.id+')">Remove</button></div>'+
+      '<div class="port-entry-grid">'+
+      '<div class="itool-group"><label class="itool-label">Project title</label><input class="itool-input" id="pe_title_'+e.id+'" placeholder="e.g. Email Inbox Overhaul" oninput="buildPortfolio()"></div>'+
+      '<div class="itool-group"><label class="itool-label">Client type</label><input class="itool-input" id="pe_client_'+e.id+'" placeholder="e.g. Online coach (spec)" oninput="buildPortfolio()"></div>'+
+      '<div class="itool-group full"><label class="itool-label">What you did</label><textarea class="itool-textarea" id="pe_what_'+e.id+'" placeholder="e.g. Audited 4,000-email inbox, created folder system, drafted 12 templated replies..." oninput="buildPortfolio()"></textarea></div>'+
+      '<div class="itool-group full"><label class="itool-label">Result / outcome</label><textarea class="itool-textarea" id="pe_result_'+e.id+'" placeholder="e.g. Reduced daily email time from 2hrs to 20min. Inbox at zero within 3 days." oninput="buildPortfolio()"></textarea></div>'+
+      '</div></div>';
+  }).join('');
+  buildPortfolio();
+}
+
+function buildPortfolio(){
+  var lines = ['VIRTUAL ASSISTANT PORTFOLIO\n'];
+  portEntries.forEach(function(e,i){
+    var title = (document.getElementById('pe_title_'+e.id)||{}).value||'Untitled Project';
+    var client = (document.getElementById('pe_client_'+e.id)||{}).value||'';
+    var what = (document.getElementById('pe_what_'+e.id)||{}).value||'';
+    var result = (document.getElementById('pe_result_'+e.id)||{}).value||'';
+    lines.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    lines.push('PROJECT '+(i+1)+': '+title.toUpperCase());
+    if(client) lines.push('Client: '+client);
+    if(what){ lines.push('\nWhat I did:'); lines.push(what); }
+    if(result){ lines.push('\nResult:'); lines.push(result); }
+    lines.push('');
+  });
+  var preview = document.getElementById('portfolioPreview');
+  if(!preview) return;
+  if(portEntries.length===0){
+    preview.innerHTML='<div class="itool-preview-label">Add an entry above to see your portfolio build out</div>';
+  } else {
+    preview.textContent = lines.join('\n');
+  }
+}
+
+function copyPortfolio(){
+  var text = document.getElementById('portfolioPreview').textContent;
+  if(!text || text.includes('Add an entry')) return;
+  navigator.clipboard.writeText(text).then(function(){
+    var btn = document.querySelector('#panel-portfolio .itool-copy-btn');
+    if(btn){ btn.textContent='Copied!'; setTimeout(function(){btn.textContent='Copy Full Portfolio';},1800); }
+  });
+}
+
+// ── CONFETTI ──
+function launchConfetti(x, y){
+  var colors = ['#FF1F7A','#FF85B3','#FFE6F0','#ffffff','#ff6b6b','#ffd93d'];
+  var burst = document.createElement('div');
+  burst.className = 'confetti-burst';
+  burst.style.left = x+'px';
+  burst.style.top = y+'px';
+  document.body.appendChild(burst);
+  for(var i=0;i<14;i++){
+    var piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    var angle = (Math.random()*360);
+    var dist = 40+Math.random()*70;
+    var tx = Math.cos(angle*Math.PI/180)*dist;
+    var ty = Math.sin(angle*Math.PI/180)*dist - 20;
+    piece.style.setProperty('--tx', tx+'px');
+    piece.style.setProperty('--ty', ty+'px');
+    piece.style.setProperty('--rot', (Math.random()*720-360)+'deg');
+    piece.style.background = colors[Math.floor(Math.random()*colors.length)];
+    piece.style.left = (Math.random()*16-8)+'px';
+    piece.style.top = (Math.random()*16-8)+'px';
+    piece.style.borderRadius = Math.random()>0.5 ? '50%' : '2px';
+    piece.style.width = (5+Math.random()*6)+'px';
+    piece.style.height = (5+Math.random()*6)+'px';
+    burst.appendChild(piece);
+  }
+  setTimeout(function(){burst.remove();},900);
+}
+
+
+// ── PRICING TOOL (native) ──
+(function(){
+  var PT_KEY = 'sk_pricing_v1';
+  var VA_TYPES = ['Executive/Admin','Social media','Bookkeeping','Tech/Dev','Real estate','E-commerce','Creative/Design','Customer support','General'];
+  var EXP_LEVELS = [
+    {label:'Just starting out',value:'beginner',mult:0.8},
+    {label:'1-2 years',value:'junior',mult:1.0},
+    {label:'3-5 years',value:'mid',mult:1.25},
+    {label:'5+ years',value:'senior',mult:1.5}
+  ];
+  var SUGGESTED = {
+    'Executive/Admin':['Email management','Calendar scheduling','Travel booking','Data entry','Document formatting','Meeting notes'],
+    'Social media':['Content creation','Post scheduling','Community management','Analytics reporting','Hashtag research','Story design'],
+    'Bookkeeping':['Invoice processing','Expense tracking','Bank reconciliation','Financial reports','Payroll support','Tax prep'],
+    'Tech/Dev':['Website maintenance','Bug fixes','Plugin setup','API integration','Database management','Tech support'],
+    'Real estate':['Listing management','Lead follow-up','CRM updates','Transaction coordination','Market research','Open house prep'],
+    'E-commerce':['Product listings','Order management','Customer emails','Inventory tracking','Review management','Storefront updates'],
+    'Creative/Design':['Graphic design','Brand assets','Presentation design','Video editing','Photo retouching','Template creation'],
+    'Customer support':['Email support','Live chat','Ticket management','FAQ updates','Returns processing','Feedback collection'],
+    'General':['Email management','Calendar scheduling','Data entry','Research','Social media','Customer support']
+  };
+  var BASE_RATES = {'Executive/Admin':30,'Social media':28,'Bookkeeping':35,'Tech/Dev':45,'Real estate':25,'E-commerce':28,'Creative/Design':40,'Customer support':22,'General':25};
+  var STEP_LABELS = ['Profile','Services','Model','Builder','Summary'];
+
+  var pt = {
+    step:0,
+    profile:{vaType:'',experience:'',name:''},
+    services:[],
+    pricingModels:[],
+    hourlyRate:25,
+    packages:[
+      {name:'Starter',hours:10,discount:0,services:[]},
+      {name:'Growth',hours:20,discount:5,services:[]},
+      {name:'Premium',hours:40,discount:10,services:[]}
+    ],
+    projects:[]
+  };
+
+  function ptLoad(){
+    try{var d=localStorage.getItem(PT_KEY);if(d){var p=JSON.parse(d);Object.assign(pt,p);}}catch(e){}
+  }
+  function ptSave(){
+    try{localStorage.setItem(PT_KEY,JSON.stringify(pt));}catch(e){}
+  }
+  function ptToast(msg){
+    var el=document.querySelector('.pt-toast');
+    if(!el)return;
+    el.textContent=msg;el.classList.add('show');
+    setTimeout(function(){el.classList.remove('show');},2000);
+  }
+  function ptSuggestedRate(){
+    var base=BASE_RATES[pt.profile.vaType]||25;
+    var exp=EXP_LEVELS.find(function(e){return e.value===pt.profile.experience;});
+    return Math.round(base*(exp?exp.mult:1));
+  }
+  function ptCanAdvance(){
+    if(pt.step===0)return pt.profile.vaType&&pt.profile.experience;
+    if(pt.step===1)return pt.services.length>0;
+    if(pt.step===2)return pt.pricingModels.length>0;
+    return true;
+  }
+  function ptEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+  function ptRender(){
+    var app=document.getElementById('ptApp');
+    if(!app)return;
+    var h='<div class="pt-toast"></div>';
+
+    // Step nav
+    h+='<div class="pt-steps">';
+    STEP_LABELS.forEach(function(l,i){
+      var cls='pt-step-btn';
+      if(i<pt.step)cls+=' pt-done';
+      else if(i===pt.step)cls+=' pt-current';
+      var dis=(i>pt.step)?'disabled':'';
+      h+='<button class="'+cls+'" '+dis+' onclick="ptGoStep('+i+')">'+(i<pt.step?'✓ ':'')+l+'</button>';
+    });
+    h+='</div>';
+
+    // Steps
+    h+=ptStep0()+ptStep1()+ptStep2()+ptStep3()+ptStep4();
+
+    // Nav
+    h+='<div class="pt-nav">';
+    if(pt.step>0){
+      h+='<button class="pt-back-btn" onclick="ptGoStep('+(pt.step-1)+')">← Back</button>';
+    } else {
+      h+='<span></span>';
+    }
+    if(pt.step<4){
+      h+='<button class="pt-next-btn" '+(ptCanAdvance()?'':'disabled')+' onclick="ptAdvance()">'+(pt.step===3?'View Summary →':'Continue →')+'</button>';
+    }
+    h+='</div>';
+
+    app.innerHTML=h;
+  }
+
+  function ptVis(i){return pt.step===i?'block':'none';}
+
+  function ptStep0(){
+    var h='<div style="display:'+ptVis(0)+'">';
+    h+='<div class="pt-card">';
+    h+='<div class="pt-card-title">Set up your profile</div>';
+    h+='<p class="pt-card-sub">This calibrates your rate suggestions.</p>';
+    h+='<label class="pt-label">Your name</label>';
+    h+='<input class="pt-input" placeholder="e.g. Sarah" value="'+ptEsc(pt.profile.name)+'" oninput="ptUpdateName(this.value)">';
+    h+='<label class="pt-label">What type of VA are you?</label>';
+    h+='<div class="pt-chips">';
+    VA_TYPES.forEach(function(t){
+      h+='<button class="pt-chip'+(pt.profile.vaType===t?' pt-active':'')+'" onclick="ptSetVAType(\''+t+'\')">'+t+'</button>';
+    });
+    h+='</div>';
+    h+='<label class="pt-label">Experience level</label>';
+    h+='<div class="pt-exp-grid">';
+    EXP_LEVELS.forEach(function(e){
+      h+='<button class="pt-exp-btn'+(pt.profile.experience===e.value?' pt-active':'')+'" onclick="ptSetExp(\''+e.value+'\')">'+e.label+'</button>';
+    });
+    h+='</div>';
+    h+='</div></div>';
+    return h;
+  }
+
+  function ptStep1(){
+    var sug=SUGGESTED[pt.profile.vaType]||[];
+    var h='<div style="display:'+ptVis(1)+'">';
+    h+='<div class="pt-card">';
+    h+='<div class="pt-card-title">What services do you offer?</div>';
+    h+='<p class="pt-card-sub">Pick from suggestions or add your own.</p>';
+    if(sug.length){
+      h+='<label class="pt-label">Suggested for '+ptEsc((pt.profile.vaType||'').toLowerCase())+' VAs</label>';
+      h+='<div class="pt-chips">';
+      sug.forEach(function(s){
+        var active=pt.services.includes(s);
+        h+='<button class="pt-chip'+(active?' pt-active':'')+'" onclick="ptToggleService(\''+ptEsc(s)+'\')">'+ptEsc(s)+'</button>';
+      });
+      h+='</div>';
+    }
+    h+='<label class="pt-label">Add a custom service</label>';
+    h+='<div class="pt-add-row"><input class="pt-input" id="ptCustomSvc" placeholder="e.g. Podcast editing" onkeydown="if(event.key===\'Enter\')ptAddCustomSvc()"><button class="pt-add-btn" onclick="ptAddCustomSvc()">Add</button></div>';
+    if(pt.services.length){
+      h+='<label class="pt-label">Your services ('+pt.services.length+')</label>';
+      h+='<div class="pt-chips">';
+      pt.services.forEach(function(s){
+        h+='<button class="pt-chip pt-active" onclick="ptRemoveSvc(\''+ptEsc(s)+'\')">'+ptEsc(s)+' ✕</button>';
+      });
+      h+='</div>';
+    }
+    h+='</div></div>';
+    return h;
+  }
+
+  function ptStep2(){
+    var models=[
+      {id:'hourly',icon:'⏱',title:'Hourly rate',desc:'Charge by the hour - simple and flexible'},
+      {id:'package',icon:'📦',title:'Packages',desc:'Bundle hours into tiered monthly plans'},
+      {id:'project',icon:'🎯',title:'Per-project',desc:'Fixed price based on scope and complexity'}
+    ];
+    var h='<div style="display:'+ptVis(2)+'">';
+    h+='<div class="pt-card">';
+    h+='<div class="pt-card-title">Choose your pricing model</div>';
+    h+='<p class="pt-card-sub">Pick one or more - you can build each out in the next step.</p>';
+    models.forEach(function(m){
+      var active=pt.pricingModels.includes(m.id);
+      h+='<div class="pt-model-card'+(active?' pt-active':'')+'" onclick="ptToggleModel(\''+m.id+'\')">';
+      h+='<span class="pt-model-icon">'+m.icon+'</span>';
+      h+='<div class="pt-model-text"><span class="pt-model-title">'+m.title+'</span><span class="pt-model-desc">'+m.desc+'</span></div>';
+      h+='<div class="pt-model-check">'+(active?'✓':'')+'</div></div>';
+    });
+    h+='</div></div>';
+    return h;
+  }
+
+  function ptStep3(){
+    var h='<div style="display:'+ptVis(3)+'">';
+    if(pt.pricingModels.includes('hourly')){
+      var sr=ptSuggestedRate();
+      var hr=pt.hourlyRate;
+      h+='<div class="pt-card">';
+      h+='<div class="pt-card-title">Hourly rate</div>';
+      h+='<p class="pt-card-sub">Suggested for your profile: <strong style="color:var(--pink)">$'+sr+'/hr</strong></p>';
+      h+='<div class="pt-rate-display"><span class="pt-rate-big" id="ptRateBig">$'+hr+'</span><span class="pt-rate-per">/hr</span></div>';
+      h+='<input type="range" class="pt-slider" id="ptRateSlider" min="10" max="150" value="'+hr+'" oninput="ptSliderMove(this.value)" onchange="ptSliderCommit(this.value)">';
+      h+='<div class="pt-rate-labels"><span>$10</span><span>$150</span></div>';
+      h+='<div class="pt-projs">';
+      h+='<div class="pt-proj-card"><span class="pt-proj-label">10 hrs/wk</span><span class="pt-proj-val" id="ptProj10">$'+(hr*10*4).toLocaleString()+'/mo</span></div>';
+      h+='<div class="pt-proj-card"><span class="pt-proj-label">20 hrs/wk</span><span class="pt-proj-val" id="ptProj20">$'+(hr*20*4).toLocaleString()+'/mo</span></div>';
+      h+='<div class="pt-proj-card"><span class="pt-proj-label">40 hrs/wk</span><span class="pt-proj-val" id="ptProj40">$'+(hr*40*4).toLocaleString()+'/mo</span></div>';
+      h+='</div></div>';
+    }
+    if(pt.pricingModels.includes('package')){
+      h+='<div class="pt-card">';
+      h+='<div class="pt-card-title">Package builder</div>';
+      h+='<p class="pt-card-sub">Bundle hours and services into tiered plans.</p>';
+      pt.packages.forEach(function(pkg,i){
+        var price=Math.round(pt.hourlyRate*pkg.hours*(1-pkg.discount/100));
+        h+='<div class="pt-pkg-card">';
+        h+='<div class="pt-pkg-head"><input class="pt-pkg-name" value="'+ptEsc(pkg.name)+'" oninput="ptUpdatePkg('+i+',\'name\',this.value)" placeholder="Package name"><div><span class="pt-pkg-price">$'+price+'</span><span class="pt-pkg-per">/mo</span></div></div>';
+        h+='<div class="pt-pkg-controls"><div class="pt-pkg-field"><label>Hours/month</label><input type="number" class="pt-pkg-input" value="'+pkg.hours+'" oninput="ptUpdatePkg('+i+',\'hours\',+this.value)"></div>';
+        h+='<div class="pt-pkg-field"><label>Discount %</label><input type="number" class="pt-pkg-input" value="'+pkg.discount+'" min="0" max="50" oninput="ptUpdatePkg('+i+',\'discount\',+this.value)"></div></div>';
+        h+='<label class="pt-label" style="margin-top:0.5rem">Included services</label><div class="pt-chips">';
+        pt.services.forEach(function(s){
+          var a=pkg.services.includes(s);
+          h+='<button class="pt-chip-sm'+(a?' pt-active':'')+'" onclick="ptTogglePkgSvc('+i+',\''+ptEsc(s)+'\')">'+ptEsc(s)+'</button>';
+        });
+        h+='</div></div>';
+      });
+      h+='</div>';
+    }
+    if(pt.pricingModels.includes('project')){
+      h+='<div class="pt-card">';
+      h+='<div class="pt-card-title">Per-project pricing</div>';
+      h+='<p class="pt-card-sub">Fixed prices based on estimated hours and complexity.</p>';
+      h+='<label class="pt-label">Project name</label><input class="pt-input" id="ptProjName" placeholder="e.g. Website content refresh">';
+      h+='<div class="pt-add-row" style="margin-top:0.5rem">';
+      h+='<input type="number" class="pt-input" id="ptProjHours" placeholder="Est. hours">';
+      h+='<select class="pt-input" id="ptProjComplexity"><option value="simple">Simple (0.75x)</option><option value="standard" selected>Standard (1x)</option><option value="complex">Complex (1.5x)</option></select>';
+      h+='<button class="pt-add-btn" onclick="ptAddProject()">Add</button></div>';
+      if(pt.projects.length){
+        pt.projects.forEach(function(p,i){
+          h+='<div class="pt-project-item"><div><span class="pt-project-name">'+ptEsc(p.name)+'</span><span class="pt-project-meta">'+p.hours+' hrs - '+p.complexity+'</span></div>';
+          h+='<div style="display:flex;align-items:center"><span class="pt-project-price">$'+p.price+'</span><button class="pt-remove-btn" onclick="ptRemoveProject('+i+')">✕</button></div></div>';
+        });
+      }
+      h+='</div>';
+    }
+    h+='</div>';
+    return h;
+  }
+
+  function ptStep4(){
+    var expLabel=EXP_LEVELS.find(function(e){return e.value===pt.profile.experience;});
+    var h='<div style="display:'+ptVis(4)+'">';
+    h+='<div class="pt-card">';
+    h+='<div class="pt-card-title">Your pricing summary</div>';
+    h+='<p class="pt-card-sub">'+(pt.profile.name?ptEsc(pt.profile.name)+' &middot; ':'')+ptEsc(pt.profile.vaType||'VA')+' &middot; '+(expLabel?expLabel.label:'')+'</p>';
+    h+='<label class="pt-label">Services</label><div class="pt-chips">';
+    pt.services.forEach(function(s){h+='<span class="pt-chip-ro">'+ptEsc(s)+'</span>';});
+    h+='</div></div>';
+    if(pt.pricingModels.includes('hourly')){
+      var hr=pt.hourlyRate;
+      h+='<div class="pt-card"><div class="pt-summary-title">Hourly rate</div>';
+      h+='<div class="pt-summary-rate"><span class="pt-summary-big">$'+hr+'</span><span class="pt-summary-per">/hour</span></div>';
+      h+='<div class="pt-projs"><div class="pt-proj-card"><span class="pt-proj-label">Part-time</span><span class="pt-proj-val">$'+(hr*10*4).toLocaleString()+'/mo</span></div>';
+      h+='<div class="pt-proj-card"><span class="pt-proj-label">Half-time</span><span class="pt-proj-val">$'+(hr*20*4).toLocaleString()+'/mo</span></div>';
+      h+='<div class="pt-proj-card"><span class="pt-proj-label">Full-time</span><span class="pt-proj-val">$'+(hr*40*4).toLocaleString()+'/mo</span></div></div></div>';
+    }
+    if(pt.pricingModels.includes('package')){
+      h+='<div class="pt-card"><div class="pt-summary-title">Packages</div>';
+      h+='<div class="pt-pkg-summary">';
+      pt.packages.forEach(function(pkg,i){
+        var price=Math.round(pt.hourlyRate*pkg.hours*(1-pkg.discount/100));
+        h+='<div class="pt-pkg-sum-card'+(i===1?' pt-featured':'')+'">';
+        if(i===1)h+='<span class="pt-feat-badge">Popular</span>';
+        h+='<span class="pt-pkg-sum-name">'+ptEsc(pkg.name)+'</span>';
+        h+='<div class="pt-pkg-sum-price">$'+price+'<span class="pt-pkg-sum-mo">/mo</span></div>';
+        h+='<div class="pt-pkg-sum-hours">'+pkg.hours+' hrs/month</div>';
+        if(pkg.services.length){
+          h+='<ul class="pt-pkg-sum-list">';
+          pkg.services.forEach(function(s){h+='<li>+ '+ptEsc(s)+'</li>';});
+          h+='</ul>';
+        }
+        h+='</div>';
+      });
+      h+='</div></div>';
+    }
+    if(pt.pricingModels.includes('project')&&pt.projects.length){
+      h+='<div class="pt-card"><div class="pt-summary-title">Per-project pricing</div>';
+      pt.projects.forEach(function(p){
+        h+='<div class="pt-project-item"><div><span class="pt-project-name">'+ptEsc(p.name)+'</span><span class="pt-project-meta">'+p.hours+' hrs - '+p.complexity+'</span></div><span class="pt-project-price">$'+p.price+'</span></div>';
+      });
+      h+='</div>';
+    }
+    h+='<div class="pt-save-row"><button class="pt-save-btn" onclick="ptSaveAndToast()">Save pricing</button><button class="pt-reset-btn" onclick="ptResetAll()">Start over</button></div>';
+    h+='</div>';
+    return h;
+  }
+
+  // Handlers
+  window.ptGoStep=function(i){pt.step=i;ptSave();ptRender();};
+  window.ptAdvance=function(){if(ptCanAdvance()&&pt.step<4){pt.step++;ptSave();ptRender();}};
+  window.ptUpdateName=function(v){pt.profile.name=v;ptSave();};
+
+  var _ptRt=null;
+  function ptSchedRender(){if(_ptRt)cancelAnimationFrame(_ptRt);_ptRt=requestAnimationFrame(function(){ptRender();_ptRt=null;});}
+
+  window.ptSetVAType=function(t){
+    pt.profile.vaType=t;
+    if(pt.profile.experience){
+      pt.hourlyRate=Math.round((BASE_RATES[t]||25)*(EXP_LEVELS.find(function(e){return e.value===pt.profile.experience;})||{mult:1}).mult);
+    }
+    ptSave();ptSchedRender();
+  };
+  window.ptSetExp=function(v){
+    pt.profile.experience=v;
+    if(pt.profile.vaType){
+      pt.hourlyRate=Math.round((BASE_RATES[pt.profile.vaType]||25)*(EXP_LEVELS.find(function(e){return e.value===v;})||{mult:1}).mult);
+    }
+    ptSave();ptSchedRender();
+  };
+  window.ptToggleService=function(s){var i=pt.services.indexOf(s);if(i>=0)pt.services.splice(i,1);else pt.services.push(s);ptSave();ptSchedRender();};
+  window.ptRemoveSvc=function(s){pt.services=pt.services.filter(function(x){return x!==s;});ptSave();ptSchedRender();};
+  window.ptAddCustomSvc=function(){var el=document.getElementById('ptCustomSvc');if(!el)return;var v=el.value.trim();if(v&&!pt.services.includes(v)){pt.services.push(v);ptSave();ptSchedRender();}};
+  window.ptToggleModel=function(m){var i=pt.pricingModels.indexOf(m);if(i>=0)pt.pricingModels.splice(i,1);else pt.pricingModels.push(m);ptSave();ptSchedRender();};
+  window.ptSliderMove=function(v){
+    var n=+v;
+    var pct=((n-10)/(150-10)*100).toFixed(1)+'%';
+    var slider=document.getElementById('ptRateSlider');
+    if(slider)slider.style.setProperty('--pct',pct);
+    var big=document.getElementById('ptRateBig');
+    var p10=document.getElementById('ptProj10');
+    var p20=document.getElementById('ptProj20');
+    var p40=document.getElementById('ptProj40');
+    if(big)big.textContent='$'+n;
+    if(p10)p10.textContent='$'+(n*10*4).toLocaleString()+'/mo';
+    if(p20)p20.textContent='$'+(n*20*4).toLocaleString()+'/mo';
+    if(p40)p40.textContent='$'+(n*40*4).toLocaleString()+'/mo';
+    pt.hourlyRate=n;
+  };
+  window.ptSliderCommit=function(v){pt.hourlyRate=+v;ptSave();ptSchedRender();};
+  window.ptSetRate=function(v){pt.hourlyRate=+v;ptSave();ptSchedRender();};
+  window.ptUpdatePkg=function(i,field,val){pt.packages[i][field]=val;ptSave();ptSchedRender();};
+  window.ptTogglePkgSvc=function(i,s){var svcs=pt.packages[i].services;var idx=svcs.indexOf(s);if(idx>=0)svcs.splice(idx,1);else svcs.push(s);ptSave();ptSchedRender();};
+  window.ptAddProject=function(){
+    var name=(document.getElementById('ptProjName')||{}).value||'';name=name.trim();
+    var hours=+(document.getElementById('ptProjHours')||{}).value||0;
+    var complexity=(document.getElementById('ptProjComplexity')||{}).value||'standard';
+    if(!name||!hours)return;
+    var mult=complexity==='complex'?1.5:complexity==='simple'?0.75:1;
+    pt.projects.push({name:name,hours:hours,complexity:complexity,price:Math.round(hours*pt.hourlyRate*mult)});
+    ptSave();ptSchedRender();
+  };
+  window.ptRemoveProject=function(i){pt.projects.splice(i,1);ptSave();ptSchedRender();};
+  window.ptSaveAndToast=function(){ptSave();ptToast('Pricing saved!');};
+  window.ptResetAll=function(){
+    if(!confirm('Start over? This clears your pricing data.'))return;
+    pt={step:0,profile:{vaType:'',experience:'',name:''},services:[],pricingModels:[],hourlyRate:25,
+      packages:[{name:'Starter',hours:10,discount:0,services:[]},{name:'Growth',hours:20,discount:5,services:[]},{name:'Premium',hours:40,discount:10,services:[]}],
+      projects:[]};
+    localStorage.removeItem(PT_KEY);ptRender();
+  };
+
+  function ptSyncSlider(){
+    var slider=document.getElementById('ptRateSlider');
+    if(slider){
+      var pct=((pt.hourlyRate-10)/(150-10)*100).toFixed(1)+'%';
+      slider.style.setProperty('--pct',pct);
+    }
+  }
+  var _ptOrigRender=ptRender;
+  ptRender=function(){_ptOrigRender();ptSyncSlider();};
+
+  // Init + re-render when panel becomes active
+  ptLoad();
+  var _ptOrig = showPanel;
+  showPanel = function(id){
+    _ptOrig(id);
+    if(id==='pricing') ptRender();
+  };
+  // Also render on first load if already on pricing panel
+  if(document.getElementById('panel-pricing') && document.getElementById('panel-pricing').classList.contains('active')){
+    ptRender();
+  }
+})();
+
+</script>
+</body>
+</html>
