@@ -76,7 +76,7 @@ body::before{
 <script>
 function checkCode(){
   var val = document.getElementById('code').value.trim().toUpperCase();
-  if(val === 'STARTERKIT2026'){
+  if(val === 'STARTERKIT2026' || val === 'PREVIEW0525'){
     sessionStorage.setItem('sk_auth','1');
     window.location.href = 'dashboard.html';
   } else {
