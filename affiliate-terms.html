@@ -1,150 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Affiliate Program Terms | Virtueasy</title>
-<meta name="description" content="Terms and conditions for the Virtueasy affiliate program.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Affiliate Terms | Virtueasy</title>
+<meta name="description" content="Virtueasy Affiliate Program terms and conditions." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --pink: #FF1F7A;
-  --black: #0A0A0A;
-  --surface: #111;
-  --white: #F8F8F8;
-  --muted: rgba(248,248,248,0.55);
-  --border: rgba(255,31,122,0.18);
-}
+:root { --pink: #FF1F7A; --black: #0A0A0A; --white: #F8F8F8; --muted: rgba(248,248,248,0.6); --border: rgba(255,31,122,0.18); --mid: #666; }
 html { scroll-behavior: smooth; }
 body { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; line-height: 1.75; }
-
 nav {
   position: sticky; top: 0; z-index: 100;
   background: rgba(10,10,10,0.95); backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 2rem; height: 64px; gap: 1rem;
+  padding: 0 2rem; height: 64px;
 }
 .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.08em; color: var(--white); text-decoration: none; }
-.nav-back { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.nav-back { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
 .nav-back:hover { color: var(--white); }
-
-.page-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; }
-
-.page-eyebrow { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.8rem; }
-.page-wrap h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 6vw, 3.6rem); letter-spacing: 0.04em; line-height: 1.05; margin-bottom: 0.6rem; }
-.updated { font-size: 0.78rem; color: #444; margin-bottom: 3rem; }
-
-.page-wrap h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.04em; color: var(--white); margin: 3rem 0 0.7rem; }
-.page-wrap p { font-size: 0.95rem; color: var(--muted); margin-bottom: 1rem; }
-.page-wrap ul { color: var(--muted); padding-left: 1.4rem; margin-bottom: 1.2rem; }
-.page-wrap ul li { font-size: 0.95rem; margin-bottom: 0.5rem; }
-.page-wrap a { color: var(--pink); text-decoration: none; }
-.page-wrap a:hover { text-decoration: underline; }
-.page-wrap strong { color: var(--white); font-weight: 600; }
-
-.footer-simple { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem; text-align: center; font-size: 0.75rem; color: #444; }
-.footer-simple a { color: var(--white); text-decoration: none; }
+.doc { max-width: 700px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+.doc-tag { display: inline-block; background: var(--pink); color: #fff; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.25rem 0.7rem; margin-bottom: 1.25rem; }
+.doc h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: 0.04em; line-height: 1.05; margin-bottom: 0.5rem; }
+.doc-meta { font-size: 0.78rem; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 3rem; }
+.doc h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.04em; color: var(--white); margin: 2.5rem 0 0.6rem; }
+.doc p { font-size: 0.95rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.75; }
+.doc ul { padding-left: 1.4rem; margin-bottom: 1.25rem; }
+.doc ul li { font-size: 0.95rem; color: var(--muted); margin-bottom: 0.45rem; line-height: 1.65; }
+.doc a { color: var(--pink); text-decoration: none; }
+.doc a:hover { text-decoration: underline; }
+.doc strong { color: var(--white); }
+footer { background: #0d0d0d; border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem; text-align: center; }
+footer p { font-size: 0.75rem; color: var(--mid); }
+footer a { color: var(--white); text-decoration: none; }
 </style>
 </head>
 <body>
 
 <nav role="navigation">
   <a class="nav-logo" href="/">VIRTUEASY</a>
-  <a class="nav-back" href="/affiliate/">&larr; Back to Affiliate Program</a>
+  <a class="nav-back" href="/affiliate/">← Affiliate Program</a>
 </nav>
 
-<div class="page-wrap">
-  <p class="page-eyebrow">Legal</p>
+<div class="doc">
+  <span class="doc-tag">Legal</span>
   <h1>Affiliate Program Terms</h1>
-  <p class="updated">Last updated: April 2026</p>
+  <p class="doc-meta">Virtueasy &nbsp;·&nbsp; Last updated: April 2026</p>
 
-  <p>These Affiliate Program Terms ("Terms") govern your participation in the Virtueasy Affiliate Program ("Program"), operated by Messick Marketing ("Virtueasy," "we," "us," or "our"). By applying to or participating in the Program, you agree to these Terms in full.</p>
+  <p>These Affiliate Program Terms ("Terms") govern your participation in the Virtueasy Affiliate Program ("Program"). By applying to or participating in the Program, you agree to be bound by these Terms. Virtueasy is a brand operated by Messick Marketing.</p>
 
   <h2>1. Eligibility</h2>
-  <p>To participate in the Program you must:</p>
-  <ul>
-    <li>Be at least 18 years of age</li>
-    <li>Have an active website, blog, social media account, email list, or online community</li>
-    <li>Have an audience with genuine relevance to virtual assistance, freelancing, or remote work</li>
-    <li>Have a valid PayPal account to receive commission payments</li>
-    <li>Agree to comply with all applicable laws, including FTC disclosure requirements</li>
-  </ul>
-  <p>We reserve the right to decline any application at our sole discretion and to terminate any affiliate's participation at any time.</p>
+  <p>The Program is open to individuals and businesses worldwide. There is no minimum follower count or prior affiliate experience required. Virtueasy reserves the right to accept or decline any application at its sole discretion.</p>
 
   <h2>2. Affiliate Link and Tracking</h2>
-  <p>Upon approval you will receive a unique affiliate tracking link. All qualifying purchases made through your link within the applicable cookie window will be credited to your account. Our tracking cookie has a 30-day window from the date of the first click.</p>
-  <p>You may not modify, disguise, or otherwise alter your affiliate link in any way that obscures its tracking functionality or misleads users.</p>
+  <p>Upon approval, you will receive a unique affiliate referral link. Referrals are tracked via browser cookie for <strong>30 days</strong> from the initial click. Sales completed within this window will be credited to your account. You may not use redirects, cloaking tools, or any method to obscure the affiliate relationship from Virtueasy's tracking system.</p>
 
   <h2>3. Commission Structure</h2>
-  <p><strong>Standard rate:</strong> 30% of the net sale price on all qualifying purchases.</p>
-  <p><strong>Performance rate:</strong> 40% of the net sale price, available to affiliates who drive 20 or more verified sales in a single calendar month. The elevated rate applies beginning the following calendar month and continues as long as the threshold is maintained.</p>
-  <p>Commissions are calculated on the final amount paid by the customer after any discount codes or promotions are applied. Commissions on refunded orders will be reversed.</p>
+  <p>Approved affiliates earn a flat <strong>30% commission</strong> on every confirmed sale generated through their unique affiliate link. Commission rates are subject to change with 30 days' notice to active affiliates. The current rate applies to all products in the Virtueasy catalog at the time of sale.</p>
 
-  <h2>4. Payment</h2>
-  <p>Commissions are paid monthly on or around the 15th of each month via PayPal for the prior calendar month's verified sales. A sale is considered verified after a 14-day hold period to account for refunds.</p>
-  <p>The minimum payout threshold is $10 after your first 90 days in the Program. During your first 90 days there is no minimum threshold. We are not responsible for PayPal fees, currency conversion, or taxes owed on your affiliate income. You are solely responsible for reporting affiliate income to the relevant tax authorities.</p>
+  <h2>4. Payouts</h2>
+  <ul>
+    <li>Commissions are paid on the <strong>1st of each month</strong> for confirmed sales from the prior calendar month.</li>
+    <li>Minimum payout threshold is <strong>$10</strong>. Balances below $10 roll over to the following month.</li>
+    <li>Payments are made via <strong>PayPal</strong>. You are responsible for providing accurate payment information.</li>
+    <li>Commissions on refunded or disputed purchases will be reversed from your balance.</li>
+    <li>Virtueasy is not responsible for taxes on affiliate income. You are responsible for reporting your earnings in accordance with your local tax laws.</li>
+  </ul>
 
   <h2>5. Permitted Promotional Methods</h2>
-  <p>You may promote Virtueasy products through:</p>
+  <p>You may promote your affiliate link through:</p>
   <ul>
-    <li>Your own blog posts, articles, and website content</li>
-    <li>Organic social media posts and stories</li>
-    <li>Email newsletters to your own subscribers</li>
-    <li>YouTube videos and podcasts</li>
-    <li>Online communities and groups where you are an active, genuine participant</li>
+    <li>Your own website, blog, or social media channels</li>
+    <li>Email newsletters to your own opted-in subscriber list</li>
+    <li>Organic social media posts, Reels, TikToks, YouTube videos, and other content formats</li>
+    <li>Private communities or groups where you are an established member</li>
+    <li>Paid advertising with prior written approval from Virtueasy</li>
   </ul>
 
   <h2>6. Prohibited Promotional Methods</h2>
-  <p>The following are strictly prohibited and may result in immediate termination and forfeiture of unpaid commissions:</p>
+  <p>The following are strictly prohibited and may result in immediate removal from the Program:</p>
   <ul>
-    <li>Running paid advertising (including Google Ads, Facebook Ads, TikTok Ads, or any other paid platform) without prior written approval from Virtueasy</li>
-    <li>Bidding on Virtueasy brand keywords in paid search</li>
-    <li>Purchasing through your own affiliate link</li>
-    <li>Spam, unsolicited email, or any form of bulk messaging</li>
-    <li>Misleading claims, fake reviews, or fabricated testimonials about Virtueasy products</li>
-    <li>Offering unauthorized discounts, cashback, or rebates as incentives</li>
-    <li>Promoting through coupon or deal aggregator sites without written approval</li>
-    <li>Any method that violates applicable laws or platform terms of service</li>
+    <li>Paid advertising (Google Ads, Meta Ads, etc.) using Virtueasy brand terms without written approval</li>
+    <li>Spam, cold outreach, unsolicited DMs, or mass emailing to purchased or scraped lists</li>
+    <li>Falsely representing yourself as Virtueasy, an employee, or an official spokesperson</li>
+    <li>Creating fake reviews, testimonials, or fabricated results</li>
+    <li>Self-referrals — purchasing through your own affiliate link</li>
+    <li>Cookie stuffing or any method that artificially inflates referral attribution</li>
+    <li>Promoting on platforms that violate their own terms of service</li>
   </ul>
 
-  <h2>7. FTC Disclosure Requirements</h2>
-  <p>You must clearly and conspicuously disclose your affiliate relationship with Virtueasy in every piece of content that includes your affiliate link. Disclosure must appear near the affiliate link or at the beginning of the content where the link appears, not buried in fine print or at the bottom of a long page.</p>
-  <p>Acceptable disclosure language includes: "This post contains affiliate links. I may earn a commission if you purchase through my link, at no extra cost to you."</p>
+  <h2>7. FTC Disclosure Requirement</h2>
+  <p>You must clearly disclose your affiliate relationship whenever you share your affiliate link. This is required by the U.S. Federal Trade Commission (FTC) and equivalent bodies in other jurisdictions. An acceptable disclosure looks like: <em>"This contains an affiliate link. I may earn a commission if you purchase through my link, at no extra cost to you."</em> The disclosure must be prominent and easy to see — not buried in small print.</p>
 
   <h2>8. Brand Guidelines</h2>
-  <p>You may use the Virtueasy name and describe Virtueasy products accurately. You may not:</p>
-  <ul>
-    <li>Use Virtueasy logos or branding in ways that imply an official partnership or endorsement beyond affiliate status</li>
-    <li>Create websites or social profiles that could be mistaken for official Virtueasy properties</li>
-    <li>Make guarantees about earnings or outcomes that exceed what Virtueasy officially states</li>
-    <li>Make negative or disparaging statements about competing products as part of your promotion</li>
-  </ul>
+  <p>You may use Virtueasy's name and publicly available product descriptions in your promotional content. You may not alter Virtueasy's logo, modify product images, or create content that misrepresents the product, its price, or its features. Virtueasy reserves the right to request removal of any affiliate content that violates these guidelines.</p>
 
   <h2>9. Termination</h2>
-  <p>Either party may terminate participation in the Program at any time with written notice to hello@virtueasy.com. Virtueasy reserves the right to terminate any affiliate immediately and without notice for violation of these Terms, fraudulent activity, or any conduct we determine to be harmful to the Virtueasy brand or its customers.</p>
-  <p>Upon termination, any unpaid commissions on verified, non-refunded sales will be paid out on the next scheduled payment date. Commissions on sales made after the termination date will not be paid.</p>
+  <p>Either party may terminate participation in the Program at any time. Virtueasy may remove affiliates immediately and without prior notice for violations of these Terms. Upon termination, any unpaid commissions for confirmed, non-refunded sales will be paid at the next scheduled payout date. Commissions from sales made after termination will not be credited.</p>
 
-  <h2>10. Modifications to the Program</h2>
-  <p>We reserve the right to modify commission rates, cookie windows, payout schedules, or any other aspect of the Program at any time. We will provide at least 14 days' notice of material changes via email. Continued participation after notice constitutes acceptance of the updated terms.</p>
+  <h2>10. Program Changes</h2>
+  <p>Virtueasy reserves the right to modify commission rates, payout schedules, or any other Program terms at any time. Active affiliates will be notified of material changes with at least 30 days' notice via the email on file.</p>
 
   <h2>11. Limitation of Liability</h2>
-  <p>Virtueasy's liability to any affiliate is limited to unpaid commissions on verified sales. We are not liable for indirect, incidental, or consequential damages of any kind arising out of your participation in the Program.</p>
+  <p>Virtueasy's liability to any affiliate is limited to unpaid commissions owed for confirmed sales. Virtueasy is not liable for indirect, incidental, or consequential damages arising from participation in the Program.</p>
 
   <h2>12. Governing Law</h2>
-  <p>These Terms are governed by the laws of the State of Georgia, United States, without regard to conflict of law principles. Any disputes arising under these Terms will be resolved through binding arbitration in Savannah, Georgia.</p>
+  <p>These Terms are governed by the laws of the State of Georgia, United States. Any disputes arising under these Terms shall be resolved in the courts of Effingham County, Georgia.</p>
 
   <h2>13. Contact</h2>
-  <p>Questions about the Program or these Terms? Email us at <a href="mailto:hello@virtueasy.com">hello@virtueasy.com</a>.</p>
-
+  <p>Questions about the affiliate program or these Terms? Email <a href="mailto:hello@virtueasy.com">hello@virtueasy.com</a>.</p>
 </div>
 
-<div class="footer-simple">
-  <p>&copy; <span id="yr"></span> Virtueasy &mdash; <a href="/">Home</a> &nbsp;&middot;&nbsp; <a href="/privacy-policy.html">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="/affiliate/">Affiliate Program</a></p>
-</div>
+<footer>
+  <p>&copy; <span id="yr"></span> Virtueasy — operated by <a href="https://messickmarketing.com" target="_blank" rel="noopener">Messick Marketing</a> &nbsp;·&nbsp; <a href="/privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="/affiliate/">Affiliate Program</a></p>
+</footer>
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 </body>
 </html>
