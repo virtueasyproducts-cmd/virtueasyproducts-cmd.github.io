@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30-Day VA System — Free Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: #0A0A0A;
+  color: #F8F8F8;
+  min-height: 100vh;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  background: #111;
+  border-bottom: 1px solid #1e1e1e;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: #FF1F7A;
+  letter-spacing: 1px;
+}
+
+.preview-badge {
+  background: #FF1F7A22;
+  border: 1px solid #FF1F7A55;
+  color: #FF1F7A;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* ── LAYOUT ── */
+.app-layout {
+  display: flex;
+  height: calc(100vh - 50px);
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 210px;
+  background: #111;
+  border-right: 1px solid #1e1e1e;
+  overflow-y: auto;
+  flex-shrink: 0;
+  padding: 16px 0;
+}
+
+.sidebar-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #444;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 8px 16px 6px;
+}
+
+.day-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: background 0.15s;
+}
+
+.day-item:hover:not(.locked) { background: #1a1a1a; }
+
+.day-item.active {
+  background: #FF1F7A11;
+  border-left-color: #FF1F7A;
+}
+
+.day-item.locked {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.day-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1e1e1e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.day-item.active .day-num { background: #FF1F7A; color: #fff; }
+.day-item.completed .day-num { background: #1a3320; color: #4ade80; }
+
+.day-label { font-size: 12px; color: #888; line-height: 1.3; }
+.day-item.active .day-label { color: #F8F8F8; }
+.day-item.completed .day-label { color: #4ade80; }
+
+.lock-icon { margin-left: auto; font-size: 10px; color: #333; }
+
+/* ── MAIN CONTENT ── */
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 32px;
+  scrollbar-width: thin;
+  scrollbar-color: #222 transparent;
+}
+
+.progress-wrap { margin-bottom: 20px; }
+.progress-label {
+  font-size: 11px;
+  color: #555;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+.progress-bar {
+  background: #1e1e1e;
+  border-radius: 4px;
+  height: 5px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: #FF1F7A;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.day-header { margin-bottom: 20px; }
+.day-pill {
+  display: inline-block;
+  background: #FF1F7A;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+.day-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 34px;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.day-subtitle { font-size: 14px; color: #666; }
+
+/* ── CARDS ── */
+.card {
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #FF1F7A;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.card p {
+  font-size: 13px;
+  color: #999;
+  line-height: 1.75;
+  margin-bottom: 10px;
+}
+
+.card p:last-child { margin-bottom: 0; }
+
+/* ── CHECKLIST ── */
+.checklist { list-style: none; }
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid #1a1a1a;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.check-item:last-child { border-bottom: none; }
+.check-box {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid #333;
+  border-radius: 5px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: all 0.15s;
+}
+.check-item.checked .check-box {
+  background: #FF1F7A;
+  border-color: #FF1F7A;
+  color: #fff;
+}
+.check-text { font-size: 13px; color: #bbb; line-height: 1.5; }
+.check-item.checked .check-text { text-decoration: line-through; color: #444; }
+
+/* ── NICHE GRID ── */
+.niche-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.niche-card {
+  background: #161616;
+  border: 1.5px solid #222;
+  border-radius: 10px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.niche-card:hover { border-color: #FF1F7A44; background: #1a1010; }
+
+.niche-card.selected {
+  border-color: #FF1F7A;
+  background: #FF1F7A0d;
+}
+
+.niche-icon { font-size: 22px; margin-bottom: 6px; display: block; }
+.niche-name { font-size: 13px; font-weight: 600; color: #F8F8F8; margin-bottom: 3px; }
+.niche-desc { font-size: 11px; color: #555; line-height: 1.4; }
+.niche-card.selected .niche-desc { color: #FF1F7A88; }
+
+/* ── JOURNAL ── */
+.journal-textarea {
+  width: 100%;
+  background: #0d0d0d;
+  border: 1px solid #1e1e1e;
+  border-radius: 8px;
+  padding: 14px;
+  color: #ccc;
+  font-family: 'Barlow', sans-serif;
+  font-size: 13px;
+  line-height: 1.7;
+  resize: none;
+  min-height: 100px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.journal-textarea:focus { border-color: #FF1F7A44; }
+.journal-textarea::placeholder { color: #333; }
+
+/* ── RATE TABLE ── */
+.rate-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #1a1a1a;
+  font-size: 13px;
+}
+.rate-row:last-child { border-bottom: none; }
+.rate-label { color: #666; }
+.rate-value { font-weight: 600; color: #F8F8F8; }
+.rate-value.big { color: #FF1F7A; font-size: 22px; font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.5px; }
+
+/* ── STATS ROW ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.stat-card {
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  color: #FF1F7A;
+  line-height: 1;
+}
+
+.stat-label { font-size: 11px; color: #555; margin-top: 4px; }
+
+/* ── BUTTONS ── */
+.btn-primary {
+  background: #FF1F7A;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  display: inline-block;
+}
+.btn-primary:hover { opacity: 0.88; }
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-nav {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* ── MODAL OVERLAY ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background: #111;
+  border: 1px solid #FF1F7A33;
+  border-radius: 18px;
+  padding: 36px 32px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  transform: scale(0.92);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+.modal-overlay.show .modal { transform: scale(1); }
+
+.modal-dismiss {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #444;
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+}
+.modal-dismiss:hover { color: #888; }
+
+.modal-emoji { font-size: 40px; margin-bottom: 12px; display: block; }
+
+.modal-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  color: #F8F8F8;
+  line-height: 1.1;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.modal-sub {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.modal-price-block {
+  background: #0d0d0d;
+  border: 1px solid #1e1e1e;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.modal-original {
+  font-size: 13px;
+  color: #444;
+  text-decoration: line-through;
+  margin-bottom: 4px;
+}
+
+.modal-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: #FF1F7A;
+  line-height: 1;
+}
+
+.modal-price-label {
+  font-size: 11px;
+  color: #555;
+  margin-top: 4px;
+}
+
+.modal-features {
+  list-style: none;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.modal-features li {
+  font-size: 13px;
+  color: #aaa;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-features li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FF1F7A;
+  flex-shrink: 0;
+}
+
+.modal-cta {
+  display: block;
+  width: 100%;
+  background: #FF1F7A;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.15s;
+  margin-bottom: 12px;
+}
+.modal-cta:hover { opacity: 0.88; }
+
+.modal-no-thanks {
+  font-size: 12px;
+  color: #444;
+  cursor: pointer;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  font-family: 'Barlow', sans-serif;
+}
+.modal-no-thanks:hover { color: #666; }
+
+.modal-code {
+  font-size: 11px;
+  color: #555;
+  margin-top: 10px;
+}
+
+.modal-code span {
+  color: #FF1F7A;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* ── CONFETTI CANVAS ── */
+#confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* ── SCREENS ── */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* ── NICHE CONTEXT TAG ── */
+.niche-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FF1F7A11;
+  border: 1px solid #FF1F7A33;
+  color: #FF1F7A;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+.day2-locked-preview {
+  background: #0d0d0d;
+  border: 1px dashed #222;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  color: #333;
+  font-size: 13px;
+  margin-top: 8px;
+}
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<div class="topbar">
+  <div class="logo">Virtueasy</div>
+  <div class="preview-badge">FREE PREVIEW</div>
+</div>
+
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section-label">Your Journey</div>
+
+    <div class="day-item active" id="sidebar-day1" onclick="goToDay(1)">
+      <div class="day-num" id="num-1">1</div>
+      <div class="day-label">Your Foundation</div>
+    </div>
+
+    <div class="day-item" id="sidebar-day2" onclick="goToDay(2)">
+      <div class="day-num" id="num-2">2</div>
+      <div class="day-label">Your Positioning</div>
+    </div>
+
+    <div class="day-item locked" id="sidebar-day3">
+      <div class="day-num">3</div>
+      <div class="day-label">Your First Offer</div>
+      <div class="lock-icon">🔒</div>
+    </div>
+
+    <div class="day-item locked">
+      <div class="day-num">4</div>
+      <div class="day-label">Finding Clients</div>
+      <div class="lock-icon">🔒</div>
+    </div>
+
+    <div class="day-item locked">
+      <div class="day-num">5</div>
+      <div class="day-label">Cold Outreach</div>
+      <div class="lock-icon">🔒</div>
+    </div>
+
+    <div class="day-item locked">
+      <div class="day-num">6</div>
+      <div class="day-label">Discovery Calls</div>
+      <div class="lock-icon">🔒</div>
+    </div>
+
+    <div class="day-item locked">
+      <div class="day-num">7</div>
+      <div class="day-label">Your Proposal</div>
+      <div class="lock-icon">🔒</div>
+    </div>
+
+    <div class="sidebar-section-label" style="margin-top:12px;">Days 8–30</div>
+
+    <div class="day-item locked">
+      <div class="day-num">...</div>
+      <div class="day-label">23 more days</div>
+      <div class="lock-icon">🔒</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- DAY 1 -->
+    <div class="screen active" id="screen-day1">
+
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <span>Day 1 of 30</span>
+          <span id="d1-progress-pct">0% complete</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="d1-progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="day-header">
+        <div class="day-pill">DAY 1</div>
+        <div class="day-title">Your Foundation</div>
+        <div class="day-subtitle">Before you pitch a single client, you need to know exactly who you are as a VA and what problem you solve.</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num">30</div>
+          <div class="stat-label">Days in the system</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">4.8k</div>
+          <div class="stat-label">VAs completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">$47</div>
+          <div class="stat-label">Avg starting rate/hr</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Why Day 1 Matters</div>
+        <p>Most VAs jump straight to pitching with a vague "I do admin stuff" message and wonder why no one responds. Day 1 fixes that. You're going to lock in your niche, clarify your value, and build the exact foundation every future day depends on.</p>
+        <p>This is not fluff. Skip this and you'll spend the next 6 months working for $15/hr. Do this right and you walk into every conversation knowing exactly what you're worth.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Today's Tasks</div>
+        <ul class="checklist" id="d1-checklist">
+          <li class="check-item" onclick="toggleCheck(this, 'd1')">
+            <div class="check-box"></div>
+            <span class="check-text">Read through the VA Landscape overview and understand where the real money is</span>
+          </li>
+          <li class="check-item" onclick="toggleCheck(this, 'd1')">
+            <div class="check-box"></div>
+            <span class="check-text">Pick your primary niche from the grid below</span>
+          </li>
+          <li class="check-item" onclick="toggleCheck(this, 'd1')">
+            <div class="check-box"></div>
+            <span class="check-text">Complete the "Who I Help" journal prompt</span>
+          </li>
+          <li class="check-item" onclick="toggleCheck(this, 'd1')">
+            <div class="check-box"></div>
+            <span class="check-text">Write your first draft positioning statement (we'll refine it on Day 2)</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Pick Your Niche</div>
+        <p style="margin-bottom:12px;">You can evolve this later. For now, pick the one that makes the most sense for where you're starting.</p>
+        <div class="niche-grid" id="niche-grid">
+          <div class="niche-card" onclick="selectNiche(this, 'Healthcare VA', '🏥')">
+            <span class="niche-icon">🏥</span>
+            <div class="niche-name">Healthcare VA</div>
+            <div class="niche-desc">Scheduling, patient comms, insurance, EHR admin</div>
+          </div>
+          <div class="niche-card" onclick="selectNiche(this, 'Social Media VA', '📱')">
+            <span class="niche-icon">📱</span>
+            <div class="niche-name">Social Media VA</div>
+            <div class="niche-desc">Content scheduling, captions, engagement, analytics</div>
+          </div>
+          <div class="niche-card" onclick="selectNiche(this, 'Executive VA', '💼')">
+            <span class="niche-icon">💼</span>
+            <div class="niche-name">Executive VA</div>
+            <div class="niche-desc">Inbox, calendar, travel, high-touch support for founders</div>
+          </div>
+          <div class="niche-card" onclick="selectNiche(this, 'Tech & Ops VA', '⚙️')">
+            <span class="niche-icon">⚙️</span>
+            <div class="niche-name">Tech & Ops VA</div>
+            <div class="niche-desc">CRMs, automations, tools, system building</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Journal Prompt</div>
+        <p style="margin-bottom:12px;"><strong style="color:#F8F8F8;">Who do I want to help, and what would their day look like without me?</strong></p>
+        <textarea class="journal-textarea" placeholder="Write freely here. No right answer. Think about the person you want to work with — what's stressing them out? What would change if you handled it for them?" oninput="updateD1Progress()"></textarea>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Your Positioning Statement (First Draft)</div>
+        <p style="margin-bottom:12px;">Fill in the blanks: "I help [WHO] with [WHAT] so they can [OUTCOME]."</p>
+        <textarea class="journal-textarea" style="min-height:60px;" placeholder='Example: "I help online coaches with inbox management and scheduling so they can stay in their zone of genius without dropping balls."' oninput="updateD1Progress()"></textarea>
+      </div>
+
+      <div class="btn-nav">
+        <button class="btn-primary" onclick="completeDay1()">Complete Day 1 →</button>
+      </div>
+
+    </div>
+
+    <!-- DAY 2 -->
+    <div class="screen" id="screen-day2">
+
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <span>Day 2 of 30</span>
+          <span id="d2-progress-pct">0% complete</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="d2-progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="day-header">
+        <div class="day-pill">DAY 2</div>
+        <div class="day-title">Your Positioning</div>
+        <div class="day-subtitle">Now that you know your niche, we sharpen it into something that makes clients feel like you were made specifically for them.</div>
+      </div>
+
+      <div id="niche-context-tag" class="niche-tag" style="display:none;">
+        <span id="niche-tag-icon"></span>
+        <span id="niche-tag-name"></span>
+      </div>
+
+      <div class="card">
+        <div class="card-title">What Positioning Actually Means</div>
+        <p>Positioning isn't your bio. It's the answer to: "Why you, and not the 10,000 other VAs on Upwork?" Day 2 is where you stop sounding like everyone else.</p>
+        <p>By the end of today you'll have a clear rate range, a sharpened niche statement, and language that speaks directly to the clients who can actually afford to pay you what you're worth.</p>
+      </div>
+
+      <div class="card" id="rate-card">
+        <div class="card-title">Your Rate Snapshot</div>
+        <p style="margin-bottom:14px;">Based on your niche, here's where your rates should land when you're starting out — and where they can go.</p>
+        <div id="rate-table"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Today's Tasks</div>
+        <ul class="checklist" id="d2-checklist">
+          <li class="check-item" onclick="toggleCheck(this, 'd2')">
+            <div class="check-box"></div>
+            <span class="check-text">Review your rate snapshot and set your starting target rate</span>
+          </li>
+          <li class="check-item" onclick="toggleCheck(this, 'd2')">
+            <div class="check-box"></div>
+            <span class="check-text">Refine your positioning statement from Day 1 using today's framework</span>
+          </li>
+          <li class="check-item" onclick="toggleCheck(this, 'd2')">
+            <div class="check-box"></div>
+            <span class="check-text">Identify 3 specific pain points your ideal client has that you can solve</span>
+          </li>
+          <li class="check-item" onclick="toggleCheck(this, 'd2')">
+            <div class="check-box"></div>
+            <span class="check-text">Draft your one-line "I do X for Y" hook you'll use on every platform</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Positioning Framework</div>
+        <p style="margin-bottom:12px;">Sharpen your statement. Think: specific client + specific pain + specific outcome.</p>
+        <textarea class="journal-textarea" placeholder='Before: "I help coaches with admin tasks."&#10;After: "I help 6-figure health coaches reclaim 10+ hours/week by managing their inbox, scheduling, and client onboarding — so their clients feel taken care of and they stop working weekends."' oninput="updateD2Progress()"></textarea>
+      </div>
+
+      <div class="card">
+        <div class="card-title">3 Pain Points You Solve</div>
+        <p style="margin-bottom:12px;">Write out 3 specific problems your ideal client is dealing with right now. Be specific.</p>
+        <textarea class="journal-textarea" placeholder="1. &#10;2. &#10;3. " oninput="updateD2Progress()"></textarea>
+      </div>
+
+      <div class="btn-nav">
+        <button class="btn-primary" onclick="completeDay2()">Complete Day 2 — Unlock Full System →</button>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+<!-- PAYWALL MODAL -->
+<div class="modal-overlay" id="paywall-modal">
+  <div class="modal">
+    <button class="modal-dismiss" onclick="dismissModal()">✕</button>
+    <span class="modal-emoji">🎉</span>
+    <div class="modal-headline">You're already ahead of 90% of VAs</div>
+    <div class="modal-sub">You've built your foundation and nailed your positioning. Days 3–30 are where clients, contracts, and income actually happen.</div>
+
+    <div class="modal-price-block">
+      <div class="modal-original">Regular price: $27</div>
+      <div class="modal-price">$13</div>
+      <div class="modal-price-label">one-time — yours forever</div>
+    </div>
+
+    <ul class="modal-features">
+      <li>Day 3: Build your first service package</li>
+      <li>Days 4–7: Find and land your first client</li>
+      <li>Day 11: AI-powered pitch generator</li>
+      <li>Days 15–20: Scale to retainer clients</li>
+      <li>Day 30: Your full VA business is live</li>
+    </ul>
+
+    <a class="modal-cta" href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" target="_blank">Unlock All 30 Days — $13</a>
+    <button class="modal-no-thanks" onclick="dismissModal()">No thanks, I'll figure it out on my own</button>
+    <div class="modal-code">Use code <span>PREVIEW30</span> at checkout</div>
+  </div>
+</div>
+
+<script>
+  // ── STATE ──
+  let selectedNiche = null;
+  let selectedNicheIcon = '';
+  let day1Completed = false;
+  let day2Completed = false;
+  let currentDay = 1;
+
+  const niches = {
+    'Healthcare VA':   { start: '$35–$50/hr', growth: '$55–$85/hr', monthly: '$2,800–$4,000', demand: 'Very High' },
+    'Social Media VA': { start: '$30–$45/hr', growth: '$50–$75/hr', monthly: '$2,400–$3,600', demand: 'High' },
+    'Executive VA':    { start: '$40–$60/hr', growth: '$65–$100/hr', monthly: '$3,200–$4,800', demand: 'High' },
+    'Tech & Ops VA':   { start: '$45–$65/hr', growth: '$70–$110/hr', monthly: '$3,600–$5,200', demand: 'Very High' },
+  };
+
+  // ── NAVIGATION ──
+  function goToDay(day) {
+    if (day === 2 && !day1Completed) return;
+    if (day > 2) { showModal(); return; }
+
+    currentDay = day;
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-day' + day).classList.add('active');
+
+    document.querySelectorAll('.day-item').forEach(el => el.classList.remove('active'));
+    document.getElementById('sidebar-day' + day).classList.add('active');
+  }
+
+  // ── CHECKLIST ──
+  function toggleCheck(el, day) {
+    el.classList.toggle('checked');
+    if (day === 'd1') updateD1Progress();
+    if (day === 'd2') updateD2Progress();
+  }
+
+  // ── NICHE ──
+  function selectNiche(el, name, icon) {
+    document.querySelectorAll('.niche-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedNiche = name;
+    selectedNicheIcon = icon;
+    updateD1Progress();
+  }
+
+  // ── DAY 1 PROGRESS ──
+  function updateD1Progress() {
+    const checks = document.querySelectorAll('#d1-checklist .check-item.checked').length;
+    const total = document.querySelectorAll('#d1-checklist .check-item').length;
+    const journals = document.querySelectorAll('#screen-day1 .journal-textarea');
+    let filled = 0;
+    journals.forEach(j => { if (j.value.trim().length > 10) filled++; });
+    const nicheBonus = selectedNiche ? 1 : 0;
+    const score = Math.round(((checks + filled * 0.5 + nicheBonus) / (total + journals.length * 0.5 + 1)) * 100);
+    const pct = Math.min(score, 95);
+    document.getElementById('d1-progress-fill').style.width = pct + '%';
+    document.getElementById('d1-progress-pct').textContent = pct + '% complete';
+  }
+
+  // ── DAY 2 PROGRESS ──
+  function updateD2Progress() {
+    const checks = document.querySelectorAll('#d2-checklist .check-item.checked').length;
+    const total = document.querySelectorAll('#d2-checklist .check-item').length;
+    const journals = document.querySelectorAll('#screen-day2 .journal-textarea');
+    let filled = 0;
+    journals.forEach(j => { if (j.value.trim().length > 10) filled++; });
+    const score = Math.round(((checks + filled * 0.5) / (total + journals.length * 0.5)) * 100);
+    const pct = Math.min(score, 95);
+    document.getElementById('d2-progress-fill').style.width = pct + '%';
+    document.getElementById('d2-progress-pct').textContent = pct + '% complete';
+  }
+
+  // ── COMPLETE DAY 1 ──
+  function completeDay1() {
+    day1Completed = true;
+    document.getElementById('d1-progress-fill').style.width = '100%';
+    document.getElementById('d1-progress-pct').textContent = '100% complete';
+
+    const num1 = document.getElementById('num-1');
+    num1.textContent = '✓';
+    document.getElementById('sidebar-day1').classList.remove('active');
+    document.getElementById('sidebar-day1').classList.add('completed');
+
+    // Set up Day 2 rate table
+    buildRateTable();
+
+    // Show niche tag on Day 2
+    if (selectedNiche) {
+      document.getElementById('niche-context-tag').style.display = 'inline-flex';
+      document.getElementById('niche-tag-icon').textContent = selectedNicheIcon;
+      document.getElementById('niche-tag-name').textContent = selectedNiche + ' Track';
+    }
+
+    launchConfetti(false);
+
+    setTimeout(() => { goToDay(2); }, 700);
+  }
+
+  // ── COMPLETE DAY 2 ──
+  function completeDay2() {
+    day2Completed = true;
+    document.getElementById('d2-progress-fill').style.width = '100%';
+    document.getElementById('d2-progress-pct').textContent = '100% complete';
+
+    const num2 = document.getElementById('num-2');
+    num2.textContent = '✓';
+    document.getElementById('sidebar-day2').classList.remove('active');
+    document.getElementById('sidebar-day2').classList.add('completed');
+
+    launchConfetti(true);
+
+    setTimeout(() => { showModal(); }, 900);
+  }
+
+  // ── BUILD RATE TABLE ──
+  function buildRateTable() {
+    const niche = selectedNiche || 'Social Media VA';
+    const data = niches[niche];
+    document.getElementById('rate-card').querySelector('.card-title').textContent =
+      (selectedNicheIcon || '💼') + '  ' + niche + ' — Rate Snapshot';
+
+    document.getElementById('rate-table').innerHTML = `
+      <div class="rate-row">
+        <span class="rate-label">Starting rate</span>
+        <span class="rate-value big">${data.start}</span>
+      </div>
+      <div class="rate-row">
+        <span class="rate-label">6-month target</span>
+        <span class="rate-value">${data.growth}</span>
+      </div>
+      <div class="rate-row">
+        <span class="rate-label">Full-time monthly (2 clients)</span>
+        <span class="rate-value">${data.monthly}</span>
+      </div>
+      <div class="rate-row">
+        <span class="rate-label">Client demand</span>
+        <span class="rate-value" style="color:#4ade80;">${data.demand}</span>
+      </div>
+    `;
+  }
+
+  // ── MODAL ──
+  function showModal() {
+    document.getElementById('paywall-modal').classList.add('show');
+  }
+
+  function dismissModal() {
+    document.getElementById('paywall-modal').classList.remove('show');
+  }
+
+  // ── CONFETTI ──
+  function launchConfetti(big) {
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const count = big ? 220 : 110;
+    const colors = ['#FF1F7A', '#ff6eb0', '#ffffff', '#FFD6E8', '#ff0066', '#f8a4cb', '#FF1F7A88'];
+    const particles = [];
+
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: -10 - Math.random() * (big ? 300 : 100),
+        w: 6 + Math.random() * (big ? 10 : 6),
+        h: 3 + Math.random() * 5,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        vy: 2 + Math.random() * (big ? 5 : 3),
+        vx: -2 + Math.random() * 4,
+        rot: Math.random() * 360,
+        rotSpeed: -3 + Math.random() * 6,
+        opacity: 1,
+      });
+    }
+
+    let frame;
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let alive = false;
+      for (const p of particles) {
+        p.y += p.vy;
+        p.x += p.vx;
+        p.rot += p.rotSpeed;
+        if (p.y > canvas.height * 0.7) p.opacity -= 0.025;
+        if (p.opacity > 0) {
+          alive = true;
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, p.opacity);
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rot * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        }
+      }
+      if (alive) { frame = requestAnimationFrame(draw); }
+      else { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+    }
+
+    if (frame) cancelAnimationFrame(frame);
+    draw();
+  }
+</script>
+</body>
+</html>
