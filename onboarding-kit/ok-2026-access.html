@@ -1186,15 +1186,20 @@ function saveSetup() {
   refreshAll();
 }
 
-function v(id) { return document.getElementById(id)?.value || ''; }
+function v(id) { const el = document.getElementById(id); return el ? el.value : ''; }
 function ph(id, fallback) { const val = v(id); return val || fallback; }
 
 // ── COMPLETE SETUP ──
 function completeSetup() {
-  setupDone = true;
-  saveSetup();
-  markNavDone(0);
-  goTo(1);
+  try {
+    setupDone = true;
+    saveSetup();
+    markNavDone(0);
+    goTo(1);
+  } catch(e) {
+    console.error('completeSetup error:', e);
+    alert('Something went wrong: ' + e.message);
+  }
 }
 
 // ── NAVIGATION ──
@@ -1598,7 +1603,9 @@ function launchConfetti() {
 }
 
 // ── INIT ──
-load();
+document.addEventListener('DOMContentLoaded', function() {
+  try { load(); } catch(e) { console.error('Init error:', e); }
+});
 </script>
 </body>
 </html>
