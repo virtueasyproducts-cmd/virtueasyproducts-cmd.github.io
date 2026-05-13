@@ -508,6 +508,130 @@ body {
   z-index: 999;
 }
 
+/* ── MOBILE NAV BAR ── */
+.mobile-nav {
+  display: none;
+}
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 640px) {
+  .sidebar {
+    display: none;
+  }
+
+  .app-layout {
+    flex-direction: column;
+    height: calc(100vh - 50px - 60px);
+  }
+
+  .main-content {
+    padding: 20px 16px;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .day-title {
+    font-size: 26px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .stat-num {
+    font-size: 22px;
+  }
+
+  .niche-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .btn-primary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn-nav {
+    flex-direction: column;
+  }
+
+  /* Mobile bottom nav */
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #111;
+    border-top: 1px solid #1e1e1e;
+    z-index: 20;
+  }
+
+  .mobile-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: #555;
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: color 0.15s;
+    padding: 0;
+    border-left: 1px solid #1e1e1e;
+  }
+
+  .mobile-nav-item:first-child {
+    border-left: none;
+  }
+
+  .mobile-nav-item.active {
+    color: #FF1F7A;
+  }
+
+  .mobile-nav-item.locked {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .mobile-nav-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #1e1e1e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #555;
+    transition: all 0.2s;
+  }
+
+  .mobile-nav-item.active .mobile-nav-dot {
+    background: #FF1F7A;
+    color: #fff;
+  }
+
+  .mobile-nav-item.completed .mobile-nav-dot {
+    background: #1a3320;
+    color: #4ade80;
+  }
+
+  .mobile-nav-item.completed {
+    color: #4ade80;
+  }
+}
+
 /* ── SCREENS ── */
 .screen { display: none; }
 .screen.active { display: block; }
@@ -792,6 +916,22 @@ body {
   </main>
 </div>
 
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav">
+  <button class="mobile-nav-item active" id="mobile-day1" onclick="goToDay(1)">
+    <div class="mobile-nav-dot" id="mobile-num-1">1</div>
+    Day 1
+  </button>
+  <button class="mobile-nav-item locked" id="mobile-day2" onclick="goToDay(2)">
+    <div class="mobile-nav-dot" id="mobile-num-2">2</div>
+    Day 2
+  </button>
+  <button class="mobile-nav-item locked" id="mobile-day3" onclick="goToDay(3)">
+    <div class="mobile-nav-dot">🔒</div>
+    Day 3+
+  </button>
+</nav>
+
 <!-- PAYWALL MODAL -->
 <div class="modal-overlay" id="paywall-modal">
   <div class="modal">
@@ -838,6 +978,13 @@ body {
 
     document.querySelectorAll('.day-item').forEach(el => el.classList.remove('active'));
     document.getElementById('sidebar-day' + day).classList.add('active');
+
+    // Sync mobile nav
+    ['mobile-day1', 'mobile-day2'].forEach(id => {
+      document.getElementById(id).classList.remove('active');
+    });
+    const mobileBtn = document.getElementById('mobile-day' + day);
+    if (mobileBtn) mobileBtn.classList.add('active');
   }
 
   // ── CHECKLIST ──
@@ -894,6 +1041,15 @@ body {
     document.getElementById('sidebar-day1').classList.remove('active');
     document.getElementById('sidebar-day1').classList.add('completed');
 
+    // Unlock mobile Day 2
+    const mobileDay1 = document.getElementById('mobile-day1');
+    const mobileDay2 = document.getElementById('mobile-day2');
+    const mobileNum1 = document.getElementById('mobile-num-1');
+    mobileDay1.classList.remove('active');
+    mobileDay1.classList.add('completed');
+    mobileNum1.textContent = '✓';
+    mobileDay2.classList.remove('locked');
+
     // Set up Day 2 rate table
     buildRateTable();
 
@@ -919,6 +1075,13 @@ body {
     num2.textContent = '✓';
     document.getElementById('sidebar-day2').classList.remove('active');
     document.getElementById('sidebar-day2').classList.add('completed');
+
+    // Update mobile Day 2
+    const mobileDay2 = document.getElementById('mobile-day2');
+    const mobileNum2 = document.getElementById('mobile-num-2');
+    mobileDay2.classList.remove('active');
+    mobileDay2.classList.add('completed');
+    mobileNum2.textContent = '✓';
 
     launchConfetti(true);
 
