@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VA Client Onboarding Kit - Look Like a Pro from Day One | Virtueasy</title>
+<meta name="description" content="Everything you need to onboard your first client professionally. Welcome email, intake form, scope of work, contract, and onboarding checklist - all auto-filled from your details. $7.">
+<meta property="og:title" content="VA Client Onboarding Kit - Look Like a Pro from Day One">
+<meta property="og:description" content="Enter your details once. Every document auto-fills. Land a client, send the kit, look like you have done this 100 times. $7.">
+<meta property="og:type" content="website">
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1552355892525925');fbq('track','PageView');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#FF1F7A;--pink-dark:#D91565;--pink-glow:rgba(255,31,122,0.35);--pink-pale:rgba(255,31,122,0.08);
+  --black:#0A0A0A;--surface:#141214;--surface-2:#1e1a1e;--border:rgba(255,31,122,0.1);--border-s:rgba(255,255,255,0.07);
+  --white:#F8F8F8;--muted:#888;
+  --font-display:'Bebas Neue',sans-serif;--font-body:'Barlow',sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-body);background:var(--black);color:var(--white);-webkit-font-smoothing:antialiased;line-height:1.6}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* NAV */
+.site-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.nav-logo{display:flex;align-items:center;gap:0.5rem;text-decoration:none;font-family:var(--font-display);font-size:1.6rem;letter-spacing:0.08em;color:var(--white)}
+.nav-logo span{color:var(--pink)}
+.nav-links{display:flex;align-items:center;gap:0.25rem;list-style:none;margin-left:auto}
+.nav-links li a{font-size:0.82rem;font-weight:500;color:rgba(248,248,248,0.65);padding:0.4rem 0.75rem;border-radius:4px;transition:color 0.2s;text-decoration:none;white-space:nowrap}
+.nav-links li a:hover{color:var(--white)}
+.nav-links li.nav-cta a{background:var(--pink);color:#fff;font-weight:700;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.55rem 1.25rem;border-radius:3px;transition:background 0.2s}
+.nav-links li.nav-cta a:hover{background:var(--pink-dark)}
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px}
+@media(max-width:680px){
+  .nav-toggle{display:flex}
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:rgba(10,10,10,0.98);flex-direction:column;align-items:flex-start;padding:1rem 2rem 1.5rem;gap:0.25rem;border-bottom:1px solid var(--border)}
+  .nav-links.open{display:flex}
+  .nav-links li{width:100%}
+  .nav-links li a{display:block;padding:0.65rem 0;font-size:0.9rem}
+}
+
+/* HERO */
+.hero{padding:5rem 2rem 4rem;text-align:center;max-width:780px;margin:0 auto}
+.hero-eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--pink);margin-bottom:1.25rem;display:flex;align-items:center;justify-content:center;gap:0.5rem}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;height:1px;width:32px;background:var(--pink);opacity:0.4}
+.hero-title{font-family:var(--font-display);font-size:clamp(3rem,8vw,5.5rem);letter-spacing:0.02em;line-height:1;margin-bottom:1.5rem}
+.hero-title span{color:var(--pink)}
+.hero-sub{font-size:1.1rem;color:var(--muted);line-height:1.7;max-width:580px;margin:0 auto 2.5rem}
+.price-tag{display:inline-flex;align-items:baseline;gap:0.4rem;margin-bottom:2rem}
+.price-num{font-family:var(--font-display);font-size:4rem;color:var(--pink);line-height:1}
+.price-label{font-size:0.85rem;color:var(--muted);font-weight:500}
+.hero-cta{display:inline-block;background:var(--pink);color:#fff;font-weight:700;font-size:1rem;letter-spacing:0.06em;text-transform:uppercase;padding:1rem 2.5rem;border-radius:4px;transition:background 0.2s,box-shadow 0.2s;margin-bottom:0.85rem}
+.hero-cta:hover{background:var(--pink-dark);box-shadow:0 0 28px var(--pink-glow)}
+.hero-sub-cta{font-size:0.78rem;color:var(--muted)}
+.hero-sub-cta a{color:var(--pink);text-decoration:underline}
+
+/* TRUST BAR */
+.trust-bar{border-top:1px solid var(--border-s);border-bottom:1px solid var(--border-s);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;font-weight:600;color:rgba(248,248,248,0.55);letter-spacing:0.04em;text-transform:uppercase}
+.trust-item span{font-size:1rem}
+
+/* WHAT'S INSIDE */
+.section{padding:5rem 2rem;max-width:960px;margin:0 auto}
+.section-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--pink);margin-bottom:0.75rem}
+.section-title{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.2rem);letter-spacing:0.02em;margin-bottom:1rem}
+.section-sub{font-size:0.95rem;color:var(--muted);line-height:1.7;max-width:560px;margin-bottom:3rem}
+
+.docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+@media(max-width:720px){.docs-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.docs-grid{grid-template-columns:1fr}}
+
+.doc-card{background:var(--surface);border:1px solid var(--border-s);border-radius:10px;padding:1.5rem 1.25rem;transition:border-color 0.2s}
+.doc-card:hover{border-color:rgba(255,31,122,0.3)}
+.doc-icon{font-size:1.6rem;margin-bottom:0.75rem}
+.doc-name{font-family:var(--font-display);font-size:1.1rem;letter-spacing:0.04em;margin-bottom:0.4rem;color:var(--white)}
+.doc-desc{font-size:0.82rem;color:var(--muted);line-height:1.6}
+
+/* HOW IT WORKS */
+.how-section{background:var(--surface);border-top:1px solid var(--border-s);border-bottom:1px solid var(--border-s);padding:5rem 2rem}
+.how-inner{max-width:860px;margin:0 auto}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+@media(max-width:600px){.steps{grid-template-columns:1fr}}
+.step{text-align:center}
+.step-num{font-family:var(--font-display);font-size:3rem;color:var(--pink);line-height:1;margin-bottom:0.75rem}
+.step-title{font-size:0.95rem;font-weight:700;margin-bottom:0.4rem;letter-spacing:0.03em}
+.step-desc{font-size:0.85rem;color:var(--muted);line-height:1.65}
+
+/* WHAT YOU GET CHECKLIST */
+.get-section{padding:5rem 2rem;max-width:800px;margin:0 auto}
+.get-list{list-style:none;display:flex;flex-direction:column;gap:0.85rem;margin-top:2.5rem}
+.get-item{display:flex;align-items:flex-start;gap:1rem;font-size:0.95rem;line-height:1.5}
+.get-check{width:22px;height:22px;border-radius:50%;background:var(--pink);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px}
+
+/* WHO IT'S FOR */
+.who-section{background:var(--surface);border-top:1px solid var(--border-s);border-bottom:1px solid var(--border-s);padding:5rem 2rem}
+.who-inner{max-width:760px;margin:0 auto}
+.who-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:0.75rem 2rem;margin-top:2.5rem}
+@media(max-width:540px){.who-list{grid-template-columns:1fr}}
+.who-item{display:flex;align-items:flex-start;gap:0.65rem;font-size:0.9rem;color:rgba(248,248,248,0.75);line-height:1.5}
+.who-item::before{content:'→';color:var(--pink);font-weight:700;flex-shrink:0}
+
+/* CTA SECTION */
+.cta-section{padding:6rem 2rem;text-align:center;max-width:620px;margin:0 auto}
+.cta-section .hero-title{font-size:clamp(2.2rem,6vw,4rem);margin-bottom:1rem}
+.cta-section .hero-sub{margin-bottom:2rem}
+
+/* BLOG LINK */
+.blog-link-bar{border-top:1px solid var(--border-s);padding:2rem;text-align:center;font-size:0.85rem;color:var(--muted)}
+.blog-link-bar a{color:var(--pink);text-decoration:underline}
+
+/* FOOTER */
+.site-footer{background:#070707;border-top:1px solid var(--border-s);padding:3rem 2rem;text-align:center}
+.footer-logo{font-family:var(--font-display);font-size:1.4rem;letter-spacing:0.1em;color:var(--white);margin-bottom:0.75rem}
+.footer-logo span{color:var(--pink)}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.footer-links a{font-size:0.78rem;color:var(--muted);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(--white)}
+.footer-copy{font-size:0.72rem;color:#444}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="/" class="nav-logo">virtue<span>easy</span></a>
+  <button class="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="/resources/">Resources</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/va-job-board">Job Board</a></li>
+    <li class="nav-cta"><a href="https://buy.stripe.com/5kQdRb1nJ2de3R50Qc63K07">Get the Kit - $7</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">VA Client Onboarding Kit</div>
+  <h1 class="hero-title">Look like a pro<br><span>from day one.</span></h1>
+  <p class="hero-sub">You just landed a client. Now what? This kit gives you every document you need - pre-written, auto-filled, and ready to send - so you show up looking like you have done this 100 times.</p>
+  <div class="price-tag">
+    <span class="price-num">$7</span>
+    <span class="price-label">one-time - instant access</span>
+  </div>
+  <br>
+  <a href="https://buy.stripe.com/5kQdRb1nJ2de3R50Qc63K07" class="hero-cta">Get Instant Access</a>
+  <p class="hero-sub-cta">Already purchased? <a href="/onboarding-kit/ok-2026-access">Access your kit here.</a></p>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span>✓</span> Enter your details once</div>
+  <div class="trust-item"><span>✓</span> Every doc auto-fills</div>
+  <div class="trust-item"><span>✓</span> Ready to send in minutes</div>
+  <div class="trust-item"><span>✓</span> Instant access</div>
+</div>
+
+<!-- WHAT'S INSIDE -->
+<section class="section">
+  <div class="section-eyebrow">What you get</div>
+  <h2 class="section-title">Six documents.<br>One professional system.</h2>
+  <p class="section-sub">Enter your name, rate, and niche once. Every document below generates automatically - no blank templates to figure out.</p>
+
+  <div class="docs-grid">
+    <div class="doc-card">
+      <div class="doc-icon">✉️</div>
+      <div class="doc-name">Welcome Email</div>
+      <p class="doc-desc">A pre-written email you send within 24 hours of a client saying yes. Sets the tone before day one.</p>
+    </div>
+    <div class="doc-card">
+      <div class="doc-icon">📋</div>
+      <div class="doc-name">Client Intake Form</div>
+      <p class="doc-desc">10 questions that tell you exactly how to work with a new client - and protect you if things go sideways.</p>
+    </div>
+    <div class="doc-card">
+      <div class="doc-icon">📄</div>
+      <div class="doc-name">Scope of Work</div>
+      <p class="doc-desc">Select your deliverables, fill in the dates, and generate a clean document to share before work begins.</p>
+    </div>
+    <div class="doc-card">
+      <div class="doc-icon">🤝</div>
+      <div class="doc-name">Contract + Payment Terms</div>
+      <p class="doc-desc">A plain-language agreement covering payment, kill fees, ownership, and termination. No lawyer required.</p>
+    </div>
+    <div class="doc-card">
+      <div class="doc-icon">✅</div>
+      <div class="doc-name">Onboarding Checklist</div>
+      <p class="doc-desc">11 steps to run through with every new client - checkable, repeatable, and nothing falls through the cracks.</p>
+    </div>
+    <div class="doc-card">
+      <div class="doc-icon">⚙️</div>
+      <div class="doc-name">Auto-Fill Setup</div>
+      <p class="doc-desc">Your name, rate, and terms populate into every document automatically. Set it once, use it forever.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<div class="how-section">
+  <div class="how-inner">
+    <div class="section-eyebrow">How it works</div>
+    <h2 class="section-title">Up and running in under 10 minutes.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Enter your details</div>
+        <p class="step-desc">Your name, business, niche, rate, and payment terms. Once.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Every doc generates</div>
+        <p class="step-desc">The welcome email, intake form, scope, contract, and checklist all auto-fill from your setup.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Copy and send</div>
+        <p class="step-desc">One click to copy any document. Paste into email, Google Docs, or wherever you need it.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT YOU GET -->
+<section class="get-section">
+  <div class="section-eyebrow">Everything included</div>
+  <h2 class="section-title">No blank templates.<br>No guessing.</h2>
+  <ul class="get-list">
+    <li class="get-item"><span class="get-check">✓</span>Interactive web app - works on any device, no download needed</li>
+    <li class="get-item"><span class="get-check">✓</span>Auto-saves to your browser - come back anytime and your info is there</li>
+    <li class="get-item"><span class="get-check">✓</span>One-click copy for every document</li>
+    <li class="get-item"><span class="get-check">✓</span>18 selectable deliverables for your scope of work</li>
+    <li class="get-item"><span class="get-check">✓</span>Plain-language contract with kill fee, ownership, and confidentiality clauses</li>
+    <li class="get-item"><span class="get-check">✓</span>11-step onboarding checklist that resets for each new client</li>
+    <li class="get-item"><span class="get-check">✓</span>Lifetime access - use it for every client, forever</li>
+  </ul>
+</section>
+
+<!-- WHO IT'S FOR -->
+<div class="who-section">
+  <div class="who-inner">
+    <div class="section-eyebrow">Who this is for</div>
+    <h2 class="section-title">You just landed a client<br>and you have no idea what to do next.</h2>
+    <ul class="who-list">
+      <li class="who-item">You are a new VA and want to look professional from the start</li>
+      <li class="who-item">You have been freelancing without a real system and it is catching up to you</li>
+      <li class="who-item">A client said yes and you need to move fast</li>
+      <li class="who-item">You want a contract but do not want to pay for a lawyer</li>
+      <li class="who-item">You keep forgetting steps when onboarding and things fall through the cracks</li>
+      <li class="who-item">You want every new client to feel like you have done this 100 times</li>
+    </ul>
+  </div>
+</div>
+
+<!-- BOTTOM CTA -->
+<section class="cta-section">
+  <div class="section-eyebrow">Get started</div>
+  <h2 class="hero-title">$7. One time.<br><span>Use it forever.</span></h2>
+  <p class="hero-sub">The next time a client says yes, you will be ready in under 10 minutes.</p>
+  <a href="https://buy.stripe.com/5kQdRb1nJ2de3R50Qc63K07" class="hero-cta">Get Instant Access - $7</a>
+</section>
+
+<!-- BLOG LINK -->
+<div class="blog-link-bar">
+  Want to learn more about onboarding clients the right way? <a href="/blog/posts/va-client-onboarding.html">Read the full guide on the blog.</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-logo">virtue<span>easy</span></div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/resources/">Resources</a>
+    <a href="/blog/">Blog</a>
+    <a href="/va-job-board">Job Board</a>
+    <a href="/starterkit/">VA Starter Kit</a>
+    <a href="/privacy-policy.html">Privacy</a>
+  </div>
+  <p class="footer-copy">&#169; 2026 Virtueasy. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
