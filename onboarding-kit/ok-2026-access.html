@@ -3,29 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Client Onboarding Kit — Virtueasy</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>VA Client Onboarding Kit — Virtueasy</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --pink: #FF1F7A;
-  --pink-dim: #FF1F7A22;
-  --pink-border: #FF1F7A44;
-  --bg: #0A0A0A;
-  --surface: #111;
-  --surface2: #161616;
-  --border: #1e1e1e;
-  --border2: #2a2a2a;
-  --text: #F8F8F8;
-  --muted: #888;
-  --dim: #444;
-  --green: #4ade80;
-  --green-bg: #1a3320;
+  --pink-light: #fff0f6;
+  --pink-border: #ffc2da;
+  --bg: #f7f8fa;
+  --white: #ffffff;
+  --border: #e8eaed;
+  --border2: #d1d5db;
+  --text: #111827;
+  --muted: #6b7280;
+  --dim: #9ca3af;
+  --green: #16a34a;
+  --green-light: #f0fdf4;
+  --green-border: #bbf7d0;
+  --sidebar-w: 230px;
 }
 
 body {
-  font-family: 'Barlow', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -33,126 +34,150 @@ body {
 
 /* ── TOPBAR ── */
 .topbar {
-  background: var(--surface);
+  background: var(--white);
   border-bottom: 1px solid var(--border);
-  padding: 14px 24px;
+  padding: 0 28px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
 .logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 22px;
-  color: var(--pink);
-  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
 }
 
+.logo span { color: var(--pink); }
+
 .kit-badge {
-  background: var(--pink-dim);
+  background: var(--pink-light);
   border: 1px solid var(--pink-border);
   color: var(--pink);
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
   padding: 4px 12px;
   border-radius: 20px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 /* ── LAYOUT ── */
 .app-layout {
   display: flex;
-  min-height: calc(100vh - 51px);
+  min-height: calc(100vh - 56px);
 }
 
 /* ── SIDEBAR ── */
 .sidebar {
-  width: 220px;
-  background: var(--surface);
+  width: var(--sidebar-w);
+  background: var(--white);
   border-right: 1px solid var(--border);
   flex-shrink: 0;
-  padding: 20px 0;
+  padding: 24px 0 32px;
   position: sticky;
-  top: 51px;
-  height: calc(100vh - 51px);
+  top: 56px;
+  height: calc(100vh - 56px);
   overflow-y: auto;
 }
 
-.sidebar-label {
+.sidebar-heading {
   font-size: 10px;
   font-weight: 700;
   color: var(--dim);
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  padding: 0 16px 10px;
+  padding: 0 20px 14px;
 }
 
 .nav-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 16px;
+  padding: 10px 20px;
   cursor: pointer;
   border-left: 3px solid transparent;
-  transition: background 0.15s;
+  transition: all 0.15s;
+  position: relative;
 }
 
-.nav-item:hover { background: #1a1a1a; }
+.nav-item:hover { background: var(--bg); }
 
 .nav-item.active {
-  background: var(--pink-dim);
+  background: var(--pink-light);
   border-left-color: var(--pink);
 }
 
-.nav-item.done .nav-icon { background: var(--green-bg); color: var(--green); }
-.nav-item.active .nav-icon { background: var(--pink); color: #fff; }
-
-.nav-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  background: var(--surface2);
+.nav-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1.5px solid var(--border2);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
   flex-shrink: 0;
   transition: all 0.2s;
 }
 
-.nav-text { font-size: 12px; color: var(--muted); line-height: 1.3; font-weight: 500; }
-.nav-item.active .nav-text { color: var(--text); }
-.nav-item.done .nav-text { color: var(--green); }
+.nav-item.active .nav-num {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: #fff;
+}
+
+.nav-item.done .nav-num {
+  background: var(--green-light);
+  border-color: var(--green-border);
+  color: var(--green);
+}
+
+.nav-label { font-size: 13px; font-weight: 500; color: var(--muted); }
+.nav-item.active .nav-label { color: var(--pink); font-weight: 600; }
+.nav-item.done .nav-label { color: var(--green); }
+
+.sidebar-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 16px 20px;
+}
 
 .sidebar-progress {
-  padding: 16px;
-  margin-top: 8px;
-  border-top: 1px solid var(--border);
+  padding: 0 20px;
 }
 
-.sidebar-progress-label {
-  font-size: 10px;
-  color: var(--dim);
-  margin-bottom: 8px;
+.progress-label {
   display: flex;
   justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  font-weight: 500;
 }
 
-.sidebar-progress-bar {
+.progress-track {
   background: var(--border);
-  border-radius: 4px;
-  height: 4px;
+  border-radius: 99px;
+  height: 5px;
   overflow: hidden;
 }
 
-.sidebar-progress-fill {
+.progress-fill {
   height: 100%;
   background: var(--pink);
-  border-radius: 4px;
+  border-radius: 99px;
   transition: width 0.5s ease;
   width: 0%;
 }
@@ -160,107 +185,123 @@ body {
 /* ── MAIN ── */
 .main {
   flex: 1;
-  padding: 32px 40px;
-  max-width: 780px;
+  padding: 36px 44px;
+  max-width: 760px;
 }
 
 /* ── SECTION HEADER ── */
-.section-eyebrow {
-  font-size: 10px;
+.eyebrow {
+  font-size: 11px;
   font-weight: 700;
   color: var(--pink);
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .section-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 38px;
-  letter-spacing: 0.5px;
-  line-height: 1.05;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text);
   margin-bottom: 6px;
+  line-height: 1.2;
 }
 
 .section-sub {
   font-size: 14px;
   color: var(--muted);
   margin-bottom: 28px;
-  line-height: 1.6;
+  line-height: 1.65;
 }
+
+/* ── STEP DOTS ── */
+.step-dots {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.step-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--border2);
+  transition: all 0.3s;
+}
+
+.step-dot.active { background: var(--pink); width: 20px; border-radius: 4px; }
+.step-dot.done { background: var(--green); }
 
 /* ── CARDS ── */
 .card {
-  background: var(--surface);
+  background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 22px;
+  border-radius: 14px;
+  padding: 24px;
   margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 
 .card-title {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--pink);
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
-/* ── FORM INPUTS ── */
-.field-group {
+/* ── FORM ── */
+.field-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 14px;
+  margin-bottom: 14px;
 }
 
-.field-group.full { grid-template-columns: 1fr; }
+.field-grid.full { grid-template-columns: 1fr; }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
+.field { display: flex; flex-direction: column; gap: 6px; }
 
 .field label {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--muted);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 .field input,
 .field select,
 .field textarea {
-  background: var(--surface2);
-  border: 1px solid var(--border2);
+  background: var(--bg);
+  border: 1.5px solid var(--border);
   border-radius: 8px;
   padding: 10px 14px;
   color: var(--text);
-  font-family: 'Barlow', sans-serif;
-  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
   width: 100%;
 }
 
 .field input:focus,
 .field select:focus,
-.field textarea:focus { border-color: var(--pink-border); }
+.field textarea:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(255,31,122,0.08);
+  background: var(--white);
+}
 
 .field input::placeholder,
 .field textarea::placeholder { color: var(--dim); }
-
-.field select option { background: #1a1a1a; }
-
 .field textarea { resize: none; min-height: 90px; line-height: 1.6; }
 
-/* ── COPY BLOCK ── */
+/* ── COPY BLOCKS ── */
 .copy-block {
-  background: var(--surface2);
-  border: 1px solid var(--border2);
+  background: var(--bg);
+  border: 1.5px solid var(--border);
   border-radius: 10px;
   padding: 18px;
   margin-bottom: 12px;
@@ -278,21 +319,22 @@ body {
 
 .copy-text {
   font-size: 13px;
-  color: #ccc;
-  line-height: 1.8;
+  color: var(--text);
+  line-height: 1.85;
   white-space: pre-wrap;
   word-break: break-word;
+  padding-right: 60px;
 }
 
 .copy-btn {
   position: absolute;
   top: 14px;
   right: 14px;
-  background: var(--border2);
-  border: none;
+  background: var(--white);
+  border: 1.5px solid var(--border2);
   border-radius: 6px;
   padding: 5px 12px;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 11px;
   font-weight: 600;
   color: var(--muted);
@@ -300,98 +342,43 @@ body {
   transition: all 0.15s;
 }
 
-.copy-btn:hover { background: var(--pink); color: #fff; }
-.copy-btn.copied { background: var(--green-bg); color: var(--green); }
+.copy-btn:hover { border-color: var(--pink); color: var(--pink); }
+.copy-btn.copied { background: var(--green-light); border-color: var(--green-border); color: var(--green); }
 
-/* ── CHECKLIST ── */
-.checklist { list-style: none; }
-
-.check-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 11px 0;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-}
-
-.check-item:last-child { border-bottom: none; }
-
-.check-box {
-  width: 22px;
-  height: 22px;
-  border: 1.5px solid var(--border2);
-  border-radius: 6px;
-  flex-shrink: 0;
-  margin-top: 1px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  transition: all 0.15s;
-}
-
-.check-item.checked .check-box {
-  background: var(--pink);
-  border-color: var(--pink);
-  color: #fff;
-}
-
-.check-content { flex: 1; }
-.check-label { font-size: 13px; color: #ccc; line-height: 1.5; }
-.check-item.checked .check-label { text-decoration: line-through; color: var(--dim); }
-.check-note { font-size: 11px; color: var(--dim); margin-top: 3px; }
-
-.check-input {
-  margin-top: 6px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 7px 10px;
-  color: #ccc;
-  font-family: 'Barlow', sans-serif;
-  font-size: 12px;
-  width: 100%;
-  outline: none;
-  display: none;
-}
-
-.check-item.checked .check-input { display: block; }
-.check-input:focus { border-color: var(--pink-border); }
-
-/* ── SCOPE TASK GRID ── */
+/* ── SCOPE TAGS ── */
 .scope-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .scope-tag {
-  background: var(--surface2);
-  border: 1.5px solid var(--border2);
+  background: var(--bg);
+  border: 1.5px solid var(--border);
   border-radius: 8px;
-  padding: 10px 14px;
+  padding: 9px 13px;
   font-size: 13px;
+  font-weight: 500;
   color: var(--muted);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.scope-tag:hover { border-color: var(--pink-border); }
+.scope-tag:hover { border-color: var(--pink-border); color: var(--text); }
 
 .scope-tag.selected {
   border-color: var(--pink);
-  background: var(--pink-dim);
-  color: var(--text);
+  background: var(--pink-light);
+  color: var(--pink);
+  font-weight: 600;
 }
 
-.scope-tag .tag-check {
-  width: 16px;
-  height: 16px;
+.tag-check {
+  width: 16px; height: 16px;
   border-radius: 4px;
   border: 1.5px solid var(--border2);
   display: flex;
@@ -408,20 +395,75 @@ body {
   color: #fff;
 }
 
+/* ── CHECKLIST ── */
+.checklist { list-style: none; }
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.check-item:last-child { border-bottom: none; }
+
+.check-box {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  border: 2px solid var(--border2);
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  transition: all 0.15s;
+}
+
+.check-item.checked .check-box {
+  background: var(--pink);
+  border-color: var(--pink);
+}
+
+.check-content { flex: 1; }
+.check-label { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.4; }
+.check-item.checked .check-label { text-decoration: line-through; color: var(--dim); }
+.check-note { font-size: 12px; color: var(--dim); margin-top: 2px; }
+
+.check-input {
+  margin-top: 7px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  width: 100%;
+  outline: none;
+  display: none;
+}
+
+.check-item.checked .check-input { display: block; }
+.check-input:focus { border-color: var(--pink-border); }
+
 /* ── BUTTONS ── */
 .btn-primary {
   background: var(--pink);
   color: #fff;
   border: none;
   border-radius: 8px;
-  padding: 13px 28px;
-  font-family: 'Barlow', sans-serif;
+  padding: 12px 26px;
+  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   transition: opacity 0.15s, transform 0.1s;
-  display: inline-block;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.1px;
 }
 
 .btn-primary:hover { opacity: 0.88; }
@@ -430,85 +472,50 @@ body {
 .btn-secondary {
   background: transparent;
   color: var(--muted);
-  border: 1px solid var(--border2);
+  border: 1.5px solid var(--border2);
   border-radius: 8px;
-  padding: 13px 28px;
-  font-family: 'Barlow', sans-serif;
+  padding: 12px 26px;
+  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s;
 }
 
-.btn-secondary:hover { border-color: var(--muted); color: var(--text); }
+.btn-secondary:hover { border-color: var(--text); color: var(--text); }
 
 .btn-row {
   display: flex;
   gap: 12px;
-  margin-top: 24px;
+  margin-top: 28px;
   align-items: center;
-}
-
-/* ── STEP INDICATOR ── */
-.step-indicator {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 28px;
-}
-
-.step-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--border2);
-  transition: all 0.3s;
-}
-
-.step-dot.active { background: var(--pink); width: 24px; border-radius: 4px; }
-.step-dot.done { background: var(--green); }
-
-/* ── DOCUMENT PREVIEW ── */
-.doc-preview {
-  background: #0d0d0d;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 24px;
-  margin-bottom: 14px;
-  font-size: 13px;
-  color: #bbb;
-  line-height: 1.9;
-  white-space: pre-wrap;
-  word-break: break-word;
-  position: relative;
-}
-
-.doc-header {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 20px;
-  color: var(--text);
-  letter-spacing: 1px;
-  margin-bottom: 14px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
 }
 
 /* ── SCREENS ── */
 .screen { display: none; }
 .screen.active { display: block; }
 
-/* ── SUCCESS STATE ── */
+/* ── SUCCESS ── */
 .success-wrap {
   text-align: center;
-  padding: 40px 20px;
+  padding: 60px 20px;
 }
 
-.success-emoji { font-size: 56px; display: block; margin-bottom: 16px; }
+.success-icon {
+  width: 72px; height: 72px;
+  background: var(--pink-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  margin: 0 auto 20px;
+}
 
 .success-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 42px;
-  letter-spacing: 0.5px;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
   margin-bottom: 10px;
 }
 
@@ -516,22 +523,22 @@ body {
   font-size: 15px;
   color: var(--muted);
   line-height: 1.7;
-  max-width: 440px;
-  margin: 0 auto 28px;
+  max-width: 420px;
+  margin: 0 auto 32px;
 }
 
-/* ── UPSELL MODAL ── */
+/* ── MODAL ── */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s;
+  transition: opacity 0.3s;
 }
 
 .modal-overlay.show {
@@ -540,63 +547,66 @@ body {
 }
 
 .modal {
-  background: var(--surface);
-  border: 1px solid var(--pink-border);
-  border-radius: 18px;
-  padding: 36px 32px;
+  background: var(--white);
+  border-radius: 20px;
+  padding: 40px 36px;
   max-width: 420px;
   width: 92%;
   text-align: center;
-  transform: scale(0.92);
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: scale(0.93);
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
   position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.18);
 }
 
 .modal-overlay.show .modal { transform: scale(1); }
 
 .modal-dismiss {
   position: absolute;
-  top: 14px;
-  right: 16px;
+  top: 14px; right: 16px;
   background: none;
   border: none;
   color: var(--dim);
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
+  line-height: 1;
   padding: 4px;
 }
 
 .modal-dismiss:hover { color: var(--muted); }
 
-.modal-emoji { font-size: 44px; display: block; margin-bottom: 12px; }
+.modal-icon {
+  font-size: 44px;
+  display: block;
+  margin-bottom: 14px;
+}
 
-.modal-headline {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 32px;
-  line-height: 1.1;
+.modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
   margin-bottom: 8px;
-  letter-spacing: 0.5px;
 }
 
 .modal-sub {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
-  line-height: 1.7;
+  line-height: 1.65;
   margin-bottom: 22px;
 }
 
 .modal-features {
   list-style: none;
   text-align: left;
-  margin-bottom: 22px;
-  background: #0d0d0d;
+  background: var(--bg);
   border-radius: 10px;
-  padding: 16px;
+  padding: 16px 18px;
+  margin-bottom: 22px;
 }
 
 .modal-features li {
   font-size: 13px;
-  color: #aaa;
+  color: var(--text);
   padding: 5px 0;
   display: flex;
   align-items: center;
@@ -605,8 +615,7 @@ body {
 
 .modal-features li::before {
   content: '';
-  width: 6px;
-  height: 6px;
+  width: 7px; height: 7px;
   border-radius: 50%;
   background: var(--pink);
   flex-shrink: 0;
@@ -620,29 +629,28 @@ body {
   border: none;
   border-radius: 10px;
   padding: 15px;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
   text-decoration: none;
   transition: opacity 0.15s;
   margin-bottom: 12px;
-  letter-spacing: 0.3px;
 }
 
 .modal-cta:hover { opacity: 0.88; }
 
-.modal-no-thanks {
+.modal-skip {
   font-size: 12px;
   color: var(--dim);
   cursor: pointer;
   background: none;
   border: none;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   text-decoration: underline;
 }
 
-.modal-no-thanks:hover { color: var(--muted); }
+.modal-skip:hover { color: var(--muted); }
 
 /* ── CONFETTI ── */
 #confetti-canvas {
@@ -658,21 +666,11 @@ body {
 
 @media (max-width: 660px) {
   .sidebar { display: none; }
-
-  .app-layout {
-    min-height: calc(100vh - 51px - 60px);
-  }
-
-  .main {
-    padding: 20px 16px;
-  }
-
-  .section-title { font-size: 28px; }
-
-  .field-group { grid-template-columns: 1fr; }
-
+  .app-layout { min-height: calc(100vh - 56px - 60px); }
+  .main { padding: 20px 16px; }
+  .section-title { font-size: 22px; }
+  .field-grid { grid-template-columns: 1fr; }
   .scope-grid { grid-template-columns: 1fr; }
-
   .btn-row { flex-direction: column; }
   .btn-primary, .btn-secondary { width: 100%; text-align: center; }
 
@@ -681,7 +679,7 @@ body {
     position: fixed;
     bottom: 0; left: 0; right: 0;
     height: 60px;
-    background: var(--surface);
+    background: var(--white);
     border-top: 1px solid var(--border);
     z-index: 20;
     overflow-x: auto;
@@ -694,23 +692,21 @@ body {
     align-items: center;
     justify-content: center;
     gap: 3px;
-    cursor: pointer;
     border: none;
     background: none;
     color: var(--dim);
-    font-family: 'Barlow', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 9px;
     font-weight: 600;
-    letter-spacing: 0.3px;
     border-left: 1px solid var(--border);
     padding: 0 4px;
     min-width: 52px;
+    cursor: pointer;
   }
 
   .mobile-nav-item:first-child { border-left: none; }
   .mobile-nav-item.active { color: var(--pink); }
   .mobile-nav-item.done { color: var(--green); }
-
   .mobile-icon { font-size: 16px; }
 }
 </style>
@@ -719,75 +715,73 @@ body {
 
 <canvas id="confetti-canvas"></canvas>
 
-<!-- TOPBAR -->
 <div class="topbar">
-  <div class="logo">Virtueasy</div>
-  <div class="kit-badge">Client Onboarding Kit</div>
+  <div class="logo">virtue<span>easy</span></div>
+  <div class="kit-badge">VA Client Onboarding Kit</div>
 </div>
 
 <div class="app-layout">
 
-  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="sidebar-label">Your Kit</div>
+    <div class="sidebar-heading">Your Kit</div>
 
     <div class="nav-item active" id="nav-0" onclick="goTo(0)">
-      <div class="nav-icon">⚙️</div>
-      <div class="nav-text">Your Setup</div>
+      <div class="nav-num" id="num-0">1</div>
+      <div class="nav-label">My Details</div>
     </div>
     <div class="nav-item" id="nav-1" onclick="goTo(1)">
-      <div class="nav-icon">✉️</div>
-      <div class="nav-text">Welcome Email</div>
+      <div class="nav-num" id="num-1">2</div>
+      <div class="nav-label">Welcome Email</div>
     </div>
     <div class="nav-item" id="nav-2" onclick="goTo(2)">
-      <div class="nav-icon">📋</div>
-      <div class="nav-text">Intake Form</div>
+      <div class="nav-num" id="num-2">3</div>
+      <div class="nav-label">Client Intake Form</div>
     </div>
     <div class="nav-item" id="nav-3" onclick="goTo(3)">
-      <div class="nav-icon">📄</div>
-      <div class="nav-text">Scope of Work</div>
+      <div class="nav-num" id="num-3">4</div>
+      <div class="nav-label">Scope of Work</div>
     </div>
     <div class="nav-item" id="nav-4" onclick="goTo(4)">
-      <div class="nav-icon">🤝</div>
-      <div class="nav-text">Contract</div>
+      <div class="nav-num" id="num-4">5</div>
+      <div class="nav-label">Contract + Terms</div>
     </div>
     <div class="nav-item" id="nav-5" onclick="goTo(5)">
-      <div class="nav-icon">✅</div>
-      <div class="nav-text">Onboarding Checklist</div>
+      <div class="nav-num" id="num-5">6</div>
+      <div class="nav-label">Onboarding Checklist</div>
     </div>
 
+    <hr class="sidebar-divider">
+
     <div class="sidebar-progress">
-      <div class="sidebar-progress-label">
-        <span>Overall progress</span>
+      <div class="progress-label">
+        <span>Progress</span>
         <span id="progress-pct">0%</span>
       </div>
-      <div class="sidebar-progress-bar">
-        <div class="sidebar-progress-fill" id="progress-fill"></div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
       </div>
     </div>
   </aside>
 
-  <!-- MAIN -->
   <main class="main">
 
-    <!-- ── SCREEN 0: SETUP ── -->
+    <!-- SCREEN 0: MY DETAILS -->
     <div class="screen active" id="screen-0">
-      <div class="step-indicator">
-        <div class="step-dot active" id="dot-0"></div>
-        <div class="step-dot" id="dot-1"></div>
-        <div class="step-dot" id="dot-2"></div>
-        <div class="step-dot" id="dot-3"></div>
-        <div class="step-dot" id="dot-4"></div>
-        <div class="step-dot" id="dot-5"></div>
+      <div class="step-dots">
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
       </div>
-
-      <div class="section-eyebrow">Step 1 of 6</div>
-      <div class="section-title">Your Setup</div>
-      <div class="section-sub">Fill this in once. It populates every document in your kit automatically.</div>
+      <div class="eyebrow">Step 1 of 6</div>
+      <div class="section-title">My Details</div>
+      <div class="section-sub">Fill this in once. Your info auto-populates into every document in the kit.</div>
 
       <div class="card">
         <div class="card-title">About You</div>
-        <div class="field-group">
+        <div class="field-grid">
           <div class="field">
             <label>Your Name</label>
             <input type="text" id="s-name" placeholder="Jane Smith" oninput="saveSetup()">
@@ -797,7 +791,7 @@ body {
             <input type="text" id="s-biz" placeholder="Smith VA Services" oninput="saveSetup()">
           </div>
         </div>
-        <div class="field-group">
+        <div class="field-grid">
           <div class="field">
             <label>Your Email</label>
             <input type="email" id="s-email" placeholder="jane@smithvaservices.com" oninput="saveSetup()">
@@ -809,7 +803,7 @@ body {
               <option>Healthcare VA</option>
               <option>Social Media VA</option>
               <option>Executive VA</option>
-              <option>Tech & Ops VA</option>
+              <option>Tech and Ops VA</option>
               <option>General VA</option>
             </select>
           </div>
@@ -817,8 +811,8 @@ body {
       </div>
 
       <div class="card">
-        <div class="card-title">Your Rates & Terms</div>
-        <div class="field-group">
+        <div class="card-title">Rates and Terms</div>
+        <div class="field-grid">
           <div class="field">
             <label>Your Rate</label>
             <input type="text" id="s-rate" placeholder="$35/hr or $500/project" oninput="saveSetup()">
@@ -835,7 +829,7 @@ body {
             </select>
           </div>
         </div>
-        <div class="field-group">
+        <div class="field-grid">
           <div class="field">
             <label>Response Time</label>
             <select id="s-response" onchange="saveSetup()">
@@ -861,40 +855,31 @@ body {
       </div>
 
       <div class="btn-row">
-        <button class="btn-primary" onclick="completeSetup()">Save & Build My Kit →</button>
+        <button class="btn-primary" onclick="completeSetup()">Save and Build My Kit</button>
       </div>
     </div>
 
-    <!-- ── SCREEN 1: WELCOME EMAIL ── -->
+    <!-- SCREEN 1: WELCOME EMAIL -->
     <div class="screen" id="screen-1">
-      <div class="step-indicator">
-        <div class="step-dot done" id="dot-0b"></div>
-        <div class="step-dot active"></div>
-        <div class="step-dot"></div>
-        <div class="step-dot"></div>
-        <div class="step-dot"></div>
-        <div class="step-dot"></div>
-      </div>
-
-      <div class="section-eyebrow">Step 2 of 6</div>
+      <div class="eyebrow">Step 2 of 6</div>
       <div class="section-title">Welcome Email</div>
-      <div class="section-sub">Send this within 24 hours of a new client saying yes. Sets the tone and starts you off looking like a pro.</div>
+      <div class="section-sub">Send this within 24 hours of a new client saying yes. It sets the tone and shows you have a real process.</div>
 
       <div class="card">
         <div class="card-title">Client Details</div>
-        <div class="field-group">
+        <div class="field-grid">
           <div class="field">
-            <label>Client's Name</label>
+            <label>Client Name</label>
             <input type="text" id="e-client" placeholder="Sarah" oninput="refreshEmail()">
           </div>
           <div class="field">
-            <label>Project / Service Type</label>
+            <label>Service Type</label>
             <input type="text" id="e-project" placeholder="Social media management" oninput="refreshEmail()">
           </div>
         </div>
-        <div class="field-group">
+        <div class="field-grid">
           <div class="field">
-            <label>Kickoff Date</label>
+            <label>Start Date</label>
             <input type="text" id="e-start" placeholder="Monday, June 2" oninput="refreshEmail()">
           </div>
           <div class="field">
@@ -905,34 +890,34 @@ body {
       </div>
 
       <div class="card">
-        <div class="card-title">Your Welcome Email</div>
+        <div class="card-title">Your Email - Ready to Send</div>
         <div class="copy-block">
           <div class="copy-block-label">Subject Line</div>
-          <div class="copy-text" id="email-subject">Welcome aboard, [Client] - here's what's next</div>
+          <div class="copy-text" id="email-subject">Welcome aboard - here is what is next</div>
           <button class="copy-btn" onclick="copyText('email-subject', this)">Copy</button>
         </div>
         <div class="copy-block">
           <div class="copy-block-label">Email Body</div>
-          <div class="copy-text" id="email-body">Loading...</div>
+          <div class="copy-text" id="email-body">Fill in the client details above to generate your email.</div>
           <button class="copy-btn" onclick="copyText('email-body', this)">Copy</button>
         </div>
       </div>
 
       <div class="btn-row">
-        <button class="btn-secondary" onclick="goTo(0)">← Back</button>
-        <button class="btn-primary" onclick="goTo(2)">Next: Intake Form →</button>
+        <button class="btn-secondary" onclick="goTo(0)">Back</button>
+        <button class="btn-primary" onclick="goTo(2)">Next: Intake Form</button>
       </div>
     </div>
 
-    <!-- ── SCREEN 2: INTAKE FORM ── -->
+    <!-- SCREEN 2: INTAKE FORM -->
     <div class="screen" id="screen-2">
-      <div class="section-eyebrow">Step 3 of 6</div>
+      <div class="eyebrow">Step 3 of 6</div>
       <div class="section-title">Client Intake Form</div>
-      <div class="section-sub">Send this before your kickoff call. The answers tell you exactly how to work with them - and protect you if anything goes sideways later.</div>
+      <div class="section-sub">Send this before your kickoff call. The answers tell you how to work with them - and protect you if anything goes sideways.</div>
 
       <div class="card">
-        <div class="card-title">Copy & Send to Your Client</div>
-        <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Paste this into an email or a Google Form. Every question has a purpose.</p>
+        <div class="card-title">Copy and Send to Your Client</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Paste into an email or drop into a Google Form. Every question has a purpose.</p>
         <div class="copy-block">
           <button class="copy-btn" onclick="copyText('intake-text', this)">Copy All</button>
           <div class="copy-text" id="intake-text">Loading...</div>
@@ -940,32 +925,32 @@ body {
       </div>
 
       <div class="btn-row">
-        <button class="btn-secondary" onclick="goTo(1)">← Back</button>
-        <button class="btn-primary" onclick="goTo(3)">Next: Scope of Work →</button>
+        <button class="btn-secondary" onclick="goTo(1)">Back</button>
+        <button class="btn-primary" onclick="goTo(3)">Next: Scope of Work</button>
       </div>
     </div>
 
-    <!-- ── SCREEN 3: SCOPE OF WORK ── -->
+    <!-- SCREEN 3: SCOPE OF WORK -->
     <div class="screen" id="screen-3">
-      <div class="section-eyebrow">Step 4 of 6</div>
+      <div class="eyebrow">Step 4 of 6</div>
       <div class="section-title">Scope of Work</div>
-      <div class="section-sub">Select your deliverables and fill in the project details. This becomes the document you share with your client before work begins.</div>
+      <div class="section-sub">Select your deliverables and fill in the project details. Share this with every client before work begins.</div>
 
       <div class="card">
         <div class="card-title">Project Details</div>
-        <div class="field-group">
+        <div class="field-grid">
           <div class="field">
             <label>Client Name</label>
             <input type="text" id="sc-client" placeholder="Sarah Johnson" oninput="refreshScope()">
           </div>
           <div class="field">
-            <label>Project Start Date</label>
+            <label>Start Date</label>
             <input type="text" id="sc-start" placeholder="June 2, 2026" oninput="refreshScope()">
           </div>
         </div>
-        <div class="field-group">
+        <div class="field-grid">
           <div class="field">
-            <label>Project End / Review Date</label>
+            <label>End / Review Date</label>
             <input type="text" id="sc-end" placeholder="Ongoing / review at 30 days" oninput="refreshScope()">
           </div>
           <div class="field">
@@ -981,21 +966,19 @@ body {
 
       <div class="card">
         <div class="card-title">Select Your Deliverables</div>
-        <div class="scope-grid" id="scope-grid">
-          <!-- populated by JS -->
-        </div>
+        <div class="scope-grid" id="scope-grid"></div>
       </div>
 
       <div class="card">
         <div class="card-title">Out of Scope</div>
-        <div class="field field-group full">
-          <label>What's NOT included</label>
-          <textarea id="sc-outscope" placeholder="Paid ad management, graphic design, video editing, website development..." oninput="refreshScope()"></textarea>
+        <div class="field field-grid full">
+          <label>What is NOT included</label>
+          <textarea id="sc-outscope" placeholder="Paid ad management, graphic design, video editing..." oninput="refreshScope()"></textarea>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">Scope of Work Document</div>
+        <div class="card-title">Your Scope of Work Document</div>
         <div class="copy-block">
           <button class="copy-btn" onclick="copyText('scope-doc', this)">Copy</button>
           <div class="copy-text" id="scope-doc">Fill in the details above to generate your document.</div>
@@ -1003,30 +986,30 @@ body {
       </div>
 
       <div class="btn-row">
-        <button class="btn-secondary" onclick="goTo(2)">← Back</button>
-        <button class="btn-primary" onclick="goTo(4)">Next: Contract →</button>
+        <button class="btn-secondary" onclick="goTo(2)">Back</button>
+        <button class="btn-primary" onclick="goTo(4)">Next: Contract</button>
       </div>
     </div>
 
-    <!-- ── SCREEN 4: CONTRACT ── -->
+    <!-- SCREEN 4: CONTRACT -->
     <div class="screen" id="screen-4">
-      <div class="section-eyebrow">Step 5 of 6</div>
-      <div class="section-title">Contract & Payment Terms</div>
-      <div class="section-sub">A plain-language agreement that covers you on payment, ownership, and if a client disappears. Not legal advice - a professional standard you can use immediately.</div>
+      <div class="eyebrow">Step 5 of 6</div>
+      <div class="section-title">Contract + Payment Terms</div>
+      <div class="section-sub">A plain-language agreement that covers you on payment, ownership, and scope. Not legal advice - a professional standard you can use right now.</div>
 
       <div class="card">
         <div class="card-title">Contract Details</div>
-        <div class="field-group">
+        <div class="field-grid">
           <div class="field">
             <label>Client Name</label>
             <input type="text" id="c-client" placeholder="Sarah Johnson" oninput="refreshContract()">
           </div>
           <div class="field">
-            <label>Client Business / Company</label>
+            <label>Client Business</label>
             <input type="text" id="c-clientbiz" placeholder="Sarah's Boutique LLC" oninput="refreshContract()">
           </div>
         </div>
-        <div class="field-group">
+        <div class="field-grid">
           <div class="field">
             <label>Contract Date</label>
             <input type="text" id="c-date" placeholder="June 1, 2026" oninput="refreshContract()">
@@ -1044,7 +1027,7 @@ body {
       </div>
 
       <div class="card">
-        <div class="card-title">Service Agreement</div>
+        <div class="card-title">Your Service Agreement</div>
         <div class="copy-block">
           <button class="copy-btn" onclick="copyText('contract-doc', this)">Copy</button>
           <div class="copy-text" id="contract-doc">Fill in the details above to generate your contract.</div>
@@ -1052,46 +1035,44 @@ body {
       </div>
 
       <div class="btn-row">
-        <button class="btn-secondary" onclick="goTo(3)">← Back</button>
-        <button class="btn-primary" onclick="goTo(5)">Next: Onboarding Checklist →</button>
+        <button class="btn-secondary" onclick="goTo(3)">Back</button>
+        <button class="btn-primary" onclick="goTo(5)">Next: Checklist</button>
       </div>
     </div>
 
-    <!-- ── SCREEN 5: CHECKLIST ── -->
+    <!-- SCREEN 5: CHECKLIST -->
     <div class="screen" id="screen-5">
-      <div class="section-eyebrow">Step 6 of 6</div>
+      <div class="eyebrow">Step 6 of 6</div>
       <div class="section-title">Onboarding Checklist</div>
-      <div class="section-sub">Run through this with every new client. Check each step off as you go - add notes where needed. Resets for each new client.</div>
+      <div class="section-sub">Run through this with every new client. Check each step off as you go. Add notes where needed.</div>
 
       <div class="card">
-        <div class="card-title">Client Name for This Checklist</div>
-        <div class="field field-group full">
-          <label>Client</label>
-          <input type="text" id="cl-client" placeholder="Sarah Johnson" oninput="refreshChecklist()">
+        <div class="card-title">Client</div>
+        <div class="field field-grid full">
+          <label>Who are you onboarding?</label>
+          <input type="text" id="cl-client" placeholder="Sarah Johnson">
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">Your Onboarding Steps</div>
-        <ul class="checklist" id="checklist-items">
-          <!-- populated by JS -->
-        </ul>
+        <ul class="checklist" id="checklist-items"></ul>
       </div>
 
       <div class="btn-row">
-        <button class="btn-secondary" onclick="goTo(4)">← Back</button>
-        <button class="btn-primary" onclick="completeKit()">🎉 Complete My Kit</button>
+        <button class="btn-secondary" onclick="goTo(4)">Back</button>
+        <button class="btn-primary" onclick="completeKit()">Complete My Kit</button>
       </div>
     </div>
 
-    <!-- ── SCREEN 6: COMPLETE ── -->
+    <!-- SCREEN 6: COMPLETE -->
     <div class="screen" id="screen-6">
       <div class="success-wrap">
-        <span class="success-emoji">🎉</span>
+        <div class="success-icon">🎉</div>
         <div class="success-title">Your Onboarding System is Ready</div>
-        <div class="success-sub">Every document is built and saved. The next time you land a client, run through this kit in under 10 minutes and show up looking like you've done this a hundred times.</div>
-        <button class="btn-primary" onclick="goTo(1)" style="margin-bottom:12px;display:block;width:100%;max-width:320px;margin-left:auto;margin-right:auto;">Review My Documents</button>
-        <button class="btn-secondary" onclick="showUpsell()" style="display:block;width:100%;max-width:320px;margin-left:auto;margin-right:auto;">What's next for my VA business?</button>
+        <div class="success-sub">Every document is built and saved. The next time you land a client, run through this kit in under 10 minutes and show up looking like you have done this before.</div>
+        <button class="btn-primary" onclick="goTo(1)" style="margin: 0 auto 12px; display:block; width:100%; max-width:320px;">Review My Documents</button>
+        <button class="btn-secondary" onclick="showUpsell()" style="display:block; width:100%; max-width:320px; margin: 0 auto;">What is next for my VA business?</button>
       </div>
     </div>
 
@@ -1100,32 +1081,20 @@ body {
 
 <!-- MOBILE NAV -->
 <nav class="mobile-nav">
-  <button class="mobile-nav-item active" id="m-nav-0" onclick="goTo(0)">
-    <span class="mobile-icon">⚙️</span>Setup
-  </button>
-  <button class="mobile-nav-item" id="m-nav-1" onclick="goTo(1)">
-    <span class="mobile-icon">✉️</span>Email
-  </button>
-  <button class="mobile-nav-item" id="m-nav-2" onclick="goTo(2)">
-    <span class="mobile-icon">📋</span>Intake
-  </button>
-  <button class="mobile-nav-item" id="m-nav-3" onclick="goTo(3)">
-    <span class="mobile-icon">📄</span>Scope
-  </button>
-  <button class="mobile-nav-item" id="m-nav-4" onclick="goTo(4)">
-    <span class="mobile-icon">🤝</span>Contract
-  </button>
-  <button class="mobile-nav-item" id="m-nav-5" onclick="goTo(5)">
-    <span class="mobile-icon">✅</span>Checklist
-  </button>
+  <button class="mobile-nav-item active" id="m-nav-0" onclick="goTo(0)"><span class="mobile-icon">👤</span>Details</button>
+  <button class="mobile-nav-item" id="m-nav-1" onclick="goTo(1)"><span class="mobile-icon">✉️</span>Email</button>
+  <button class="mobile-nav-item" id="m-nav-2" onclick="goTo(2)"><span class="mobile-icon">📋</span>Intake</button>
+  <button class="mobile-nav-item" id="m-nav-3" onclick="goTo(3)"><span class="mobile-icon">📄</span>Scope</button>
+  <button class="mobile-nav-item" id="m-nav-4" onclick="goTo(4)"><span class="mobile-icon">🤝</span>Contract</button>
+  <button class="mobile-nav-item" id="m-nav-5" onclick="goTo(5)"><span class="mobile-icon">✅</span>Checklist</button>
 </nav>
 
 <!-- UPSELL MODAL -->
 <div class="modal-overlay" id="upsell-modal">
   <div class="modal">
-    <button class="modal-dismiss" onclick="closeUpsell()">✕</button>
-    <span class="modal-emoji">🚀</span>
-    <div class="modal-headline">Now Build the Business Behind It</div>
+    <button class="modal-dismiss" onclick="closeUpsell()">&#x2715;</button>
+    <span class="modal-icon">🚀</span>
+    <div class="modal-title">Now Build the Business Behind It</div>
     <div class="modal-sub">Your onboarding process is set. The VA Starter Kit gives you the full system - from positioning to landing your first client to scaling past it.</div>
     <ul class="modal-features">
       <li>Module 1: Set up your VA business the right way</li>
@@ -1133,92 +1102,103 @@ body {
       <li>Module 3: Find and pitch your first client</li>
       <li>Module 4: Deliver, retain, and get referrals</li>
       <li>Module 5: Scale to multiple clients</li>
-      <li>Module 6: Build income that doesn't stop</li>
+      <li>Module 6: Build income that does not stop</li>
     </ul>
-    <a class="modal-cta" href="https://virtueasy.com/starterkit" target="_blank">Get the VA Starter Kit - $27 →</a>
-    <button class="modal-no-thanks" onclick="closeUpsell()">I'll come back to this later</button>
+    <a class="modal-cta" href="https://virtueasy.com/starterkit" target="_blank">Get the VA Starter Kit - $27</a>
+    <button class="modal-skip" onclick="closeUpsell()">I will come back to this later</button>
   </div>
 </div>
 
 <script>
-// ── STATE ──
-let currentScreen = 0;
-let setupDone = false;
-const TOTAL_SCREENS = 6;
+var currentScreen = 0;
+var setupDone = false;
+var selectedTasks = new Set();
 
-const SCOPE_TASKS = [
+var SCOPE_TASKS = [
   'Email inbox management','Calendar management','Appointment scheduling',
   'Social media posting','Content creation','Graphic design (Canva)',
-  'Blog writing / editing','Research and reporting','Data entry',
+  'Blog writing and editing','Research and reporting','Data entry',
   'Customer support','CRM management','Newsletter management',
   'Podcast show notes','YouTube descriptions','Project management',
-  'File organization','Travel coordination','Meeting notes / summaries'
+  'File organization','Travel coordination','Meeting summaries'
 ];
 
-let selectedTasks = new Set();
+var CHECKLIST_STEPS = [
+  { label: 'Send welcome email', note: 'Within 24 hours of client confirming' },
+  { label: 'Send client intake form', note: 'Ask them to complete before kickoff call' },
+  { label: 'Send scope of work document', note: 'Get written confirmation they reviewed it' },
+  { label: 'Send service agreement', note: 'Wait for sign-off before starting work' },
+  { label: 'Send invoice or payment link', note: 'Confirm payment method and due date' },
+  { label: 'Schedule kickoff call', note: '20-30 min to align on priorities and workflow' },
+  { label: 'Set up shared folder or workspace', note: 'Google Drive, Notion, Dropbox - wherever you will collaborate' },
+  { label: 'Confirm communication channel', note: 'Email, Slack, Voxer - get this in writing' },
+  { label: 'Get access to tools and accounts', note: 'Request logins, permissions, and brand assets' },
+  { label: 'Complete kickoff call', note: 'Take notes - send a recap to the client after' },
+  { label: 'Send day-one status update', note: 'A quick note confirming you have started and what you are working on first' }
+];
 
-// ── LOAD FROM STORAGE ──
+function v(id) {
+  var el = document.getElementById(id);
+  return el ? el.value : '';
+}
+
+function ph(id, fallback) {
+  var val = v(id);
+  return val || fallback;
+}
+
+function saveSetup() {
+  var data = {
+    name: v('s-name'), biz: v('s-biz'), email: v('s-email'),
+    niche: v('s-niche'), rate: v('s-rate'), payment: v('s-payment'),
+    response: v('s-response'), paydue: v('s-paydue'), done: setupDone
+  };
+  try { localStorage.setItem('vok_setup', JSON.stringify(data)); } catch(e) {}
+  refreshAll();
+}
+
 function load() {
-  const saved = JSON.parse(localStorage.getItem('vok_setup') || '{}');
-  if (saved.name) document.getElementById('s-name').value = saved.name;
-  if (saved.biz)  document.getElementById('s-biz').value  = saved.biz;
-  if (saved.email) document.getElementById('s-email').value = saved.email;
-  if (saved.niche) document.getElementById('s-niche').value = saved.niche;
-  if (saved.rate)  document.getElementById('s-rate').value  = saved.rate;
-  if (saved.payment) document.getElementById('s-payment').value = saved.payment;
-  if (saved.response) document.getElementById('s-response').value = saved.response;
-  if (saved.paydue) document.getElementById('s-paydue').value = saved.paydue;
-  if (saved.done) { setupDone = true; }
+  try {
+    var saved = JSON.parse(localStorage.getItem('vok_setup') || '{}');
+    if (saved.name)     document.getElementById('s-name').value     = saved.name;
+    if (saved.biz)      document.getElementById('s-biz').value      = saved.biz;
+    if (saved.email)    document.getElementById('s-email').value    = saved.email;
+    if (saved.niche)    document.getElementById('s-niche').value    = saved.niche;
+    if (saved.rate)     document.getElementById('s-rate').value     = saved.rate;
+    if (saved.payment)  document.getElementById('s-payment').value  = saved.payment;
+    if (saved.response) document.getElementById('s-response').value = saved.response;
+    if (saved.paydue)   document.getElementById('s-paydue').value   = saved.paydue;
+    if (saved.done)     setupDone = true;
+  } catch(e) {}
 
   buildScopeGrid();
   buildChecklist();
   refreshAll();
 }
 
-// ── SAVE SETUP ──
-function saveSetup() {
-  const data = {
-    name: v('s-name'), biz: v('s-biz'), email: v('s-email'),
-    niche: v('s-niche'), rate: v('s-rate'), payment: v('s-payment'),
-    response: v('s-response'), paydue: v('s-paydue'), done: setupDone
-  };
-  localStorage.setItem('vok_setup', JSON.stringify(data));
-  refreshAll();
-}
-
-function v(id) { const el = document.getElementById(id); return el ? el.value : ''; }
-function ph(id, fallback) { const val = v(id); return val || fallback; }
-
-// ── COMPLETE SETUP ──
 function completeSetup() {
-  try {
-    setupDone = true;
-    saveSetup();
-    markNavDone(0);
-    goTo(1);
-  } catch(e) {
-    console.error('completeSetup error:', e);
-    alert('Something went wrong: ' + e.message);
-  }
+  setupDone = true;
+  saveSetup();
+  markNavDone(0);
+  goTo(1);
 }
 
-// ── NAVIGATION ──
 function goTo(n) {
   if (n === 6) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
     document.getElementById('screen-6').classList.add('active');
     updateMobileNav(6);
     launchConfetti();
-    showUpsell();
+    setTimeout(showUpsell, 1200);
     return;
   }
 
   currentScreen = n;
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
   document.getElementById('screen-' + n).classList.add('active');
 
-  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  const navEl = document.getElementById('nav-' + n);
+  document.querySelectorAll('.nav-item').forEach(function(el) { el.classList.remove('active'); });
+  var navEl = document.getElementById('nav-' + n);
   if (navEl) navEl.classList.add('active');
 
   updateMobileNav(n);
@@ -1227,28 +1207,28 @@ function goTo(n) {
 }
 
 function updateMobileNav(n) {
-  document.querySelectorAll('.mobile-nav-item').forEach(el => el.classList.remove('active'));
-  const mEl = document.getElementById('m-nav-' + n);
+  document.querySelectorAll('.mobile-nav-item').forEach(function(el) { el.classList.remove('active'); });
+  var mEl = document.getElementById('m-nav-' + n);
   if (mEl) mEl.classList.add('active');
 }
 
 function markNavDone(n) {
-  const el = document.getElementById('nav-' + n);
+  var el = document.getElementById('nav-' + n);
   if (el) { el.classList.remove('active'); el.classList.add('done'); }
-  const mEl = document.getElementById('m-nav-' + n);
+  var num = document.getElementById('num-' + n);
+  if (num) num.textContent = '✓';
+  var mEl = document.getElementById('m-nav-' + n);
   if (mEl) { mEl.classList.remove('active'); mEl.classList.add('done'); }
   updateProgress();
 }
 
-// ── PROGRESS ──
 function updateProgress() {
-  const done = document.querySelectorAll('.nav-item.done').length;
-  const pct = Math.round((done / 6) * 100);
+  var done = document.querySelectorAll('.nav-item.done').length;
+  var pct = Math.round((done / 6) * 100);
   document.getElementById('progress-fill').style.width = pct + '%';
   document.getElementById('progress-pct').textContent = pct + '%';
 }
 
-// ── REFRESH ALL DOCS ──
 function refreshAll() {
   refreshEmail();
   refreshIntake();
@@ -1256,110 +1236,78 @@ function refreshAll() {
   refreshContract();
 }
 
-// ── WELCOME EMAIL ──
 function refreshEmail() {
-  const name  = ph('s-name',  '[Your Name]');
-  const biz   = ph('s-biz',   '[Your Business]');
-  const email = ph('s-email', '[Your Email]');
-  const rate  = ph('s-rate',  '[Your Rate]');
-  const resp  = ph('s-response', 'within 24 hours on business days');
-  const paydue = ph('s-paydue', 'due upon receipt');
+  var name    = ph('s-name',     '[Your Name]');
+  var biz     = ph('s-biz',     '[Your Business]');
+  var email   = ph('s-email',   '[Your Email]');
+  var rate    = ph('s-rate',    '[Your Rate]');
+  var resp    = ph('s-response','within 24 hours on business days');
+  var paydue  = ph('s-paydue',  'due upon receipt');
+  var client  = ph('e-client',  '[Client Name]');
+  var project = ph('e-project', '[Project Type]');
+  var start   = ph('e-start',   '[Start Date]');
+  var calltime = ph('e-calltime','');
 
-  const client   = ph('e-client',  '[Client Name]');
-  const project  = ph('e-project', '[Project Type]');
-  const start    = ph('e-start',   '[Start Date]');
-  const calltime = ph('e-calltime','');
+  var subj = 'Welcome aboard, ' + client + ' - here is what is next';
 
-  const subj = `Welcome aboard, ${client} - here's what's next`;
+  var callLine = calltime
+    ? 'I have us set for a kickoff call on ' + calltime + '. If that time no longer works, just reply and we will find something that does.'
+    : 'I would love to schedule a quick kickoff call this week to align on priorities - just reply with a couple of times that work for you.';
 
-  const callLine = calltime
-    ? `I've got us set for a kickoff call on ${calltime}. If that time no longer works, just reply and we'll find something that does.`
-    : `I'd love to schedule a quick kickoff call this week to align on priorities before we dive in - just reply with a couple times that work for you.`;
-
-  const body =
-`Hi ${client},
-
-I'm so glad we're working together. Here's everything you need to know before we get started.
-
-What I'll be handling for you:
-${project}
-
-Start date: ${start}
-
-${callLine}
-
-A few quick things:
-- My rate is ${rate}
-- Invoices are ${paydue}
-- I respond ${resp}
-- The best way to reach me is ${email}
-
-I'll be sending over a short intake form and our scope of work document separately - just to make sure we're fully aligned before day one.
-
-Looking forward to it.
-
-${name}
-${biz}`;
+  var body = 'Hi ' + client + ',\n\n'
+    + 'I am so glad we are working together. Here is everything you need to know before we get started.\n\n'
+    + 'What I will be handling for you:\n' + project + '\n\n'
+    + 'Start date: ' + start + '\n\n'
+    + callLine + '\n\n'
+    + 'A few quick things:\n'
+    + '- My rate is ' + rate + '\n'
+    + '- Invoices are ' + paydue + '\n'
+    + '- I respond ' + resp + '\n'
+    + '- The best way to reach me is ' + email + '\n\n'
+    + 'I will be sending over a short intake form and our scope of work document separately - just to make sure we are fully aligned before day one.\n\n'
+    + 'Looking forward to it.\n\n'
+    + name + '\n' + biz;
 
   document.getElementById('email-subject').textContent = subj;
   document.getElementById('email-body').textContent = body;
 }
 
-// ── INTAKE FORM ──
 function refreshIntake() {
-  const biz  = ph('s-biz',  '[Your Business Name]');
-  const name = ph('s-name', '[Your Name]');
+  var biz  = ph('s-biz',  '[Your Business Name]');
+  var name = ph('s-name', '[Your Name]');
 
-  const text =
-`CLIENT INTAKE FORM
-${biz} - sent by ${name}
----
-
-Please complete this form before our kickoff call. Your answers help me hit the ground running.
-
-1. What is your business name and what do you do?
-
-2. What's the #1 thing you need help with right now?
-
-3. How do you prefer to communicate day-to-day?
-   - Email
-   - Slack
-   - Voxer
-   - Text
-   - Other: ___________
-
-4. How quickly do you typically need responses from your VA?
-
-5. What tools and platforms do you currently use?
-   (e.g. Google Workspace, Notion, Asana, Later, HubSpot, etc.)
-
-6. Do you have brand guidelines or templates I should use?
-   - Yes (please share link or file)
-   - No / not yet
-
-7. Who else on your team will I be working with, if anyone?
-
-8. What does success look like to you at the end of 30 days?
-
-9. Is there anything I should know about how you like to work?
-
-10. Are there any days or times you are unavailable or prefer not to be contacted?
-
----
-Thank you for completing this. Please reply to this email or fill out [your Google Form link] by [date].`;
+  var text = 'CLIENT INTAKE FORM\n'
+    + biz + ' - sent by ' + name + '\n'
+    + '---\n\n'
+    + 'Please complete this form before our kickoff call. Your answers help me hit the ground running.\n\n'
+    + '1. What is your business name and what do you do?\n\n'
+    + '2. What is the #1 thing you need help with right now?\n\n'
+    + '3. How do you prefer to communicate day-to-day?\n'
+    + '   - Email\n   - Slack\n   - Voxer\n   - Text\n   - Other: ___________\n\n'
+    + '4. How quickly do you typically need responses from your VA?\n\n'
+    + '5. What tools and platforms do you currently use?\n'
+    + '   (e.g. Google Workspace, Notion, Asana, Later, HubSpot)\n\n'
+    + '6. Do you have brand guidelines or templates I should use?\n'
+    + '   - Yes (please share link or file)\n   - No / not yet\n\n'
+    + '7. Who else on your team will I be working with, if anyone?\n\n'
+    + '8. What does success look like to you at the end of 30 days?\n\n'
+    + '9. Is there anything I should know about how you like to work?\n\n'
+    + '10. Are there any days or times you prefer not to be contacted?\n\n'
+    + '---\n'
+    + 'Thank you for completing this. Please reply or fill out [your Google Form link] by [date].';
 
   document.getElementById('intake-text').textContent = text;
 }
 
-// ── SCOPE OF WORK ──
 function buildScopeGrid() {
-  const grid = document.getElementById('scope-grid');
+  var grid = document.getElementById('scope-grid');
+  if (!grid) return;
   grid.innerHTML = '';
-  SCOPE_TASKS.forEach(task => {
-    const el = document.createElement('div');
+  SCOPE_TASKS.forEach(function(task) {
+    var el = document.createElement('div');
     el.className = 'scope-tag' + (selectedTasks.has(task) ? ' selected' : '');
-    el.innerHTML = `<span class="tag-check">${selectedTasks.has(task) ? '✓' : ''}</span>${task}`;
-    el.onclick = () => toggleTask(task, el);
+    el.innerHTML = '<span class="tag-check">' + (selectedTasks.has(task) ? '✓' : '') + '</span>' + task;
+    el.onclick = function() { toggleTask(task, el); };
     grid.appendChild(el);
   });
 }
@@ -1378,146 +1326,104 @@ function toggleTask(task, el) {
 }
 
 function refreshScope() {
-  const name   = ph('s-name',  '[Your Name]');
-  const biz    = ph('s-biz',   '[Your Business]');
-  const rate   = ph('s-rate',  '[Rate]');
-  const paydue = ph('s-paydue', 'due upon receipt');
+  var name     = ph('s-name',  '[Your Name]');
+  var biz      = ph('s-biz',   '[Your Business]');
+  var rate     = ph('s-rate',  '[Rate]');
+  var paydue   = ph('s-paydue','due upon receipt');
+  var client   = ph('sc-client',  '[Client Name]');
+  var start    = ph('sc-start',   '[Start Date]');
+  var end      = ph('sc-end',     '[End / Review Date]');
+  var revEl    = document.getElementById('sc-revisions');
+  var revisions = revEl ? revEl.value : '1 round of revisions';
+  var outscope = ph('sc-outscope','To be determined.');
 
-  const client    = ph('sc-client',   '[Client Name]');
-  const start     = ph('sc-start',    '[Start Date]');
-  const end       = ph('sc-end',      '[End / Review Date]');
-  const revisions = document.getElementById('sc-revisions')?.value || '1 round of revisions';
-  const outscope  = ph('sc-outscope', 'To be determined.');
-
-  const taskList = selectedTasks.size > 0
-    ? [...selectedTasks].map(t => '  - ' + t).join('\n')
+  var taskList = selectedTasks.size > 0
+    ? Array.from(selectedTasks).map(function(t) { return '  - ' + t; }).join('\n')
     : '  - [Select deliverables above]';
 
-  const doc =
-`SCOPE OF WORK
----
-Prepared by: ${name} / ${biz}
-Client: ${client}
-Start Date: ${start}
-Review Date: ${end}
-
-DELIVERABLES
-The following services will be provided:
-${taskList}
-
-REVISIONS
-Includes ${revisions} per deliverable unless otherwise agreed in writing.
-
-RATE & PAYMENT
-Rate: ${rate}
-Payment terms: ${paydue}
-
-OUT OF SCOPE
-The following are not included in this agreement:
-${outscope}
-
-Any work outside this scope requires a written amendment and may be billed separately.
-
-AGREEMENT
-By proceeding with services, both parties agree to the terms outlined here and in the accompanying service agreement.
-
-${name}
-${biz}`;
+  var doc = 'SCOPE OF WORK\n---\n'
+    + 'Prepared by: ' + name + ' / ' + biz + '\n'
+    + 'Client: ' + client + '\n'
+    + 'Start Date: ' + start + '\n'
+    + 'Review Date: ' + end + '\n\n'
+    + 'DELIVERABLES\n'
+    + 'The following services will be provided:\n' + taskList + '\n\n'
+    + 'REVISIONS\n'
+    + 'Includes ' + revisions + ' per deliverable unless otherwise agreed in writing.\n\n'
+    + 'RATE AND PAYMENT\n'
+    + 'Rate: ' + rate + '\n'
+    + 'Payment terms: ' + paydue + '\n\n'
+    + 'OUT OF SCOPE\n'
+    + 'The following are not included in this agreement:\n' + outscope + '\n\n'
+    + 'Any work outside this scope requires a written amendment and may be billed separately.\n\n'
+    + 'AGREEMENT\n'
+    + 'By proceeding with services, both parties agree to the terms outlined here and in the accompanying service agreement.\n\n'
+    + name + '\n' + biz;
 
   document.getElementById('scope-doc').textContent = doc;
 }
 
-// ── CONTRACT ──
 function refreshContract() {
-  const name    = ph('s-name',    '[Your Name]');
-  const biz     = ph('s-biz',     '[Your Business]');
-  const email   = ph('s-email',   '[Your Email]');
-  const rate    = ph('s-rate',    '[Rate]');
-  const payment = ph('s-payment', '[Payment Method]');
-  const paydue  = ph('s-paydue',  'due upon receipt');
+  var name      = ph('s-name',    '[Your Name]');
+  var biz       = ph('s-biz',     '[Your Business]');
+  var email     = ph('s-email',   '[Your Email]');
+  var rate      = ph('s-rate',    '[Rate]');
+  var payment   = ph('s-payment', '[Payment Method]');
+  var paydue    = ph('s-paydue',  'due upon receipt');
+  var client    = ph('c-client',    '[Client Name]');
+  var clientBiz = ph('c-clientbiz', '[Client Business]');
+  var date      = ph('c-date',      '[Date]');
+  var latefeeEl = document.getElementById('c-latefee');
+  var latefee   = latefeeEl ? latefeeEl.value : 'a $25 late fee';
 
-  const client    = ph('c-client',    '[Client Name]');
-  const clientBiz = ph('c-clientbiz', '[Client Business]');
-  const date      = ph('c-date',      '[Date]');
-  const latefee   = document.getElementById('c-latefee')?.value || 'a $25 late fee';
-
-  const doc =
-`SERVICE AGREEMENT
----
-Date: ${date}
-Between: ${name} / ${biz} ("VA")
-And: ${client} / ${clientBiz} ("Client")
-
-1. SERVICES
-VA agrees to provide services as outlined in the accompanying Scope of Work document. Any changes to scope require written agreement from both parties.
-
-2. PAYMENT
-Rate: ${rate}
-Payment method: ${payment}
-Terms: Invoices are ${paydue}. Invoices unpaid after 7 days are subject to ${latefee} per week until paid.
-
-3. KILL FEE
-If Client cancels after work has begun, a kill fee of 50% of the remaining project balance is due within 7 days of cancellation.
-
-4. OWNERSHIP
-Upon receipt of full payment, Client owns all final deliverables produced under this agreement. Work-in-progress remains property of VA until payment is received.
-
-5. CONFIDENTIALITY
-VA agrees to keep all Client business information, strategies, and materials confidential and will not share or use them outside of this working relationship.
-
-6. INDEPENDENT CONTRACTOR
-VA is an independent contractor, not an employee. VA is responsible for their own taxes and business expenses.
-
-7. TERMINATION
-Either party may terminate this agreement with 14 days written notice. Client is responsible for payment of all work completed up to the termination date.
-
-8. LIMITATION OF LIABILITY
-VA's total liability under this agreement shall not exceed the total fees paid in the prior 30 days.
-
-9. GOVERNING LAW
-This agreement is governed by the laws of the state in which VA operates.
-
----
-By proceeding with services, both parties agree to the terms above.
-
-VA Signature: ${name}
-Client Signature: ${client}
-Date: ${date}
-
-Note: This is a professional standard template. It is not legal advice. Consider consulting an attorney for complex projects.`;
+  var doc = 'SERVICE AGREEMENT\n---\n'
+    + 'Date: ' + date + '\n'
+    + 'Between: ' + name + ' / ' + biz + ' ("VA")\n'
+    + 'And: ' + client + ' / ' + clientBiz + ' ("Client")\n\n'
+    + '1. SERVICES\n'
+    + 'VA agrees to provide services as outlined in the accompanying Scope of Work. Changes to scope require written agreement from both parties.\n\n'
+    + '2. PAYMENT\n'
+    + 'Rate: ' + rate + '\n'
+    + 'Payment method: ' + payment + '\n'
+    + 'Terms: Invoices are ' + paydue + '. Invoices unpaid after 7 days are subject to ' + latefee + ' per week until paid.\n\n'
+    + '3. KILL FEE\n'
+    + 'If Client cancels after work has begun, a kill fee of 50% of the remaining project balance is due within 7 days of cancellation.\n\n'
+    + '4. OWNERSHIP\n'
+    + 'Upon receipt of full payment, Client owns all final deliverables. Work-in-progress remains property of VA until payment is received.\n\n'
+    + '5. CONFIDENTIALITY\n'
+    + 'VA agrees to keep all Client business information confidential and will not share or use it outside of this working relationship.\n\n'
+    + '6. INDEPENDENT CONTRACTOR\n'
+    + 'VA is an independent contractor, not an employee. VA is responsible for their own taxes and business expenses.\n\n'
+    + '7. TERMINATION\n'
+    + 'Either party may terminate with 14 days written notice. Client is responsible for payment of all work completed up to the termination date.\n\n'
+    + '8. LIMITATION OF LIABILITY\n'
+    + "VA's total liability shall not exceed the total fees paid in the prior 30 days.\n\n"
+    + '9. GOVERNING LAW\n'
+    + 'This agreement is governed by the laws of the state in which VA operates.\n\n'
+    + '---\n'
+    + 'By proceeding with services, both parties agree to the terms above.\n\n'
+    + 'VA Signature: ' + name + '\n'
+    + 'Client Signature: ' + client + '\n'
+    + 'Date: ' + date + '\n\n'
+    + 'Note: This is a professional standard template, not legal advice.';
 
   document.getElementById('contract-doc').textContent = doc;
 }
 
-// ── CHECKLIST ──
-const CHECKLIST_STEPS = [
-  { label: 'Send welcome email', note: 'Within 24 hours of client confirming' },
-  { label: 'Send client intake form', note: 'Ask them to complete before kickoff call' },
-  { label: 'Send scope of work document', note: "Get written confirmation they've reviewed it" },
-  { label: 'Send service agreement / contract', note: 'Wait for sign-off before starting work' },
-  { label: 'Send invoice or payment link', note: 'Confirm payment method and due date' },
-  { label: 'Schedule kickoff call', note: '20-30 min to align on priorities and workflow' },
-  { label: 'Set up shared folder or workspace', note: "Google Drive, Notion, Dropbox - wherever you'll collaborate" },
-  { label: 'Confirm communication channel', note: 'Email, Slack, Voxer - get this in writing' },
-  { label: 'Get access to tools and accounts', note: 'Request logins, permissions, and brand assets' },
-  { label: 'Complete kickoff call', note: 'Take notes - send a summary recap to the client after' },
-  { label: 'Send day-one status update', note: "A quick note confirming you've started and what you're working on first" },
-];
-
 function buildChecklist() {
-  const ul = document.getElementById('checklist-items');
+  var ul = document.getElementById('checklist-items');
+  if (!ul) return;
   ul.innerHTML = '';
-  CHECKLIST_STEPS.forEach((step, i) => {
-    const li = document.createElement('li');
+  CHECKLIST_STEPS.forEach(function(step) {
+    var li = document.createElement('li');
     li.className = 'check-item';
-    li.innerHTML = `
-      <div class="check-box"></div>
-      <div class="check-content">
-        <div class="check-label">${step.label}</div>
-        <div class="check-note">${step.note}</div>
-        <input class="check-input" type="text" placeholder="Add a note...">
-      </div>`;
-    li.onclick = (e) => {
+    li.innerHTML = '<div class="check-box"></div>'
+      + '<div class="check-content">'
+      + '<div class="check-label">' + step.label + '</div>'
+      + '<div class="check-note">' + step.note + '</div>'
+      + '<input class="check-input" type="text" placeholder="Add a note...">'
+      + '</div>';
+    li.onclick = function(e) {
       if (e.target.tagName === 'INPUT') return;
       li.classList.toggle('checked');
       li.querySelector('.check-box').textContent = li.classList.contains('checked') ? '✓' : '';
@@ -1526,30 +1432,23 @@ function buildChecklist() {
   });
 }
 
-function refreshChecklist() {
-  // client name display only - checklist is static
-}
-
-// ── COMPLETE KIT ──
 function completeKit() {
-  for (let i = 0; i < 6; i++) markNavDone(i);
+  for (var i = 0; i < 6; i++) markNavDone(i);
   goTo(6);
 }
 
-// ── COPY TEXT ──
 function copyText(id, btn) {
-  const text = document.getElementById(id).textContent;
-  navigator.clipboard.writeText(text).then(() => {
+  var text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(function() {
     btn.textContent = 'Copied!';
     btn.classList.add('copied');
-    setTimeout(() => {
+    setTimeout(function() {
       btn.textContent = 'Copy';
       btn.classList.remove('copied');
     }, 2000);
   });
 }
 
-// ── MODAL ──
 function showUpsell() {
   document.getElementById('upsell-modal').classList.add('show');
 }
@@ -1558,15 +1457,14 @@ function closeUpsell() {
   document.getElementById('upsell-modal').classList.remove('show');
 }
 
-// ── CONFETTI ──
 function launchConfetti() {
-  const canvas = document.getElementById('confetti-canvas');
-  const ctx = canvas.getContext('2d');
+  var canvas = document.getElementById('confetti-canvas');
+  var ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  const colors = ['#FF1F7A','#ff6eb0','#ffffff','#FFD6E8','#ff0066','#f8a4cb'];
-  const particles = [];
-  for (let i = 0; i < 180; i++) {
+  var colors = ['#FF1F7A','#ff6eb0','#111827','#ffc2da','#ff0066','#f8a4cb'];
+  var particles = [];
+  for (var i = 0; i < 160; i++) {
     particles.push({
       x: Math.random() * canvas.width,
       y: -10 - Math.random() * 200,
@@ -1574,14 +1472,14 @@ function launchConfetti() {
       color: colors[Math.floor(Math.random() * colors.length)],
       vy: 2.5 + Math.random() * 4, vx: -2 + Math.random() * 4,
       rot: Math.random() * 360, rotSpeed: -3 + Math.random() * 6,
-      opacity: 1,
+      opacity: 1
     });
   }
-  let frame;
+  var frame;
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let alive = false;
-    for (const p of particles) {
+    var alive = false;
+    particles.forEach(function(p) {
       p.y += p.vy; p.x += p.vx; p.rot += p.rotSpeed;
       if (p.y > canvas.height * 0.7) p.opacity -= 0.02;
       if (p.opacity > 0) {
@@ -1589,12 +1487,12 @@ function launchConfetti() {
         ctx.save();
         ctx.globalAlpha = Math.max(0, p.opacity);
         ctx.translate(p.x, p.y);
-        ctx.rotate((p.rot * Math.PI) / 180);
+        ctx.rotate(p.rot * Math.PI / 180);
         ctx.fillStyle = p.color;
-        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
         ctx.restore();
       }
-    }
+    });
     if (alive) frame = requestAnimationFrame(draw);
     else ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
@@ -1602,7 +1500,6 @@ function launchConfetti() {
   draw();
 }
 
-// ── INIT ──
 document.addEventListener('DOMContentLoaded', function() {
   try { load(); } catch(e) { console.error('Init error:', e); }
 });
