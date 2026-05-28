@@ -1899,7 +1899,8 @@ function launchConfetti(x, y){
     pt={step:0,profile:{vaType:'',experience:'',name:''},services:[],pricingModels:[],hourlyRate:25,
       packages:[{name:'Starter',hours:10,discount:0,services:[]},{name:'Growth',hours:20,discount:5,services:[]},{name:'Premium',hours:40,discount:10,services:[]}],
       projects:[]};
-    localStorage.removeItem(PT_KEY);ptRender();
+    try{localStorage.removeItem(PT_KEY);}catch(e){}
+    try{_ptOrigRender();}catch(e){ptRender();}
   };
 
   function ptSyncSlider(){
