@@ -570,10 +570,7 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
         <div class="stat-num" id="statModules">0<span>/6</span></div>
         <div class="stat-label">Modules Done</div>
       </div>
-      <div class="stat-card">
-        <div class="stat-num" id="statAI">15<span> left</span></div>
-        <div class="stat-label">AI Generations</div>
-      </div>
+
     </div>
     <div class="dash-body">
       <div class="dash-grid">
@@ -752,15 +749,97 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
     <div class="module-header">
       <div class="module-eyebrow">Module 6 — AI Toolkit</div>
       <h1>Do It Faster,<br>Not Differently.</h1>
-      <p>AI-powered tools embedded directly in your workflow — not a separate library to browse. Use them inside your tasks to execute faster.</p>
-      <div class="module-meta">
-        <div class="module-meta-item">🤖 <strong>5 AI tools</strong></div>
-        <div class="module-meta-item">⚡ <strong>Embedded in workflow</strong></div>
-        <div class="module-meta-item">💬 <strong>15 generations included</strong></div>
-      </div>
+      <p>Your personal VA writing assistant. Pick a tool, fill in your details, and get a ready-to-use draft in seconds.</p>
     </div>
     <div class="module-body">
-      <div class="lesson-list" id="lessons-m6"></div>
+      <div class="ai-toolkit-free">
+
+        <div class="aitk-tools">
+          <button class="aitk-tool active" onclick="aitkSelect(this,'dm')">Cold DM</button>
+          <button class="aitk-tool" onclick="aitkSelect(this,'followup')">Follow-Up</button>
+          <button class="aitk-tool" onclick="aitkSelect(this,'proposal')">Proposal Opener</button>
+          <button class="aitk-tool" onclick="aitkSelect(this,'pricing')">Pricing Script</button>
+          <button class="aitk-tool" onclick="aitkSelect(this,'rewrite')">Rewrite</button>
+          <button class="aitk-tool" onclick="aitkSelect(this,'custom')">Custom</button>
+        </div>
+
+        <!-- Cold DM -->
+        <div class="aitk-form" id="aitkForm-dm">
+          <div class="aitk-desc">Write a personalized cold message that gets replies — not ignored.</div>
+          <div class="aitk-fields">
+            <div class="aitk-field"><label>Target niche</label><input id="aitk-dm-niche" placeholder="e.g. fitness coaches"></div>
+            <div class="aitk-field"><label>Their biggest pain</label><input id="aitk-dm-pain" placeholder="e.g. no time for admin"></div>
+            <div class="aitk-field"><label>Platform</label>
+              <select id="aitk-dm-platform"><option>Instagram</option><option>LinkedIn</option><option>Email</option><option>Facebook</option></select>
+            </div>
+            <div class="aitk-field aitk-full"><label>One specific thing you noticed about them</label><input id="aitk-dm-obs" placeholder="e.g. They post Reels constantly but their bio link goes nowhere"></div>
+          </div>
+        </div>
+
+        <!-- Follow-Up -->
+        <div class="aitk-form" id="aitkForm-followup" style="display:none">
+          <div class="aitk-desc">Value-add follow-ups that get replies — not "just checking in" noise.</div>
+          <div class="aitk-fields">
+            <div class="aitk-field"><label>Prospect name</label><input id="aitk-fu-name" placeholder="e.g. Jessica"></div>
+            <div class="aitk-field"><label>Their business</label><input id="aitk-fu-niche" placeholder="e.g. life coach"></div>
+            <div class="aitk-field"><label>Their goal from your conversation</label><input id="aitk-fu-goal" placeholder="e.g. get their calendar under control"></div>
+            <div class="aitk-field"><label>Days since last contact</label>
+              <select id="aitk-fu-days"><option>3 days</option><option>7 days</option><option>14 days</option><option>Over 2 weeks</option></select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proposal Opener -->
+        <div class="aitk-form" id="aitkForm-proposal" style="display:none">
+          <div class="aitk-desc">Turn your call notes into a powerful opener that makes the prospect feel completely understood.</div>
+          <div class="aitk-fields">
+            <div class="aitk-field"><label>Their business type</label><input id="aitk-pr-niche" placeholder="e.g. wellness coach"></div>
+            <div class="aitk-field aitk-full"><label>Their problem in their own words</label><input id="aitk-pr-problem" placeholder="e.g. I spend all day on emails instead of coaching"></div>
+            <div class="aitk-field"><label>Their desired outcome</label><input id="aitk-pr-goal" placeholder="e.g. more time with clients, less time on admin"></div>
+          </div>
+        </div>
+
+        <!-- Pricing Script -->
+        <div class="aitk-form" id="aitkForm-pricing" style="display:none">
+          <div class="aitk-desc">Say your rate clearly — confident, no apologies, no hedging.</div>
+          <div class="aitk-fields">
+            <div class="aitk-field"><label>Your monthly rate</label><input id="aitk-px-rate" placeholder="e.g. $1,500/month"></div>
+            <div class="aitk-field"><label>Your niche</label><input id="aitk-px-niche" placeholder="e.g. e-commerce brands"></div>
+            <div class="aitk-field"><label>Your core service</label><input id="aitk-px-service" placeholder="e.g. email marketing management"></div>
+          </div>
+        </div>
+
+        <!-- Rewrite -->
+        <div class="aitk-form" id="aitkForm-rewrite" style="display:none">
+          <div class="aitk-desc">Paste any message and get a stronger version back.</div>
+          <div class="aitk-fields">
+            <div class="aitk-field aitk-full"><label>Paste your message</label><textarea id="aitk-rw-message" rows="5" placeholder="Paste your outreach, follow-up, or proposal section..."></textarea></div>
+            <div class="aitk-field"><label>Make it...</label>
+              <select id="aitk-rw-goal"><option>More confident</option><option>More concise</option><option>Clearer CTA</option><option>Less salesy</option><option>More personal</option></select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom -->
+        <div class="aitk-form" id="aitkForm-custom" style="display:none">
+          <div class="aitk-desc">Ask anything. Get a professional, ready-to-use response.</div>
+          <div class="aitk-fields">
+            <div class="aitk-field aitk-full"><label>What do you need?</label><textarea id="aitk-cx-prompt" rows="5" placeholder="e.g. Write a LinkedIn bio for a VA who specializes in social media for wellness brands..."></textarea></div>
+          </div>
+        </div>
+
+        <button class="ai-gen-btn" id="aitkGenBtn" onclick="aitkGenerate()">Generate →</button>
+
+        <div class="ai-result-box" id="aitkResult" style="display:none">
+          <div class="ai-result-label">Your Draft</div>
+          <div class="ai-result-text" id="aitkText"></div>
+          <div class="ai-result-actions">
+            <button class="ai-action-btn" onclick="aitkCopy()">Copy</button>
+            <button class="ai-action-btn" onclick="aitkGenerate()">Regenerate</button>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 
@@ -899,8 +978,7 @@ function updateProgress(){
     }
   });
   document.getElementById('statModules').innerHTML = mDone+'<span>/6</span>';
-  var aiLeft = 15 - (parseInt(state.ai_gens||0));
-  document.getElementById('statAI').innerHTML = aiLeft+'<span> left</span>';
+
 }
 
 // ── PANELS ──
@@ -965,8 +1043,7 @@ var MODULES = [
 ];
 
 // ── RENDER MODULES ──
-var AI_MAX = 15;
-function getAIRem(){ return AI_MAX - (parseInt(state.ai_gens||0)); }
+// AI generations: unlimited
 
 function renderLesson(m, lesson, idx){
   var doneKey = 'done_'+m.id+'_'+idx;
@@ -1848,6 +1925,107 @@ function launchConfetti(x, y){
   }
 })();
 
+</script>
+
+<style>
+.ai-toolkit-free { padding: 0 0 40px; }
+.aitk-tools { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; }
+.aitk-tool { background:transparent; border:1.5px solid #FF1F7A44; color:#aaa; border-radius:20px; padding:7px 18px; font-size:13px; font-family:Barlow,sans-serif; cursor:pointer; transition:all .2s; }
+.aitk-tool.active, .aitk-tool:hover { background:#FF1F7A; border-color:#FF1F7A; color:#fff; }
+.aitk-desc { color:#aaa; font-size:14px; margin-bottom:20px; font-family:Barlow,sans-serif; }
+.aitk-fields { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:22px; }
+.aitk-field { display:flex; flex-direction:column; gap:6px; }
+.aitk-field.aitk-full { grid-column:1/-1; }
+.aitk-field label { font-size:12px; color:#aaa; font-family:Barlow,sans-serif; text-transform:uppercase; letter-spacing:.05em; }
+.aitk-field input, .aitk-field select, .aitk-field textarea { background:#1a1a1a; border:1px solid #333; border-radius:8px; color:#f8f8f8; padding:10px 12px; font-size:14px; font-family:Barlow,sans-serif; outline:none; resize:vertical; }
+.aitk-field input:focus, .aitk-field select:focus, .aitk-field textarea:focus { border-color:#FF1F7A; }
+@media(max-width:600px){ .aitk-fields { grid-template-columns:1fr; } .aitk-field.aitk-full { grid-column:1; } }
+</style>
+<script>
+var _aitkType = 'dm';
+function aitkSelect(btn, type){
+  document.querySelectorAll('.aitk-tool').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('.aitk-form').forEach(function(f){ f.style.display='none'; });
+  document.getElementById('aitkForm-'+type).style.display='block';
+  document.getElementById('aitkResult').style.display='none';
+  _aitkType = type;
+}
+function aitkBuildPrompt(){
+  var t = _aitkType;
+  if(t==='dm'){
+    var niche=document.getElementById('aitk-dm-niche').value.trim();
+    var pain=document.getElementById('aitk-dm-pain').value.trim();
+    var platform=document.getElementById('aitk-dm-platform').value;
+    var obs=document.getElementById('aitk-dm-obs').value.trim();
+    if(!niche){document.getElementById('aitk-dm-niche').focus();return null;}
+    return 'Write a personalized cold '+platform+' message from a VA targeting '+niche+' business owners. Their biggest pain: '+pain+'. Specific observation: '+obs+'. Formula: Observation → Pain connection → Soft CTA. Under 5 sentences. No emojis. Not salesy. Return ONLY the message.';
+  }
+  if(t==='followup'){
+    var name=document.getElementById('aitk-fu-name').value.trim();
+    var niche=document.getElementById('aitk-fu-niche').value.trim();
+    var goal=document.getElementById('aitk-fu-goal').value.trim();
+    var days=document.getElementById('aitk-fu-days').value;
+    if(!name){document.getElementById('aitk-fu-name').focus();return null;}
+    return 'Write a follow-up message for a VA to send to '+name+', a '+niche+', '+days+' after their last contact. Their goal: '+goal+'. Add one small piece of value or insight. Under 5 sentences. Warm and confident. No "just checking in." Return ONLY the message.';
+  }
+  if(t==='proposal'){
+    var niche=document.getElementById('aitk-pr-niche').value.trim();
+    var problem=document.getElementById('aitk-pr-problem').value.trim();
+    var goal=document.getElementById('aitk-pr-goal').value.trim();
+    if(!niche){document.getElementById('aitk-pr-niche').focus();return null;}
+    return 'Write a powerful opening paragraph for a VA proposal sent to a '+niche+'. Their problem: "'+problem+'". Their goal: '+goal+'. Start with empathy. Use their language. Create urgency. Set up the offer. 3-4 sentences. Warm, confident, specific. Return ONLY the paragraph.';
+  }
+  if(t==='pricing'){
+    var rate=document.getElementById('aitk-px-rate').value.trim();
+    var niche=document.getElementById('aitk-px-niche').value.trim();
+    var service=document.getElementById('aitk-px-service').value.trim();
+    if(!rate){document.getElementById('aitk-px-rate').focus();return null;}
+    return 'Write a confident, natural-sounding 2-3 sentence response a VA can say when a client asks their rate. Rate: '+rate+' per month. Niche: '+niche+'. Service: '+service+'. No apologies. No hedging. Confident and value-focused. Return ONLY the script.';
+  }
+  if(t==='rewrite'){
+    var msg=document.getElementById('aitk-rw-message').value.trim();
+    var goal=document.getElementById('aitk-rw-goal').value;
+    if(!msg){document.getElementById('aitk-rw-message').focus();return null;}
+    return 'Rewrite the following message to make it '+goal.toLowerCase()+'. Keep the core intent. Do not add fluff. Return ONLY the rewritten message.
+
+Original:
+'+msg;
+  }
+  if(t==='custom'){
+    var prompt=document.getElementById('aitk-cx-prompt').value.trim();
+    if(!prompt){document.getElementById('aitk-cx-prompt').focus();return null;}
+    return prompt;
+  }
+  return null;
+}
+function aitkGenerate(){
+  var prompt = aitkBuildPrompt();
+  if(!prompt) return;
+  var btn = document.getElementById('aitkGenBtn');
+  btn.textContent='Generating...'; btn.disabled=true;
+  document.getElementById('aitkResult').style.display='none';
+  fetch('https://workbook-theta.vercel.app/api/generate',{
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({prompt:prompt})
+  }).then(function(r){return r.json();}).then(function(d){
+    var text = d.result || (d.content && typeof d.content === 'string' ? d.content : '') || 'Something went wrong. Try again.';
+    document.getElementById('aitkText').textContent = text;
+    document.getElementById('aitkResult').style.display='block';
+  }).catch(function(){
+    document.getElementById('aitkText').textContent='Something went wrong. Check your connection and try again.';
+    document.getElementById('aitkResult').style.display='block';
+  }).finally(function(){
+    btn.textContent='Generate →'; btn.disabled=false;
+  });
+}
+function aitkCopy(){
+  var text = document.getElementById('aitkText').textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var btn = document.querySelector('#aitkResult .ai-action-btn');
+    if(btn){btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},1500);}
+  });
+}
 </script>
 </body>
 </html>
