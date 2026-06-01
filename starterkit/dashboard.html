@@ -1044,6 +1044,7 @@ var MODULES = [
 
 // ── RENDER MODULES ──
 // AI generations: unlimited
+function getAIRem(){ return Infinity; }
 
 function renderLesson(m, lesson, idx){
   var doneKey = 'done_'+m.id+'_'+idx;
@@ -1073,7 +1074,7 @@ function renderLesson(m, lesson, idx){
       return '<div class="'+cls+'"><div class="ai-field-label">'+f.label+'</div>'+inp+'</div>';
     }).join('');
     var rem = getAIRem();
-    aiHtml = '<div class="ai-gen-box"><div class="ai-gen-head"><div class="ai-badge"><div class="ai-pulse"></div> AI Powered</div></div><div class="ai-gen-title">'+gen.title+'</div><div class="ai-gen-sub">'+gen.sub+'</div><div class="ai-fields">'+fieldsHtml+'</div><button class="ai-gen-btn" id="aiBtn_'+m.id+'_'+idx+'" onclick="aiGenerate(\''+m.id+'\','+idx+')">Generate →</button><div class="ai-limit" id="aiLim_'+m.id+'_'+idx+'">'+rem+' generation'+(rem!==1?'s':'')+' remaining</div><div class="ai-result-box" id="aiRes_'+m.id+'_'+idx+'"><div class="ai-result-label">Your Script</div><div class="ai-result-text" id="aiText_'+m.id+'_'+idx+'"></div><div class="ai-result-actions"><button class="ai-action-btn" onclick="aiCopy(\''+m.id+'\','+idx+')">Copy</button><button class="ai-action-btn" onclick="aiGenerate(\''+m.id+'\','+idx+')">Regenerate</button></div></div></div>';
+    aiHtml = '<div class="ai-gen-box"><div class="ai-gen-head"><div class="ai-badge"><div class="ai-pulse"></div> AI Powered</div></div><div class="ai-gen-title">'+gen.title+'</div><div class="ai-gen-sub">'+gen.sub+'</div><div class="ai-fields">'+fieldsHtml+'</div><button class="ai-gen-btn" id="aiBtn_'+m.id+'_'+idx+'" onclick="aiGenerate(\''+m.id+'\','+idx+')">Generate →</button><div class="ai-limit" id="aiLim_'+m.id+'_'+idx+'">'+'Unlimited generations</div><div class="ai-result-box" id="aiRes_'+m.id+'_'+idx+'"><div class="ai-result-label">Your Script</div><div class="ai-result-text" id="aiText_'+m.id+'_'+idx+'"></div><div class="ai-result-actions"><button class="ai-action-btn" onclick="aiCopy(\''+m.id+'\','+idx+')">Copy</button><button class="ai-action-btn" onclick="aiGenerate(\''+m.id+'\','+idx+')">Regenerate</button></div></div></div>';
   }
 
   return '<div class="lesson-item" id="li_'+m.id+'_'+idx+'">'+
@@ -1165,9 +1166,7 @@ function aiGenerate(mid, idx){
     document.getElementById('aiText_'+mid+'_'+idx).textContent = text;
     document.getElementById('aiRes_'+mid+'_'+idx).style.display='block';
     state.ai_gens = (parseInt(state.ai_gens||0))+1; save();
-    var newRem = getAIRem();
-    document.getElementById('aiLim_'+mid+'_'+idx).textContent = newRem+' generation'+(newRem!==1?'s':'')+' remaining';
-    document.getElementById('statAI').innerHTML = newRem+'<span> left</span>';
+    document.getElementById('aiLim_'+mid+'_'+idx).textContent = 'Unlimited generations';
   }).catch(function(){
     document.getElementById('aiText_'+mid+'_'+idx).textContent = 'Something went wrong. Check your connection and try again.';
     document.getElementById('aiRes_'+mid+'_'+idx).style.display='block';
@@ -1988,10 +1987,7 @@ function aitkBuildPrompt(){
     var msg=document.getElementById('aitk-rw-message').value.trim();
     var goal=document.getElementById('aitk-rw-goal').value;
     if(!msg){document.getElementById('aitk-rw-message').focus();return null;}
-    return 'Rewrite the following message to make it '+goal.toLowerCase()+'. Keep the core intent. Do not add fluff. Return ONLY the rewritten message.
-
-Original:
-'+msg;
+    return 'Rewrite the following message to make it '+goal.toLowerCase()+'. Keep the core intent. Do not add fluff. Return ONLY the rewritten message.\n\nOriginal:\n'+msg;
   }
   if(t==='custom'){
     var prompt=document.getElementById('aitk-cx-prompt').value.trim();
