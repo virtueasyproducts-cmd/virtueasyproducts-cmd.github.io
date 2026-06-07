@@ -172,7 +172,7 @@ img{max-width:100%;display:block}
 <!-- NAV -->
 <nav class="site-nav" role="navigation" aria-label="Main navigation">
   <a class="nav-logo" href="/">
-    <img src="/assets/virtueasy-logo.png" alt="Virtueasy" width="140" height="32" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <img decoding="async" src="/assets/virtueasy-logo.png" alt="Virtueasy" width="140" height="32" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
     <span class="nav-logo-text">VIRTUEASY</span>
   </a>
   <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
@@ -214,10 +214,10 @@ img{max-width:100%;display:block}
       </div>
       <div class="screen-carousel">
         <div class="screen-track" id="screenTrack">
-          <img src="/assets/kit-dashboard.png" alt="VA Starter Kit dashboard" class="screen-img">
-          <img src="/assets/kit-module.png" alt="AI Toolkit module" class="screen-img">
-          <img src="/assets/kit-proposal.png" alt="Modules view" class="screen-img">
-          <img src="/assets/kit-lessons.png" alt="Proposal Builder" class="screen-img">
+          <img src="/assets/kit-dashboard.webp" alt="VA Starter Kit dashboard" class="screen-img" fetchpriority="high" decoding="async">
+          <img src="/assets/kit-module.webp" alt="AI Toolkit module" class="screen-img" loading="lazy" decoding="async">
+          <img src="/assets/kit-proposal.webp" alt="Modules view" class="screen-img" loading="lazy" decoding="async">
+          <img src="/assets/kit-lessons.webp" alt="Proposal Builder" class="screen-img" loading="lazy" decoding="async">
         </div>
       </div>
       <div class="screen-dots-nav">
