@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VA Starter Kit — Free Preview</title>
+<title>VA Starter Kit - Free Preview</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -718,7 +718,7 @@ body {
       <div class="lock-icon">🔒</div>
     </div>
 
-    <div class="sidebar-section-label" style="margin-top:12px;">Days 8–30</div>
+    <div class="sidebar-section-label" style="margin-top:12px;">Days 8-30</div>
 
     <div class="day-item locked">
       <div class="day-num">...</div>
@@ -822,7 +822,7 @@ body {
       <div class="card">
         <div class="card-title">Journal Prompt</div>
         <p style="margin-bottom:12px;"><strong style="color:#F8F8F8;">Who do I want to help, and what would their day look like without me?</strong></p>
-        <textarea class="journal-textarea" placeholder="Write freely here. No right answer. Think about the person you want to work with — what's stressing them out? What would change if you handled it for them?" oninput="updateD1Progress()"></textarea>
+        <textarea class="journal-textarea" placeholder="Write freely here. No right answer. Think about the person you want to work with - what's stressing them out? What would change if you handled it for them?" oninput="updateD1Progress()"></textarea>
       </div>
 
       <div class="card">
@@ -869,7 +869,7 @@ body {
 
       <div class="card" id="rate-card">
         <div class="card-title">Your Rate Snapshot</div>
-        <p style="margin-bottom:14px;">Based on your niche, here's where your rates should land when you're starting out — and where they can go.</p>
+        <p style="margin-bottom:14px;">Based on your niche, here's where your rates should land when you're starting out - and where they can go.</p>
         <div id="rate-table"></div>
       </div>
 
@@ -898,7 +898,7 @@ body {
       <div class="card">
         <div class="card-title">Positioning Framework</div>
         <p style="margin-bottom:12px;">Sharpen your statement. Think: specific client + specific pain + specific outcome.</p>
-        <textarea class="journal-textarea" placeholder='Before: "I help coaches with admin tasks."&#10;After: "I help 6-figure health coaches reclaim 10+ hours/week by managing their inbox, scheduling, and client onboarding — so their clients feel taken care of and they stop working weekends."' oninput="updateD2Progress()"></textarea>
+        <textarea class="journal-textarea" placeholder='Before: "I help coaches with admin tasks."&#10;After: "I help 6-figure health coaches reclaim 10+ hours/week by managing their inbox, scheduling, and client onboarding - so their clients feel taken care of and they stop working weekends."' oninput="updateD2Progress()"></textarea>
       </div>
 
       <div class="card">
@@ -908,7 +908,7 @@ body {
       </div>
 
       <div class="btn-nav">
-        <button class="btn-primary" onclick="completeDay2()">Complete Day 2 — Unlock Full System →</button>
+        <button class="btn-primary" onclick="completeDay2()">Complete Day 2 - Unlock Full System →</button>
       </div>
 
     </div>
@@ -938,17 +938,17 @@ body {
     <button class="modal-dismiss" onclick="dismissModal()">✕</button>
     <span class="modal-emoji">🎉</span>
     <div class="modal-headline">You're already ahead of 90% of VAs</div>
-    <div class="modal-sub">You've built your foundation and nailed your positioning. Days 3–30 are where clients, contracts, and income actually happen.</div>
+    <div class="modal-sub">You've built your foundation and nailed your positioning. Days 3-30 are where clients, contracts, and income actually happen.</div>
 
     <ul class="modal-features">
       <li>Day 3: Build your first service package</li>
-      <li>Days 4–7: Find and land your first client</li>
+      <li>Days 4-7: Find and land your first client</li>
       <li>Day 11: AI-powered pitch generator</li>
-      <li>Days 15–20: Scale to retainer clients</li>
+      <li>Days 15-20: Scale to retainer clients</li>
       <li>Day 30: Your full VA business is live</li>
     </ul>
 
-    <a class="modal-cta" href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" target="_blank">Continue — Get Full Access →</a>
+    <a class="modal-cta" href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" target="_blank">Continue - Get Full Access →</a>
   </div>
 </div>
 
@@ -961,10 +961,10 @@ body {
   let currentDay = 1;
 
   const niches = {
-    'Healthcare VA':   { start: '$35–$50/hr', growth: '$55–$85/hr', monthly: '$2,800–$4,000', demand: 'Very High' },
-    'Social Media VA': { start: '$30–$45/hr', growth: '$50–$75/hr', monthly: '$2,400–$3,600', demand: 'High' },
-    'Executive VA':    { start: '$40–$60/hr', growth: '$65–$100/hr', monthly: '$3,200–$4,800', demand: 'High' },
-    'Tech & Ops VA':   { start: '$45–$65/hr', growth: '$70–$110/hr', monthly: '$3,600–$5,200', demand: 'Very High' },
+    'Healthcare VA':   { start: '$35 - $50/hr', growth: '$55 - $85/hr', monthly: '$2,800 - $4,000', demand: 'Very High' },
+    'Social Media VA': { start: '$30 - $45/hr', growth: '$50 - $75/hr', monthly: '$2,400 - $3,600', demand: 'High' },
+    'Executive VA':    { start: '$40 - $60/hr', growth: '$65 - $100/hr', monthly: '$3,200 - $4,800', demand: 'High' },
+    'Tech & Ops VA':   { start: '$45 - $65/hr', growth: '$70 - $110/hr', monthly: '$3,600 - $5,200', demand: 'Very High' },
   };
 
   // ── NAVIGATION ──
@@ -1093,7 +1093,7 @@ body {
     const niche = selectedNiche || 'Social Media VA';
     const data = niches[niche];
     document.getElementById('rate-card').querySelector('.card-title').textContent =
-      (selectedNicheIcon || '💼') + '  ' + niche + ' — Rate Snapshot';
+      (selectedNicheIcon || '💼') + '  ' + niche + ' - Rate Snapshot';
 
     document.getElementById('rate-table').innerHTML = `
       <div class="rate-row">

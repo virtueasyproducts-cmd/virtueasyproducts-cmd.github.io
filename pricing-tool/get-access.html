@@ -197,7 +197,7 @@ function grantAndRedirect(email) {
     localStorage.setItem('trialStart', Date.now().toString());
   }
 
-  // 2. Fire ML subscription in background — don't wait for it
+  // 2. Fire ML subscription in background - don't wait for it
   if (email) {
     const fd = new FormData();
     fd.append('fields[email]', email);
@@ -205,7 +205,7 @@ function grantAndRedirect(email) {
     fetch(ML_URL, { method: 'POST', body: fd }).catch(() => {});
   }
 
-  // 3. Fire token API in background — don't wait for it either
+  // 3. Fire token API in background - don't wait for it either
   fetch(ACCESS_API, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -220,7 +220,7 @@ function grantAndRedirect(email) {
   })
   .catch(() => {});
 
-  // 4. Redirect NOW — don't wait for any fetch to resolve
+  // 4. Redirect NOW - don't wait for any fetch to resolve
   redirectToApp();
 }
 
@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!btn || !emailInput) return;
 
-  // Listen on BUTTON CLICK, not form submit — bypasses ML's event hijack entirely
+  // Listen on BUTTON CLICK, not form submit - bypasses ML's event hijack entirely
   btn.addEventListener('click', function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
