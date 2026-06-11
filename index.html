@@ -628,6 +628,47 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
         inset 0 1px 0 rgba(255,255,255,0.06);
     }
 
+    .hero-video-wrap {
+      position: relative;
+      line-height: 0;
+      background: #0a0a0a;
+    }
+
+    .hero-video {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: #0a0a0a;
+    }
+
+    .video-sound-btn {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(10,10,10,0.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #fff;
+      border-radius: 20px;
+      padding: 7px 13px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 3;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .video-sound-btn:hover { background: rgba(255,31,122,0.85); transform: translateY(-1px); }
+    .video-sound-btn .vsb-icon { font-size: 0.95rem; }
+    .video-sound-btn.is-unmuted .vsb-text { display: none; }
+
     .mockup-browser-bar {
       background: #120f12;
       padding: 0.7rem 1rem;
@@ -1624,7 +1665,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
         grid-template-columns: 1fr;
         max-width: 720px;
       }
-      .hero-visual { display: none; }
+      .hero-visual { display: block; margin-top: 0.5rem; }
     }
 
     @media (max-width: 960px) {
@@ -1923,16 +1964,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
           </div>
         </div>
 
-        <div class="hero-visual" aria-hidden="true">
-
-          <img
-            src="https://images.unsplash.com/photo-1499557354967-2b2d8910bcca?w=900&q=80&auto=format"
-            alt="Woman working at a laptop at home in warm natural light"
-            loading="lazy"
-            decoding="async"
-            width="900" height="600"
-            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px;opacity:0.15;z-index:0;"
-          >
+        <div class="hero-visual">
 
           <div class="mockup-browser">
             <div class="mockup-browser-bar">
@@ -1943,34 +1975,18 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
               </div>
               <div class="browser-url">virtueasy.com/starterkit</div>
             </div>
-            <div class="mockup-content">
-              <div class="mockup-day-label">Day 7 of 14</div>
-              <div class="mockup-day-title">Your First Cold DM</div>
-              <ul class="mockup-tasks">
-                <li class="mockup-task">
-                  <span class="mockup-cb checked"></span>
-                  Identify 10 target businesses in your niche
-                </li>
-                <li class="mockup-task">
-                  <span class="mockup-cb checked"></span>
-                  Write your outreach message using the script
-                </li>
-                <li class="mockup-task">
-                  <span class="mockup-cb"></span>
-                  Send your first 3 DMs today
-                </li>
-                <li class="mockup-task">
-                  <span class="mockup-cb"></span>
-                  Log results in your tracking sheet
-                </li>
-              </ul>
-              <div class="mockup-progress-row">
-                <span>7 / 14 days</span>
-                <span>50%</span>
-              </div>
-              <div class="mockup-progress-bar">
-                <div class="mockup-progress-fill"></div>
-              </div>
+            <div class="hero-video-wrap">
+              <video
+                id="heroVideo"
+                class="hero-video"
+                src="/assets/va-starter-kit-16x9.mp4"
+                poster="/assets/va-starter-kit-poster.jpg"
+                autoplay muted loop playsinline preload="metadata"
+                aria-label="VA Starter Kit walkthrough video"
+              ></video>
+              <button type="button" class="video-sound-btn" id="heroVideoSound" aria-label="Unmute video">
+                <span class="vsb-icon" aria-hidden="true">&#x1F507;</span><span class="vsb-text">Tap for sound</span>
+              </button>
             </div>
           </div>
 
@@ -2089,15 +2105,22 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
                 <span class="browser-dot browser-dot-y"></span>
                 <span class="browser-dot browser-dot-g"></span>
               </div>
-              <span class="video-frame-title">virtueasy.com/starterkit</span>
+              <span class="video-frame-title">virtueasy.com/starterkit</span><div class="kit-screen-labels" id="kitLabels"><span class="kit-slabel active">Dashboard</span><span class="kit-slabel">AI Toolkit</span><span class="kit-slabel">Modules</span><span class="kit-slabel">Proposal Builder</span></div>
             </div>
-            <video
-              class="feature-video"
-              src="/assets/va-starter-kit-16x9.mp4"
-              poster="/assets/va-starter-kit-poster.jpg"
-              autoplay muted loop playsinline controls preload="metadata"
-              aria-label="VA Starter Kit walkthrough video"
-            ></video>
+            <div class="kit-carousel" aria-label="VA Starter Kit screenshots">
+              <div class="kit-carousel-track" id="kitCarousel">
+                <img decoding="async" src="/assets/kit-dashboard.webp" alt="VA Starter Kit dashboard" class="kit-carousel-img" loading="lazy">
+                <img decoding="async" src="/assets/kit-module.webp" alt="Module view with AI toolkit" class="kit-carousel-img" loading="lazy">
+                <img decoding="async" src="/assets/kit-lessons.webp" alt="Client targeting module lessons" class="kit-carousel-img" loading="lazy">
+                <img decoding="async" src="/assets/kit-proposal.webp" alt="Proposal builder tool" class="kit-carousel-img" loading="lazy">
+              </div>
+              <div class="kit-carousel-dots" aria-hidden="true">
+                <span class="kit-dot active" onclick="kitGoTo(0)"></span>
+                <span class="kit-dot" onclick="kitGoTo(1)"></span>
+                <span class="kit-dot" onclick="kitGoTo(2)"></span>
+                <span class="kit-dot" onclick="kitGoTo(3)"></span>
+              </div>
+            </div>
           </div>
           <div class="video-glow" aria-hidden="true"></div>
           <div class="video-badge" aria-hidden="true">
@@ -2570,6 +2593,55 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     carousel.addEventListener('mouseenter', stopCarousel);
     carousel.addEventListener('mouseleave', startCarousel);
   });
+})();
+</script>
+<script>
+(function(){
+  var v = document.getElementById('heroVideo');
+  if(!v) return;
+  var btn = document.getElementById('heroVideoSound');
+  function syncBtn(){
+    if(!btn) return;
+    var icon = btn.querySelector('.vsb-icon');
+    var text = btn.querySelector('.vsb-text');
+    if(v.muted){
+      btn.classList.remove('is-unmuted');
+      if(icon) icon.innerHTML = '&#x1F507;';
+      if(text) text.textContent = 'Tap for sound';
+      btn.setAttribute('aria-label','Unmute video');
+    } else {
+      btn.classList.add('is-unmuted');
+      if(icon) icon.innerHTML = '&#x1F50A;';
+      btn.setAttribute('aria-label','Mute video');
+    }
+  }
+  function unmute(){
+    v.muted = false;
+    v.volume = 1;
+    var p = v.play();
+    if(p && p.catch) p.catch(function(){});
+    syncBtn();
+  }
+  function onGesture(){
+    if(v.muted) unmute();
+    cleanup();
+  }
+  function cleanup(){
+    ['click','touchstart','keydown'].forEach(function(ev){
+      document.removeEventListener(ev, onGesture);
+    });
+  }
+  ['click','touchstart','keydown'].forEach(function(ev){
+    document.addEventListener(ev, onGesture, { passive: true });
+  });
+  if(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      if(v.muted){ unmute(); } else { v.muted = true; syncBtn(); }
+      cleanup();
+    });
+  }
+  syncBtn();
 })();
 </script>
 </body>
