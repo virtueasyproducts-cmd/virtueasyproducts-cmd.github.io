@@ -2131,158 +2131,74 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       </div>
     </section>
 
-    <section class="section resources-section" aria-label="All resources">
-      <div class="section-inner">
+    <style id="va-quiz-styles">
+    .va-quiz-section{background:#0a0a0a;padding:5.5rem 1.5rem;border-top:1px solid rgba(255,31,122,0.12);border-bottom:1px solid rgba(255,31,122,0.12);position:relative;overflow:hidden}
+    .va-quiz-section::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 50% 0%,rgba(255,31,122,0.16),transparent 70%);pointer-events:none}
+    .va-quiz{position:relative;max-width:680px;margin:0 auto}
+    .vq-screen{text-align:center}
+    .vq-screen[hidden]{display:none}
+    .vq-anim{animation:vqFade 0.35s ease}
+    @keyframes vqFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    .vq-eyebrow{display:inline-block;font-family:var(--font-body);font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--pink);margin-bottom:1.1rem;padding:0.35rem 0.9rem;border:1px solid rgba(255,31,122,0.3);border-radius:20px}
+    .vq-title{font-family:var(--font-display);font-size:clamp(2.6rem,7vw,4.6rem);line-height:0.92;letter-spacing:0.02em;color:var(--white);margin:0 0 1rem}
+    .vq-sub{font-family:var(--font-body);font-size:1.02rem;line-height:1.6;color:rgba(248,248,248,0.7);max-width:480px;margin:0 auto 2rem}
+    .vq-meta{font-family:var(--font-body);font-size:0.78rem;color:var(--muted);margin-top:1.1rem}
+    .vq-btn{display:inline-block;font-family:var(--font-body);font-weight:700;font-size:0.88rem;letter-spacing:0.08em;text-transform:uppercase;padding:1rem 2.25rem;border-radius:4px;cursor:pointer;border:none;transition:all 0.2s;text-decoration:none}
+    .vq-btn-primary{background:var(--pink);color:#fff}
+    .vq-btn-primary:hover{background:var(--pink-dark);box-shadow:0 0 28px var(--pink-glow);transform:translateY(-1px)}
+    .vq-btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.2)}
+    .vq-btn-ghost:hover{border-color:var(--pink);color:var(--pink)}
+    .vq-progress-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.6rem}
+    .vq-progress-label{font-family:var(--font-body);font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
+    .vq-back{background:none;border:none;color:rgba(248,248,248,0.5);font-family:var(--font-body);font-size:0.8rem;cursor:pointer;padding:0;transition:color 0.2s}
+    .vq-back:hover{color:var(--pink)}
+    .vq-back[hidden]{display:none}
+    .vq-progress-bar{height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;margin-bottom:2rem}
+    .vq-progress-fill{height:100%;width:0;background:var(--pink);border-radius:2px;transition:width 0.4s cubic-bezier(0.4,0,0.2,1)}
+    .vq-question{font-family:var(--font-display);font-size:clamp(1.7rem,4.5vw,2.5rem);line-height:1.08;letter-spacing:0.02em;color:var(--white);margin:0 0 1.75rem;text-align:left}
+    .vq-options{display:flex;flex-direction:column;gap:0.65rem}
+    .vq-option{display:flex;align-items:center;gap:0.85rem;width:100%;text-align:left;background:var(--surface);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:1rem 1.1rem;font-family:var(--font-body);font-size:0.97rem;line-height:1.35;color:rgba(248,248,248,0.85);cursor:pointer;transition:all 0.18s}
+    .vq-option:hover{border-color:var(--pink);background:var(--surface-2);transform:translateX(2px)}
+    .vq-option.selected{border-color:var(--pink);background:rgba(255,31,122,0.1);color:#fff}
+    .vq-option-dot{flex-shrink:0;width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);transition:all 0.18s}
+    .vq-option:hover .vq-option-dot,.vq-option.selected .vq-option-dot{border-color:var(--pink);background:var(--pink);box-shadow:0 0 8px var(--pink-glow)}
+    .vq-result-ctas{display:flex;flex-direction:column;gap:0.75rem;align-items:center;max-width:360px;margin:0 auto}
+    .vq-result-ctas .vq-btn{width:100%;text-align:center}
+    .vq-retake{margin-top:1.5rem;background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:0.82rem;text-decoration:underline;cursor:pointer;transition:color 0.2s}
+    .vq-retake:hover{color:var(--pink)}
+  </style>
 
-        <div class="section-header">
-          <span class="label">Not sure where to start?</span>
-          <h2>Pick what you need right now</h2>
+    <section class="va-quiz-section" aria-label="Do you have what it takes quiz" id="va-quiz">
+      <div class="va-quiz">
+
+        <div class="vq-screen vq-intro" data-screen="intro">
+          <span class="vq-eyebrow">60-second gut check</span>
+          <h2 class="vq-title">Do You Have<br>What It Takes?</h2>
+          <p class="vq-sub">Six honest questions, no email required. Find out if becoming a virtual assistant actually fits you, and exactly where to start.</p>
+          <button type="button" class="vq-btn vq-btn-primary" data-action="start">Start the Quiz</button>
+          <p class="vq-meta">Takes about a minute. No catch.</p>
         </div>
 
-        <div class="resources-grid">
+        <div class="vq-screen vq-body" data-screen="quiz" hidden>
+          <div class="vq-progress-row">
+            <span class="vq-progress-label" id="vqProgressLabel">Question 1 of 6</span>
+            <button type="button" class="vq-back" id="vqBack" hidden>&larr; Back</button>
+          </div>
+          <div class="vq-progress-bar"><div class="vq-progress-fill" id="vqProgressFill"></div></div>
+          <h3 class="vq-question" id="vqQuestion" aria-live="polite"></h3>
+          <div class="vq-options" id="vqOptions"></div>
+        </div>
 
-          <a href="/starterkit/" class="resource-card resource-card--featured">
-                                <div class="resource-thumb thumb-blueprint" style="position:relative;overflow:hidden;">
-              <img decoding="async" src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&q=75&auto=format" alt="Planner and calendar representing the VA Starter Kit 14-day sprint" loading="lazy" width="600" height="400" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.25;">
-              <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;text-align:center;padding:1rem;">
-                <div style="font-size:2.2rem;line-height:1;">&#x1F4C5;</div>
-                <div style="font-family:var(--font-display);font-size:1rem;letter-spacing:0.06em;color:#fff;">VA Starter Kit</div>
-                <div style="display:flex;gap:0.25rem;">
-                  <div style="width:10px;height:4px;background:rgba(255,255,255,0.9);border-radius:2px;"></div>
-                  <div style="width:10px;height:4px;background:rgba(255,255,255,0.9);border-radius:2px;"></div>
-                  <div style="width:10px;height:4px;background:rgba(255,255,255,0.9);border-radius:2px;"></div>
-                  <div style="width:10px;height:4px;background:rgba(255,255,255,0.35);border-radius:2px;"></div>
-                  <div style="width:10px;height:4px;background:rgba(255,255,255,0.35);border-radius:2px;"></div>
-                </div>
-                <div style="font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);">Day 7 of 14</div>
-              </div>
-            </div>
-            <div class="resource-body">
-              <div class="resource-card-top">
-                <div class="resource-title">The VA Starter Kit</div>
-                <span class="badge">$27</span>
-              </div>
-              <p class="resource-desc">The VA Starter Kit is an all-in-one first-client launch system — 6 modules, AI tools, 260 prompts, and every builder you need, all in one dashboard.</p>
-              <span class="resource-cta">Get the Starter Kit <span aria-hidden="true">&#x2192;</span></span>
-            </div>
-          </a>
-
-
-          <a href="/pricing-tool/" class="resource-card">
-                                <div class="resource-thumb thumb-pricing" style="position:relative;overflow:hidden;">
-              <img decoding="async" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=75&auto=format" alt="Calculator and notebook representing virtual assistant pricing" loading="lazy" width="600" height="400" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.18;">
-              <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.45rem;text-align:center;padding:1rem;">
-                <div style="font-size:2.2rem;line-height:1;">&#x1F4B0;</div>
-                <div style="font-family:var(--font-display);font-size:1.4rem;letter-spacing:0.04em;color:#4ade80;">$45/hr</div>
-                <div style="font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(74,222,128,0.7);">Your suggested rate</div>
-              </div>
-            </div>
-            <div class="resource-body">
-              <div class="resource-card-top">
-                <div class="resource-title">VA Pricing Tool</div>
-                <span class="badge badge-free">Free</span>
-              </div>
-              <p class="resource-desc">Figure out exactly what to charge. Input your goals and expenses, get a rate that actually works for your life.</p>
-              <span class="resource-cta">Calculate Your Rate <span aria-hidden="true">&#x2192;</span></span>
-            </div>
-          </a>
-
-
-          <a href="/onboarding-kit/" class="resource-card">
-            <div class="resource-thumb" style="background:#0a0a0a;position:relative;overflow:hidden;">
-              <img decoding="async" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=75&auto=format" alt="Documents on a desk representing a client onboarding kit" loading="lazy" width="600" height="400" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.15;">
-              <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;text-align:center;padding:1rem;">
-                <div style="font-size:2.2rem;line-height:1;">&#x1F91D;</div>
-                <div style="font-family:var(--font-display);font-size:1rem;letter-spacing:0.06em;color:#FF1F7A;">Onboarding Kit</div>
-                <div style="font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,31,122,0.6);">Welcome email &middot; Contract &middot; Checklist</div>
-              </div>
-            </div>
-            <div class="resource-body">
-              <div class="resource-card-top">
-                <div class="resource-title">Client Onboarding Kit</div>
-                <span class="badge">$7</span>
-              </div>
-              <p class="resource-desc">Every document you need to onboard a client professionally - auto-filled from your details. Look like a pro from day one.</p>
-              <span class="resource-cta">Get the Kit <span aria-hidden="true">&#x2192;</span></span>
-            </div>
-          </a>
-
-          <a href="/starterkit/" class="resource-card">
-                                <div class="resource-thumb thumb-proposal" style="position:relative;overflow:hidden;">
-              <img decoding="async" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=75&auto=format" alt="Documents on a desk representing a VA client proposal template" loading="lazy" width="600" height="400" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.2;">
-              <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;text-align:center;padding:1rem;">
-                <div style="font-size:2.2rem;line-height:1;">&#x1F4C4;</div>
-                <div style="font-family:var(--font-display);font-size:1rem;letter-spacing:0.06em;color:#fff;">Proposal Template</div>
-                <div style="font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);">5 sections &middot; Editable &middot; Free</div>
-              </div>
-            </div>
-            <div class="resource-body">
-              <div class="resource-card-top">
-                <div class="resource-title">Proposal Builder</div>
-                <span class="badge">In the Kit</span>
-              </div>
-              <p class="resource-desc">Build a client-ready proposal in minutes. Included inside the VA Starter Kit alongside the portfolio builder, pricing tool, and more.</p>
-              <span class="resource-cta">Unlock the Proposal Builder <span aria-hidden="true">&#x2192;</span></span>
-            </div>
-          </a>
-
-          <a href="https://www.facebook.com/groups/974455928445420" class="resource-card" target="_blank" rel="noopener">
-                                <div class="resource-thumb thumb-community" style="position:relative;overflow:hidden;">
-              <img decoding="async" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=75&auto=format" alt="Group of women collaborating representing the Virtueasy VA community" loading="lazy" width="600" height="400" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.2;">
-              <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;text-align:center;padding:1rem;">
-                <div style="font-size:2.2rem;line-height:1;">&#x1F91D;</div>
-                <div style="font-family:var(--font-display);font-size:1rem;letter-spacing:0.06em;color:#fff;">VA Community</div>
-                <div style="font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);">Facebook Group &middot; Free to join</div>
-              </div>
-            </div>
-            <div class="resource-body">
-              <div class="resource-card-top">
-                <div class="resource-title">Community</div>
-                <span class="badge badge-free">Free</span>
-              </div>
-              <p class="resource-desc">Ask questions, share wins, and connect with VAs at every stage. Free to join.</p>
-              <span class="resource-cta">Join the Group <span aria-hidden="true">&#x2192;</span></span>
-            </div>
-          </a>
-
-      <a href="/starterkit/" class="resource-card">
-      <div class="resource-thumb" style="background:#7c3aed;position:relative;overflow:hidden;">
-              <img decoding="async" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=75&auto=format" alt="Professional headshot representing a virtual assistant portfolio" loading="lazy" width="600" height="400" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.2;">
-              <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;text-align:center;padding:1rem;width:100%;height:100%;">
-                <div style="font-size:2.2rem;line-height:1;">&#x1F5C2;</div>
-                <div style="font-family:var(--font-display);font-size:1rem;letter-spacing:0.06em;color:#fff;">Portfolio Builder</div>
-                <div style="font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);">No clients needed</div>
-              </div>
-            </div>
-    <div class="resource-body">
-    <div class="resource-card-top">
-    <div class="resource-title">Portfolio Builder</div>
-    <span class="badge">In the Kit</span>
-    </div>
-    <p class="resource-desc">Build a portfolio before you have clients. Spec work entries, case study format, and copy-ready output. Included inside the VA Starter Kit.</p>
-    <span class="resource-cta">Build Your Portfolio Now <span aria-hidden="true">&#x2192;</span></span>
-    </div>
-    </a>
-
-          <a href="/va-job-board" class="resource-card">
-            <div class="resource-thumb" style="background:#0f172a;position:relative;overflow:hidden;">
-              <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;text-align:center;padding:1rem;width:100%;height:100%;">
-                <div style="font-size:2.2rem;line-height:1;">&#x1F4BC;</div>
-                <div style="font-family:var(--font-display);font-size:1rem;letter-spacing:0.06em;color:#fff;">VA Job Board</div>
-                <div style="font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);">Regularly updated &middot; Remote only</div>
-              </div>
-            </div>
-            <div class="resource-body">
-              <div class="resource-card-top">
-                <div class="resource-title">VA Job Board</div>
-                <span class="badge badge-free">Free</span>
-              </div>
-              <p class="resource-desc">Browse remote VA jobs, updated regularly. Find roles in social media, executive assistance, OBM, and more.</p>
-              <span class="resource-cta">Browse Jobs <span aria-hidden="true">&#x2192;</span></span>
-            </div>
-          </a>
-
-   </div>
+        <div class="vq-screen vq-result" data-screen="result" hidden>
+          <span class="vq-eyebrow" id="vqResultEyebrow">Your result</span>
+          <h2 class="vq-title" id="vqResultTitle"></h2>
+          <p class="vq-sub" id="vqResultText"></p>
+          <div class="vq-result-ctas">
+            <a href="/starterkit/" class="vq-btn vq-btn-primary">Get the VA Starter Kit - $27</a>
+            <a href="/resources/" class="vq-btn vq-btn-ghost">Explore the free tools first</a>
+          </div>
+          <button type="button" class="vq-retake" data-action="retake">Retake the quiz</button>
+        </div>
 
       </div>
     </section>
@@ -2642,6 +2558,135 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     });
   }
   syncBtn();
+})();
+</script>
+<script>
+(function(){
+  var root = document.getElementById('va-quiz');
+  if(!root) return;
+
+  var questions = [
+    { q: "Why do you actually want this?", options: [
+      { t: "I need to make more money, plain and simple.", p: 3 },
+      { t: "I want control over my schedule and where I work.", p: 3 },
+      { t: "Someone told me VAs make good money.", p: 2 },
+      { t: "I'm curious, but not sure it's for me yet.", p: 1 }
+    ]},
+    { q: "How much time can you realistically give this each week to start?", options: [
+      { t: "10+ focused hours. I'm serious about this.", p: 3 },
+      { t: "5 to 10 hours around my current job.", p: 3 },
+      { t: "A few hours here and there.", p: 1 },
+      { t: "Honestly, I don't know yet.", p: 1 }
+    ]},
+    { q: "You've never done this work before. How does that sit with you?", options: [
+      { t: "Fine. I learn by doing.", p: 3 },
+      { t: "A little nervous, but I'll figure it out.", p: 2 },
+      { t: "I'd want a step-by-step system before I start.", p: 2 },
+      { t: "It stops me from starting at all.", p: 0 }
+    ]},
+    { q: "Reaching out to strangers to pitch yourself...", options: [
+      { t: "I'll do it if it gets me a client.", p: 3 },
+      { t: "Uncomfortable, but I can push through with a script.", p: 2 },
+      { t: "I'd rather clients come to me.", p: 1 },
+      { t: "That's my biggest fear.", p: 0 }
+    ]},
+    { q: "When something doesn't work the first time, you...", options: [
+      { t: "Adjust and try again. That's the job.", p: 3 },
+      { t: "Get frustrated, but keep going.", p: 2 },
+      { t: "Need some encouragement to push through.", p: 1 },
+      { t: "Tend to assume it's just not for me.", p: 0 }
+    ]},
+    { q: "What's actually missing right now?", options: [
+      { t: "A clear system to follow.", p: 3 },
+      { t: "Knowing where to even find clients.", p: 3 },
+      { t: "The confidence to charge real money.", p: 2 },
+      { t: "All of it. I'm starting from zero.", p: 2 }
+    ]}
+  ];
+
+  var results = [
+    { min: 14, eyebrow: "Your result", title: "You're Built For This",
+      text: "You're not the type who needs convincing. You learn by doing, you push through the uncomfortable parts, and you treat setbacks as information. So skip the second-guessing. The VA Starter Kit gives you the exact 14-day path to your first client, so you can stop researching and start earning." },
+    { min: 8, eyebrow: "Your result", title: "You've Got What It Takes",
+      text: "You have the mindset this work rewards: willing to learn, willing to try, ready to put in the reps. What you're missing is the system that turns that into a paying client. That's the whole point of the VA Starter Kit. 6 modules, 14 days, your first client." },
+    { min: 0, eyebrow: "Your result", title: "You're Closer Than You Think",
+      text: "You landed on the cautious side, and that's normal. The thing holding you back isn't ability, it's not having a clear path. The VA Starter Kit hands you that path: 6 modules and a 14-day sprint that take you from zero to your first client, one daily action at a time." }
+  ];
+
+  var total = questions.length;
+  var answers = new Array(total).fill(null);
+  var current = 0;
+
+  var screens = {
+    intro: root.querySelector('[data-screen="intro"]'),
+    quiz: root.querySelector('[data-screen="quiz"]'),
+    result: root.querySelector('[data-screen="result"]')
+  };
+  var qLabel = root.querySelector('#vqProgressLabel');
+  var qFill = root.querySelector('#vqProgressFill');
+  var qText = root.querySelector('#vqQuestion');
+  var qOptions = root.querySelector('#vqOptions');
+  var backBtn = root.querySelector('#vqBack');
+
+  function show(name){
+    Object.keys(screens).forEach(function(k){
+      screens[k].hidden = (k !== name);
+    });
+    var el = screens[name];
+    el.classList.remove('vq-anim');
+    void el.offsetWidth;
+    el.classList.add('vq-anim');
+  }
+
+  function renderQuestion(){
+    var item = questions[current];
+    qLabel.textContent = 'Question ' + (current + 1) + ' of ' + total;
+    qFill.style.width = (((current + 1) / total) * 100) + '%';
+    backBtn.hidden = (current === 0);
+    qText.textContent = item.q;
+    qOptions.innerHTML = '';
+    item.options.forEach(function(opt, i){
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'vq-option' + (answers[current] === i ? ' selected' : '');
+      btn.innerHTML = '<span class="vq-option-dot" aria-hidden="true"></span><span>' + opt.t + '</span>';
+      btn.addEventListener('click', function(){ choose(i); });
+      qOptions.appendChild(btn);
+    });
+  }
+
+  function choose(i){
+    answers[current] = i;
+    var nodes = qOptions.querySelectorAll('.vq-option');
+    nodes.forEach(function(n, idx){ n.classList.toggle('selected', idx === i); });
+    setTimeout(function(){
+      if(current < total - 1){ current++; renderQuestion(); show('quiz'); }
+      else { finish(); }
+    }, 260);
+  }
+
+  function finish(){
+    var score = answers.reduce(function(sum, a, idx){
+      return sum + (a === null ? 0 : questions[idx].options[a].p);
+    }, 0);
+    var r = results.find(function(res){ return score >= res.min; });
+    root.querySelector('#vqResultEyebrow').textContent = r.eyebrow;
+    root.querySelector('#vqResultTitle').textContent = r.title;
+    root.querySelector('#vqResultText').textContent = r.text;
+    show('result');
+  }
+
+  root.querySelector('[data-action="start"]').addEventListener('click', function(){
+    current = 0; answers = new Array(total).fill(null);
+    renderQuestion(); show('quiz');
+  });
+  root.querySelector('[data-action="retake"]').addEventListener('click', function(){
+    current = 0; answers = new Array(total).fill(null);
+    renderQuestion(); show('quiz');
+  });
+  backBtn.addEventListener('click', function(){
+    if(current > 0){ current--; renderQuestion(); show('quiz'); }
+  });
 })();
 </script>
 </body>
