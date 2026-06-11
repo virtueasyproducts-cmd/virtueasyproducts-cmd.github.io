@@ -971,8 +971,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     .feature-video {
       width: 100%;
       display: block;
-      max-height: 340px;
-      min-height: 220px;
+      aspect-ratio: 16 / 9;
       object-fit: cover;
       background: #0a0a0a;
     }
@@ -2090,22 +2089,15 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
                 <span class="browser-dot browser-dot-y"></span>
                 <span class="browser-dot browser-dot-g"></span>
               </div>
-              <span class="video-frame-title">virtueasy.com/starterkit</span><div class="kit-screen-labels" id="kitLabels"><span class="kit-slabel active">Dashboard</span><span class="kit-slabel">AI Toolkit</span><span class="kit-slabel">Modules</span><span class="kit-slabel">Proposal Builder</span></div>
+              <span class="video-frame-title">virtueasy.com/starterkit</span>
             </div>
-            <div class="kit-carousel" aria-label="VA Starter Kit screenshots">
-              <div class="kit-carousel-track" id="kitCarousel">
-                <img decoding="async" src="/assets/kit-dashboard.webp" alt="VA Starter Kit dashboard" class="kit-carousel-img" loading="lazy">
-                <img decoding="async" src="/assets/kit-module.webp" alt="Module view with AI toolkit" class="kit-carousel-img" loading="lazy">
-                <img decoding="async" src="/assets/kit-lessons.webp" alt="Client targeting module lessons" class="kit-carousel-img" loading="lazy">
-                <img decoding="async" src="/assets/kit-proposal.webp" alt="Proposal builder tool" class="kit-carousel-img" loading="lazy">
-              </div>
-              <div class="kit-carousel-dots" aria-hidden="true">
-                <span class="kit-dot active" onclick="kitGoTo(0)"></span>
-                <span class="kit-dot" onclick="kitGoTo(1)"></span>
-                <span class="kit-dot" onclick="kitGoTo(2)"></span>
-                <span class="kit-dot" onclick="kitGoTo(3)"></span>
-              </div>
-            </div>
+            <video
+              class="feature-video"
+              src="/assets/va-starter-kit-16x9.mp4"
+              poster="/assets/va-starter-kit-poster.jpg"
+              autoplay muted loop playsinline controls preload="metadata"
+              aria-label="VA Starter Kit walkthrough video"
+            ></video>
           </div>
           <div class="video-glow" aria-hidden="true"></div>
           <div class="video-badge" aria-hidden="true">

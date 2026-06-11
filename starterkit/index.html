@@ -73,6 +73,7 @@ img{max-width:100%;display:block}
 .screen-carousel{position:relative;overflow:hidden;aspect-ratio:16/10}
 .screen-track{display:flex;height:100%;transition:transform 0.7s cubic-bezier(0.4,0,0.2,1);will-change:transform}
 .screen-img{width:100%;height:100%;flex-shrink:0;object-fit:cover;object-position:top left}
+.screen-video{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:#0a0a0a;line-height:0}
 .screen-dots-nav{display:flex;gap:6px;justify-content:center;padding:0.75rem 0 0.5rem;background:#0e0b0e}
 .screen-dot-nav{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:all 0.2s}
 .screen-dot-nav.on{background:var(--pink);transform:scale(1.4)}
@@ -212,26 +213,13 @@ img{max-width:100%;display:block}
         </div>
         <span class="screen-url">virtueasy.com/starterkit/</span>
       </div>
-      <div class="screen-carousel">
-        <div class="screen-track" id="screenTrack">
-          <img src="/assets/kit-dashboard.webp" alt="VA Starter Kit dashboard" class="screen-img" fetchpriority="high" decoding="async">
-          <img src="/assets/kit-module.webp" alt="AI Toolkit module" class="screen-img" loading="lazy" decoding="async">
-          <img src="/assets/kit-proposal.webp" alt="Modules view" class="screen-img" loading="lazy" decoding="async">
-          <img src="/assets/kit-lessons.webp" alt="Proposal Builder" class="screen-img" loading="lazy" decoding="async">
-        </div>
-      </div>
-      <div class="screen-dots-nav">
-        <div class="screen-dot-nav on" onclick="screenGo(0)"></div>
-        <div class="screen-dot-nav" onclick="screenGo(1)"></div>
-        <div class="screen-dot-nav" onclick="screenGo(2)"></div>
-        <div class="screen-dot-nav" onclick="screenGo(3)"></div>
-      </div>
-    </div>
-    <div class="screen-labels">
-      <div class="screen-label on" onclick="screenGo(0)">Dashboard</div>
-      <div class="screen-label" onclick="screenGo(1)">AI Toolkit</div>
-      <div class="screen-label" onclick="screenGo(2)">Modules</div>
-      <div class="screen-label" onclick="screenGo(3)">Proposal Builder</div>
+      <video
+        class="screen-video"
+        src="/assets/va-starter-kit-16x9.mp4"
+        poster="/assets/va-starter-kit-poster.jpg"
+        autoplay muted loop playsinline controls preload="metadata"
+        aria-label="VA Starter Kit walkthrough video"
+      ></video>
     </div>
     <div class="screen-glow"></div>
   </div>
@@ -432,29 +420,5 @@ img{max-width:100%;display:block}
   <p style="margin-top:0.5rem">© 2026 Virtueasy. Operated by <a href="https://messickmarketing.com" target="_blank" rel="noopener">Messick Marketing</a>.</p>
 </footer>
 
-<script>
-var si = 0;
-var stotal = 4;
-var stimer;
-
-function screenGo(n){
-  si = n;
-  document.getElementById('screenTrack').style.transform = 'translateX(-'+(si*100)+'%)';
-  document.querySelectorAll('.screen-dot-nav').forEach(function(d,i){ d.classList.toggle('on',i===si); });
-  document.querySelectorAll('.screen-label').forEach(function(d,i){ d.classList.toggle('on',i===si); });
-}
-
-function screenNext(){ screenGo((si+1)%stotal); }
-
-function startScreen(){ stimer = setInterval(screenNext, 3500); }
-function stopScreen(){ clearInterval(stimer); }
-
-var carousel = document.querySelector('.screen-carousel');
-if(carousel){
-  carousel.addEventListener('mouseenter', stopScreen);
-  carousel.addEventListener('mouseleave', startScreen);
-}
-startScreen();
-</script>
 </body>
 </html>
