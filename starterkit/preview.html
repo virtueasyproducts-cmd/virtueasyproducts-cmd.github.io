@@ -14,48 +14,47 @@
   --border:rgba(255,31,122,0.1);--border-subtle:rgba(255,255,255,0.06);
   --white:#F8F8F8;--muted:#999;
   --font-display:'Bebas Neue',sans-serif;--font-body:'Barlow',sans-serif;
-  --sidebar-w:260px;
+  --sidebar-w:260px;--nav-h:60px;
 }
 html{font-size:16px;scroll-behavior:smooth}
 body{font-family:var(--font-body);background:var(--black);color:var(--white);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
 a{color:inherit;text-decoration:none}
 button{cursor:pointer;font-family:var(--font-body)}
 
-/* NAV */
+/* ── NAV ── */
 .site-nav{
   position:sticky;top:0;z-index:200;
-  background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);padding:0 1.5rem;height:60px;
-  display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-shrink:0;
+  background:rgba(10,10,10,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);padding:0 1.25rem;height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-shrink:0;
 }
-.nav-left{display:flex;align-items:center;gap:1rem}
-.nav-logo{font-family:var(--font-display);font-size:1.4rem;letter-spacing:0.08em;color:var(--white)}
+.nav-left{display:flex;align-items:center;gap:0.75rem;min-width:0}
+.nav-logo{font-family:var(--font-display);font-size:1.4rem;letter-spacing:0.08em;color:var(--white);flex-shrink:0}
 .nav-logo span{color:var(--pink)}
-.nav-kit-badge{font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);border:1px solid rgba(255,31,122,0.35);padding:0.2rem 0.6rem;border-radius:2px}
-.preview-badge{font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#aaa;border:1px solid rgba(255,255,255,0.15);padding:0.2rem 0.6rem;border-radius:2px}
-.nav-right{display:flex;align-items:center;gap:1rem}
-.nav-progress-wrap{display:flex;align-items:center;gap:0.6rem;font-size:0.75rem;color:var(--muted)}
-.nav-progress-bar{width:80px;height:3px;background:var(--surface-3);border-radius:2px;overflow:hidden}
+.nav-kit-badge{font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--pink);border:1px solid rgba(255,31,122,0.35);padding:0.18rem 0.5rem;border-radius:2px;flex-shrink:0}
+.preview-badge{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#777;border:1px solid rgba(255,255,255,0.12);padding:0.18rem 0.5rem;border-radius:2px;flex-shrink:0}
+.nav-right{display:flex;align-items:center;gap:0.75rem;flex-shrink:0}
+.nav-progress-wrap{display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;color:var(--muted)}
+.nav-progress-bar{width:60px;height:3px;background:var(--surface-3);border-radius:2px;overflow:hidden}
 .nav-progress-fill{height:100%;background:var(--pink);border-radius:2px;transition:width 0.4s ease}
-.nav-menu-btn{display:none;background:none;border:none;flex-direction:column;gap:5px;padding:4px}
-.nav-menu-btn span{display:block;width:20px;height:2px;background:var(--white);border-radius:2px}
+.nav-cta{display:none;background:var(--pink);color:#fff;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 0.75rem;border-radius:2px;border:none;white-space:nowrap}
+.nav-menu-btn{display:none;background:none;border:none;flex-direction:column;gap:4px;padding:4px;flex-shrink:0}
+.nav-menu-btn span{display:block;width:18px;height:2px;background:var(--white);border-radius:2px}
 
-/* LAYOUT */
+/* ── LAYOUT ── */
 .app{display:flex;flex:1;min-height:0}
 
-/* SIDEBAR */
+/* ── SIDEBAR ── */
 .sidebar{
   width:var(--sidebar-w);flex-shrink:0;background:var(--surface);
   border-right:1px solid var(--border);display:flex;flex-direction:column;
-  position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;
+  position:sticky;top:var(--nav-h);height:calc(100vh - var(--nav-h));overflow-y:auto;
 }
 .sidebar::-webkit-scrollbar{width:4px}
 .sidebar::-webkit-scrollbar-track{background:transparent}
 .sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px}
-
 .sb-section{padding:1.25rem 1rem 0.5rem}
-.sb-section-label{font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);padding:0 0.5rem;margin-bottom:0.5rem}
-
+.sb-section-label{font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);padding:0 0.5rem;margin-bottom:0.5rem}
 .sb-item{
   display:flex;align-items:center;gap:0.65rem;padding:0.6rem 0.75rem;
   border-radius:3px;font-size:0.82rem;font-weight:500;color:rgba(248,248,248,0.65);
@@ -64,155 +63,182 @@ button{cursor:pointer;font-family:var(--font-body)}
 .sb-item:hover:not(.locked){background:var(--surface-2);color:var(--white)}
 .sb-item.active{background:var(--pink-pale);color:var(--white);border-left:2px solid var(--pink)}
 .sb-item.active .sb-icon{color:var(--pink)}
-.sb-item.locked{opacity:0.35;cursor:default}
+.sb-item.locked{opacity:0.38;cursor:default}
 .sb-icon{font-size:1rem;width:18px;text-align:center;flex-shrink:0}
-.sb-lock{margin-left:auto;font-size:0.7rem;color:var(--muted)}
+.sb-lock{margin-left:auto;font-size:0.7rem}
 .sb-check{margin-left:auto;width:16px;height:16px;border:1.5px solid rgba(255,255,255,0.2);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.6rem}
 .sb-check.done{background:var(--pink);border-color:var(--pink);color:#fff}
-
 .sb-divider{height:1px;background:var(--border);margin:0.75rem 1rem}
-
 .sb-tool-item{
   display:flex;align-items:center;gap:0.65rem;padding:0.55rem 0.75rem;
-  border-radius:3px;font-size:0.8rem;font-weight:500;color:rgba(248,248,248,0.35);
-  cursor:default;transition:all 0.15s;border:none;background:none;width:100%;text-align:left;
-  opacity:0.4;
+  border-radius:3px;font-size:0.8rem;font-weight:500;color:rgba(248,248,248,0.3);
+  border:none;background:none;width:100%;text-align:left;cursor:default;
 }
-
 .sb-upsell{margin:1rem;padding:1rem;background:linear-gradient(135deg,rgba(255,31,122,0.15),rgba(255,31,122,0.05));border:1px solid rgba(255,31,122,0.2);border-radius:3px}
 .sb-upsell-label{font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);margin-bottom:0.4rem}
 .sb-upsell h4{font-family:var(--font-display);font-size:1.1rem;letter-spacing:0.04em;margin-bottom:0.35rem}
 .sb-upsell p{font-size:0.75rem;color:var(--muted);line-height:1.5;margin-bottom:0.75rem}
-.sb-upsell-btn{width:100%;background:var(--pink);color:#fff;border:none;padding:0.6rem;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;transition:background 0.2s}
+.sb-upsell-btn{width:100%;background:var(--pink);color:#fff;border:none;padding:0.6rem;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;transition:background 0.2s;cursor:pointer}
 .sb-upsell-btn:hover{background:var(--pink-dark)}
 
-/* MAIN */
+/* ── MAIN ── */
 .main{flex:1;overflow-y:auto;min-width:0}
 .main::-webkit-scrollbar{width:4px}
 .main::-webkit-scrollbar-track{background:transparent}
 .main::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:2px}
-
-.panel{display:none;animation:fadeIn 0.25s ease}
+.panel{display:none;animation:fadeIn 0.22s ease}
 .panel.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 
-/* MODULE PANEL */
+/* ── DASHBOARD PANEL ── */
+.dash-hero{padding:2.5rem 2rem 0;border-bottom:1px solid var(--border-subtle)}
+.dash-greeting{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);margin-bottom:0.4rem}
+.dash-hero h1{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);letter-spacing:0.03em;line-height:1;margin-bottom:0.6rem}
+.dash-hero p{font-size:0.9rem;color:var(--muted);max-width:540px;line-height:1.6;padding-bottom:1.75rem}
+.dash-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border-subtle);border-bottom:1px solid var(--border-subtle)}
+.stat-card{background:var(--black);padding:1.25rem 1.5rem}
+.stat-num{font-family:var(--font-display);font-size:2.2rem;letter-spacing:0.04em;color:var(--white);line-height:1}
+.stat-num span{color:var(--pink)}
+.stat-label{font-size:0.72rem;color:var(--muted);margin-top:0.2rem;letter-spacing:0.05em}
+.dash-body{padding:2rem}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.dash-card{background:var(--surface);border:1px solid var(--border-subtle);border-radius:3px;padding:1.5rem;transition:border-color 0.2s;cursor:pointer;position:relative}
+.dash-card:hover{border-color:rgba(255,31,122,0.25)}
+.dash-card.locked-card{cursor:default;opacity:0.5}
+.dash-card.locked-card:hover{border-color:var(--border-subtle)}
+.dash-card-icon{font-size:1.4rem;margin-bottom:0.75rem}
+.dash-card-mod{font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);margin-bottom:0.3rem}
+.dash-card h3{font-family:var(--font-display);font-size:1.35rem;letter-spacing:0.03em;line-height:1.1;margin-bottom:0.5rem}
+.dash-card p{font-size:0.8rem;color:var(--muted);line-height:1.55}
+.dash-card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border-subtle)}
+.dash-card-status{font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted)}
+.dash-card-status.preview{color:var(--pink)}
+.dash-card-arrow{color:var(--pink);font-size:1rem}
+.dash-card-lock{color:var(--muted);font-size:0.85rem}
+.tools-row{margin-top:1.25rem}
+.tools-row-label{font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem}
+.tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem}
+.tool-chip{background:var(--surface);border:1px solid var(--border-subtle);border-radius:3px;padding:1rem 0.75rem;text-align:center;opacity:0.35;cursor:default}
+.tool-chip-icon{font-size:1.3rem;margin-bottom:0.4rem}
+.tool-chip-label{font-size:0.7rem;font-weight:600;letter-spacing:0.06em;color:var(--muted)}
+
+/* ── MODULE PANEL ── */
 .module-header{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--border-subtle)}
-.module-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);margin-bottom:0.5rem}
+.module-eyebrow{font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);margin-bottom:0.5rem}
 .module-header h1{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.8rem);letter-spacing:0.03em;line-height:1;margin-bottom:0.5rem}
-.module-header p{font-size:0.9rem;color:var(--muted);max-width:600px;line-height:1.6}
-.module-meta{display:flex;align-items:center;gap:1.5rem;margin-top:1rem;flex-wrap:wrap}
-.module-meta-item{display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--muted)}
+.module-header p{font-size:0.88rem;color:var(--muted);max-width:600px;line-height:1.6}
+.module-meta{display:flex;align-items:center;gap:1.25rem;margin-top:1rem;flex-wrap:wrap}
+.module-meta-item{display:flex;align-items:center;gap:0.4rem;font-size:0.75rem;color:var(--muted)}
 .module-meta-item strong{color:var(--white)}
-
 .module-body{padding:1.5rem 2rem 3rem}
 .lesson-list{display:flex;flex-direction:column;gap:0.75rem}
 
-/* LESSON ITEMS */
-.lesson-item{
-  background:var(--surface);border:1px solid var(--border-subtle);border-radius:3px;
-  overflow:hidden;transition:border-color 0.2s;
-}
+/* ── LESSONS ── */
+.lesson-item{background:var(--surface);border:1px solid var(--border-subtle);border-radius:3px;overflow:hidden;transition:border-color 0.2s}
 .lesson-item:hover:not(.lesson-locked){border-color:rgba(255,31,122,0.2)}
-.lesson-item.lesson-locked{opacity:0.45}
-.lesson-header{
-  display:flex;align-items:center;gap:1rem;padding:1.1rem 1.25rem;cursor:pointer;
-}
+.lesson-item.lesson-locked{opacity:0.42}
+.lesson-header{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.25rem;cursor:pointer}
 .lesson-item.lesson-locked .lesson-header{cursor:default}
-.lesson-num{font-family:var(--font-display);font-size:1.6rem;color:rgba(255,31,122,0.3);line-height:1;min-width:36px}
-.lesson-info{flex:1}
-.lesson-title{font-weight:600;font-size:0.92rem;margin-bottom:0.15rem}
-.lesson-meta{font-size:0.72rem;color:var(--muted)}
-.lesson-toggle{color:var(--muted);transition:transform 0.2s;font-size:0.8rem}
-.lesson-lock-icon{color:var(--muted);font-size:0.85rem;margin-left:auto}
+.lesson-num{font-family:var(--font-display);font-size:1.5rem;color:rgba(255,31,122,0.3);line-height:1;min-width:32px}
+.lesson-info{flex:1;min-width:0}
+.lesson-title{font-weight:600;font-size:0.9rem;margin-bottom:0.15rem}
+.lesson-meta-tag{font-size:0.7rem;color:var(--muted)}
+.lesson-toggle{color:var(--muted);font-size:0.8rem;flex-shrink:0}
+.lesson-lock-icon{color:var(--muted);font-size:0.8rem;margin-left:auto;flex-shrink:0}
 .lesson-check{width:22px;height:22px;border:1.5px solid rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;flex-shrink:0;cursor:pointer;transition:all 0.2s}
 .lesson-check.done{background:var(--pink);border-color:var(--pink);color:#fff}
-
 .lesson-body{display:none;padding:0 1.25rem 1.25rem;border-top:1px solid var(--border-subtle)}
 .lesson-body.open{display:block}
-
-.lesson-focus{background:var(--surface-2);border-radius:3px;padding:1rem 1.1rem;margin-bottom:1rem;font-size:0.85rem;color:rgba(248,248,248,0.8);line-height:1.6;border-left:2px solid var(--pink)}
-.lesson-tip{font-size:0.8rem;color:var(--muted);line-height:1.65;margin-bottom:1rem;font-style:italic}
+.lesson-focus{background:var(--surface-2);border-radius:3px;padding:1rem 1.1rem;margin-bottom:1rem;font-size:0.84rem;color:rgba(248,248,248,0.8);line-height:1.6;border-left:2px solid var(--pink)}
+.lesson-tip{font-size:0.78rem;color:var(--muted);line-height:1.65;margin-bottom:1rem;font-style:italic}
 .lesson-tip strong{color:rgba(248,248,248,0.7);font-style:normal}
 
+/* ── TASKS ── */
 .task-list{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1rem}
-.task-item{display:flex;align-items:flex-start;gap:0.75rem;font-size:0.83rem;padding:0.65rem 0.85rem;background:var(--surface-3);border-radius:3px;transition:background 0.2s,border-color 0.2s;border:1px solid transparent}
+.task-item{display:flex;align-items:flex-start;gap:0.75rem;font-size:0.82rem;padding:0.65rem 0.85rem;background:var(--surface-3);border-radius:3px;transition:all 0.2s;border:1px solid transparent}
 .task-item:hover{border-color:rgba(255,31,122,0.15);background:var(--surface-2)}
 .task-item.just-done{background:rgba(255,31,122,0.06);border-color:rgba(255,31,122,0.25)}
 .task-item.just-done .task-text{color:rgba(248,248,248,0.4);text-decoration:line-through}
 .task-cb{width:18px;height:18px;border:1.5px solid rgba(255,255,255,0.2);border-radius:4px;flex-shrink:0;margin-top:1px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.6rem;transition:all 0.2s cubic-bezier(0.175,0.885,0.32,1.275)}
 .task-cb:hover{border-color:var(--pink)}
-.task-cb.done{background:var(--pink);border-color:var(--pink);color:#fff;transform:scale(1.2)}
-.task-text{flex:1;line-height:1.5;transition:color 0.2s}
-.task-tag{font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2px;white-space:nowrap;flex-shrink:0}
-.task-tag-time{color:#a78bfa;background:rgba(167,139,250,0.12)}
-.task-tag-action{color:#34d399;background:rgba(52,211,153,0.1)}
-.task-tag-research{color:#60a5fa;background:rgba(96,165,250,0.1)}
-.task-tag-practice{color:#fbbf24;background:rgba(251,191,36,0.1)}
-.task-tag-pink{color:var(--pink);background:rgba(255,31,122,0.1)}
+.task-cb.done{background:var(--pink);border-color:var(--pink);color:#fff;transform:scale(1.15)}
+.task-text{flex:1;line-height:1.5}
+.task-tag{font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.5rem;border-radius:2px;white-space:nowrap;flex-shrink:0}
+.tag-time{color:#a78bfa;background:rgba(167,139,250,0.12)}
+.tag-action{color:#34d399;background:rgba(52,211,153,0.1)}
+.tag-research{color:#60a5fa;background:rgba(96,165,250,0.1)}
+.tag-practice{color:#fbbf24;background:rgba(251,191,36,0.1)}
+.tag-pink{color:var(--pink);background:rgba(255,31,122,0.1)}
 
+/* ── JOURNAL ── */
 .journal-box{background:var(--surface-3);border-radius:3px;padding:1rem;margin-bottom:1rem}
-.journal-label{font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);margin-bottom:0.5rem}
-.journal-q{font-size:0.82rem;color:rgba(248,248,248,0.7);margin-bottom:0.6rem;line-height:1.5}
-textarea.journal-input{
-  width:100%;background:var(--surface-2);border:1px solid var(--border-subtle);border-radius:3px;
-  padding:0.75rem;font-family:var(--font-body);font-size:0.83rem;color:var(--white);
-  resize:vertical;min-height:80px;outline:none;line-height:1.6;transition:border-color 0.2s;
-}
+.journal-label{font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);margin-bottom:0.5rem}
+.journal-q{font-size:0.8rem;color:rgba(248,248,248,0.7);margin-bottom:0.6rem;line-height:1.5}
+textarea.journal-input{width:100%;background:var(--surface-2);border:1px solid var(--border-subtle);border-radius:3px;padding:0.75rem;font-family:var(--font-body);font-size:0.82rem;color:var(--white);resize:vertical;min-height:80px;outline:none;line-height:1.6;transition:border-color 0.2s}
 textarea.journal-input:focus{border-color:rgba(255,31,122,0.3)}
-textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
-
-.affirmation{font-family:var(--font-display);font-size:1.1rem;letter-spacing:0.04em;color:rgba(248,248,248,0.4);line-height:1.3;padding:0.75rem 0}
+textarea.journal-input::placeholder{color:rgba(255,255,255,0.18)}
+.affirmation{font-family:var(--font-display);font-size:1.05rem;letter-spacing:0.04em;color:rgba(248,248,248,0.38);line-height:1.3;padding:0.75rem 0}
 .affirmation span{color:var(--white)}
 
-/* LOCKED PANEL */
-.locked-panel{padding:3rem 2rem;text-align:center;max-width:500px;margin:0 auto}
-.locked-panel-icon{font-size:2.5rem;margin-bottom:1rem}
-.locked-panel h2{font-family:var(--font-display);font-size:2rem;letter-spacing:0.04em;margin-bottom:0.5rem}
-.locked-panel p{font-size:0.88rem;color:var(--muted);line-height:1.6;margin-bottom:1.5rem}
-.locked-cta{display:inline-block;background:var(--pink);color:#fff;font-family:var(--font-body);font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.9rem 2rem;border-radius:3px;transition:all 0.2s;border:none;cursor:pointer}
-.locked-cta:hover{background:var(--pink-dark);box-shadow:0 0 20px var(--pink-glow)}
+/* ── UNLOCK CTA BLOCK ── */
+.unlock-block{margin-top:1.5rem;background:linear-gradient(135deg,rgba(255,31,122,0.12),rgba(255,31,122,0.04));border:1px solid rgba(255,31,122,0.25);border-radius:3px;padding:2rem;text-align:center}
+.unlock-eyebrow{font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);margin-bottom:0.5rem}
+.unlock-headline{font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.03em;margin-bottom:0.5rem}
+.unlock-sub{font-size:0.83rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.6;max-width:420px;margin-left:auto;margin-right:auto}
+.unlock-btn{background:var(--pink);color:#fff;border:none;padding:0.9rem 2rem;font-family:var(--font-body);font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-radius:3px;cursor:pointer;transition:all 0.2s}
+.unlock-btn:hover{background:var(--pink-dark);box-shadow:0 0 20px var(--pink-glow)}
 
-/* CONFETTI */
-.confetti-piece{position:absolute;width:8px;height:8px;border-radius:2px;animation:confettiFly 0.8s ease-out forwards}
-@keyframes confettiFly{0%{opacity:1;transform:translate(0,0) rotate(0deg) scale(1)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) rotate(var(--rot)) scale(0.5)}}
-
-/* MODAL */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,0.88);
-  display:flex;align-items:center;justify-content:center;z-index:1000;
-  opacity:0;pointer-events:none;transition:opacity 0.35s;
-}
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;z-index:1000;opacity:0;pointer-events:none;transition:opacity 0.3s;padding:1rem}
 .modal-overlay.show{opacity:1;pointer-events:all}
-.modal{
-  background:var(--surface);border:1px solid rgba(255,31,122,0.3);border-radius:3px;
-  padding:2.5rem 2rem;max-width:420px;width:90%;text-align:center;
-  transform:scale(0.92);transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);position:relative;
-}
+.modal{background:var(--surface);border:1px solid rgba(255,31,122,0.3);border-radius:3px;padding:2.5rem 2rem;max-width:420px;width:100%;text-align:center;transform:scale(0.93);transition:transform 0.32s cubic-bezier(0.34,1.56,0.64,1);position:relative;max-height:90vh;overflow-y:auto}
 .modal-overlay.show .modal{transform:scale(1)}
-.modal-dismiss{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px;line-height:1}
+.modal-dismiss{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px;line-height:1}
 .modal-dismiss:hover{color:var(--white)}
-.modal-eyebrow{font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);margin-bottom:0.75rem}
-.modal-headline{font-family:var(--font-display);font-size:2.2rem;letter-spacing:0.03em;line-height:1.05;margin-bottom:0.75rem}
-.modal-sub{font-size:0.85rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem}
-.modal-price-block{background:var(--surface-2);border:1px solid var(--border-subtle);border-radius:3px;padding:1.25rem;margin-bottom:1.5rem}
-.modal-price{font-family:var(--font-display);font-size:3.5rem;color:var(--pink);line-height:1}
-.modal-price-label{font-size:0.75rem;color:var(--muted);margin-top:0.25rem}
-.modal-features{list-style:none;text-align:left;margin-bottom:1.5rem;display:flex;flex-direction:column;gap:0.4rem}
-.modal-features li{font-size:0.82rem;color:rgba(248,248,248,0.8);display:flex;align-items:center;gap:0.6rem}
+.modal-eyebrow{font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);margin-bottom:0.6rem}
+.modal-headline{font-family:var(--font-display);font-size:2rem;letter-spacing:0.03em;line-height:1.05;margin-bottom:0.6rem}
+.modal-sub{font-size:0.83rem;color:var(--muted);line-height:1.65;margin-bottom:1.25rem}
+.modal-price-block{background:var(--surface-2);border:1px solid var(--border-subtle);border-radius:3px;padding:1rem;margin-bottom:1.25rem}
+.modal-price{font-family:var(--font-display);font-size:3.2rem;color:var(--pink);line-height:1}
+.modal-price-label{font-size:0.72rem;color:var(--muted);margin-top:0.2rem}
+.modal-features{list-style:none;text-align:left;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:0.35rem}
+.modal-features li{font-size:0.8rem;color:rgba(248,248,248,0.8);display:flex;align-items:center;gap:0.6rem}
 .modal-features li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--pink);flex-shrink:0}
-.modal-cta{display:block;width:100%;background:var(--pink);color:#fff;border:none;border-radius:3px;padding:1rem;font-family:var(--font-body);font-size:0.9rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all 0.2s;margin-bottom:0.75rem}
+.modal-cta{display:block;width:100%;background:var(--pink);color:#fff;border:none;border-radius:3px;padding:1rem;font-family:var(--font-body);font-size:0.88rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all 0.2s;margin-bottom:0.65rem}
 .modal-cta:hover{background:var(--pink-dark);box-shadow:0 0 20px var(--pink-glow)}
-.modal-dismiss-text{font-size:0.75rem;color:var(--muted);cursor:pointer;background:none;border:none;font-family:var(--font-body)}
-.modal-dismiss-text:hover{color:var(--white)}
+.modal-skip{font-size:0.72rem;color:var(--muted);cursor:pointer;background:none;border:none;font-family:var(--font-body)}
+.modal-skip:hover{color:var(--white)}
 
-/* MOBILE */
+/* ── CONFETTI ── */
+.confetti-piece{position:absolute;border-radius:2px;animation:cfly 0.8s ease-out forwards}
+@keyframes cfly{0%{opacity:1;transform:translate(0,0) rotate(0deg)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) rotate(var(--rot))}}
+
+/* ── MOBILE ── */
 @media(max-width:768px){
-  .sidebar{display:none;position:fixed;top:60px;left:0;bottom:0;z-index:150;width:260px}
-  .sidebar.open{display:flex}
+  :root{--sidebar-w:260px}
+  .sidebar{display:none;position:fixed;top:var(--nav-h);left:0;bottom:0;z-index:150;height:calc(100vh - var(--nav-h))}
+  .sidebar.open{display:flex;flex-direction:column}
   .nav-menu-btn{display:flex}
-  .module-body{padding:1rem 1.25rem 3rem}
-  .module-header{padding:1.5rem 1.25rem}
+  .nav-cta{display:block}
+  .preview-badge{display:none}
+  .dash-grid{grid-template-columns:1fr}
+  .tools-grid{grid-template-columns:repeat(2,1fr)}
+  .dash-body{padding:1rem 1rem 3rem}
+  .dash-hero{padding:1.5rem 1rem 0}
+  .dash-stats{grid-template-columns:1fr 1fr}
+  .module-body{padding:1rem 1rem 3rem}
+  .module-header{padding:1.5rem 1rem}
+  .module-meta{gap:0.75rem}
+  .lesson-header{padding:0.9rem 1rem;gap:0.75rem}
+  .lesson-body{padding:0 1rem 1rem}
+  .lesson-num{font-size:1.2rem;min-width:26px}
+  .unlock-block{padding:1.5rem 1rem}
+  .modal{padding:2rem 1.25rem}
+}
+@media(max-width:400px){
+  .nav-kit-badge{display:none}
+  .task-tag{display:none}
+  .lesson-title{font-size:0.85rem}
 }
 </style>
 <script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
@@ -235,6 +261,7 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
       <span id="progressLabel">0%</span>
       <div class="nav-progress-bar"><div class="nav-progress-fill" id="progressFill" style="width:0%"></div></div>
     </div>
+    <button class="nav-cta" onclick="showModal()">$27 →</button>
   </div>
 </nav>
 
@@ -242,17 +269,18 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
 
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
-
   <div class="sb-section">
     <div class="sb-section-label">Overview</div>
-    <button class="sb-item active" id="sb-m1" onclick="showPanel('m1')">
+    <button class="sb-item" id="sb-dashboard" onclick="showPanel('dashboard')">
+      <span class="sb-icon">⚡</span> Dashboard
+    </button>
+  </div>
+  <div class="sb-section">
+    <div class="sb-section-label">Modules</div>
+    <button class="sb-item" id="sb-m1" onclick="showPanel('m1')">
       <span class="sb-icon">🔵</span> Foundation
       <div class="sb-check" id="chk-m1"></div>
     </button>
-  </div>
-
-  <div class="sb-section">
-    <div class="sb-section-label">Locked - Full Kit</div>
     <button class="sb-item locked">
       <span class="sb-icon">🟡</span> Client Targeting
       <span class="sb-lock">🔒</span>
@@ -274,45 +302,124 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
       <span class="sb-lock">🔒</span>
     </button>
   </div>
-
   <div class="sb-divider"></div>
-
   <div class="sb-section">
     <div class="sb-section-label">Tools</div>
-    <button class="sb-tool-item">
-      <span class="sb-icon">💬</span> 260 Prompts <span class="sb-lock" style="margin-left:auto">🔒</span>
-    </button>
-    <button class="sb-tool-item">
-      <span class="sb-icon">📄</span> Proposal Builder <span class="sb-lock" style="margin-left:auto">🔒</span>
-    </button>
-    <button class="sb-tool-item">
-      <span class="sb-icon">📁</span> Portfolio Builder <span class="sb-lock" style="margin-left:auto">🔒</span>
-    </button>
-    <button class="sb-tool-item">
-      <span class="sb-icon">💰</span> Pricing Tool <span class="sb-lock" style="margin-left:auto">🔒</span>
-    </button>
+    <button class="sb-tool-item"><span class="sb-icon">💬</span> 260 Prompts <span class="sb-lock" style="margin-left:auto">🔒</span></button>
+    <button class="sb-tool-item"><span class="sb-icon">📄</span> Proposal Builder <span class="sb-lock" style="margin-left:auto">🔒</span></button>
+    <button class="sb-tool-item"><span class="sb-icon">📁</span> Portfolio Builder <span class="sb-lock" style="margin-left:auto">🔒</span></button>
+    <button class="sb-tool-item"><span class="sb-icon">💰</span> Pricing Tool <span class="sb-lock" style="margin-left:auto">🔒</span></button>
   </div>
-
   <div class="sb-divider"></div>
-
   <div class="sb-upsell">
     <div class="sb-upsell-label">Unlock Everything</div>
     <h4>Get the Full Kit</h4>
-    <p>6 modules, 30 lessons, 260 prompts, Proposal Builder, Portfolio Builder, Pricing Tool, and 6 AI generators.</p>
+    <p>6 modules, 30 lessons, 260 prompts, and every builder you need. $27 one-time.</p>
     <button class="sb-upsell-btn" onclick="showModal()">Get Instant Access - $27 →</button>
   </div>
-
 </aside>
 
 <!-- MAIN -->
 <main class="main" id="main">
 
-  <!-- MODULE 1 - FOUNDATION (preview: lessons 1-3 unlocked) -->
-  <div class="panel active" id="panel-m1">
+  <!-- DASHBOARD -->
+  <div class="panel active" id="panel-dashboard">
+    <div class="dash-hero">
+      <div class="dash-greeting">Free Preview - VA Starter Kit</div>
+      <h1>Your Business.<br>Built Step by Step.</h1>
+      <p>Start Module 1 free. See exactly what you're getting before you spend a dollar. The full kit unlocks all 6 modules, 30 lessons, and every tool.</p>
+    </div>
+    <div class="dash-stats">
+      <div class="stat-card">
+        <div class="stat-num" id="statLessons">0<span>/30</span></div>
+        <div class="stat-label">Lessons Complete</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statModules">0<span>/6</span></div>
+        <div class="stat-label">Modules Done</div>
+      </div>
+    </div>
+    <div class="dash-body">
+      <div class="dash-grid">
+        <div class="dash-card" onclick="showPanel('m1')">
+          <div class="dash-card-icon">🔵</div>
+          <div class="dash-card-mod">Module 1</div>
+          <h3>Foundation</h3>
+          <p>Define your service, pick your lane, set your pricing. Remove the confusion before anything else.</p>
+          <div class="dash-card-foot">
+            <span class="dash-card-status preview" id="ds-m1">Start Free Preview →</span>
+            <span class="dash-card-arrow">→</span>
+          </div>
+        </div>
+        <div class="dash-card locked-card" onclick="showModal()">
+          <div class="dash-card-icon">🟡</div>
+          <div class="dash-card-mod">Module 2</div>
+          <h3>Client Targeting</h3>
+          <p>Find where money actually exists. Build a real list of real people to contact - not just ideas.</p>
+          <div class="dash-card-foot">
+            <span class="dash-card-status">Locked</span>
+            <span class="dash-card-lock">🔒</span>
+          </div>
+        </div>
+        <div class="dash-card locked-card" onclick="showModal()">
+          <div class="dash-card-icon">🔴</div>
+          <div class="dash-card-mod">Module 3</div>
+          <h3>Outreach System</h3>
+          <p>Turn leads into conversations. DM templates, email scripts, follow-up sequences that get replies.</p>
+          <div class="dash-card-foot">
+            <span class="dash-card-status">Locked</span>
+            <span class="dash-card-lock">🔒</span>
+          </div>
+        </div>
+        <div class="dash-card locked-card" onclick="showModal()">
+          <div class="dash-card-icon">🟠</div>
+          <div class="dash-card-mod">Module 4</div>
+          <h3>Conversion</h3>
+          <p>Discovery call scripts, objection handling, proposal that closes. Get from conversation to cash.</p>
+          <div class="dash-card-foot">
+            <span class="dash-card-status">Locked</span>
+            <span class="dash-card-lock">🔒</span>
+          </div>
+        </div>
+        <div class="dash-card locked-card" onclick="showModal()">
+          <div class="dash-card-icon">🟣</div>
+          <div class="dash-card-mod">Module 5</div>
+          <h3>Execution</h3>
+          <p>Self-guided, day-by-day actions you work through at your own pace to get your first paying client.</p>
+          <div class="dash-card-foot">
+            <span class="dash-card-status">Locked</span>
+            <span class="dash-card-lock">🔒</span>
+          </div>
+        </div>
+        <div class="dash-card locked-card" onclick="showModal()">
+          <div class="dash-card-icon">⚫</div>
+          <div class="dash-card-mod">Module 6</div>
+          <h3>AI Toolkit</h3>
+          <p>Outreach generators, proposal openers, follow-up writers. AI does the heavy lifting.</p>
+          <div class="dash-card-foot">
+            <span class="dash-card-status">Locked</span>
+            <span class="dash-card-lock">🔒</span>
+          </div>
+        </div>
+      </div>
+      <div class="tools-row">
+        <div class="tools-row-label">Tools - Unlocked with Full Kit</div>
+        <div class="tools-grid">
+          <div class="tool-chip"><div class="tool-chip-icon">💬</div><div class="tool-chip-label">260 Prompts</div></div>
+          <div class="tool-chip"><div class="tool-chip-icon">📄</div><div class="tool-chip-label">Proposal Builder</div></div>
+          <div class="tool-chip"><div class="tool-chip-icon">📁</div><div class="tool-chip-label">Portfolio Builder</div></div>
+          <div class="tool-chip"><div class="tool-chip-icon">💰</div><div class="tool-chip-label">Pricing Tool</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 1 -->
+  <div class="panel" id="panel-m1">
     <div class="module-header">
       <div class="module-eyebrow">Module 1 - Foundation - Free Preview</div>
       <h1>What Am I Selling,<br>And Why Would Anyone Pay Me?</h1>
-      <p>Remove confusion immediately. No execution yet. Walk out knowing exactly what you offer, who it's for, and what to charge - with total confidence.</p>
+      <p>Remove confusion immediately. Walk out knowing exactly what you offer, who it's for, and what to charge.</p>
       <div class="module-meta">
         <div class="module-meta-item">⏱ <strong>~3 hours total</strong></div>
         <div class="module-meta-item">📚 <strong>7 lessons</strong></div>
@@ -321,25 +428,31 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
     </div>
     <div class="module-body">
       <div class="lesson-list" id="lessons-m1"></div>
+      <div class="unlock-block">
+        <div class="unlock-eyebrow">4 more lessons in Module 1 - plus 5 more modules</div>
+        <div class="unlock-headline">Unlock the Full Kit</div>
+        <p class="unlock-sub">30 lessons, 260 prompts, Proposal Builder, Portfolio Builder, Pricing Tool, and 6 AI generators. Everything to land your first paying client.</p>
+        <button class="unlock-btn" onclick="showModal()">Get Instant Access - $27 →</button>
+      </div>
     </div>
   </div>
 
 </main>
 </div>
 
-<!-- PAYWALL MODAL -->
+<!-- MODAL -->
 <div class="modal-overlay" id="paywall-modal">
   <div class="modal">
     <button class="modal-dismiss" onclick="closeModal()">✕</button>
-    <div class="modal-eyebrow">You've completed the free preview</div>
+    <div class="modal-eyebrow">You've seen what's possible</div>
     <div class="modal-headline">Ready to Land Your First Client?</div>
-    <div class="modal-sub">Module 1 is just the start. The full kit gives you everything you need to go from zero to first paying client.</div>
+    <div class="modal-sub">The full kit gives you everything from Module 1 through your first paying client - including every tool and AI generator.</div>
     <div class="modal-price-block">
       <div class="modal-price">$27</div>
       <div class="modal-price-label">One-time payment. Instant access. Yours forever.</div>
     </div>
     <ul class="modal-features">
-      <li>6 modules, 30 lessons - complete system</li>
+      <li>All 6 modules - 30 lessons complete</li>
       <li>Module 2: Build a real lead list of 10-50 targets</li>
       <li>Module 3: Copy-paste DM + email templates</li>
       <li>Module 4: Discovery call scripts that close</li>
@@ -349,60 +462,56 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
       <li>Proposal Builder, Portfolio Builder, Pricing Tool</li>
     </ul>
     <a class="modal-cta" href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" target="_blank" data-rewardful>Get Instant Access - $27 →</a>
-    <button class="modal-dismiss-text" onclick="closeModal()">No thanks, I'll stay stuck</button>
+    <button class="modal-skip" onclick="closeModal()">No thanks, I'll keep guessing</button>
   </div>
 </div>
 
 <script>
 // STATE
 var state = {};
-try{ var s = sessionStorage.getItem('preview_v1'); if(s) state = JSON.parse(s); }catch(e){}
-function save(){ try{ sessionStorage.setItem('preview_v1', JSON.stringify(state)); }catch(e){} }
+try{ var _s = sessionStorage.getItem('preview_v2'); if(_s) state = JSON.parse(_s); }catch(e){}
+function save(){ try{ sessionStorage.setItem('preview_v2', JSON.stringify(state)); }catch(e){} }
 
-// LESSONS DATA - first 3 from real Module 1
+// LESSON DATA - real Module 1 lessons 1-3
 var LESSONS = [
   {
-    title:'What a VA Actually Does in 2026',
-    time:'20 min',
+    title:'What a VA Actually Does in 2026', time:'20 min',
     focus:'The VA industry has changed. Stop thinking of yourself as a "helper" - understand the real market, real rates, and why demand is at an all-time high.',
     tip:'Most VAs underestimate themselves from day one by positioning too broadly. The word "virtual assistant" covers $8/hr Fiverr gigs and $5,000/month executive ops roles. Where you sit in that range is decided now.',
     tasks:[
-      {text:'Write down every professional skill you have - no filter, no editing',tag:'10 min'},
-      {text:'Circle the top 5 that someone would pay a monthly retainer for',tag:'5 min'},
-      {text:'Research one VA job post in your skill area - note the rate and requirements',tag:'Research'}
+      {text:'Write down every professional skill you have - no filter, no editing', tag:'10 min'},
+      {text:'Circle the top 5 that someone would pay a monthly retainer for', tag:'5 min'},
+      {text:'Research one VA job post in your skill area - note the rate and requirements', tag:'Research'}
     ],
     prompt:'If I had to describe my most valuable skill to a CEO who is overwhelmed, what would I say?',
     affirmation:'You don\'t need to learn new skills. <span>You need to charge for the ones you already have.</span>'
   },
   {
-    title:'Pick Your Lane in 10 Minutes',
-    time:'15 min',
+    title:'Pick Your Lane in 10 Minutes', time:'15 min',
     focus:'3-5 VA service paths explained plainly. No overwhelm - just a clear decision framework so you can commit to one direction and move.',
     tip:'The fastest path to your first client is a clear, specific offer. "I do social media" loses to "I manage Instagram for fitness coaches." Specificity is a competitive advantage, not a limiter.',
     tasks:[
-      {text:'Review the 5 VA service paths: admin, social media, bookkeeping, tech, content',tag:'5 min'},
-      {text:'Score each 1-5 on: skill level, interest, market demand in your niche',tag:'5 min'},
-      {text:'Pick ONE. Write it on paper. This is your service for the next 90 days.',tag:'Commit'}
+      {text:'Review the 5 VA service paths: admin, social media, bookkeeping, tech, content', tag:'5 min'},
+      {text:'Score each 1-5 on: skill level, interest, market demand in your niche', tag:'5 min'},
+      {text:'Pick ONE. Write it on paper. This is your service for the next 90 days.', tag:'Commit'}
     ],
     prompt:'What\'s the one service I could deliver confidently on day one - without needing more training?',
     affirmation:'Choosing one thing feels like closing doors. <span>It\'s actually the only door that opens.</span>'
   },
   {
-    title:'Define Your Ideal Client',
-    time:'20 min',
+    title:'Define Your Ideal Client', time:'20 min',
     focus:'Stop selling to everyone. Define the one person you want to work with - the more specific you get, the easier everything that follows becomes.',
     tip:'Most VAs pick a niche that feels safe instead of one they\'re genuinely excited about. Clients can feel the difference. Enthusiasm is a competitive advantage you can\'t fake.',
     tasks:[
-      {text:'Write down 3 industries you have experience or genuine interest in',tag:'10 min'},
-      {text:'For each, name one type of business owner inside it (e.g. "solo real estate agent")',tag:'5 min'},
-      {text:'Fill in: "I help [niche] do [result] so they can [bigger outcome]"',tag:'5 min'}
+      {text:'Write down 3 industries you have experience or genuine interest in', tag:'10 min'},
+      {text:'For each, name one type of business owner inside it (e.g. "solo real estate agent")', tag:'5 min'},
+      {text:'Fill in: "I help [niche] do [result] so they can [bigger outcome]"', tag:'5 min'}
     ],
     prompt:'Who is the one person I would wake up excited to serve? What do they struggle with that I can genuinely solve?',
     affirmation:'The riches are in the niches. <span>The right one client beats ten wrong ones, every time.</span>'
   }
 ];
 
-// LOCKED LESSON PLACEHOLDERS (lessons 4-7)
 var LOCKED_LESSONS = [
   {title:'What NOT to Offer Yet', time:'15 min'},
   {title:'Price It Like You Mean It', time:'20 min'},
@@ -410,24 +519,40 @@ var LOCKED_LESSONS = [
   {title:'Set Up Your Simple Systems', time:'30 min'}
 ];
 
-// RENDER
+// PANELS
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.sb-item:not(.locked)').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('panel-'+id).classList.add('active');
+  var sb = document.getElementById('sb-'+id);
+  if(sb) sb.classList.add('active');
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('main').scrollTop = 0;
+  window.scrollTo(0,0);
+}
+
+function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
+
+// RENDER LESSONS
 function tagClass(tag){
   var t = tag.toLowerCase();
-  if(t.includes('min')||t.includes('hr')) return 'task-tag task-tag-time';
-  if(t.includes('send')||t.includes('commit')||t.includes('publish')) return 'task-tag task-tag-action';
-  if(t.includes('research')||t.includes('audit')) return 'task-tag task-tag-research';
-  if(t.includes('practice')||t.includes('record')) return 'task-tag task-tag-practice';
-  return 'task-tag task-tag-pink';
+  if(t.includes('min')||t.includes('hr')) return 'task-tag tag-time';
+  if(t.includes('send')||t.includes('commit')||t.includes('publish')) return 'task-tag tag-action';
+  if(t.includes('research')||t.includes('audit')) return 'task-tag tag-research';
+  if(t.includes('practice')||t.includes('record')) return 'task-tag tag-practice';
+  return 'task-tag tag-pink';
 }
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function renderLesson(lesson, idx){
   var isDone = !!state['done_'+idx];
-  var tasksHtml = lesson.tasks.map(function(t,ti){
+  var tasks = lesson.tasks.map(function(t,ti){
     var key = 'task_'+idx+'_'+ti;
-    var tDone = !!state[key];
-    return '<div class="task-item'+(tDone?' just-done':'')+'">' +
-      '<div class="task-cb'+(tDone?' done':'')+'" onclick="toggleTask(\''+key+'\','+idx+')">'+( tDone?'✓':'' )+'</div>' +
-      '<div class="task-text">'+escHtml(t.text)+'</div>' +
+    var done = !!state[key];
+    return '<div class="task-item'+(done?' just-done':'')+'">' +
+      '<div class="task-cb'+(done?' done':'')+'" onclick="toggleTask(\''+key+'\','+idx+','+ti+')">'+( done?'✓':'' )+'</div>' +
+      '<div class="task-text">'+esc(t.text)+'</div>' +
       '<div class="'+tagClass(t.tag)+'">'+t.tag+'</div>' +
       '</div>';
   }).join('');
@@ -435,48 +560,34 @@ function renderLesson(lesson, idx){
   return '<div class="lesson-item" id="li_'+idx+'">' +
     '<div class="lesson-header" onclick="toggleLesson('+idx+')">' +
     '<div class="lesson-num">'+String(idx+1).padStart(2,'0')+'</div>' +
-    '<div class="lesson-info"><div class="lesson-title">'+escHtml(lesson.title)+'</div><div class="lesson-meta">'+lesson.time+'</div></div>' +
+    '<div class="lesson-info"><div class="lesson-title">'+esc(lesson.title)+'</div><div class="lesson-meta-tag">'+lesson.time+'</div></div>' +
     '<div class="lesson-toggle" id="lt_'+idx+'">▼</div>' +
     '<div class="lesson-check'+(isDone?' done':'')+'" id="lc_'+idx+'" onclick="event.stopPropagation();markDone('+idx+')">'+(isDone?'✓':'')+'</div>' +
     '</div>' +
     '<div class="lesson-body" id="lb_'+idx+'">' +
-    '<div class="lesson-focus">'+escHtml(lesson.focus)+'</div>' +
-    '<p class="lesson-tip"><strong>Pro Tip:</strong> '+escHtml(lesson.tip)+'</p>' +
-    '<div class="task-list">'+tasksHtml+'</div>' +
+    '<div class="lesson-focus">'+esc(lesson.focus)+'</div>' +
+    '<p class="lesson-tip"><strong>Pro Tip:</strong> '+esc(lesson.tip)+'</p>' +
+    '<div class="task-list">'+tasks+'</div>' +
     '<div class="journal-box"><div class="journal-label">Journal Prompt</div>' +
-    '<div class="journal-q">'+escHtml(lesson.prompt)+'</div>' +
-    '<textarea class="journal-input" placeholder="Write your thoughts here..." onchange="saveJournal(\'j_'+idx+'\',this.value)">'+escHtml(state['j_'+idx]||'')+'</textarea>' +
-    '</div>' +
+    '<div class="journal-q">'+esc(lesson.prompt)+'</div>' +
+    '<textarea class="journal-input" placeholder="Write your thoughts here..." onchange="saveJ(\'j_'+idx+'\',this.value)">'+esc(state['j_'+idx]||'')+'</textarea></div>' +
     '<div class="affirmation">'+lesson.affirmation+'</div>' +
-    '</div>' +
-    '</div>';
+    '</div></div>';
 }
 
 function renderLockedLesson(lesson, idx){
-  var realIdx = LESSONS.length + idx;
+  var n = LESSONS.length + idx;
   return '<div class="lesson-item lesson-locked">' +
     '<div class="lesson-header">' +
-    '<div class="lesson-num">'+String(realIdx+1).padStart(2,'0')+'</div>' +
-    '<div class="lesson-info"><div class="lesson-title">'+escHtml(lesson.title)+'</div><div class="lesson-meta">'+lesson.time+'</div></div>' +
+    '<div class="lesson-num">'+String(n+1).padStart(2,'0')+'</div>' +
+    '<div class="lesson-info"><div class="lesson-title">'+esc(lesson.title)+'</div><div class="lesson-meta-tag">'+lesson.time+'</div></div>' +
     '<span class="lesson-lock-icon">🔒</span>' +
-    '</div>' +
-    '</div>';
+    '</div></div>';
 }
-
-function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function initLessons(){
   var el = document.getElementById('lessons-m1');
-  var html = LESSONS.map(function(l,i){ return renderLesson(l,i); }).join('');
-  html += LOCKED_LESSONS.map(function(l,i){ return renderLockedLesson(l,i); }).join('');
-  // Unlock CTA at bottom
-  html += '<div style="margin-top:1.5rem;background:linear-gradient(135deg,rgba(255,31,122,0.12),rgba(255,31,122,0.04));border:1px solid rgba(255,31,122,0.25);border-radius:3px;padding:2rem;text-align:center;">' +
-    '<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);margin-bottom:0.5rem">4 more lessons in Module 1 - plus 5 more modules</div>' +
-    '<div style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.03em;margin-bottom:0.5rem">Unlock the Full Kit</div>' +
-    '<p style="font-size:0.85rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.6">30 lessons, 260 prompts, Proposal Builder, Portfolio Builder, Pricing Tool, and 6 AI generators. $27 one-time.</p>' +
-    '<button onclick="showModal()" style="background:var(--pink);color:#fff;border:none;padding:0.9rem 2rem;font-family:var(--font-body);font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-radius:3px;cursor:pointer;transition:all 0.2s">Get Instant Access - $27 →</button>' +
-    '</div>';
-  el.innerHTML = html;
+  el.innerHTML = LESSONS.map(renderLesson).join('') + LOCKED_LESSONS.map(renderLockedLesson).join('');
 }
 
 // INTERACTIONS
@@ -488,7 +599,7 @@ function toggleLesson(idx){
   tog.textContent = open ? '▼' : '▲';
 }
 
-function toggleTask(key, lessonIdx){
+function toggleTask(key, lessonIdx, taskIdx){
   state[key] = !state[key];
   save();
   var el = event.currentTarget;
@@ -496,124 +607,111 @@ function toggleTask(key, lessonIdx){
   el.textContent = state[key] ? '✓' : '';
   var row = el.closest('.task-item');
   if(row) row.classList.toggle('just-done', !!state[key]);
-  if(state[key]) launchConfetti(el);
-  // Auto-complete lesson if all tasks done
-  var lesson = LESSONS[lessonIdx];
-  var allDone = lesson.tasks.every(function(t,ti){ return state['task_'+lessonIdx+'_'+ti]; });
-  if(allDone){ markDone(lessonIdx); }
+  if(state[key]) burst(el);
+  // auto-complete lesson if all tasks done
+  var allDone = LESSONS[lessonIdx].tasks.every(function(t,ti){ return state['task_'+lessonIdx+'_'+ti]; });
+  if(allDone) markDone(lessonIdx);
   updateProgress();
 }
 
 function markDone(idx){
+  if(state['done_'+idx]) return;
   state['done_'+idx] = true;
   save();
   var chk = document.getElementById('lc_'+idx);
   if(chk){ chk.classList.add('done'); chk.textContent='✓'; }
+  var sbChk = document.getElementById('chk-m1');
   updateProgress();
-  // If all 3 preview lessons done, trigger completion
-  var allPreviewDone = LESSONS.every(function(l,i){ return state['done_'+i]; });
-  if(allPreviewDone){ triggerCompletion(); }
+  var allDone = LESSONS.every(function(l,i){ return state['done_'+i]; });
+  if(allDone) triggerCompletion();
 }
 
-function saveJournal(key, val){ state[key]=val; save(); }
+function saveJ(key, val){ state[key]=val; save(); }
 
 function updateProgress(){
-  var total = LESSONS.length * 3; // 3 tasks per lesson approx
-  var done = 0;
-  LESSONS.forEach(function(l,i){
-    l.tasks.forEach(function(t,ti){ if(state['task_'+i+'_'+ti]) done++; });
-  });
-  var pct = Math.min(Math.round((done/total)*100), 99);
+  var totalTasks = LESSONS.reduce(function(a,l){ return a+l.tasks.length; }, 0);
+  var doneTasks = 0;
+  LESSONS.forEach(function(l,i){ l.tasks.forEach(function(t,ti){ if(state['task_'+i+'_'+ti]) doneTasks++; }); });
+  var pct = Math.min(Math.round((doneTasks/totalTasks)*100), 99);
   document.getElementById('progressLabel').textContent = pct+'%';
   document.getElementById('progressFill').style.width = pct+'%';
-  // Sidebar check
+  // lessons stat
+  var doneLessons = LESSONS.filter(function(l,i){ return state['done_'+i]; }).length;
+  document.getElementById('statLessons').innerHTML = doneLessons+'<span>/30</span>';
+  // module check
   var allDone = LESSONS.every(function(l,i){ return state['done_'+i]; });
   var chk = document.getElementById('chk-m1');
-  if(chk && allDone){ chk.classList.add('done'); chk.textContent='✓'; }
+  if(chk){ chk.classList.toggle('done', allDone); chk.textContent = allDone ? '✓' : ''; }
+  document.getElementById('statModules').innerHTML = (allDone?'1':'0')+'<span>/6</span>';
+  // dashboard card status
+  var ds = document.getElementById('ds-m1');
+  if(ds){
+    if(allDone){ ds.textContent='Complete'; ds.className='dash-card-status'; ds.style.color='#4ade80'; }
+    else if(doneLessons>0){ ds.textContent='In progress'; ds.className='dash-card-status preview'; }
+  }
 }
 
 function triggerCompletion(){
   document.getElementById('progressLabel').textContent = '100%';
   document.getElementById('progressFill').style.width = '100%';
   bigConfetti();
-  setTimeout(function(){ showModal(); }, 1200);
+  setTimeout(showModal, 1400);
 }
 
 // MODAL
 function showModal(){ document.getElementById('paywall-modal').classList.add('show'); }
 function closeModal(){ document.getElementById('paywall-modal').classList.remove('show'); }
 
-// SIDEBAR
-function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
-function showPanel(id){ /* only one panel in preview */ document.getElementById('sidebar').classList.remove('open'); }
-
-// CONFETTI - task-level burst
-function launchConfetti(el){
+// CONFETTI - task burst
+function burst(el){
   var rect = el.getBoundingClientRect();
-  var cx = rect.left + rect.width/2;
-  var cy = rect.top + rect.height/2;
-  var colors = ['#FF1F7A','#FF85B3','#FFE6F0','#ffffff','#ff6b6b','#ffd93d'];
-  var burst = document.createElement('div');
-  burst.style.cssText = 'pointer-events:none;position:fixed;z-index:9999;left:'+cx+'px;top:'+cy+'px;';
-  document.body.appendChild(burst);
-  for(var i=0;i<12;i++){
-    var piece = document.createElement('div');
-    piece.className = 'confetti-piece';
-    var angle = Math.random()*360;
-    var dist = 35+Math.random()*55;
-    var tx = Math.cos(angle*Math.PI/180)*dist;
-    var ty = Math.sin(angle*Math.PI/180)*dist - 15;
-    piece.style.setProperty('--tx', tx+'px');
-    piece.style.setProperty('--ty', ty+'px');
-    piece.style.setProperty('--rot', (Math.random()*720-360)+'deg');
-    piece.style.background = colors[Math.floor(Math.random()*colors.length)];
-    piece.style.left = (Math.random()*12-6)+'px';
-    piece.style.top = (Math.random()*12-6)+'px';
-    piece.style.borderRadius = Math.random()>0.5 ? '50%' : '2px';
-    piece.style.width = (5+Math.random()*5)+'px';
-    piece.style.height = (5+Math.random()*5)+'px';
-    burst.appendChild(piece);
+  var cx = rect.left + rect.width/2, cy = rect.top + rect.height/2;
+  var colors = ['#FF1F7A','#FF85B3','#FFE6F0','#fff','#ffd93d'];
+  var wrap = document.createElement('div');
+  wrap.style.cssText = 'pointer-events:none;position:fixed;z-index:9999;left:'+cx+'px;top:'+cy+'px;';
+  document.body.appendChild(wrap);
+  for(var i=0;i<10;i++){
+    var p = document.createElement('div');
+    p.className = 'confetti-piece';
+    var a = Math.random()*360, d = 30+Math.random()*50;
+    p.style.setProperty('--tx', Math.cos(a*Math.PI/180)*d+'px');
+    p.style.setProperty('--ty', Math.sin(a*Math.PI/180)*d-12+'px');
+    p.style.setProperty('--rot', (Math.random()*720-360)+'deg');
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.width = p.style.height = (5+Math.random()*5)+'px';
+    p.style.borderRadius = Math.random()>.5 ? '50%' : '2px';
+    p.style.left = (Math.random()*10-5)+'px';
+    p.style.top = (Math.random()*10-5)+'px';
+    wrap.appendChild(p);
   }
-  setTimeout(function(){ burst.remove(); }, 900);
+  setTimeout(function(){ wrap.remove(); }, 900);
 }
 
-// BIG CONFETTI - completion
+// CONFETTI - big completion
 function bigConfetti(){
   var canvas = document.createElement('canvas');
   canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;';
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
   document.body.appendChild(canvas);
   var ctx = canvas.getContext('2d');
-  var colors = ['#FF1F7A','#ff6eb0','#ffffff','#FFD6E8','#ff0066','#f8a4cb'];
-  var particles = [];
-  for(var i=0;i<200;i++){
-    particles.push({
-      x:Math.random()*canvas.width, y:-10-Math.random()*200,
-      w:6+Math.random()*8, h:3+Math.random()*5,
+  var colors = ['#FF1F7A','#ff6eb0','#fff','#FFD6E8','#ff0066','#ffd93d'];
+  var ps = Array.from({length:180}, function(){
+    return { x:Math.random()*canvas.width, y:-10-Math.random()*150,
+      w:5+Math.random()*8, h:3+Math.random()*5,
       color:colors[Math.floor(Math.random()*colors.length)],
-      vy:2.5+Math.random()*4, vx:-2+Math.random()*4,
-      rot:Math.random()*360, rotSpeed:-3+Math.random()*6, opacity:1
-    });
-  }
-  var frame;
+      vy:2+Math.random()*4, vx:-2+Math.random()*4,
+      rot:Math.random()*360, rs:-3+Math.random()*6, op:1 };
+  });
+  var raf;
   function draw(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    var alive=false;
-    for(var i=0;i<particles.length;i++){
-      var p=particles[i];
-      p.y+=p.vy; p.x+=p.vx; p.rot+=p.rotSpeed;
-      if(p.y>canvas.height*0.7) p.opacity-=0.025;
-      if(p.opacity>0){
-        alive=true;
-        ctx.save(); ctx.globalAlpha=Math.max(0,p.opacity);
-        ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
-        ctx.fillStyle=p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
-        ctx.restore();
-      }
-    }
-    if(alive){ frame=requestAnimationFrame(draw); }
-    else{ ctx.clearRect(0,0,canvas.width,canvas.height); canvas.remove(); }
+    var alive = false;
+    ps.forEach(function(p){
+      p.y+=p.vy; p.x+=p.vx; p.rot+=p.rs;
+      if(p.y>canvas.height*.65) p.op-=0.03;
+      if(p.op>0){ alive=true; ctx.save(); ctx.globalAlpha=Math.max(0,p.op); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180); ctx.fillStyle=p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore(); }
+    });
+    if(alive){ raf=requestAnimationFrame(draw); } else { canvas.remove(); }
   }
   draw();
 }
@@ -621,6 +719,8 @@ function bigConfetti(){
 // INIT
 initLessons();
 updateProgress();
+// Start on dashboard
+showPanel('dashboard');
 </script>
 </body>
 </html>
