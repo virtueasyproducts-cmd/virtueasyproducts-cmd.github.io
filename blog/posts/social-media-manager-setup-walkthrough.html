@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1552355892525925');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Media Manager Setup and Walkthrough for VAs | Virtueasy</title>
+  <meta name="description" content="Want to offer social media management as a VA? The full setup: the tool stack, client workspaces, your monthly workflow, deliverables, and what to charge." />
+  <meta property="og:title" content="Social Media Manager Setup and Walkthrough for VAs | Virtueasy" />
+  <meta property="og:description" content="Want to offer social media management as a VA? The full setup: the tool stack, client workspaces, your monthly workflow, deliverables, and what to charge." />
+  <meta property="og:type" content="article" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --pink: #FF1F7A;
+  --black: #0A0A0A;
+  --white: #F8F8F8;
+  --gray: #141414;
+  --mid: #666;
+  --light: rgba(248,248,248,0.65);
+  --border: rgba(255,31,122,0.18);
+}
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 400; line-height: 1.75; }
+
+nav, .site-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem; height: 64px; gap: 1rem;
+}
+.nav-logo { display: flex; align-items: center; gap: 0.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.08em; color: var(--white); text-decoration: none; }
+.nav-logo img { height: 30px; width: auto; display: block; }
+.nav-logo-text { display: none; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; flex-direction: column; gap: 5px; }
+.nav-toggle span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
+.nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; flex-wrap: nowrap; }
+.nav-links li a { font-family: 'Barlow', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(248,248,248,0.65); text-decoration: none; padding: 0.4rem 0.6rem; white-space: nowrap; transition: color 0.2s; }
+.nav-links li a:hover { color: var(--white); }
+.nav-links .nav-community { color: var(--pink) !important; }
+.nav-links .nav-community:hover { color: #ff5fa0 !important; }
+.nav-links .nav-cta a, li.nav-cta a { background: var(--pink); color: var(--white) !important; padding: 0.45rem 1rem; }
+.nav-links .nav-cta a:hover, li.nav-cta a:hover { background: #d4005a; }
+@media (max-width: 768px) {
+  .nav-toggle { display: flex; }
+  .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: rgba(10,10,10,0.98); flex-direction: column; align-items: flex-start; padding: 1rem 2rem; gap: 0; border-bottom: 1px solid var(--border); }
+  .nav-links.open { display: flex; }
+  .nav-links li { width: 100%; }
+  .nav-links li a { display: block; padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+}
+
+.post-hero { padding: 4rem 2rem 2rem; max-width: 740px; margin: 0 auto; }
+.post-tag { display: inline-block; background: var(--pink); color: var(--white); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.25rem 0.65rem; margin-bottom: 1.2rem; }
+.post-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 6vw, 4.2rem); letter-spacing: 0.04em; line-height: 1.05; margin-bottom: 1rem; }
+.post-meta { font-size: 0.78rem; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2rem; }
+.post-meta span { color: var(--pink); margin: 0 0.4rem; }
+.post-intro { font-size: 1.15rem; color: var(--light); border-left: 3px solid var(--pink); padding-left: 1.2rem; margin-bottom: 2rem; font-style: italic; }
+
+article { max-width: 740px; margin: 0 auto; padding: 0 2rem 4rem; }
+article h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.04em; color: var(--white); margin: 2.5rem 0 0.6rem; }
+article h3 { font-family: 'Barlow', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pink); margin: 2rem 0 0.5rem; }
+article p { color: var(--light); margin-bottom: 1.1rem; font-size: 1rem; }
+article ul, article ol { color: var(--light); padding-left: 1.4rem; margin-bottom: 1.2rem; }
+article li { margin-bottom: 0.5rem; font-size: 1rem; }
+article strong { color: var(--white); font-weight: 700; }
+article a { color: var(--pink); text-decoration: none; }
+article a:hover { text-decoration: underline; }
+
+.callout {
+  background: var(--gray); border-left: 3px solid var(--pink);
+  padding: 1.2rem 1.4rem; margin: 2rem 0; border-radius: 0 2px 2px 0;
+}
+.callout p { margin: 0; color: var(--white); font-size: 0.95rem; }
+.callout strong { color: var(--pink); }
+
+.numbered-list { counter-reset: item; list-style: none; padding: 0; }
+.numbered-list li { counter-increment: item; display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; color: var(--light); }
+.numbered-list li::before { content: counter(item); background: var(--pink); color: var(--white); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; min-width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+
+.promo-banner {
+  border: 1px solid var(--pink);
+  padding: 2rem 1.8rem;
+  margin: 2.5rem 0;
+  text-align: center;
+  background: rgba(255,31,122,0.07);
+  border-radius: 2px;
+}
+.promo-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.5rem; }
+.promo-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.5rem, 4vw, 2.2rem); letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.5rem; }
+.promo-sub { font-size: 0.92rem; color: var(--light); margin-bottom: 1.3rem; max-width: 420px; margin-left: auto; margin-right: auto; }
+.promo-btn { display: inline-block; background: var(--pink); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.75rem 1.8rem; text-decoration: none; }
+.promo-btn:hover { background: #d4005a; text-decoration: none; }
+
+.code-pill {
+  display: inline-block;
+  background: rgba(255,31,122,0.15);
+  border: 1px solid var(--pink);
+  color: var(--pink);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  padding: 0.2rem 0.7rem;
+  border-radius: 2px;
+}
+
+.cta-block { background: var(--pink); padding: 4rem 2rem; text-align: center; }
+.cta-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 0.8rem; }
+.cta-block h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 5vw, 3.2rem); letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.8rem; }
+.cta-sub { font-size: 1rem; color: rgba(255,255,255,0.85); margin-bottom: 1.8rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+.cta-btn { display: inline-block; background: var(--white); color: var(--pink); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.85rem 2.2rem; text-decoration: none; }
+.cta-btn:hover { background: #e8e8e8; text-decoration: none; }
+
+.site-footer { background: #0d0d0d; border-top: 1px solid rgba(255,255,255,0.06); padding: 3.5rem 2rem 2rem; }
+.footer-inner { max-width: 960px; margin: 0 auto; }
+.footer-top { display: flex; gap: 3rem; flex-wrap: wrap; justify-content: space-between; margin-bottom: 2.5rem; }
+.footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; color: var(--white); margin-bottom: 0.5rem; }
+.footer-tagline { font-size: 0.82rem; color: var(--mid); max-width: 200px; line-height: 1.5; }
+.footer-nav { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+.footer-nav-col h4 { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); margin-bottom: 1rem; }
+.footer-nav-col ul { list-style: none; }
+.footer-nav-col ul li { margin-bottom: 0.6rem; }
+.footer-nav-col ul li a { font-size: 0.85rem; color: rgba(248,248,248,0.5); text-decoration: none; transition: color 0.2s; }
+.footer-nav-col ul li a:hover { color: var(--white); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.5rem; }
+.footer-copy { font-size: 0.75rem; color: var(--mid); }
+.footer-copy a { color: var(--white); }
+
+--muted: rgba(248,248,248,0.45);
+
+.video-embed { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 0 0 1rem; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; background: #000; }
+.video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-caption { font-size: 0.78rem; color: var(--mid); text-align: center; letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 2.4rem; }
+  </style>
+<script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
+<script async src="https://r.wdfl.co/rw.js" data-rewardful="e92558"></script>
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "xc4ai7h62y");
+    </script>
+</head>
+<body>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="/">
+      <img src="/assets/virtueasy-logo.png" alt="Virtueasy" width="140" height="32" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="nav-logo-text">VIRTUEASY</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/resources/">Resources</a></li>
+      <li><a href="/blog/" class="active">Blog</a></li>
+      <li><a href="/va-job-board">Job Board</a></li>
+      <li><a href="https://www.facebook.com/groups/974455928445420" target="_blank" rel="noopener" class="nav-community"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.885v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>Community</a></li>
+      <li class="nav-cta"><a href="/starterkit/">Get Started</a></li>
+    </ul>
+  </nav>
+
+<div class="post-hero">
+  <span class="post-tag">Services</span>
+  <h1>Social Media Manager Setup and Walkthrough for VAs</h1>
+  <p class="post-meta">Virtueasy <span>&#183;</span> Services &amp; Setup <span>&#183;</span> 9 min read</p>
+  <p class="post-intro">Social media management is one of the highest-demand, highest-paying VA services. Here is the complete setup, from your tool stack to your monthly workflow to what you should charge.</p>
+</div>
+
+<article>
+
+<div class="video-embed">
+  <iframe src="https://www.youtube.com/embed/yAv7-Bu9PGI" title="Social Media Manager Setup and Walkthrough for VAs" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+<p class="video-caption">Watch the full video, then keep reading for the breakdown.</p>
+
+<p>If you want a VA service that is in constant demand and scales past $1,000 per client, social media management is the one. Every business needs a consistent presence and almost none of them have time to run it. The barrier is not skill. It is setup. Most beginners try to manage clients by logging in and out of personal accounts, posting manually, and praying nothing breaks. That does not scale and it does not look professional.</p>
+
+<p>Here is how to set yourself up properly, then the actual month-to-month workflow.</p>
+
+<h2>Your Tool Stack</h2>
+
+<p>You need surprisingly few tools to run a clean social media management service:</p>
+<ul>
+  <li><strong>A scheduler:</strong> the core of your operation. This is where you plan, schedule, auto-publish, and pull analytics across every client and platform from one dashboard.</li>
+  <li><strong>A design tool:</strong> for graphics, carousels, and simple short-form edits. Templates make this fast.</li>
+  <li><strong>A simple planning doc or board:</strong> where captions and ideas live before they go into the scheduler, so the client can review and approve.</li>
+</ul>
+
+<p>That is it. The scheduler is the piece that turns this from a chaotic juggle into a real business, so it is worth getting right first.</p>
+
+<h2>Set Up a Separate Workspace for Each Client</h2>
+
+<p>Inside your scheduler, give every client their own workspace or brand profile. This keeps analytics, calendars, and settings cleanly separated so nothing bleeds between accounts. Your roster can grow without your system turning into a mess, and no client ever sees another client's data.</p>
+
+
+<div class="promo-banner">
+  <p class="promo-eyebrow">Exclusive Offer for Virtueasy Readers</p>
+  <p class="promo-title">Try Metricool Free for 30 Days</p>
+  <p class="promo-sub">The scheduler most professional social media managers actually use. Use code <strong>VALIFE</strong> at signup for 30 days free. No credit card required to start.</p>
+  <a href="https://f.mtr.cool/VIRTUEASY" class="promo-btn" target="_blank" rel="noopener">Claim Your 30 Days Free &rarr;</a>
+</div>
+<h2>Connect Accounts the Right Way</h2>
+
+<p>Have each client add you as an admin or manager on their platforms, then connect through your scheduler using your own login. Never run a client's social media from their personal password handed to you over email. Admin access is safer, more professional, and easier to hand back if the engagement ends.</p>
+
+<h2>The Monthly Workflow</h2>
+
+<p>Once setup is done, the actual work runs on a simple, repeatable loop:</p>
+
+<ol class="numbered-list">
+  <li><strong>Plan the calendar.</strong> At the start of the month, map out the content themes and posting frequency for each client in your planning doc.</li>
+  <li><strong>Create and gather content.</strong> Write captions, build graphics from templates, and collect any photos or clips the client supplies.</li>
+  <li><strong>Get approval.</strong> Send the month's plan to the client for a quick review before anything goes live. This protects you and keeps the client in the loop.</li>
+  <li><strong>Batch schedule.</strong> Load everything into the scheduler in one or two focused sessions. Set publish times using best-time recommendations and then step away.</li>
+  <li><strong>Engage and monitor.</strong> Check in to reply to comments and DMs on whatever rhythm your package promises.</li>
+  <li><strong>Report.</strong> At month end, pull the analytics and send the client a short summary of reach, growth, and top posts.</li>
+</ol>
+
+<p>Batching is the secret. Instead of logging in daily and scrambling, you schedule a full month in a couple of sessions. That is how you keep your effective hourly rate high and your stress low.</p>
+
+<div class="callout">
+  <p><strong>The report is your money-maker.</strong> Any beginner can schedule posts. The VA who shows up with reach, engagement, and growth numbers every month is the one who keeps the client and earns the right to raise rates. Never skip the report.</p>
+</div>
+
+<h2>What to Charge</h2>
+
+<p>A beginner social media management package runs roughly $500 to $1,200 per month, depending on the number of platforms, posting frequency, whether you are writing captions or just scheduling supplied content, and whether you include analytics reporting. Start toward the middle, add reporting and strategy as you grow, and the number climbs from there.</p>
+
+<h2>A Simple Starter Package</h2>
+
+<ul>
+  <li>Monthly content calendar planning</li>
+  <li>Scheduling and auto-publishing across two to three platforms</li>
+  <li>Caption writing and hashtag research</li>
+  <li>Engagement check-ins on comments and DMs</li>
+  <li>A monthly analytics report with takeaways</li>
+</ul>
+
+<p>Get the setup right once and this becomes one of the most repeatable, scalable services you can offer.</p>
+
+</article>
+
+<section class="cta-block">
+  <p class="cta-label">Ready to build your VA business?</p>
+  <h2>The VA Starter Kit</h2>
+  <p class="cta-sub">Step-by-step guidance for landing your first high-ticket client. No experience required.</p>
+  <a href="/starterkit/" class="cta-btn">Get the VA Starter Kit - $27</a>
+</section>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand-wrap">
+        <div class="footer-brand">VIRTUEASY</div>
+        <p class="footer-tagline">Everything you need to build your VA business.</p>
+      </div>
+      <nav class="footer-nav">
+        <div class="footer-nav-col">
+          <h4>Hub</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/resources/">Resources</a></li>
+            <li><a href="/blog/">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <h4>Tools</h4>
+          <ul>
+            <li><a href="/starterkit/">VA Starter Kit &#x2197;</a></li>
+            <li><a href="/pricing-tool/">Pricing Tool</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="/affiliate-terms.html">Affiliate Terms</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">
+        &copy; <span id="footer-year"></span> Virtueasy.
+        Owned and operated by <a href="https://messickmarketing.com" target="_blank" rel="noopener" style="color: var(--white); text-decoration: underline;">Messick Marketing</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
