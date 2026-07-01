@@ -200,14 +200,23 @@ function redirectToApp() {
   window.location.href = APP_URL;
 }
 
-function grantAndRedirect(email) {
-  // 1. Save email + trial start immediately (sync, before any async work)
-  if (email) localStorage.setItem('ve-pricing-email', email);
-  if (!localStorage.getItem('trialStart')) {
-    localStorage.setItem('trialStart', Date.now().toString());
+function showAccessError(msg) {
+  let el = document.getElementById('ve-access-error');
+  if (!el) {
+    el = document.createElement('p');
+    el.id = 've-access-error';
+    el.style.cssText = 'color:var(--pink);font-size:13px;margin-top:12px;line-height:1.5';
+    const input = document.getElementById('ml-email-input');
+    (input && input.parentNode ? input.parentNode : document.body).appendChild(el);
   }
+  el.textContent = msg || 'Something went wrong. Please try again.';
+}
 
-  // 2. Fire ML subscription in background - don't wait for it
+async function grantAndRedirect(email) {
+  // Save email immediately (used as an optimistic display key inside the app)
+  if (email) localStorage.setItem('ve-pricing-email', email);
+
+  // Fire ML subscription in background - don't wait for it
   if (email) {
     const fd = new FormData();
     fd.append('fields[email]', email);
@@ -215,23 +224,35 @@ function grantAndRedirect(email) {
     fetch(ML_URL, { method: 'POST', body: fd }).catch(() => {});
   }
 
-  // 3. Fire token API in background - don't wait for it either
-  fetch(ACCESS_API, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'grant', email })
-  })
-  .then(r => r.json())
-  .then(data => {
+  // Mint the access token and WAIT for it before redirecting. The server token
+  // is now the only path to access (legacy localStorage flags were removed), so
+  // we must have it in hand before landing on app.html or the user loops back.
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 10000);
+  try {
+    const res = await fetch(ACCESS_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'grant', email }),
+      signal: ctrl.signal,
+    });
+    const data = await res.json();
     if (data.token) {
       localStorage.setItem('ve-pricing-token', data.token);
       localStorage.setItem('ve-pricing-email', email);
+      redirectToApp();
+      return;
     }
-  })
-  .catch(() => {});
-
-  // 4. Redirect NOW - don't wait for any fetch to resolve
-  redirectToApp();
+    if (data.reason === 'expired') {
+      window.location.href = 'pay.html';
+      return;
+    }
+    showAccessError('We could not start your free access. Please try again.');
+  } catch (e) {
+    showAccessError('Network hiccup - please check your connection and try again.');
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
