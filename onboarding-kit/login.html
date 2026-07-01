@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VA Starter Kit - Access</title>
+<title>Onboarding Kit - Access</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -15,16 +15,10 @@
   --font-display:'Bebas Neue',sans-serif;--font-body:'Barlow',sans-serif;
 }
 html,body{height:100%}
-body{
-  font-family:var(--font-body);background:var(--black);color:var(--white);
-  -webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;
-  min-height:100vh;padding:1.5rem;
-}
-body::before{
-  content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);
-  width:600px;height:400px;background:radial-gradient(ellipse,rgba(255,31,122,0.12) 0%,transparent 70%);
-  pointer-events:none;
-}
+body{font-family:var(--font-body);background:var(--black);color:var(--white);
+  -webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1.5rem}
+body::before{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:400px;
+  background:radial-gradient(ellipse,rgba(255,31,122,0.12) 0%,transparent 70%);pointer-events:none}
 .login-wrap{width:100%;max-width:420px}
 .login-brand{text-align:center;margin-bottom:2.5rem}
 .login-brand a{display:inline-block;font-family:var(--font-display);font-size:2rem;letter-spacing:0.08em;color:var(--white);text-decoration:none}
@@ -34,58 +28,42 @@ body::before{
 .login-card h1{font-family:var(--font-display);font-size:2.4rem;letter-spacing:0.03em;line-height:1;margin-bottom:0.5rem}
 .login-card p{font-size:0.9rem;color:var(--muted);margin-bottom:2rem;line-height:1.55}
 .field-label{display:block;font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem}
-.field-input{
-  width:100%;background:var(--surface-2);border:1px solid rgba(255,255,255,0.08);
-  border-radius:3px;padding:0.85rem 1rem;font-family:var(--font-body);font-size:1rem;
-  color:var(--white);outline:none;transition:border-color 0.2s;letter-spacing:0.1em;
-}
+.field-input{width:100%;background:var(--surface-2);border:1px solid rgba(255,255,255,0.08);border-radius:3px;padding:0.85rem 1rem;font-family:var(--font-body);font-size:1rem;color:var(--white);outline:none;transition:border-color 0.2s;letter-spacing:0.03em}
 .field-input:focus{border-color:var(--pink)}
-.field-input::placeholder{color:rgba(255,255,255,0.2);letter-spacing:0.05em}
+.field-input::placeholder{color:rgba(255,255,255,0.2)}
 .error-msg{display:none;color:var(--pink);font-size:0.8rem;margin-top:0.5rem}
 .error-msg.show{display:block}
-.login-btn{
-  width:100%;margin-top:1.5rem;background:var(--pink);color:#fff;
-  font-family:var(--font-body);font-size:0.875rem;font-weight:700;
-  letter-spacing:0.1em;text-transform:uppercase;padding:1rem;border:none;
-  border-radius:3px;cursor:pointer;transition:all 0.2s;
-}
+.login-btn{width:100%;margin-top:1.5rem;background:var(--pink);color:#fff;font-family:var(--font-body);font-size:0.875rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:1rem;border:none;border-radius:3px;cursor:pointer;transition:all 0.2s}
 .login-btn:hover{background:var(--pink-dark);box-shadow:0 0 24px var(--pink-glow)}
+.login-btn:disabled{opacity:0.6;cursor:default}
 .login-footer{text-align:center;margin-top:1.75rem;font-size:0.78rem;color:var(--muted)}
 .login-footer a{color:var(--pink);text-decoration:none}
 .login-footer a:hover{text-decoration:underline}
 </style>
 <script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
 <script async src="https://r.wdfl.co/rw.js" data-rewardful="e92558"></script>
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "xc4ai7h62y");
-    </script>
 </head>
 <body>
 <div class="login-wrap">
   <div class="login-brand">
     <a href="https://virtueasy.com">VIRTU<span>EASY</span></a>
-    <div class="login-tag">VA Starter Kit</div>
+    <div class="login-tag">Client Onboarding Kit</div>
   </div>
   <div class="login-card">
     <h1>Welcome Back</h1>
-    <p>Enter the email you purchased with to open your Starter Kit.</p>
+    <p>Enter the email you purchased with to open your Onboarding Kit.</p>
     <label class="field-label" for="email">Email</label>
-    <input class="field-input" id="email" type="email" placeholder="you@example.com" autocomplete="email" style="letter-spacing:0.03em">
+    <input class="field-input" id="email" type="email" placeholder="you@example.com" autocomplete="email">
     <div class="error-msg" id="err">We couldn't find a purchase for that email. Check the address, or get the kit below.</div>
-    <button class="login-btn" id="loginBtn" onclick="doLogin()">Enter the Kit →</button>
+    <button class="login-btn" id="loginBtn" onclick="doLogin()">Open the Kit →</button>
   </div>
   <div class="login-footer">
-    Don't have access? <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" target="_blank" rel="noopener" data-rewardful>Get the Starter Kit</a>
+    Don't have access? <a href="https://buy.stripe.com/5kQdRb1nJ2de3R50Qc63K07" target="_blank" rel="noopener" data-rewardful>Get the Onboarding Kit</a>
   </div>
 </div>
 <script>
-const SK_API = "https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev";
-const SK_TOKEN = "sk-access-token";
+const OK_API = "https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev";
+const OK_TOKEN = "ok-access-token";
 const emailInput = document.getElementById('email');
 const errEl = document.getElementById('err');
 const btn = document.getElementById('loginBtn');
@@ -101,15 +79,14 @@ async function doLogin(){
   }
   btn.disabled = true; btn.textContent = 'Checking…';
   try{
-    const res = await fetch(SK_API, {
+    const res = await fetch(OK_API, {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ action:'product-login', product:'starterkit', email: email })
+      body: JSON.stringify({ action:'product-login', product:'onboarding', email: email })
     });
     const data = await res.json();
     if(data.valid && data.token){
-      localStorage.setItem(SK_TOKEN, data.token);
-      localStorage.removeItem('sk_auth');
-      window.location.href = 'dashboard.html';
+      localStorage.setItem(OK_TOKEN, data.token);
+      window.location.href = 'ok-2026-access.html';
       return;
     }
     errEl.textContent = "We couldn't find a purchase for that email. Check the address, or get the kit below.";
@@ -119,7 +96,7 @@ async function doLogin(){
     errEl.textContent = 'Network hiccup — please try again.';
     errEl.classList.add('show');
   }finally{
-    btn.disabled = false; btn.textContent = 'Enter the Kit →';
+    btn.disabled = false; btn.textContent = 'Open the Kit →';
   }
 }
 emailInput.addEventListener('keydown', function(e){
@@ -127,8 +104,7 @@ emailInput.addEventListener('keydown', function(e){
   errEl.classList.remove('show');
   emailInput.style.borderColor='';
 });
-// Already unlocked on this device? Let the dashboard verify the token.
-if(localStorage.getItem(SK_TOKEN)) window.location.href='dashboard.html';
+if(localStorage.getItem(OK_TOKEN)) window.location.href='ok-2026-access.html';
 </script>
 </body>
 </html>

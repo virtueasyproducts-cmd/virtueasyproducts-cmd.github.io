@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unlocking your Starter Kit… - VIRTUEASY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--pink:#FF1F7A;--black:#0A0A0A;--surface:#141214;--border:rgba(255,31,122,0.1);--white:#F8F8F8;--muted:#999;
+  --font-display:'Bebas Neue',sans-serif;--font-body:'Barlow',sans-serif;}
+html,body{height:100%}
+body{font-family:var(--font-body);background:var(--black);color:var(--white);-webkit-font-smoothing:antialiased;
+  display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1.5rem;text-align:center}
+body::before{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:400px;
+  background:radial-gradient(ellipse,rgba(255,31,122,0.12) 0%,transparent 70%);pointer-events:none}
+.wrap{width:100%;max-width:420px}
+.brand{font-family:var(--font-display);font-size:2rem;letter-spacing:0.08em;color:var(--white);margin-bottom:2rem}
+.brand span{color:var(--pink)}
+.spinner{width:56px;height:56px;border-radius:50%;border:3px solid rgba(255,31,122,0.2);border-top-color:var(--pink);
+  margin:0 auto 1.5rem;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+h1{font-family:var(--font-display);font-size:2.2rem;letter-spacing:0.03em;line-height:1;margin-bottom:0.75rem}
+p{font-size:0.95rem;color:var(--muted);line-height:1.6;max-width:340px;margin:0 auto}
+</style>
+<script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
+<script async src="https://r.wdfl.co/rw.js" data-rewardful="e92558"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">VIRTU<span>EASY</span></div>
+  <div class="spinner"></div>
+  <h1>Unlocking your Starter Kit</h1>
+  <p class="note">Confirming your purchase and setting up your access…</p>
+</div>
+<script>
+(async function(){
+  const API = "https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev";
+  const TOKEN_KEY = "sk-access-token";
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get("session_id") || "";
+  const existingToken = localStorage.getItem(TOKEN_KEY);
+
+  function fail(msg){
+    document.querySelector(".note").textContent = msg || "We couldn't confirm your purchase. Taking you to sign in…";
+    setTimeout(function(){ window.location.href = "login.html"; }, 2600);
+  }
+
+  try {
+    const res = await fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "product-unlock", product: "starterkit", session_id: sessionId, token: existingToken || "" }),
+    });
+    const data = await res.json();
+    if (data.token) {
+      localStorage.setItem(TOKEN_KEY, data.token);
+      localStorage.removeItem("sk_auth"); // retire the old client flag
+      setTimeout(function(){ window.location.href = "dashboard.html"; }, 1200);
+    } else {
+      console.error("Starter Kit unlock failed:", data);
+      var reason = data && data.reason ? " (" + data.reason + ")" : "";
+      fail("We couldn't confirm your purchase" + reason + ". Taking you to sign in…");
+    }
+  } catch (e) {
+    console.error("Starter Kit unlock error:", e);
+    fail("We hit a snag confirming your purchase. Taking you to sign in…");
+  }
+})();
+</script>
+</body>
+</html>
