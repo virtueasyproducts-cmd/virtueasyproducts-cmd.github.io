@@ -136,6 +136,19 @@ body{font-family:var(--font-body);background:var(--white);color:var(--black);min
 // token + Worker verification, not a localStorage flag. Clear any stale flag.
 localStorage.removeItem("lifetimeAccess");
 localStorage.removeItem("trialStart");
+
+// Funnel tracking: who saw the offer, and who clicked through to checkout.
+(function(){
+  var ACCESS_API = "https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev";
+  var token = localStorage.getItem("ve-pricing-token") || "";
+  function ev(name){
+    try{ if(window.clarity) window.clarity("set", name, "1"); }catch(e){}
+    try{ fetch(ACCESS_API,{method:"POST",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"event",name:name,token:token})}).catch(function(){}); }catch(e){}
+  }
+  ev("pay_view");
+  var btn = document.querySelector(".checkout-btn");
+  if(btn){ btn.addEventListener("click", function(){ ev("checkout_click"); }); }
+})();
 </script>
 </body>
 </html>

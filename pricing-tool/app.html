@@ -319,7 +319,40 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     function suggestedRate(){const b=BASE_RATES[state.profile.vaType]||25;const e=EXP_LEVELS.find(x=>x.value===state.profile.experience);return Math.round(b*(e?e.mult:1))}
     function todayKey(){return new Date().toISOString().slice(0,10)}
     function getLocalUsesLeft(){const k=`ve-uses-${userEmail||"anon"}-${todayKey()}`;return Math.max(0,MAX_DAILY_USES-parseInt(localStorage.getItem(k)||"0"))}
-    function recordUse(){const k=`ve-uses-${userEmail||"anon"}-${todayKey()}`;const used=parseInt(localStorage.getItem(k)||"0");if(used>=MAX_DAILY_USES)return false;localStorage.setItem(k,(used+1).toString());fetch(ACCESS_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"track-use",token:localStorage.getItem(TOKEN_KEY),email:userEmail})}).catch(()=>{});return true}
+    function trackEvent(name){
+      try{ if(window.clarity) window.clarity("set", name, "1"); }catch(e){}
+      try{ fetch(ACCESS_API,{method:"POST",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"event",name:name,token:localStorage.getItem(TOKEN_KEY)||"",email:userEmail})}).catch(()=>{}); }catch(e){}
+    }
+    // Server-enforced daily cap. The Worker counts per account and tells us
+    // whether this use is allowed; localStorage is only an optimistic display.
+    async function recordUse(){
+      const k=`ve-uses-${userEmail||"anon"}-${todayKey()}`;
+      try{
+        const res=await fetch(ACCESS_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"track-use",token:localStorage.getItem(TOKEN_KEY),email:userEmail})});
+        const data=await res.json();
+        if(data.unlimited) return true;
+        if(data.allowed===false||data.capHit){
+          localStorage.setItem(k,String(MAX_DAILY_USES));
+          trackEvent("cap_hit");
+          return false;
+        }
+        if(typeof data.count==="number") localStorage.setItem(k,String(data.count));
+        // Backward-compat with the pre-upgrade Worker (returns {count} but no
+        // `allowed`): it increments unconditionally, so enforce the cap here.
+        if(data.allowed===undefined && typeof data.count==="number" && data.count>MAX_DAILY_USES){
+          trackEvent("cap_hit");
+          return false;
+        }
+        return true;
+      }catch(e){
+        // Network error - fall back to the optimistic local counter so users on
+        // bad connections aren't hard-blocked.
+        const used=parseInt(localStorage.getItem(k)||"0");
+        if(used>=MAX_DAILY_USES) return false;
+        localStorage.setItem(k,(used+1).toString());
+        return true;
+      }
+    }
     function canAdvance(){if(state.step===0)return state.profile.vaType&&state.profile.experience;if(state.step===1)return state.services.length>0;if(state.step===2)return state.pricingModels.length>0;return true}
     function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}
 
@@ -546,10 +579,11 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
 
     // ── Global handlers ──
     window.goStep=function(i){state.step=i;save();render()};
-    window.advance=function(){
+    window.advance=async function(){
       if(!canAdvance()||state.step>=4)return;
       if(state.step===3&&!isLifetime){
-        if(!recordUse()){window.location.replace("pay.html");return;}
+        const ok=await recordUse();
+        if(!ok){window.location.replace("pay.html");return;}
       }
       state.step++;save();render();window.scrollTo(0,0);
     };

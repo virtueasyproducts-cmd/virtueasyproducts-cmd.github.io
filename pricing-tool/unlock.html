@@ -82,17 +82,26 @@ p{font-size:15px;color:var(--gray-mid);line-height:1.6;max-width:360px;margin:0 
   const ACCESS_API = "https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev";
   const TOKEN_KEY  = "ve-pricing-token";
 
+  // Stripe redirects here with ?session_id={CHECKOUT_SESSION_ID}. The Worker
+  // verifies that session was actually paid before minting lifetime access.
+  const params       = new URLSearchParams(window.location.search);
+  const sessionId    = params.get("session_id") || "";
   const existingToken = localStorage.getItem(TOKEN_KEY);
 
+  function goPay(msg) {
+    const note = document.querySelector(".redirect-note");
+    if (note) note.textContent = msg || "We couldn't confirm your payment. Taking you back...";
+    setTimeout(function() { window.location.href = "pay.html"; }, 2600);
+  }
+
   try {
-    // Upgrade existing token to lifetime, or mint a fresh lifetime token
     const res = await fetch(ACCESS_API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         action: "lifetime",
+        session_id: sessionId,
         token: existingToken || "",
-        // email is only used if there's no existing token to extract it from
         email: ""
       }),
     });
@@ -102,16 +111,15 @@ p{font-size:15px;color:var(--gray-mid);line-height:1.6;max-width:360px;margin:0 
       // Clean up legacy keys
       localStorage.removeItem("lifetimeAccess");
       localStorage.removeItem("trialStart");
+      setTimeout(function() { window.location.href = "app.html"; }, 2500);
+    } else {
+      // No valid paid session -> no access. Send them to the offer.
+      goPay();
     }
   } catch (e) {
-    // Network error - as a fallback, keep whatever token they have.
-    // app.html will handle gracefully on next load.
-    console.error("Lifetime upgrade failed:", e);
+    console.error("Lifetime unlock failed:", e);
+    goPay("We hit a snag confirming your payment. Taking you back...");
   }
-
-  setTimeout(function() {
-    window.location.href = "app.html";
-  }, 2500);
 })();
 </script>
 </body>
