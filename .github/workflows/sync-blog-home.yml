@@ -1,0 +1,45 @@
+name: Sync blog posts to home page
+
+# Whenever a new post is published — i.e. the blog index (or a post file) changes
+# on main — regenerate the "From the Blog" cards on the home page to match the
+# newest posts, and commit the result. No manual step required.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "blog/index.html"
+      - "blog/posts/**"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-blog-home
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Sync home page blog cards
+        run: python .github/scripts/sync_blog_home.py
+
+      - name: Commit changes if any
+        run: |
+          if [ -n "$(git status --porcelain index.html)" ]; then
+            git config user.name "virtueasy-bot"
+            git config user.email "actions@github.com"
+            git add index.html
+            git commit -m "Auto-sync home page 'From the Blog' with newest posts [skip ci]"
+            git push
+          else
+            echo "Home page already in sync — nothing to commit."
+          fi
