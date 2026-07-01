@@ -229,21 +229,15 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
   async function checkAccess() {
     const token = localStorage.getItem(TOKEN_KEY);
 
-    // Also support legacy trialStart fallback
-    const trialStart = localStorage.getItem("trialStart");
-    const lifetimeAccess = localStorage.getItem("lifetimeAccess");
+    // The server-issued token + Worker verification is the ONLY path to access.
+    // Legacy localStorage flags (trialStart / lifetimeAccess) are no longer
+    // honored — anyone could set lifetimeAccess="true" in the console. Clear
+    // any stale legacy flags so they can't be used as a bypass.
+    localStorage.removeItem("trialStart");
+    localStorage.removeItem("lifetimeAccess");
 
-    if (!token && !trialStart && !lifetimeAccess) {
+    if (!token) {
       window.location.replace("get-access.html");
-      return;
-    }
-
-    // Legacy fallback: no token but has old localStorage trial
-    if (!token && (trialStart || lifetimeAccess)) {
-      const isLifetime = lifetimeAccess === "true";
-      document.getElementById("access-loading").style.display = "none";
-      document.getElementById("app").style.display = "block";
-      bootApp({ valid: true, type: isLifetime ? "lifetime" : "trial" });
       return;
     }
 

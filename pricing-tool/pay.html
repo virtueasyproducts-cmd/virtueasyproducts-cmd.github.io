@@ -132,10 +132,10 @@ body{font-family:var(--font-body);background:var(--white);color:var(--black);min
 </div>
 
 <script>
-// If user already has lifetime access, redirect to app
-if (localStorage.getItem("lifetimeAccess") === "true") {
-  window.location.href = "app.html";
-}
+// Legacy client-flag bypass removed: access is governed by the server-issued
+// token + Worker verification, not a localStorage flag. Clear any stale flag.
+localStorage.removeItem("lifetimeAccess");
+localStorage.removeItem("trialStart");
 </script>
 </body>
 </html>
