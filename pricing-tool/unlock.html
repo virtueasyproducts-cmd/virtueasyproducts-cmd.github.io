@@ -113,8 +113,10 @@ p{font-size:15px;color:var(--gray-mid);line-height:1.6;max-width:360px;margin:0 
       localStorage.removeItem("trialStart");
       setTimeout(function() { window.location.href = "app.html"; }, 2500);
     } else {
-      // No valid paid session -> no access. Send them to the offer.
-      goPay();
+      // No valid paid session -> no access. Surface the reason for debugging.
+      console.error("Unlock failed:", data);
+      var reason = data && data.reason ? " (" + data.reason + ")" : "";
+      goPay("We couldn't confirm your payment" + reason + ". Taking you back...");
     }
   } catch (e) {
     console.error("Lifetime unlock failed:", e);
