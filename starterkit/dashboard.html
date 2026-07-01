@@ -1223,7 +1223,7 @@ function aiGenerate(mid, idx){
   btn.textContent = 'Generating...'; btn.disabled=true;
   fetch(PROXY_URL, {
     method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({prompt: prompt})
+    body: JSON.stringify({prompt: prompt, token: localStorage.getItem('sk-access-token')||''})
   }).then(function(r){return r.json();}).then(function(d){
     var text = d.result || (d.content&&d.content[0]&&d.content[0].text) || 'Error generating. Please try again.';
     document.getElementById('aiText_'+mid+'_'+idx).textContent = text;
@@ -2165,7 +2165,7 @@ function aitkGenerate(){
   document.getElementById('aitkResult').style.display='none';
   fetch('https://workbook-theta.vercel.app/api/generate',{
     method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({prompt:prompt})
+    body: JSON.stringify({prompt:prompt, token: localStorage.getItem('sk-access-token')||''})
   }).then(function(r){return r.json();}).then(function(d){
     var text = d.result || (d.content && typeof d.content === 'string' ? d.content : '') || 'Something went wrong. Try again.';
     document.getElementById('aitkText').textContent = text;
