@@ -9,3 +9,6 @@ worker/.wrangler/
 worker/.dev.vars
 
 node_modules/
+
+# Stray archives should not ship in a public site repo
+*.zip
