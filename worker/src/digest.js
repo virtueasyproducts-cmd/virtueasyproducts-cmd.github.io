@@ -225,6 +225,17 @@ export async function sendReminder(env, result) {
             <p style="color:#6b6b6b;font-size:13px;">No draft exists for this week. Check <code>npx wrangler tail</code>.</p>`;
   }
 
+  return sendEmail(env, subject, `<div style="font-family:Helvetica,Arial,sans-serif;max-width:560px;">${body}</div>`);
+}
+
+/**
+ * Generic Resend send. Only ever addresses REPORT_TO - it has no access to
+ * the MailerLite subscriber list and must not gain one.
+ */
+export async function sendEmail(env, subject, html) {
+  if (!env.RESEND_KEY) return { skipped: 'no RESEND_KEY configured' };
+  const to = env.REPORT_TO || 'morganmessick@gmail.com';
+
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${env.RESEND_KEY}`, 'content-type': 'application/json' },
@@ -232,7 +243,7 @@ export async function sendReminder(env, result) {
       from: 'Virtueasy Jobs <onboarding@resend.dev>',
       to: [to],
       subject,
-      html: `<div style="font-family:Helvetica,Arial,sans-serif;max-width:560px;">${body}</div>`,
+      html,
     }),
   });
   if (!res.ok) throw new Error(`Resend ${res.status}: ${(await res.text()).slice(0, 200)}`);

@@ -11,6 +11,10 @@ account_id = "2bfca046889b3aa600b9cf0f39228024"
 # daylight saving: 12:00 UTC is 8am Eastern in summer and 7am in winter.
 # Living with the one-hour winter drift is simpler than the alternatives,
 # and nothing here is time-critical - it only creates a draft.
+# One trigger only. A second cron on this Worker is rejected by the account's
+# trigger limit, so the biweekly engagement report piggybacks on this same
+# run and fires on even ISO weeks (see scheduled() in index.js).
+# Wrangler replaces worker config wholesale - dropping this deletes the cron.
 [triggers]
 crons = ["0 12 * * 1"]
 

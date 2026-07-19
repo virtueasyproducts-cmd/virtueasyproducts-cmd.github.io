@@ -20,7 +20,17 @@
  *   npx wrangler deploy
  */
 
-import { createDigestDraft, sendReminder } from './digest.js';
+import { createDigestDraft, sendReminder, sendEmail, fetchJobs, normalizeCategory } from './digest.js';
+import { buildInsights, renderInsightsEmail } from './insights.js';
+
+/** ISO-8601 week number; even weeks carry the fortnightly engagement report. */
+function isEvenIsoWeek(date) {
+  const d = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const week = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+  return week % 2 === 0;
+}
 
 const ML_SUBSCRIBERS = 'https://connect.mailerlite.com/api/subscribers';
 const GROUP_ID = '185458839430104953'; // "Source: Job Board"
@@ -149,8 +159,24 @@ export default {
    */
   async scheduled(event, env, ctx) {
     if (!env.MAILERLITE_API_KEY) {
-      console.error('digest: MAILERLITE_API_KEY secret is not set');
+      console.error('scheduled: MAILERLITE_API_KEY secret is not set');
       return;
+    }
+
+    // Engagement report rides on this same weekly cron, every other Monday.
+    // A second cron trigger is rejected by the account limit, and week
+    // parity needs no stored state to stay on a fortnightly rhythm.
+    if (isEvenIsoWeek(new Date())) {
+      ctx.waitUntil((async () => {
+        try {
+          const r = await buildInsights(env.MAILERLITE_API_KEY, env.JOBS, { fetchJobs, normalizeCategory });
+          const { subject, html } = renderInsightsEmail(r);
+          const sent = await sendEmail(env, subject, html);
+          console.log(`insights: ${r.status} (${r.sends} sends) - ${sent.skipped ? 'not emailed: ' + sent.skipped : 'emailed ' + sent.to}`);
+        } catch (err) {
+          console.error(`insights: failed - ${err.message}`);
+        }
+      })());
     }
 
     ctx.waitUntil((async () => {
