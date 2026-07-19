@@ -150,15 +150,14 @@
     }
     .hero-shot img { display: block; width: 100%; height: auto; }
 
-    /* ---------- OUTPUTS: ruled ledger, no cards ---------- */
-    .outputs { padding: 6.5rem 0 5rem; }
-    .outputs h2 { font-size: clamp(2.4rem, 4.6vw, 3.9rem); max-width: 16ch; }
-    .outputs-lede { color: var(--muted); font-weight: 300; margin-top: 1rem; max-width: 52ch; }
-    .ledger { margin-top: 3.25rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-    .ledger-item { padding: 1.75rem 1rem 1.5rem 0; border-top: 2px solid var(--ink); }
-    .ledger-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.4rem; line-height: 1; color: var(--pink-ink); display: block; }
-    .ledger-label { font-weight: 600; font-size: 1rem; margin-top: 0.5rem; }
-    .ledger-note { color: var(--muted); font-size: 0.88rem; font-weight: 300; margin-top: 0.3rem; line-height: 1.5; }
+    /* ---------- OUTPUTS: full-bleed pink. The page's loudest colour
+       field, placed on the one claim that matters most.        ---------- */
+    .outputs { background: var(--pink); color: #fff; padding: 5.5rem 0; }
+    .outputs h2 { font-size: clamp(2.4rem, 4.6vw, 3.9rem); max-width: 18ch; }
+    .ledger { margin-top: 3rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .ledger-item { padding: 1.5rem 1rem 0 0; border-top: 2px solid rgba(255,255,255,0.55); }
+    .ledger-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.6rem; line-height: 1; display: block; }
+    .ledger-label { font-weight: 600; font-size: 0.98rem; margin-top: 0.35rem; color: rgba(255,255,255,0.92); }
 
     /* ---------- MODULES: horizontal scroll-snap track ---------- */
     .modules { padding: 3rem 0 6rem; }
@@ -185,11 +184,29 @@
     .trial .eyebrow { color: var(--pink); }
     .trial h2 { font-size: clamp(2.6rem, 5vw, 4.2rem); margin: 1rem 0 1.15rem; }
     .trial p { color: rgba(248,248,248,0.72); font-weight: 300; font-size: 1.05rem; max-width: 42ch; }
-    .trial-shot { border: 1px solid rgba(255,255,255,0.14); border-radius: var(--radius); overflow: hidden; }
-    .trial-shot img { display: block; width: 100%; height: auto; }
+    /* Live product, not a picture of it. The iframe is same origin, so it
+       is the real preview app running inside the sales page. */
+    .live {
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #0f0d10;
+      box-shadow: 0 40px 90px -40px rgba(0,0,0,0.8);
+    }
+    .live-bar {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.7rem 1rem;
+      background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.09);
+      font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(248,248,248,0.62); font-weight: 600;
+    }
+    .live-bar .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--pink); flex-shrink: 0; }
+    .live iframe { display: block; width: 100%; height: 560px; border: 0; background: #0f0d10; }
+    @media (max-width: 680px) { .live iframe { height: 440px; } }
 
-    /* ---------- TOOLKIT ---------- */
-    .toolkit { padding: 6rem 0; }
+    /* ---------- TOOLKIT: soft pink wash so the page is not white here ---------- */
+    .toolkit { padding: 6rem 0; background: #FBEFF4; }
     .toolkit-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 4rem; align-items: start; }
     .toolkit h2 { font-size: clamp(2.2rem, 4.2vw, 3.4rem); }
     .toolkit-lede { color: var(--muted); font-weight: 300; margin-top: 1rem; }
@@ -200,21 +217,24 @@
     .tool-note { color: var(--muted); font-size: 0.85rem; font-weight: 300; line-height: 1.45; }
 
     /* ---------- OFFER ---------- */
-    .offer { padding: 2rem 0 6.5rem; }
-    .offer-card { background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: grid; grid-template-columns: 1.25fr 1fr; }
+    /* Offer card is dark so the price lands as its own moment instead of
+       being one more white box. */
+    .offer { padding: 6rem 0; }
+    .offer-card { background: var(--ink); color: var(--paper); border-radius: var(--radius); overflow: hidden; display: grid; grid-template-columns: 1.25fr 1fr; }
     .offer-main { padding: 3rem; }
+    .offer-main .eyebrow { color: var(--pink); }
     .offer-main h2 { font-size: clamp(2.1rem, 3.8vw, 3rem); max-width: 18ch; margin-top: .85rem; }
     .stack { list-style: none; margin-top: 1.75rem; }
-    .stack li { display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; padding: 0.72rem 0; border-bottom: 1px solid var(--line-soft); font-size: 0.97rem; }
-    .stack .v { color: var(--muted); font-size: 0.86rem; white-space: nowrap; }
-    .offer-buy { background: var(--paper); border-left: 1px solid var(--line); padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .stack li { display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; padding: 0.72rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.97rem; }
+    .stack .v { color: rgba(248,248,248,0.5); font-size: 0.86rem; white-space: nowrap; }
+    .offer-buy { background: rgba(255,255,255,0.045); border-left: 1px solid rgba(255,255,255,0.1); padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; }
     .price { font-family: 'Bebas Neue', sans-serif; font-size: 5.2rem; line-height: 0.85; }
     .price sup { font-size: 2rem; vertical-align: super; }
-    .price-note { color: var(--muted); font-size: 0.9rem; font-weight: 300; margin-top: 0.6rem; }
+    .price-note { color: rgba(248,248,248,0.55); font-size: 0.9rem; font-weight: 300; margin-top: 0.6rem; }
     .offer-buy .btn { margin-top: 1.75rem; width: 100%; }
     .assure { list-style: none; margin-top: 1.5rem; display: grid; gap: 0.55rem; }
-    .assure li { font-size: 0.84rem; color: var(--ink-2); display: flex; gap: 0.5rem; align-items: center; }
-    .assure i { color: var(--pink-ink); font-size: 1rem; }
+    .assure li { font-size: 0.84rem; color: rgba(248,248,248,0.78); display: flex; gap: 0.5rem; align-items: center; }
+    .assure i { color: var(--pink); font-size: 1rem; }
 
     /* ---------- FIT ---------- */
     .fit { padding: 0 0 6.5rem; }
@@ -229,9 +249,9 @@
     .no i { color: #a8a4a8; }
 
     /* ---------- CLOSE ---------- */
-    .close { border-top: 1px solid var(--line); padding: 5rem 0; text-align: center; }
+    .close { background: var(--ink); color: var(--paper); padding: 5.5rem 0; text-align: center; }
     .close h2 { font-size: clamp(2.4rem, 5.2vw, 4.2rem); max-width: 20ch; margin: 0 auto 1.25rem; }
-    .close p { color: var(--muted); font-weight: 300; max-width: 48ch; margin: 0 auto 2rem; }
+    .close p { color: rgba(248,248,248,0.66); font-weight: 300; max-width: 48ch; margin: 0 auto 2rem; }
     .close .cta-row { justify-content: center; }
 
     /* ---------- FOOTER ---------- */
@@ -323,28 +343,23 @@
   <section class="outputs">
     <div class="shell">
       <h2 class="rise">Most courses end with notes. This one ends with assets.</h2>
-      <p class="outputs-lede rise">Every module produces something you keep and use. By the end you are not better informed, you are further along.</p>
 
       <div class="ledger">
         <div class="ledger-item rise">
           <span class="ledger-num">10-50</span>
           <div class="ledger-label">Named leads</div>
-          <p class="ledger-note">Real people in real places, built in module two. Not a list of ideas.</p>
         </div>
         <div class="ledger-item rise">
           <span class="ledger-num">1</span>
           <div class="ledger-label">Sent proposal</div>
-          <p class="ledger-note">Written in the Proposal Builder and out the door, not sitting in drafts.</p>
         </div>
         <div class="ledger-item rise">
           <span class="ledger-num">1</span>
           <div class="ledger-label">Portfolio you can link</div>
-          <p class="ledger-note">Built from spec work, so you do not need a client to have one.</p>
         </div>
         <div class="ledger-item rise">
           <span class="ledger-num">1</span>
           <div class="ledger-label">Rate you can say out loud</div>
-          <p class="ledger-note">An actual number from the Pricing Tool, with the packages behind it.</p>
         </div>
       </div>
     </div>
@@ -362,37 +377,37 @@
         <article class="mod">
           <span class="mod-n">Module 1</span>
           <h3>Foundation</h3>
-          <p>Define your service, pick your lane, set your pricing. Remove the confusion before anything else.</p>
+          <p>Pick your service and set your price.</p>
           <p class="mod-out"><i class="ph ph-arrow-right"></i> A service and a price</p>
         </article>
         <article class="mod">
           <span class="mod-n">Module 2</span>
           <h3>Client Targeting</h3>
-          <p>Fix the number one failure point: no leads. Real names in real places, not hypotheticals.</p>
+          <p>Find real people to contact, not hypotheticals.</p>
           <p class="mod-out"><i class="ph ph-arrow-right"></i> 10-50 targets to contact</p>
         </article>
         <article class="mod">
           <span class="mod-n">Module 3</span>
           <h3>Outreach System</h3>
-          <p>What to send, where to send it, and how to follow up without sounding desperate.</p>
+          <p>What to send, and how to follow up.</p>
           <p class="mod-out"><i class="ph ph-arrow-right"></i> Outreach that actually goes out</p>
         </article>
         <article class="mod">
           <span class="mod-n">Module 4</span>
           <h3>Conversion</h3>
-          <p>Turn a reply into paid work. Pricing conversations, scope, and the proposal itself.</p>
+          <p>Turn a reply into paid work.</p>
           <p class="mod-out"><i class="ph ph-arrow-right"></i> A proposal in their inbox</p>
         </article>
         <article class="mod">
           <span class="mod-n">Module 5</span>
           <h3>7 to 14 Day Sprint</h3>
-          <p>A dated plan for the two weeks after you finish. The part most people skip, then stall on.</p>
+          <p>A dated plan for the two weeks after.</p>
           <p class="mod-out"><i class="ph ph-arrow-right"></i> A schedule, not a someday</p>
         </article>
         <article class="mod">
           <span class="mod-n">Module 6</span>
           <h3>AI Toolkit</h3>
-          <p>Five AI tools sitting inside the workflow, so you use them in the task instead of browsing a library.</p>
+          <p>Five tools inside the workflow itself.</p>
           <p class="mod-out"><i class="ph ph-arrow-right"></i> Faster, not different</p>
         </article>
       </div>
@@ -400,7 +415,7 @@
   </section>
 
   <!-- FREE TRIAL: the single dark block ------------------------- -->
-  <section class="trial">
+  <section class="trial" id="try">
     <div class="shell trial-grid">
       <div>
         <p class="eyebrow">No card required</p>
@@ -411,10 +426,9 @@
           <a class="btn btn-ghostDark" href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05">Skip ahead, $27</a>
         </div>
       </div>
-      <div class="trial-shot">
-        <img src="/assets/kit-lessons.webp" alt="A module inside the Starter Kit showing its lesson list, run time, and the output it produces"
-             width="1611" height="913" loading="lazy"
-             onerror="this.onerror=null;this.src='/assets/kit-lessons.png'">
+      <div class="live">
+        <div class="live-bar"><span class="dot"></span> Live preview, running right here</div>
+        <iframe src="/starterkit/preview.html" title="Live preview of the first three Starter Kit lessons" loading="lazy"></iframe>
       </div>
     </div>
   </section>
@@ -427,14 +441,14 @@
         <p class="toolkit-lede rise">You do not finish a lesson and then go find software. The tool for the task is on the same screen as the task.</p>
       </div>
       <div class="tools">
-        <div class="tool rise"><i class="ph ph-file-text"></i><div><div class="tool-name">Proposal Builder</div><p class="tool-note">Fills a real proposal you can send</p></div></div>
-        <div class="tool rise"><i class="ph ph-folder-open"></i><div><div class="tool-name">Portfolio Builder</div><p class="tool-note">Spec work into a shareable card</p></div></div>
-        <div class="tool rise"><i class="ph ph-calculator"></i><div><div class="tool-name">Pricing Tool</div><p class="tool-note">Unlimited with the Kit, free tier is 3 a day</p></div></div>
-        <div class="tool rise"><i class="ph ph-chats-circle"></i><div><div class="tool-name">260 Prompts</div><p class="tool-note">Sorted by the job you are doing</p></div></div>
-        <div class="tool rise"><i class="ph ph-paper-plane-tilt"></i><div><div class="tool-name">Outreach Generator</div><p class="tool-note">First messages that do not read as template</p></div></div>
-        <div class="tool rise"><i class="ph ph-arrow-u-up-left"></i><div><div class="tool-name">Follow Up Writer</div><p class="tool-note">The message most people never send</p></div></div>
-        <div class="tool rise"><i class="ph ph-microphone-stage"></i><div><div class="tool-name">Pricing Confidence Script</div><p class="tool-note">For saying your rate without flinching</p></div></div>
-        <div class="tool rise"><i class="ph ph-pencil-simple"></i><div><div class="tool-name">Rewrite Any Message</div><p class="tool-note">Paste anything, get it sharpened</p></div></div>
+        <div class="tool rise"><i class="ph ph-file-text"></i><div><div class="tool-name">Proposal Builder</div></div></div>
+        <div class="tool rise"><i class="ph ph-folder-open"></i><div><div class="tool-name">Portfolio Builder</div></div></div>
+        <div class="tool rise"><i class="ph ph-calculator"></i><div><div class="tool-name">Pricing Tool</div></div></div>
+        <div class="tool rise"><i class="ph ph-chats-circle"></i><div><div class="tool-name">260 Prompts</div></div></div>
+        <div class="tool rise"><i class="ph ph-paper-plane-tilt"></i><div><div class="tool-name">Outreach Generator</div></div></div>
+        <div class="tool rise"><i class="ph ph-arrow-u-up-left"></i><div><div class="tool-name">Follow Up Writer</div></div></div>
+        <div class="tool rise"><i class="ph ph-microphone-stage"></i><div><div class="tool-name">Pricing Confidence Script</div></div></div>
+        <div class="tool rise"><i class="ph ph-pencil-simple"></i><div><div class="tool-name">Rewrite Any Message</div></div></div>
       </div>
     </div>
   </section>
@@ -476,19 +490,19 @@
         <div class="fit-col yes">
           <h3>Built for you if</h3>
           <ul>
-            <li><i class="ph ph-check"></i> You want VA work for the money and the schedule control, not as a passion project.</li>
-            <li><i class="ph ph-check"></i> You have office, admin, or organising skills and no idea how to sell them.</li>
-            <li><i class="ph ph-check"></i> You learn by doing the thing, not by watching someone else do it.</li>
-            <li><i class="ph ph-check"></i> You have a few hours a week and want them to count.</li>
+            <li><i class="ph ph-check"></i> You want the money and the schedule control.</li>
+            <li><i class="ph ph-check"></i> You have admin skills and no idea how to sell them.</li>
+            <li><i class="ph ph-check"></i> You learn by doing, not by watching.</li>
+            <li><i class="ph ph-check"></i> You have a few hours a week to spend well.</li>
           </ul>
         </div>
         <div class="fit-col no">
           <h3>Not for you if</h3>
           <ul>
-            <li><i class="ph ph-x"></i> You want passive income. This is client work, and clients expect things.</li>
-            <li><i class="ph ph-x"></i> You are looking for an employer. This builds a business you run.</li>
-            <li><i class="ph ph-x"></i> You want a coach on call. This is self guided by design, which is why it costs $27.</li>
-            <li><i class="ph ph-x"></i> You already have steady clients and only need better systems.</li>
+            <li><i class="ph ph-x"></i> You want passive income. This is client work.</li>
+            <li><i class="ph ph-x"></i> You want an employer. This builds your own thing.</li>
+            <li><i class="ph ph-x"></i> You want a coach on call. This is self guided.</li>
+            <li><i class="ph ph-x"></i> You already have steady clients.</li>
           </ul>
         </div>
       </div>
@@ -501,8 +515,8 @@
       <h2>The first three lessons cost nothing.</h2>
       <p>Read them, then decide. That is the whole pitch.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="/starterkit/preview.html">Try 3 lessons free</a>
-        <a class="btn btn-ghost" href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05">Get the Kit, $27</a>
+        <a class="btn btn-primary" href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05">Get the Kit, $27</a>
+        <a class="btn btn-ghostDark" href="#try">Back to the free lessons</a>
       </div>
     </div>
   </section>
