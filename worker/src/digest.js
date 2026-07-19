@@ -77,10 +77,40 @@ export function selectEarlyAccess(jobs) {
     .sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
 }
 
+/**
+ * The feed aggregates sources that label categories differently - the same
+ * category arrives as both "Virtual Assistant" and "virtual-assistant",
+ * which would render as two separate sections in the email.
+ */
+export function normalizeCategory(raw) {
+  const base = String(raw || '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+
+  if (!base || base === 'other') return 'Other Remote Jobs';
+
+  const synonyms = {
+    admin: 'Administrative',
+    administrative: 'Administrative',
+    'admin support': 'Administrative',
+    va: 'Virtual Assistant',
+    'virtual assistant': 'Virtual Assistant',
+    'executive assistant': 'Executive Assistant',
+    'social media': 'Social Media',
+    'online business manager': 'Online Business Manager',
+    obm: 'Online Business Manager',
+  };
+  if (synonyms[base]) return synonyms[base];
+
+  return base.replace(/\b\w/g, c => c.toUpperCase());
+}
+
 function groupByCategory(jobs) {
   const groups = new Map();
   for (const j of jobs) {
-    const cat = j.category || 'Other Remote Jobs';
+    const cat = normalizeCategory(j.category);
     if (!groups.has(cat)) groups.set(cat, []);
     groups.get(cat).push(j);
   }
