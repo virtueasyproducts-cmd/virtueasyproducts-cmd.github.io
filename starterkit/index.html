@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The VA Starter Kit - Your Complete First-Client Launch System</title>
-<meta name="description" content="6 self-guided modules, AI tools, 260 prompts, proposal builder, portfolio builder, and pricing calculator, all in one dashboard. Everything you need to land your first paying VA client. $27.">
+<meta name="description" content="6 self-guided modules, 33 lessons, AI tools, 260 prompts, proposal builder, portfolio builder, and pricing calculator, all in one dashboard. Everything you need to land your first paying VA client. $27.">
 <meta property="og:title" content="The VA Starter Kit - Land Your First VA Client">
 <meta property="og:image" content="https://virtueasy.com/assets/og-image.png">
-<meta property="og:description" content="The all-in-one first-client launch system for virtual assistants. 6 modules, AI tools, 260 prompts, and every builder you need in one dashboard. $27.">
+<meta property="og:description" content="The all-in-one first-client launch system for virtual assistants. 6 modules, 33 lessons, AI tools, 260 prompts, and every builder you need in one dashboard. $27.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -55,8 +55,11 @@ img{max-width:100%;display:block}
 .hero-price{display:flex;align-items:baseline;gap:0.75rem;margin-bottom:2rem}
 .hero-price-num{font-family:var(--font-display);font-size:3rem;color:var(--white)}
 .hero-price-note{font-size:0.82rem;color:var(--muted)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center}
 .btn-primary{display:inline-block;background:var(--pink);color:#fff;font-family:var(--font-body);font-size:0.9rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:1rem 2.25rem;border-radius:3px;transition:all 0.2s;border:none;cursor:pointer}
 .btn-primary:hover{background:var(--pink-dark);box-shadow:0 0 28px var(--pink-glow);transform:translateY(-1px)}
+.btn-ghost{display:inline-block;background:transparent;color:var(--white);border:1px solid var(--border-s);font-family:var(--font-body);font-size:0.9rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:1rem 1.75rem;border-radius:3px;transition:all 0.2s;cursor:pointer}
+.btn-ghost:hover{border-color:rgba(255,31,122,0.45);color:var(--pink)}
 .hero-guarantee{font-size:0.75rem;color:var(--muted);margin-top:0.85rem}
 .hero-guarantee span{color:rgba(248,248,248,0.5)}
 
@@ -70,43 +73,62 @@ img{max-width:100%;display:block}
 .screen-dot.y{background:#ffbd2e}
 .screen-dot.g{background:#28c840}
 .screen-url{font-size:0.68rem;color:rgba(248,248,248,0.3);margin-left:0.5rem;letter-spacing:0.04em}
-.screen-carousel{position:relative;overflow:hidden;aspect-ratio:16/10}
-.screen-track{display:flex;height:100%;transition:transform 0.7s cubic-bezier(0.4,0,0.2,1);will-change:transform}
-.screen-img{width:100%;height:100%;flex-shrink:0;object-fit:cover;object-position:top left}
 .screen-video{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:#0a0a0a;line-height:0}
 .screen-video-wrap{position:relative;line-height:0}
 .video-sound-btn{position:absolute;bottom:12px;right:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(10,10,10,0.65);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:20px;padding:7px 13px;font-size:0.72rem;font-weight:600;letter-spacing:0.04em;line-height:1;cursor:pointer;z-index:3;transition:background 0.2s,transform 0.2s}
 .video-sound-btn:hover{background:rgba(255,31,122,0.85);transform:translateY(-1px)}
 .video-sound-btn .vsb-icon{font-size:0.95rem}
 .video-sound-btn.is-unmuted .vsb-text{display:none}
-.screen-dots-nav{display:flex;gap:6px;justify-content:center;padding:0.75rem 0 0.5rem;background:#0e0b0e}
-.screen-dot-nav{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:all 0.2s}
-.screen-dot-nav.on{background:var(--pink);transform:scale(1.4)}
-.screen-labels{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.75rem}
-.screen-label{background:var(--surface);border:1px solid var(--border-s);border-radius:3px;padding:0.5rem 0.75rem;font-size:0.72rem;color:var(--muted);cursor:pointer;transition:all 0.15s;text-align:center}
-.screen-label:hover{border-color:rgba(255,31,122,0.3);color:var(--white)}
-.screen-label.on{border-color:var(--pink);color:var(--pink)}
 .screen-glow{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);width:60%;height:80px;background:rgba(255,31,122,0.15);filter:blur(32px);border-radius:50%;pointer-events:none}
 
-/* ── TRUST BAR ── */
-.trust{border-top:1px solid var(--border-s);border-bottom:1px solid var(--border-s);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap}
-.trust-item{display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:var(--muted)}
-.trust-item strong{color:var(--white)}
+/* ── MARQUEE TICKER ── */
+.ticker{overflow:hidden;background:var(--surface);border-top:1px solid var(--border-s);border-bottom:1px solid var(--border-s);padding:1rem 0}
+.ticker-track{display:flex;gap:2.25rem;white-space:nowrap;width:max-content;animation:tickerScroll 34s linear infinite}
+.ticker-track span{font-size:0.8rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(248,248,248,0.55)}
+.ticker-track span.sep{color:var(--pink)}
+@keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.ticker-track{animation:none;flex-wrap:wrap;width:auto;white-space:normal;padding:0 1.25rem;gap:0.75rem 1.5rem;justify-content:center}}
 
-/* ── WHAT'S INSIDE ── */
+/* ── SECTIONS ── */
 .section{padding:5rem 2rem;max-width:1100px;margin:0 auto}
 .section-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);margin-bottom:0.75rem}
 .section h2{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);letter-spacing:0.02em;line-height:1;margin-bottom:1rem}
 .section-sub{font-size:1rem;color:var(--muted);max-width:540px;line-height:1.65;margin-bottom:3rem}
 
-.modules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-s);border:1px solid var(--border-s);border-radius:3px;overflow:hidden;margin-bottom:3rem}
-.module-card{background:var(--black);padding:1.75rem 1.5rem;transition:background 0.2s}
-.module-card:hover{background:var(--surface)}
-.module-num{font-family:var(--font-display);font-size:2.5rem;color:rgba(255,31,122,0.2);line-height:1;margin-bottom:0.75rem}
-.module-icon{font-size:1.2rem;margin-bottom:0.5rem}
-.module-title{font-family:var(--font-display);font-size:1.25rem;letter-spacing:0.03em;margin-bottom:0.5rem}
-.module-desc{font-size:0.82rem;color:var(--muted);line-height:1.6}
-.module-output{font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--pink);margin-top:0.75rem}
+/* ── MODULE EXPLORER ── */
+.mod-tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:0.5rem;margin-bottom:1.5rem}
+.mod-tab{background:var(--surface);border:1px solid var(--border-s);border-radius:4px;padding:0.85rem 0.5rem;cursor:pointer;text-align:center;transition:all 0.15s;font-family:var(--font-body)}
+.mod-tab:hover{border-color:rgba(255,31,122,0.35)}
+.mod-tab.on{border-color:var(--pink);background:var(--pink-pale)}
+.mod-tab-num{font-family:var(--font-display);font-size:1.5rem;line-height:1;color:rgba(255,255,255,0.5)}
+.mod-tab.on .mod-tab-num{color:var(--pink)}
+.mod-tab-name{font-size:0.68rem;color:var(--muted);margin-top:0.15rem;line-height:1.25}
+.mod-tab.on .mod-tab-name{color:var(--white)}
+.mod-tab-free{font-size:0.58rem;font-weight:700;letter-spacing:0.1em;color:var(--pink);margin-top:0.2rem}
+.mod-panel{background:var(--surface);border:1px solid var(--border-s);border-radius:6px;padding:1.75rem 1.85rem}
+.mod-panel-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.25rem}
+.mod-panel-label{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)}
+.mod-panel-title{font-family:var(--font-display);font-size:2rem;letter-spacing:0.03em;line-height:1}
+.mod-panel-output{font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--pink)}
+.mod-lesson{display:flex;align-items:center;gap:0.9rem;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.88rem}
+.mod-lesson:last-child{border-bottom:none}
+.mod-lesson-num{font-family:var(--font-display);font-size:1.1rem;color:rgba(255,31,122,0.45);min-width:22px}
+.mod-lesson-title{flex:1;color:rgba(248,248,248,0.85)}
+.mod-lesson-state{font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--pink)}
+.mod-lesson-lock{font-size:0.8rem;color:#4a444a}
+
+/* ── PROMPT SHOWCASE ── */
+.prompt-cats{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.5rem}
+.prompt-cat{background:var(--surface-2);border:1px solid var(--border-s);border-radius:20px;padding:0.45rem 1rem;font-size:0.78rem;color:rgba(248,248,248,0.7);cursor:pointer;font-family:var(--font-body);transition:all 0.15s}
+.prompt-cat:hover{border-color:rgba(255,31,122,0.35)}
+.prompt-cat.on{background:var(--pink);border-color:var(--pink);color:#fff;font-weight:600}
+.prompt-item{background:var(--surface);border:1px solid var(--border-s);border-radius:5px;padding:1rem 1.15rem;margin-bottom:0.6rem;display:flex;gap:1rem;align-items:flex-start}
+.prompt-num{font-family:var(--font-display);font-size:1.15rem;color:rgba(255,31,122,0.5);min-width:32px}
+.prompt-text{flex:1;font-size:0.85rem;color:rgba(248,248,248,0.8);line-height:1.6}
+.prompt-copy{background:transparent;border:1px solid var(--border-s);color:var(--muted);border-radius:3px;padding:0.3rem 0.7rem;font-size:0.68rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;font-family:var(--font-body);flex-shrink:0;transition:all 0.15s}
+.prompt-copy:hover{border-color:var(--pink);color:var(--pink)}
+.prompt-copy.done{border-color:var(--pink);color:var(--pink)}
+.prompt-more{font-size:0.8rem;color:var(--muted);margin-top:1rem}
 
 /* ── TOOLS STRIP ── */
 .tools-strip{background:var(--surface);border-top:1px solid var(--border-s);border-bottom:1px solid var(--border-s);padding:3rem 2rem}
@@ -126,17 +148,24 @@ img{max-width:100%;display:block}
 .step{display:flex;gap:1.5rem;padding:1.5rem 0;position:relative}
 .step-num{width:40px;height:40px;border-radius:50%;background:var(--pink);color:#fff;font-family:var(--font-display);font-size:1.2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1}
 .step-body h4{font-family:var(--font-display);font-size:1.3rem;letter-spacing:0.03em;margin-bottom:0.3rem}
+.step-tag{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--pink);margin-bottom:0.25rem}
 .step-body p{font-size:0.85rem;color:var(--muted);line-height:1.6}
 
-/* ── TESTIMONIALS ── */
+/* ── WHAT YOU'LL BUILD ── */
 .proof{padding:5rem 2rem;background:var(--surface);border-top:1px solid var(--border-s)}
 .proof-inner{max-width:1100px;margin:0 auto}
 .proof h2{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);letter-spacing:0.02em;margin-bottom:2.5rem;text-align:center}
-.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-.testimonial{background:var(--black);border:1px solid var(--border-s);border-radius:3px;padding:1.5rem}
-.testimonial-text{font-size:0.88rem;line-height:1.7;color:rgba(248,248,248,0.8);margin-bottom:1rem}
-.testimonial-name{font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--pink)}
-.testimonial-role{font-size:0.7rem;color:var(--muted)}
+
+/* ── FAQ ── */
+.faq-wrap{max-width:720px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--border-s)}
+.faq-q{width:100%;background:none;border:none;color:var(--white);font-family:var(--font-body);font-size:1rem;font-weight:600;text-align:left;padding:1.15rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.faq-q:hover{color:var(--pink)}
+.faq-icon{color:var(--pink);font-size:1.1rem;line-height:1;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.25s ease}
+.faq-item.open .faq-a{max-height:320px}
+.faq-a p{font-size:0.9rem;color:var(--muted);line-height:1.7;padding:0 0 1.15rem}
 
 /* ── PRICING / CTA ── */
 .pricing{padding:5rem 2rem;max-width:640px;margin:0 auto;text-align:center}
@@ -160,16 +189,17 @@ img{max-width:100%;display:block}
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;gap:2.5rem}
-  .modules-grid{grid-template-columns:1fr 1fr}
-  .testimonials{grid-template-columns:1fr}
+  .mod-tabs{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:600px){
-  .nav{padding:0 1.25rem}
   .hero{padding:3rem 1.25rem 2rem}
-  .modules-grid{grid-template-columns:1fr}
-  .screen-labels{grid-template-columns:1fr 1fr}
-  .trust{gap:1.5rem;padding:1.25rem}
+  .mod-tabs{grid-template-columns:repeat(2,1fr)}
+  .mod-panel{padding:1.25rem}
+  .mod-panel-title{font-size:1.6rem}
+  .prompt-item{flex-wrap:wrap}
+  .proof ul{grid-template-columns:1fr !important}
   .tools-strip,.section,.how,.pricing{padding:3rem 1.25rem}
+  .hero-ctas .btn-primary,.hero-ctas .btn-ghost{width:100%;text-align:center}
 }
 </style>
 <script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
@@ -196,6 +226,7 @@ img{max-width:100%;display:block}
   </button>
   <ul class="nav-links">
     <li><a href="/">Home</a></li>
+    <li><a href="#modules">Modules</a></li>
     <li><a href="/resources/">Resources</a></li>
     <li><a href="/blog/">Blog</a></li>
     <li><a href="/va-job-board">Job Board</a></li>
@@ -209,12 +240,15 @@ img{max-width:100%;display:block}
   <div class="hero-content">
     <div class="hero-eyebrow">The VA Starter Kit</div>
     <h1>Your First Client<br>Is <em>Closer</em> Than<br>You Think.</h1>
-    <p class="hero-sub">6 self-guided modules, built-in AI tools, 260 prompts, a pricing calculator, proposal builder, and portfolio builder. Everything in one dashboard.</p>
+    <p class="hero-sub">6 self-guided modules, 33 lessons, 260 prompts, 6 built-in AI tools, a pricing calculator, proposal builder, and portfolio builder. Everything in one dashboard.</p>
     <div class="hero-price">
       <span class="hero-price-num">$27</span>
       <span class="hero-price-note">One-time. Instant access. Yours forever.</span>
     </div>
-    <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn-primary" target="_blank" rel="noopener" data-rewardful>Get Instant Access - $27 →</a>
+    <div class="hero-ctas">
+      <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn-primary" target="_blank" rel="noopener" data-rewardful>Get Instant Access - $27 →</a>
+      <a href="#modules" class="btn-ghost">See What's Inside</a>
+    </div>
     <p class="hero-guarantee">Less than dinner out. <span>No subscription. No upsells.</span></p>
   </div>
 
@@ -246,8 +280,23 @@ img{max-width:100%;display:block}
   </div>
 </section>
 
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- MODULE EXPLORER -->
+<div class="section" id="modules">
+  <div class="section-eyebrow">What's inside</div>
+  <h2>Six Modules.<br>Zero Fluff.</h2>
+  <p class="section-sub">Tap a module to see its actual lessons. Each one has a single job: move you closer to a paying client.</p>
+
+  <div class="mod-tabs" id="modTabs" role="tablist" aria-label="Module list"></div>
+  <div class="mod-panel" id="modPanel" role="tabpanel"></div>
+</div>
+
 <!-- LIVE PREVIEW SECTION -->
-<div style="background:#050505; padding:5rem 1.5rem;">
+<div id="tryit" style="background:#050505; padding:5rem 1.5rem;">
   <div style="max-width:860px; margin:0 auto;">
     <div style="text-align:center; margin-bottom:2.5rem;">
       <span style="display:inline-block; background:#FF1F7A; color:#fff; font-size:0.6rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; padding:0.3rem 0.9rem; margin-bottom:1rem;">Try Before You Buy</span>
@@ -282,68 +331,19 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
-<!-- TRUST BAR -->
-<div class="trust">
-  <div class="trust-item"><strong>6</strong> structured modules</div>
-  <div class="trust-item"><strong>260</strong> plug-and-play prompts</div>
-  <div class="trust-item"><strong>Self-guided</strong> no videos</div>
-  <div class="trust-item"><strong>6</strong> built-in AI tools</div>
-</div>
-
-<!-- WHAT'S INSIDE - MODULES -->
+<!-- PROMPT SHOWCASE -->
 <div class="section">
-  <div class="section-eyebrow">What's inside</div>
-  <h2>Six Modules.<br>Zero Fluff.</h2>
-  <p class="section-sub">Each module has one job: move you closer to a paying client. Work through them in order. Use the tools anytime.</p>
+  <div class="section-eyebrow">260 plug-and-play prompts</div>
+  <h2>Copy. Paste. Send.</h2>
+  <p class="section-sub">Real prompts from inside the kit. Pick a category and try one - they work in ChatGPT, Claude, or any AI tool you already use.</p>
 
-  <div class="modules-grid">
-    <div class="module-card">
-      <div class="module-num">01</div>
-      <div class="module-icon">🔵</div>
-      <div class="module-title">Foundation</div>
-      <div class="module-desc">Define your service, pick your lane, set your price. Remove the confusion before you do anything else.</div>
-      <div class="module-output">Output: one clear offer</div>
-    </div>
-    <div class="module-card">
-      <div class="module-num">02</div>
-      <div class="module-icon">🟡</div>
-      <div class="module-title">Client Targeting</div>
-      <div class="module-desc">Find where real clients actually are. Build a list of 10-50 real people to contact - not ideas, names.</div>
-      <div class="module-output">Output: lead list ready to send</div>
-    </div>
-    <div class="module-card">
-      <div class="module-num">03</div>
-      <div class="module-icon">🔴</div>
-      <div class="module-title">Outreach System</div>
-      <div class="module-desc">Copy-paste DM templates, email scripts, and a daily routine that gets replies without burning you out.</div>
-      <div class="module-output">Output: messages going out daily</div>
-    </div>
-    <div class="module-card">
-      <div class="module-num">04</div>
-      <div class="module-icon">🟠</div>
-      <div class="module-title">Conversion</div>
-      <div class="module-desc">Discovery call framework, objection scripts, and a proposal template that closes. Get from conversation to cash.</div>
-      <div class="module-output">Output: first paying client</div>
-    </div>
-    <div class="module-card">
-      <div class="module-num">05</div>
-      <div class="module-icon">🟣</div>
-      <div class="module-title">Execution</div>
-      <div class="module-desc">Self-guided, day-by-day actions you work through at your own pace. The most important module in the kit.</div>
-      <div class="module-output">Output: active client pipeline</div>
-    </div>
-    <div class="module-card">
-      <div class="module-num">06</div>
-      <div class="module-icon">⚫</div>
-      <div class="module-title">AI Toolkit</div>
-      <div class="module-desc">Six AI generators embedded in your workflow - cold DMs, follow-ups, proposal openers, pricing scripts, message rewrites, and custom.</div>
-      <div class="module-output">Output: faster execution</div>
-    </div>
-  </div>
+  <div class="prompt-cats" id="promptCats"></div>
+  <div id="promptList"></div>
+  <p class="prompt-more">These are 9 of 260. The full library is organised across business setup, positioning, client ops, outreach, social media, research, writing, and power prompts.</p>
 </div>
 
 <!-- TOOLS STRIP -->
-<div class="tools-strip">
+<div class="tools-strip" id="tools">
   <div class="tools-strip-inner">
     <h3>Plus Every Tool You Need.</h3>
     <p>All built into the dashboard. No separate subscriptions, no extra tabs.</p>
@@ -368,13 +368,15 @@ img{max-width:100%;display:block}
     <div class="step">
       <div class="step-num">1</div>
       <div class="step-body">
-        <h4>Buy & Get Access Instantly</h4>
+        <div class="step-tag">$27, one-time</div>
+        <h4>Buy &amp; Get Access Instantly</h4>
         <p>You'll receive your access code immediately after checkout. No waiting, no email drip, no onboarding call.</p>
       </div>
     </div>
     <div class="step">
       <div class="step-num">2</div>
       <div class="step-body">
+        <div class="step-tag">Instant access</div>
         <h4>Log In to Your Dashboard</h4>
         <p>Everything is inside - modules, tools, prompts. Work at your own pace, module by module. Self-guided, no videos.</p>
       </div>
@@ -382,6 +384,7 @@ img{max-width:100%;display:block}
     <div class="step">
       <div class="step-num">3</div>
       <div class="step-body">
+        <div class="step-tag">At your pace</div>
         <h4>Follow the Modules in Order</h4>
         <p>Each module has a clear output. Don't move on until you have it. The structure is the strategy.</p>
       </div>
@@ -389,6 +392,7 @@ img{max-width:100%;display:block}
     <div class="step">
       <div class="step-num">4</div>
       <div class="step-body">
+        <div class="step-tag">Always available</div>
         <h4>Use the Tools Anytime</h4>
         <p>The AI tools, prompts, proposal builder, and pricing calculator are always accessible from the sidebar.</p>
       </div>
@@ -412,15 +416,21 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
+<!-- FAQ -->
+<div class="section">
+  <h2 style="text-align:center">Questions.</h2>
+  <div class="faq-wrap" id="faqWrap" style="margin-top:2rem"></div>
+</div>
+
 <!-- PRICING -->
-<div class="pricing">
+<div class="pricing" id="pricing">
   <h2>One Price.<br>Everything Inside.</h2>
   <div class="pricing-card">
     <div class="pricing-badge">VA Starter Kit</div>
     <div class="pricing-amount">$27</div>
     <div class="pricing-note">One-time payment. Yours forever.</div>
     <ul class="pricing-includes">
-      <li>6 structured modules (30 lessons)</li>
+      <li>6 structured modules (33 lessons)</li>
       <li>Self-guided execution module (no videos)</li>
       <li>6 built-in AI tools (cold DM, follow-up, proposal opener, pricing, rewrite, custom)</li>
       <li>260 plug-and-play ChatGPT prompts</li>
@@ -442,6 +452,7 @@ img{max-width:100%;display:block}
 </footer>
 
 <script>
+/* ── HERO VIDEO SOUND ── */
 (function(){
   var v = document.getElementById('kitVideo');
   if(!v) return;
@@ -488,6 +499,212 @@ img{max-width:100%;display:block}
     });
   }
   syncBtn();
+})();
+
+/* ── TICKER ── */
+(function(){
+  var items = ['6 Modules','33 Lessons','260 Prompts','6 AI Tools','Proposal Builder','Pricing Calculator','Portfolio Builder','No Videos','No Subscription'];
+  var track = document.getElementById('tickerTrack');
+  if(!track) return;
+  var html = '';
+  for(var pass=0; pass<2; pass++){
+    items.forEach(function(t){
+      html += '<span>'+t+'</span><span class="sep">&#10022;</span>';
+    });
+  }
+  track.innerHTML = html;
+})();
+
+/* ── MODULE EXPLORER ── */
+(function(){
+  var MODULES = [
+    {name:'Foundation', output:'One clear offer', lessons:[
+      'What a VA actually does in 2026',
+      'Pick your lane in 10 minutes',
+      'Define your ideal client',
+      'What NOT to offer yet',
+      'Price it like you mean it',
+      'Create a named signature package',
+      'Set up your simple systems'
+    ]},
+    {name:'Client Targeting', output:'Lead list ready to send', lessons:[
+      'Where real clients actually come from',
+      'Job board strategy for beginners',
+      'Social media - the organic play',
+      'Cold outreach - beginner-friendly sources',
+      'Build your lead list: 10-50 targets',
+      'Niche communities - the hidden channel'
+    ]},
+    {name:'Outreach System', output:'Messages going out daily', lessons:[
+      'The simple outreach formula',
+      'DM + email templates (copy-paste ready)',
+      'Send 10 outreach messages today',
+      'The follow-up system',
+      'Daily outreach routine'
+    ]},
+    {name:'Conversion', output:'First paying client', lessons:[
+      'Master the discovery call',
+      'Handle objections before they happen',
+      'Send a proposal that closes',
+      'Handle post-proposal silence',
+      'Close your first client'
+    ]},
+    {name:'Execution', output:'Active client pipeline', lessons:[
+      'Day 1-2: service + niche lock',
+      'Day 3: refine your message',
+      'Days 4-7: outreach cycle',
+      'Days 8-10: follow-up cycle',
+      'Days 11-14: close the pipeline'
+    ]},
+    {name:'AI Toolkit', output:'Faster execution', lessons:[
+      'Outreach prompt generator',
+      'Proposal generator',
+      'Follow-up writer',
+      'Pricing confidence script',
+      'Rewrite any message'
+    ]}
+  ];
+
+  var tabs = document.getElementById('modTabs');
+  var panel = document.getElementById('modPanel');
+  if(!tabs || !panel) return;
+
+  function pad(n){ return n < 10 ? '0'+n : ''+n; }
+
+  function render(i){
+    var m = MODULES[i];
+    var h = '<div class="mod-panel-head">'
+          + '<div><div class="mod-panel-label">Module '+pad(i+1)+' &middot; '+m.lessons.length+' lessons</div>'
+          + '<div class="mod-panel-title">'+m.name+'</div></div>'
+          + '<div class="mod-panel-output">Output: '+m.output+'</div></div>';
+    m.lessons.forEach(function(l, j){
+      var free = (i === 0 && j < 3);
+      h += '<div class="mod-lesson">'
+         + '<span class="mod-lesson-num">'+pad(j+1)+'</span>'
+         + '<span class="mod-lesson-title">'+l+'</span>'
+         + (free
+             ? '<a class="mod-lesson-state" href="#tryit">Preview</a>'
+             : '<span class="mod-lesson-lock" aria-label="Included with the kit">&#128274;</span>')
+         + '</div>';
+    });
+    panel.innerHTML = h;
+    Array.prototype.forEach.call(tabs.children, function(c, k){
+      c.className = 'mod-tab' + (k === i ? ' on' : '');
+      c.setAttribute('aria-selected', k === i ? 'true' : 'false');
+    });
+  }
+
+  MODULES.forEach(function(m, i){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'mod-tab' + (i === 0 ? ' on' : '');
+    b.setAttribute('role','tab');
+    b.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    b.innerHTML = '<div class="mod-tab-num">'+pad(i+1)+'</div>'
+                + '<div class="mod-tab-name">'+m.name+'</div>'
+                + (i === 0 ? '<div class="mod-tab-free">FREE</div>' : '');
+    b.addEventListener('click', function(){ render(i); });
+    tabs.appendChild(b);
+  });
+
+  render(0);
+})();
+
+/* ── PROMPT SHOWCASE ── */
+(function(){
+  var PROMPTS = [
+    {cat:'Business setup', items:[
+      ['001','Write a professional bio for a virtual assistant who specializes in [niche, e.g. social media management for coaches]. Keep it under 150 words, written in third person, and end with a call to action.'],
+      ['002','Generate a list of 10 virtual assistant service packages I can offer as a beginner, priced between $300 and $1,500/month, for [target client type, e.g. real estate agents].'],
+      ['012','Help me name my virtual assistant business. My niche is [niche]. My name is [name]. Give me 10 creative, professional name options.']
+    ]},
+    {cat:'Positioning', items:[
+      ['010','Write three different versions of a value proposition statement for a virtual assistant who specializes in helping [niche clients] with [specific tasks].'],
+      ['003','Draft a simple one-page business plan for a virtual assistant business targeting [niche]. Include mission statement, services, target clients, income goal, and a 90-day action plan.'],
+      ['219','Write a positioning statement for my VA business that clearly differentiates me from generalist VAs. My specialty is [niche]. My target client is [describe client]. Keep it under 2 sentences.']
+    ]},
+    {cat:'Client ops', items:[
+      ['008','Create a client onboarding checklist for a virtual assistant that covers everything from first payment to first deliverable.'],
+      ['009','Draft a scope of work document for a VA retainer package that includes [list of services]. Make it professional and contract-ready.'],
+      ['011','Create a list of 15 tools every virtual assistant should know how to use, organized by category (communication, project management, design, etc.).']
+    ]}
+  ];
+
+  var cats = document.getElementById('promptCats');
+  var list = document.getElementById('promptList');
+  if(!cats || !list) return;
+
+  function render(i){
+    var h = '';
+    PROMPTS[i].items.forEach(function(p){
+      h += '<div class="prompt-item">'
+         + '<span class="prompt-num">'+p[0]+'</span>'
+         + '<span class="prompt-text">'+p[1]+'</span>'
+         + '<button type="button" class="prompt-copy" data-text="'+p[1].replace(/"/g,'&quot;')+'">Copy</button>'
+         + '</div>';
+    });
+    list.innerHTML = h;
+    Array.prototype.forEach.call(cats.children, function(c, k){
+      c.className = 'prompt-cat' + (k === i ? ' on' : '');
+    });
+    Array.prototype.forEach.call(list.querySelectorAll('.prompt-copy'), function(btn){
+      btn.addEventListener('click', function(){
+        var t = btn.getAttribute('data-text');
+        var done = function(){
+          btn.textContent = 'Copied';
+          btn.classList.add('done');
+          setTimeout(function(){ btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1600);
+        };
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(t).then(done).catch(function(){});
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = t; document.body.appendChild(ta); ta.select();
+          try{ document.execCommand('copy'); done(); }catch(e){}
+          document.body.removeChild(ta);
+        }
+      });
+    });
+  }
+
+  PROMPTS.forEach(function(p, i){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'prompt-cat' + (i === 0 ? ' on' : '');
+    b.textContent = p.cat;
+    b.addEventListener('click', function(){ render(i); });
+    cats.appendChild(b);
+  });
+
+  render(0);
+})();
+
+/* ── FAQ ── */
+(function(){
+  var FAQ = [
+    ['Is this a subscription?','No. One-time $27, yours forever. There is no recurring charge, no trial that converts, and no upsell inside the dashboard.'],
+    ['Do I need any experience?','No. Module 01 assumes you are starting from zero. It walks you through picking your service, your niche, and your rate before you contact anyone.'],
+    ['Are there videos to sit through?','None. The whole kit is self-guided and text-based, so you can move at your own pace and skip back to anything without scrubbing a timeline.'],
+    ['How fast do I get access?','Instantly. Your access code appears the moment checkout completes, and you can log in and start Module 01 straight away.'],
+    ['What if I already have a client?','The kit still works. Modules 03 through 05 are about building a repeatable pipeline, and the pricing calculator and proposal builder are useful whether it is your first client or your fifth.'],
+    ['Can I use the AI tools without paying for ChatGPT?','Yes. The six AI tools are built into the dashboard and run there. The 260 prompts work in any AI tool you already use, including free tiers.']
+  ];
+
+  var wrap = document.getElementById('faqWrap');
+  if(!wrap) return;
+
+  FAQ.forEach(function(f, i){
+    var item = document.createElement('div');
+    item.className = 'faq-item' + (i === 0 ? ' open' : '');
+    item.innerHTML = '<button type="button" class="faq-q" aria-expanded="'+(i===0?'true':'false')+'">'
+                   + '<span>'+f[0]+'</span><span class="faq-icon" aria-hidden="true">+</span></button>'
+                   + '<div class="faq-a"><p>'+f[1]+'</p></div>';
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var open = item.classList.toggle('open');
+      item.querySelector('.faq-q').setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    wrap.appendChild(item);
+  });
 })();
 </script>
 </body>
