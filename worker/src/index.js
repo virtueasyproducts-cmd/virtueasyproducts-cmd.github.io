@@ -1,17 +1,26 @@
 /**
  * virtueasy-subscribe
  *
- * Single-purpose Cloudflare Worker that accepts an email address from the
- * job board and adds it to the MailerLite job-board group.
+ * Two jobs, both talking to MailerLite:
  *
- * Exists so the MailerLite API key stops living in public client-side HTML.
- * The key is a Worker secret here and never reaches the browser.
+ *   fetch()     POST /subscribe - adds an email from the job board to the
+ *               MailerLite job-board group.
+ *   scheduled() Weekly cron - builds the job digest as a MailerLite DRAFT.
+ *
+ * They live in one Worker on purpose. Both need the MailerLite API key, and
+ * a second Worker would mean a second copy of that key - which is the exact
+ * problem this Worker exists to solve. The name is narrower than what it
+ * does; that is the trade for keeping the key in one place.
+ *
+ * The key is a Worker secret and never reaches the browser.
  *
  * Deploy:
  *   cd worker
  *   npx wrangler secret put MAILERLITE_API_KEY
  *   npx wrangler deploy
  */
+
+import { createDigestDraft } from './digest.js';
 
 const ML_SUBSCRIBERS = 'https://connect.mailerlite.com/api/subscribers';
 const GROUP_ID = '185458839430104953'; // "Source: Job Board"
@@ -129,5 +138,34 @@ export default {
     }
 
     return json({ ok: true }, 200, origin);
+  },
+
+  /**
+   * Weekly digest. Creates a DRAFT campaign and stops.
+   *
+   * This handler must never send or schedule the campaign. Morgan reviews
+   * the draft in MailerLite and sends it herself - an automated blast to a
+   * real subscriber list cannot be recalled if a run goes wrong.
+   */
+  async scheduled(event, env, ctx) {
+    if (!env.MAILERLITE_API_KEY) {
+      console.error('digest: MAILERLITE_API_KEY secret is not set');
+      return;
+    }
+
+    ctx.waitUntil((async () => {
+      try {
+        const result = await createDigestDraft(env.MAILERLITE_API_KEY, env.JOBS);
+        if (result.status === 'created') {
+          console.log(`digest: created draft ${result.id} with ${result.count} jobs - ${result.reviewUrl}`);
+        } else {
+          console.log(`digest: skipped - ${result.reason}`);
+        }
+      } catch (err) {
+        // Surfaces in `wrangler tail` and Workers logs. A failed week means
+        // no draft, which is visible by absence rather than a broken send.
+        console.error(`digest: failed - ${err.message}`);
+      }
+    })());
   },
 };

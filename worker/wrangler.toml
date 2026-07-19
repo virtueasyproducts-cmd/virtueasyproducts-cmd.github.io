@@ -7,6 +7,26 @@ compatibility_date = "2026-07-19"
 # already lives on (the morgan-2bf workers.dev subdomain).
 account_id = "2bfca046889b3aa600b9cf0f39228024"
 
+# Weekly digest. Cloudflare cron is always UTC, so this does not follow US
+# daylight saving: 12:00 UTC is 8am Eastern in summer and 7am in winter.
+# Living with the one-hour winter drift is simpler than the alternatives,
+# and nothing here is time-critical - it only creates a draft.
+[triggers]
+crons = ["0 12 * * 1"]
+
+# Bound rather than fetched over the internet. A Worker calling another
+# workers.dev URL on the SAME subdomain loops back to itself - the digest's
+# request for /jobs came back as this Worker's own 404. A service binding
+# routes directly to the job-board Worker and skips the round trip.
+[[services]]
+binding = "JOBS"
+service = "virtueasy-va-job-board"
+
+# Keeps console.log/error from the digest queryable in the Cloudflare
+# dashboard, not just in a live `wrangler tail`.
+[observability]
+enabled = true
+
 # MAILERLITE_API_KEY is a secret, not a var. Set it with:
 #   npx wrangler secret put MAILERLITE_API_KEY
 # Never put the key in this file - this repo is public.
