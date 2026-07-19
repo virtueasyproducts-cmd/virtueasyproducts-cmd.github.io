@@ -191,6 +191,54 @@ export function renderEmail(jobs) {
 </html>`;
 }
 
+/**
+ * Monday reminder that the draft is waiting. Mirrors the AIOS worker's
+ * Resend setup (same RESEND_KEY, same onboarding@resend.dev sender).
+ *
+ * Sends only to REPORT_TO. It has no access to the MailerLite subscriber
+ * list and cannot reach it - that separation is deliberate.
+ */
+export async function sendReminder(env, result) {
+  if (!env.RESEND_KEY) return { skipped: 'no RESEND_KEY configured' };
+
+  const to = env.REPORT_TO || 'morganmessick@gmail.com';
+  let subject, body;
+
+  if (result.status === 'created') {
+    subject = `${result.count} VA jobs ready to review`;
+    body = `
+      <p style="font-size:16px;">This week's job digest is built and waiting as a <strong>draft</strong>.</p>
+      <p style="font-size:16px;">
+        <strong>${result.count} jobs</strong> &nbsp;&middot;&nbsp; ${result.name}<br>
+        Subject line: ${result.subject}
+      </p>
+      <p><a href="${result.reviewUrl}" style="background:#FF1F7A;color:#fff;padding:12px 24px;text-decoration:none;font-weight:700;display:inline-block;">Review and send</a></p>
+      <p style="color:#6b6b6b;font-size:13px;">Nothing goes out until you send it. Goes to 145 subscribers.</p>`;
+  } else if (result.status === 'skipped') {
+    subject = `VA digest skipped this week`;
+    body = `<p style="font-size:16px;">No draft was created: <strong>${result.reason}</strong>.</p>
+            <p style="color:#6b6b6b;font-size:13px;">Nothing is wrong if this says there were no new jobs.</p>`;
+  } else {
+    subject = `VA digest FAILED`;
+    body = `<p style="font-size:16px;">The weekly digest did not run.</p>
+            <pre style="background:#f4f4f4;padding:12px;font-size:13px;white-space:pre-wrap;">${result.error}</pre>
+            <p style="color:#6b6b6b;font-size:13px;">No draft exists for this week. Check <code>npx wrangler tail</code>.</p>`;
+  }
+
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${env.RESEND_KEY}`, 'content-type': 'application/json' },
+    body: JSON.stringify({
+      from: 'Virtueasy Jobs <onboarding@resend.dev>',
+      to: [to],
+      subject,
+      html: `<div style="font-family:Helvetica,Arial,sans-serif;max-width:560px;">${body}</div>`,
+    }),
+  });
+  if (!res.ok) throw new Error(`Resend ${res.status}: ${(await res.text()).slice(0, 200)}`);
+  return { sent: true, to };
+}
+
 export function weekStamp(d = new Date()) {
   return d.toISOString().slice(0, 10);
 }

@@ -20,7 +20,7 @@
  *   npx wrangler deploy
  */
 
-import { createDigestDraft } from './digest.js';
+import { createDigestDraft, sendReminder } from './digest.js';
 
 const ML_SUBSCRIBERS = 'https://connect.mailerlite.com/api/subscribers';
 const GROUP_ID = '185458839430104953'; // "Source: Job Board"
@@ -154,8 +154,9 @@ export default {
     }
 
     ctx.waitUntil((async () => {
+      let result;
       try {
-        const result = await createDigestDraft(env.MAILERLITE_API_KEY, env.JOBS);
+        result = await createDigestDraft(env.MAILERLITE_API_KEY, env.JOBS);
         if (result.status === 'created') {
           console.log(`digest: created draft ${result.id} with ${result.count} jobs - ${result.reviewUrl}`);
         } else {
@@ -165,6 +166,16 @@ export default {
         // Surfaces in `wrangler tail` and Workers logs. A failed week means
         // no draft, which is visible by absence rather than a broken send.
         console.error(`digest: failed - ${err.message}`);
+        result = { status: 'failed', error: err.message };
+      }
+
+      // Reminder is best-effort and reported separately. A dead Resend key
+      // must not make a successful digest look like a failed one.
+      try {
+        const r = await sendReminder(env, result);
+        console.log(`reminder: ${r.skipped ? 'skipped - ' + r.skipped : 'sent to ' + r.to}`);
+      } catch (err) {
+        console.error(`reminder: failed - ${err.message}`);
       }
     })());
   },
