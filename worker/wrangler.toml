@@ -2,6 +2,11 @@ name = "virtueasy-subscribe"
 main = "src/index.js"
 compatibility_date = "2026-07-19"
 
+# Pinned because wrangler otherwise picked up a different account id from
+# local state and failed auth. This is the account the job-board worker
+# already lives on (the morgan-2bf workers.dev subdomain).
+account_id = "2bfca046889b3aa600b9cf0f39228024"
+
 # MAILERLITE_API_KEY is a secret, not a var. Set it with:
 #   npx wrangler secret put MAILERLITE_API_KEY
 # Never put the key in this file - this repo is public.
