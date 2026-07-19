@@ -371,6 +371,61 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
     .blueprint-btn:hover { opacity: 0.8; }
 
+    /* EARLY ACCESS BANNER */
+    .early-banner {
+      display: none;
+      background: rgba(255,31,122,0.07);
+      border: 1px solid rgba(255,31,122,0.25);
+      padding: 1.1rem 1.35rem;
+      margin-bottom: 1.25rem;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .early-banner.show { display: flex; }
+
+    .early-banner .lock {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 0.3rem;
+    }
+
+    .early-banner .headline {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .early-banner .sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 0.2rem;
+    }
+
+    .early-banner button {
+      background: var(--pink);
+      border: none;
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.4rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+
+    .early-banner button:hover { opacity: 0.85; }
+
     /* POPUP OVERLAY */
     .popup-overlay {
       position: fixed;
@@ -395,7 +450,43 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       max-width: 480px;
       width: 100%;
       text-align: center;
+      position: relative;
     }
+
+    .popup-close {
+      position: absolute;
+      top: -2.75rem;
+      right: 0;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .popup-close:hover { color: var(--white); }
+
+    .popup-skip {
+      display: block;
+      margin: 1.25rem auto 0;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.8rem;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .popup-skip:hover { color: var(--white); }
 
     .popup-eyebrow {
       font-size: 0.7rem;
@@ -567,6 +658,14 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       <span class="jobs-count" id="jobs-count"></span>
       <span class="jobs-updated" id="jobs-updated"></span>
     </div>
+    <div class="early-banner" id="early-banner">
+      <div class="early-banner-text">
+        <p class="lock">Subscriber early access</p>
+        <p class="headline"><span id="early-count">0</span> new roles posted in the last 48 hours</p>
+        <p class="sub">Fresh roles go out by email first. They reach the public board two days later, after subscribers have already applied.</p>
+      </div>
+      <button id="early-cta">Get them first</button>
+    </div>
     <div class="jobs-list" id="jobs-list">
       <div class="state-msg">
         <span class="label">Loading</span>
@@ -588,10 +687,11 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
   <div class="popup-overlay" id="popup">
     <div class="popup">
+      <button class="popup-close" id="popup-close" aria-label="Close">Close &times;</button>
       <div id="popup-form-wrap">
-        <p class="popup-eyebrow">Free access</p>
-        <h2>Get free access to remote VA jobs</h2>
-        <p>Hand-filtered roles for beginner and growing VAs. Drop your email to unlock the full board and start applying today.</p>
+        <p class="popup-eyebrow">Early access</p>
+        <h2>Get new roles 48 hours early</h2>
+        <p>The board below is free and always will be. But the newest roles go out by email first, two days before they show up here. Fewer applicants, better odds.</p>
         <div class="popup-form">
           <input
             type="email"
@@ -603,11 +703,12 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
           <button class="popup-submit" id="popup-submit">Get Access</button>
         </div>
         <p class="popup-note">No spam. Unsubscribe anytime.</p>
+        <button class="popup-skip" id="popup-skip">No thanks, just browse the board</button>
       </div>
       <div class="popup-success" id="popup-success">
         <div class="check">✓</div>
         <h3>You're In</h3>
-        <p>Welcome to the board. Happy job hunting.</p>
+        <p>New roles will hit your inbox 48 hours before they reach the public board.</p>
       </div>
     </div>
   </div>
@@ -619,7 +720,12 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     const ML_API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiYTE0MDczZjY1MGM2ZWFlNDQ5MjY2MTQwZmQ3Mjk4M2ZlMzE1YjIzZTM2MmU4MDI3ZTYwYWNkZWUwNTBhZTU4MDUzYmY5MmMwMDFhNzA0NGIiLCJpYXQiOjE3NzY4Njc2NTUuMTA3ODE4LCJuYmYiOjE3NzY4Njc2NTUuMTA3ODIyLCJleHAiOjQ5MzI1NDEyNTUuMDk3MDE1LCJzdWIiOiIyMjE5MzQ4Iiwic2NvcGVzIjpbXX0.Yp4hpeagzSSIsVWZq8x3hGNFt_qmTi5gxzFMsO2TNc5jxlHlpp4MK-nJEH22eLZvfwAuh8W8MeZhIQAZqft5ViEJG5XoAOpYBL7PMDpNrl6_V9fOXL45DBNN5nj6Mso-VKOCOXINXT9ZVr-sPpfKYtwHilVwjIjN2SDGVZUlvqONzOMJtbVgoJ-gMTZ7WiTpo7XpE-qVuPW69XY12CMrhUYNqHg10aVwXVmXUoqqK8lvSlyCNHsKPK2vi-8KDqy6VCa0dcd5zFB2Timoae4j8dpHPfqBKyElQ-__jJeU6NBJI2iJSLxIoBMLN6W4t2_HHmfo8whaLvOu-vZXfWhfvgaJUCk1Bca8FBWYNe5tuWKsjWPikX2AJZUgWWSnh-m31SuQKAPdiH4x61wtuCK_iJi-NKvnV7PFgfBGSmmTBudkgeV14_Na-2gThrr9ByEPUZRfgA8QkIvbGsl-wIUeO40cCWUpn4zvfQgthlnenXPMJaOBQA4OwY5dNCNAXoxkPxx2L5H2--d324gJLH0EObzjeeQ-S7cNBbRCvi42d3pEAIsnBqXgxFE7N3wZTat74e6CJEeUwGm-R3RnacZtqIsAjuh8hrXbAO9E-rQzBWJJWeecl4pd8-8bqIrRf7MG1GMwdSIHD-ItDHaGRby0nO9lfXaSt4VH3VHphf6RKwk';
     const ML_GROUP_ID = '185458839430104953';
 
-    let allJobs = [];
+    // Roles newer than this go out by email first. They surface on the
+    // public board once they age past the window.
+    const EARLY_ACCESS_HOURS = 48;
+
+    let allJobs = [];      // public board only (aged past the window)
+    let earlyCount = 0;    // held back for subscribers
     let activeFilter = 'all';
 
     // ── FETCH JOBS ──────────────────────────────────────────────
@@ -630,11 +736,25 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     const data = await res.json();
     
     // 2. Extract and SORT jobs newest first
-    allJobs = data.jobs || [];
-    allJobs.sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
+    const jobs = (data.jobs || []).slice();
+    jobs.sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
+
+    // 3. Hold the freshest roles back for email subscribers. Anything
+    //    without a usable date is treated as public, not withheld.
+    const cutoff = Date.now() - EARLY_ACCESS_HOURS * 3600000;
+    allJobs = jobs.filter(j => {
+      const t = new Date(j.postedAt).getTime();
+      return isNaN(t) || t <= cutoff;
+    });
+    earlyCount = jobs.length - allJobs.length;
 
     document.getElementById('hero-count').textContent =
       allJobs.length > 0 ? `${allJobs.length} open roles` : 'Jobs updating soon';
+
+    if (earlyCount > 0) {
+      document.getElementById('early-count').textContent = earlyCount;
+      document.getElementById('early-banner').classList.add('show');
+    }
 
     if (data.updatedAt) {
       const d = new Date(data.updatedAt);
@@ -720,11 +840,17 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     });
 
     // ── POPUP ────────────────────────────────────────────────────
-    const POPUP_KEY = 've_jobs_access';
+    const POPUP_KEY = 've_jobs_access';     // subscribed
+    const DISMISS_KEY = 've_jobs_dismissed'; // declined, don't nag again
+    const POPUP_DELAY_MS = 30000;
     let popupTriggered = false;
 
+    function popupSuppressed() {
+      return !!(localStorage.getItem(POPUP_KEY) || localStorage.getItem(DISMISS_KEY));
+    }
+
     function showPopup() {
-      if (popupTriggered || localStorage.getItem(POPUP_KEY)) return;
+      if (popupTriggered || popupSuppressed()) return;
       popupTriggered = true;
       document.getElementById('popup').classList.add('active');
     }
@@ -733,19 +859,43 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       document.getElementById('popup').classList.remove('active');
     }
 
-    function initPopup() {
-      if (localStorage.getItem(POPUP_KEY)) return;
-      
-      // Trigger 1: 15 seconds
-      setTimeout(showPopup, 15000);
+    // Closing without subscribing is a real choice — remember it.
+    function dismissPopup() {
+      if (!localStorage.getItem(POPUP_KEY)) localStorage.setItem(DISMISS_KEY, '1');
+      hidePopup();
+    }
 
-      // Trigger 2: Scrolled down twice (2x the viewport height)
+    function initPopup() {
+      if (popupSuppressed()) return;
+
+      // Let people actually read the board first.
+      const elapsed = () => performance.now() >= POPUP_DELAY_MS;
+      setTimeout(showPopup, POPUP_DELAY_MS);
+
+      // Deep scroll also triggers it, but never before the delay is up.
       window.addEventListener('scroll', () => {
-        if (window.scrollY > (window.innerHeight * 2)) {
-          showPopup();
-        }
+        if (elapsed() && window.scrollY > window.innerHeight * 2) showPopup();
       }, { passive: true });
     }
+
+    document.getElementById('popup-close').addEventListener('click', dismissPopup);
+    document.getElementById('popup-skip').addEventListener('click', dismissPopup);
+
+    // Click the backdrop to close.
+    document.getElementById('popup').addEventListener('click', e => {
+      if (e.target.id === 'popup') dismissPopup();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') dismissPopup();
+    });
+
+    // Banner CTA re-opens the popup even after a dismissal.
+    document.getElementById('early-cta').addEventListener('click', () => {
+      popupTriggered = true;
+      document.getElementById('popup').classList.add('active');
+      document.getElementById('popup-email').focus();
+    });
 
     document.getElementById('popup-submit').addEventListener('click', async () => {
       const email = document.getElementById('popup-email').value.trim();
@@ -775,6 +925,13 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       }
 
       localStorage.setItem(POPUP_KEY, '1');
+      localStorage.removeItem(DISMISS_KEY);
+
+      const banner = document.getElementById('early-banner');
+      banner.querySelector('.sub').textContent =
+        "You're on the list. These will reach you by email before they land here.";
+      const cta = banner.querySelector('#early-cta');
+      if (cta) cta.remove();
 
       document.getElementById('popup-form-wrap').style.display = 'none';
       const success = document.getElementById('popup-success');
