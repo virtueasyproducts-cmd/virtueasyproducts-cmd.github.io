@@ -1,587 +1,494 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '1552355892525925');
-  fbq('track', 'PageView');
-  </script>
-  <noscript><img decoding="async" height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1" /></noscript>
-  <!-- End Meta Pixel Code -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The VA Starter Kit - Your Complete First-Client Launch System</title>
+<meta name="description" content="6 self-guided modules, AI tools, 260 prompts, proposal builder, portfolio builder, and pricing calculator, all in one dashboard. Everything you need to land your first paying VA client. $27.">
+<meta property="og:title" content="The VA Starter Kit - Land Your First VA Client">
+<meta property="og:image" content="https://virtueasy.com/assets/og-image.png">
+<meta property="og:description" content="The all-in-one first-client launch system for virtual assistants. 6 modules, AI tools, 260 prompts, and every builder you need in one dashboard. $27.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#FF1F7A;--pink-dark:#D91565;--pink-glow:rgba(255,31,122,0.35);--pink-pale:rgba(255,31,122,0.08);
+  --black:#0A0A0A;--surface:#141214;--surface-2:#1e1a1e;--border:rgba(255,31,122,0.1);--border-s:rgba(255,255,255,0.07);
+  --white:#F8F8F8;--muted:#888;
+  --font-display:'Bebas Neue',sans-serif;--font-body:'Barlow',sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-body);background:var(--black);color:var(--white);-webkit-font-smoothing:antialiased;line-height:1.6}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The VA Starter Kit | Land Your First Virtual Assistant Client</title>
-  <meta name="description" content="Six modules that end with real leads, a sent proposal, and a portfolio you can show. Try the first three lessons free, no card required. $27 one time.">
-  <link rel="canonical" href="https://virtueasy.com/starterkit/">
+/* ── NAV ── */
+.site-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.nav-logo{display:flex;align-items:center;gap:0.5rem;text-decoration:none}
+.nav-logo img{display:block}
+.nav-logo-text{font-family:var(--font-display);font-size:1.6rem;letter-spacing:0.08em;color:var(--white);display:none}
+.nav-links{display:flex;align-items:center;gap:0.25rem;list-style:none;margin:0;padding:0;margin-left:auto}
+.nav-links li a{font-size:0.82rem;font-weight:500;color:rgba(248,248,248,0.65);padding:0.4rem 0.75rem;border-radius:4px;transition:color 0.2s;text-decoration:none;white-space:nowrap}
+.nav-links li a:hover,.nav-links li a.active{color:var(--white)}
+.nav-links li.nav-cta a{background:var(--pink);color:#fff;font-weight:700;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.55rem 1.25rem;border-radius:3px;transition:background 0.2s,box-shadow 0.2s}
+.nav-links li.nav-cta a:hover{background:var(--pink-dark);box-shadow:0 0 20px var(--pink-glow)}
+.nav-community{display:inline-flex;align-items:center}
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:0.2s}
+@media(max-width:860px){
+  .nav-toggle{display:flex}
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:rgba(10,10,10,0.98);flex-direction:column;align-items:flex-start;padding:1rem 2rem 1.5rem;gap:0.25rem;border-bottom:1px solid var(--border)}
+  .nav-links.open{display:flex}
+  .nav-links li{width:100%}
+  .nav-links li a{display:block;padding:0.65rem 0;font-size:0.9rem}
+  .nav-links li.nav-cta{margin-top:0.5rem}
+  .nav-links li.nav-cta a{display:inline-block;padding:0.65rem 1.25rem}
+}
 
-  <meta property="og:type" content="product">
-  <meta property="og:title" content="The VA Starter Kit | Land Your First Virtual Assistant Client">
-  <meta property="og:description" content="Six modules that end with real leads, a sent proposal, and a portfolio you can show. Try the first three lessons free.">
-  <meta property="og:url" content="https://virtueasy.com/starterkit/">
-  <meta property="og:image" content="https://virtueasy.com/assets/kit-dashboard.png">
-  <meta name="twitter:card" content="summary_large_image">
+/* ── HERO ── */
+.hero{padding:5rem 2rem 3rem;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero-eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);margin-bottom:1rem}
+.hero h1{font-family:var(--font-display);font-size:clamp(3rem,6vw,5.5rem);letter-spacing:0.02em;line-height:0.95;margin-bottom:1.5rem}
+.hero h1 em{color:var(--pink);font-style:normal}
+.hero-sub{font-size:1.05rem;color:rgba(248,248,248,0.7);line-height:1.65;max-width:440px;margin-bottom:2rem}
+.hero-price{display:flex;align-items:baseline;gap:0.75rem;margin-bottom:2rem}
+.hero-price-num{font-family:var(--font-display);font-size:3rem;color:var(--white)}
+.hero-price-note{font-size:0.82rem;color:var(--muted)}
+.btn-primary{display:inline-block;background:var(--pink);color:#fff;font-family:var(--font-body);font-size:0.9rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:1rem 2.25rem;border-radius:3px;transition:all 0.2s;border:none;cursor:pointer}
+.btn-primary:hover{background:var(--pink-dark);box-shadow:0 0 28px var(--pink-glow);transform:translateY(-1px)}
+.hero-guarantee{font-size:0.75rem;color:var(--muted);margin-top:0.85rem}
+.hero-guarantee span{color:rgba(248,248,248,0.5)}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
+/* ── SCREENSHOT STACK ── */
+.screenshots{position:relative}
+.screen-browser{background:var(--surface);border:1px solid rgba(255,31,122,0.2);border-radius:10px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,0.7),0 0 0 1px rgba(255,31,122,0.08)}
+.screen-bar{background:#0e0b0e;padding:0.7rem 1rem;display:flex;align-items:center;gap:0.5rem;border-bottom:1px solid rgba(255,31,122,0.1)}
+.screen-dots{display:flex;gap:5px}
+.screen-dot{width:10px;height:10px;border-radius:50%}
+.screen-dot.r{background:#ff5f57}
+.screen-dot.y{background:#ffbd2e}
+.screen-dot.g{background:#28c840}
+.screen-url{font-size:0.68rem;color:rgba(248,248,248,0.3);margin-left:0.5rem;letter-spacing:0.04em}
+.screen-carousel{position:relative;overflow:hidden;aspect-ratio:16/10}
+.screen-track{display:flex;height:100%;transition:transform 0.7s cubic-bezier(0.4,0,0.2,1);will-change:transform}
+.screen-img{width:100%;height:100%;flex-shrink:0;object-fit:cover;object-position:top left}
+.screen-video{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:#0a0a0a;line-height:0}
+.screen-video-wrap{position:relative;line-height:0}
+.video-sound-btn{position:absolute;bottom:12px;right:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(10,10,10,0.65);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:20px;padding:7px 13px;font-size:0.72rem;font-weight:600;letter-spacing:0.04em;line-height:1;cursor:pointer;z-index:3;transition:background 0.2s,transform 0.2s}
+.video-sound-btn:hover{background:rgba(255,31,122,0.85);transform:translateY(-1px)}
+.video-sound-btn .vsb-icon{font-size:0.95rem}
+.video-sound-btn.is-unmuted .vsb-text{display:none}
+.screen-dots-nav{display:flex;gap:6px;justify-content:center;padding:0.75rem 0 0.5rem;background:#0e0b0e}
+.screen-dot-nav{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:all 0.2s}
+.screen-dot-nav.on{background:var(--pink);transform:scale(1.4)}
+.screen-labels{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.75rem}
+.screen-label{background:var(--surface);border:1px solid var(--border-s);border-radius:3px;padding:0.5rem 0.75rem;font-size:0.72rem;color:var(--muted);cursor:pointer;transition:all 0.15s;text-align:center}
+.screen-label:hover{border-color:rgba(255,31,122,0.3);color:var(--white)}
+.screen-label.on{border-color:var(--pink);color:var(--pink)}
+.screen-glow{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);width:60%;height:80px;background:rgba(255,31,122,0.15);filter:blur(32px);border-radius:50%;pointer-events:none}
 
-  <style>
-    /* ============================================================
-       The page is LIGHT. The product is dark. That contrast is the
-       whole visual idea: every screenshot reads as a lit screen on
-       paper instead of dissolving into a black page.
-       One deliberate dark section (the free trial) breaks the page
-       in half, and it is the moment the offer turns.
-       ============================================================ */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── TRUST BAR ── */
+.trust{border-top:1px solid var(--border-s);border-bottom:1px solid var(--border-s);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:var(--muted)}
+.trust-item strong{color:var(--white)}
 
-    :root {
-      /* Brand pink is #FF1F7A, but white text on it is only 3.67:1, which
-         fails WCAG AA. It stays the accent on dark surfaces, where it is
-         plenty legible. Anything carrying white text or acting as text on
-         paper uses --pink-ink (4.95:1 on white, 4.66:1 as text). */
-      --pink: #FF1F7A;
-      --pink-ink: #D91565;
-      --pink-deep: #BD0F53;     /* hover */
-      --ink: #0A0A0A;
-      --ink-2: #3d3a3d;
-      --muted: #6b676b;
-      --paper: #F8F8F8;
-      --paper-2: #FFFFFF;
-      --line: rgba(10,10,10,0.12);
-      --line-soft: rgba(10,10,10,0.07);
-      --radius: 2px;
-      --shell: 1200px;
-    }
+/* ── WHAT'S INSIDE ── */
+.section{padding:5rem 2rem;max-width:1100px;margin:0 auto}
+.section-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);margin-bottom:0.75rem}
+.section h2{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);letter-spacing:0.02em;line-height:1;margin-bottom:1rem}
+.section-sub{font-size:1rem;color:var(--muted);max-width:540px;line-height:1.65;margin-bottom:3rem}
 
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+.modules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-s);border:1px solid var(--border-s);border-radius:3px;overflow:hidden;margin-bottom:3rem}
+.module-card{background:var(--black);padding:1.75rem 1.5rem;transition:background 0.2s}
+.module-card:hover{background:var(--surface)}
+.module-num{font-family:var(--font-display);font-size:2.5rem;color:rgba(255,31,122,0.2);line-height:1;margin-bottom:0.75rem}
+.module-icon{font-size:1.2rem;margin-bottom:0.5rem}
+.module-title{font-family:var(--font-display);font-size:1.25rem;letter-spacing:0.03em;margin-bottom:0.5rem}
+.module-desc{font-size:0.82rem;color:var(--muted);line-height:1.6}
+.module-output{font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--pink);margin-top:0.75rem}
 
-    body {
-      background: var(--paper);
-      color: var(--ink);
-      font-family: 'Barlow', system-ui, sans-serif;
-      font-weight: 400;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+/* ── TOOLS STRIP ── */
+.tools-strip{background:var(--surface);border-top:1px solid var(--border-s);border-bottom:1px solid var(--border-s);padding:3rem 2rem}
+.tools-strip-inner{max-width:1100px;margin:0 auto}
+.tools-strip h3{font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.5rem);letter-spacing:0.03em;margin-bottom:0.5rem}
+.tools-strip p{font-size:0.88rem;color:var(--muted);margin-bottom:2rem;max-width:500px}
+.tools-chips{display:flex;flex-wrap:wrap;gap:0.6rem}
+.tool-chip{background:var(--surface-2);border:1px solid var(--border-s);border-radius:3px;padding:0.6rem 1rem;font-size:0.8rem;font-weight:600;color:rgba(248,248,248,0.7);display:flex;align-items:center;gap:0.5rem}
+.tool-chip span{color:var(--pink)}
 
-    .shell { max-width: var(--shell); margin: 0 auto; padding: 0 2rem; }
+/* ── HOW IT WORKS ── */
+.how{padding:5rem 2rem;max-width:780px;margin:0 auto;text-align:center}
+.how h2{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);letter-spacing:0.02em;margin-bottom:0.75rem}
+.how p{font-size:0.95rem;color:var(--muted);margin-bottom:3rem}
+.steps{display:flex;flex-direction:column;gap:0;text-align:left;position:relative}
+.steps::before{content:'';position:absolute;left:19px;top:24px;bottom:24px;width:2px;background:linear-gradient(to bottom,var(--pink),rgba(255,31,122,0.1));pointer-events:none}
+.step{display:flex;gap:1.5rem;padding:1.5rem 0;position:relative}
+.step-num{width:40px;height:40px;border-radius:50%;background:var(--pink);color:#fff;font-family:var(--font-display);font-size:1.2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1}
+.step-body h4{font-family:var(--font-display);font-size:1.3rem;letter-spacing:0.03em;margin-bottom:0.3rem}
+.step-body p{font-size:0.85rem;color:var(--muted);line-height:1.6}
 
-    h1, h2, h3 {
-      font-family: 'Bebas Neue', Impact, sans-serif;
-      font-weight: 400;
-      letter-spacing: 0.015em;
-      line-height: 0.94;
-    }
+/* ── TESTIMONIALS ── */
+.proof{padding:5rem 2rem;background:var(--surface);border-top:1px solid var(--border-s)}
+.proof-inner{max-width:1100px;margin:0 auto}
+.proof h2{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);letter-spacing:0.02em;margin-bottom:2.5rem;text-align:center}
+.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.testimonial{background:var(--black);border:1px solid var(--border-s);border-radius:3px;padding:1.5rem}
+.testimonial-text{font-size:0.88rem;line-height:1.7;color:rgba(248,248,248,0.8);margin-bottom:1rem}
+.testimonial-name{font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--pink)}
+.testimonial-role{font-size:0.7rem;color:var(--muted)}
 
-    .eyebrow {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--pink-ink);
-    }
+/* ── PRICING / CTA ── */
+.pricing{padding:5rem 2rem;max-width:640px;margin:0 auto;text-align:center}
+.pricing h2{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);letter-spacing:0.02em;margin-bottom:0.5rem}
+.pricing-card{background:var(--surface);border:1px solid rgba(255,31,122,0.25);border-radius:6px;padding:2.5rem;margin-top:2rem}
+.pricing-badge{display:inline-block;background:var(--pink);color:#fff;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.25rem 0.75rem;border-radius:2px;margin-bottom:1.25rem}
+.pricing-amount{font-family:var(--font-display);font-size:5rem;color:var(--white);line-height:1}
+.pricing-note{font-size:0.82rem;color:var(--muted);margin:0.25rem 0 1.5rem}
+.pricing-includes{list-style:none;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:2rem;text-align:left}
+.pricing-includes li{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.85rem;color:rgba(248,248,248,0.8)}
+.pricing-includes li::before{content:'✓';color:var(--pink);font-weight:700;flex-shrink:0}
+.pricing-cta{width:100%;background:var(--pink);color:#fff;border:none;font-family:var(--font-body);font-size:0.95rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:1.1rem;border-radius:3px;cursor:pointer;transition:all 0.2s;display:block;text-align:center}
+.pricing-cta:hover{background:var(--pink-dark);box-shadow:0 0 32px var(--pink-glow)}
+.pricing-sub{font-size:0.75rem;color:var(--muted);margin-top:0.75rem}
 
-    /* ---------- NAV ---------- */
-    .nav {
-      position: sticky; top: 0; z-index: 100;
-      height: 68px;
-      display: flex; align-items: center;
-      background: rgba(248,248,248,0.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line-soft);
-    }
-    .nav .shell { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.45rem; letter-spacing: 0.05em; text-decoration: none; white-space: nowrap; color: var(--ink); }
-    .nav-logo span { color: var(--pink-ink); }
-    .nav-links { display: flex; align-items: center; gap: 1.75rem; list-style: none; }
-    .nav-links a { font-size: 0.86rem; font-weight: 500; color: var(--ink-2); text-decoration: none; transition: color .15s; white-space: nowrap; }
-    .nav-links a:hover { color: var(--ink); }
+/* ── FOOTER ── */
+.footer{background:var(--surface);border-top:1px solid var(--border-s);padding:2rem;text-align:center;font-size:0.78rem;color:var(--muted)}
+.footer a{color:var(--muted)}
+.footer a:hover{color:var(--white)}
 
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-      font-family: 'Barlow', sans-serif; font-weight: 700;
-      font-size: 0.82rem; letter-spacing: 0.07em; text-transform: uppercase;
-      padding: 0.85rem 1.6rem; border-radius: var(--radius);
-      text-decoration: none; border: 1px solid transparent; cursor: pointer;
-      white-space: nowrap; transition: transform .12s, background .18s, border-color .18s, color .18s;
-    }
-    .btn:active { transform: translateY(1px); }
-    .btn-primary { background: var(--pink-ink); color: #fff; }
-    .btn-primary:hover { background: var(--pink-deep); }
-    .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
-    .btn-ghost:hover { border-color: var(--ink); }
-    .btn-onDark { background: #fff; color: var(--ink); }
-    .btn-onDark:hover { background: var(--paper); }
-    .btn-ghostDark { background: transparent; color: #fff; border-color: rgba(255,255,255,0.32); }
-    .btn-ghostDark:hover { border-color: #fff; }
-    .btn-sm { padding: 0.6rem 1.15rem; font-size: 0.74rem; }
-
-    /* ---------- HERO: asymmetric split, screenshot bleeds right ---------- */
-    .hero { padding: 5rem 0 0; overflow: hidden; }
-    .hero-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 3.5rem; align-items: center; }
-    /* Scale planned against the headline length, not chosen for drama.
-       Six words in a half-width column wraps to 3 lines above ~4.7rem. */
-    .hero h1 { font-size: clamp(2.6rem, 3.8vw, 3.5rem); margin: 1rem 0 1.25rem; }
-    .hero h1 em { font-style: normal; color: var(--pink-ink); }
-    .hero-sub { font-size: 1.13rem; color: var(--ink-2); font-weight: 300; max-width: 33ch; line-height: 1.62; }
-    .cta-row { display: flex; gap: 0.75rem; margin-top: 2.25rem; flex-wrap: wrap; }
-
-    .hero-shot {
-      position: relative;
-      margin-right: -12vw;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 30px 70px -30px rgba(10,10,10,0.42);
-      background: var(--ink);
-    }
-    .hero-shot img { display: block; width: 100%; height: auto; }
-
-    /* ---------- OUTPUTS: full-bleed pink. The page's loudest colour
-       field, placed on the one claim that matters most.        ---------- */
-    .outputs { background: var(--pink); color: #fff; padding: 5.5rem 0; }
-    .outputs h2 { font-size: clamp(2.4rem, 4.6vw, 3.9rem); max-width: 18ch; }
-    .ledger { margin-top: 3rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-    .ledger-item { padding: 1.5rem 1rem 0 0; border-top: 2px solid rgba(255,255,255,0.55); }
-    .ledger-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.6rem; line-height: 1; display: block; }
-    .ledger-label { font-weight: 600; font-size: 0.98rem; margin-top: 0.35rem; color: rgba(255,255,255,0.92); }
-
-    /* ---------- MODULES: horizontal scroll-snap track ---------- */
-    .modules { padding: 3rem 0 6rem; }
-    .modules-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
-    .modules h2 { font-size: clamp(2.2rem, 4.2vw, 3.4rem); }
-    .modules-hint { color: var(--muted); font-size: 0.85rem; font-weight: 300; }
-    .track { margin-top: 2.5rem; display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 1.25rem; scrollbar-width: thin; }
-    .track::-webkit-scrollbar { height: 4px; }
-    .track::-webkit-scrollbar-thumb { background: var(--line); }
-    .mod {
-      scroll-snap-align: start; flex: 0 0 300px;
-      background: var(--paper-2); border: 1px solid var(--line-soft);
-      border-radius: var(--radius); padding: 1.6rem 1.5rem 1.5rem;
-      display: flex; flex-direction: column;
-    }
-    .mod-n { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; color: var(--muted); text-transform: uppercase; }
-    .mod h3 { font-size: 1.6rem; margin: 0.5rem 0 0.6rem; }
-    .mod p { font-size: 0.92rem; color: var(--ink-2); font-weight: 300; line-height: 1.55; flex: 1; }
-    .mod-out { margin-top: 1.15rem; padding-top: 0.9rem; border-top: 1px solid var(--line-soft); font-size: 0.82rem; font-weight: 600; color: var(--pink-ink); display: flex; align-items: center; gap: 0.45rem; }
-
-    /* ---------- FREE TRIAL: the one dark block ---------- */
-    .trial { background: var(--ink); color: var(--paper); padding: 6rem 0; }
-    .trial-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; align-items: center; }
-    .trial .eyebrow { color: var(--pink); }
-    .trial h2 { font-size: clamp(2.6rem, 5vw, 4.2rem); margin: 1rem 0 1.15rem; }
-    .trial p { color: rgba(248,248,248,0.72); font-weight: 300; font-size: 1.05rem; max-width: 42ch; }
-    /* Live product, not a picture of it. The iframe is same origin, so it
-       is the real preview app running inside the sales page. */
-    .live {
-      border: 1px solid rgba(255,255,255,0.16);
-      border-radius: var(--radius);
-      overflow: hidden;
-      background: #0f0d10;
-      box-shadow: 0 40px 90px -40px rgba(0,0,0,0.8);
-    }
-    .live-bar {
-      display: flex; align-items: center; gap: 0.6rem;
-      padding: 0.7rem 1rem;
-      background: rgba(255,255,255,0.05);
-      border-bottom: 1px solid rgba(255,255,255,0.09);
-      font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(248,248,248,0.62); font-weight: 600;
-    }
-    .live-bar .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--pink); flex-shrink: 0; }
-    .live iframe { display: block; width: 100%; height: 560px; border: 0; background: #0f0d10; }
-    @media (max-width: 680px) { .live iframe { height: 440px; } }
-
-    /* ---------- TOOLKIT: soft pink wash so the page is not white here ---------- */
-    .toolkit { padding: 6rem 0; background: #FBEFF4; }
-    .toolkit-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 4rem; align-items: start; }
-    .toolkit h2 { font-size: clamp(2.2rem, 4.2vw, 3.4rem); }
-    .toolkit-lede { color: var(--muted); font-weight: 300; margin-top: 1rem; }
-    .tools { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2rem; }
-    .tool { display: flex; gap: 0.9rem; padding: 1.15rem 0; border-top: 1px solid var(--line-soft); }
-    .tool i { font-size: 1.35rem; color: var(--pink-ink); line-height: 1.2; }
-    .tool-name { font-weight: 600; font-size: 0.97rem; }
-    .tool-note { color: var(--muted); font-size: 0.85rem; font-weight: 300; line-height: 1.45; }
-
-    /* ---------- OFFER ---------- */
-    /* Offer card is dark so the price lands as its own moment instead of
-       being one more white box. */
-    .offer { padding: 6rem 0; }
-    .offer-card { background: var(--ink); color: var(--paper); border-radius: var(--radius); overflow: hidden; display: grid; grid-template-columns: 1.25fr 1fr; }
-    .offer-main { padding: 3rem; }
-    .offer-main .eyebrow { color: var(--pink); }
-    .offer-main h2 { font-size: clamp(2.1rem, 3.8vw, 3rem); max-width: 18ch; margin-top: .85rem; }
-    .stack { list-style: none; margin-top: 1.75rem; }
-    .stack li { display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; padding: 0.72rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.97rem; }
-    .stack .v { color: rgba(248,248,248,0.5); font-size: 0.86rem; white-space: nowrap; }
-    .offer-buy { background: rgba(255,255,255,0.045); border-left: 1px solid rgba(255,255,255,0.1); padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; }
-    .price { font-family: 'Bebas Neue', sans-serif; font-size: 5.2rem; line-height: 0.85; }
-    .price sup { font-size: 2rem; vertical-align: super; }
-    .price-note { color: rgba(248,248,248,0.55); font-size: 0.9rem; font-weight: 300; margin-top: 0.6rem; }
-    .offer-buy .btn { margin-top: 1.75rem; width: 100%; }
-    .assure { list-style: none; margin-top: 1.5rem; display: grid; gap: 0.55rem; }
-    .assure li { font-size: 0.84rem; color: rgba(248,248,248,0.78); display: flex; gap: 0.5rem; align-items: center; }
-    .assure i { color: var(--pink); font-size: 1rem; }
-
-    /* ---------- FIT ---------- */
-    .fit { padding: 0 0 6.5rem; }
-    .fit-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: 2px solid var(--ink); }
-    .fit-col { padding: 2.25rem 2rem 2rem 0; }
-    .fit-col:last-child { padding-left: 2rem; padding-right: 0; border-left: 1px solid var(--line-soft); }
-    .fit-col h3 { font-size: 1.75rem; margin-bottom: 1.1rem; }
-    .fit-col ul { list-style: none; display: grid; gap: 0.75rem; }
-    .fit-col li { display: flex; gap: 0.65rem; font-size: 0.95rem; color: var(--ink-2); font-weight: 300; line-height: 1.5; }
-    .fit-col i { font-size: 1.1rem; line-height: 1.4; flex-shrink: 0; }
-    .yes i { color: var(--pink-ink); }
-    .no i { color: #a8a4a8; }
-
-    /* ---------- CLOSE ---------- */
-    .close { background: var(--ink); color: var(--paper); padding: 5.5rem 0; text-align: center; }
-    .close h2 { font-size: clamp(2.4rem, 5.2vw, 4.2rem); max-width: 20ch; margin: 0 auto 1.25rem; }
-    .close p { color: rgba(248,248,248,0.66); font-weight: 300; max-width: 48ch; margin: 0 auto 2rem; }
-    .close .cta-row { justify-content: center; }
-
-    /* ---------- FOOTER ---------- */
-    .foot { background: var(--ink); color: rgba(248,248,248,0.62); padding: 3.5rem 0 2.5rem; font-size: 0.87rem; }
-    .foot-top { display: flex; justify-content: space-between; gap: 3rem; flex-wrap: wrap; }
-    .foot-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: #fff; letter-spacing: 0.05em; }
-    .foot-tag { font-weight: 300; margin-top: 0.4rem; max-width: 26ch; }
-    .foot nav { display: flex; gap: 3.5rem; flex-wrap: wrap; }
-    .foot h4 { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; margin-bottom: 0.85rem; font-family: 'Barlow', sans-serif; font-weight: 700; }
-    .foot ul { list-style: none; display: grid; gap: 0.55rem; }
-    .foot a { text-decoration: none; transition: color .15s; }
-    .foot a:hover { color: #fff; }
-    .foot-bottom { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; }
-    .foot-bottom a { color: #fff; text-decoration: underline; }
-
-    /* ---------- MOTION ---------- */
-    @media (prefers-reduced-motion: no-preference) {
-      .rise { opacity: 0; transform: translateY(18px); transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1); }
-      .rise.in { opacity: 1; transform: none; }
-    }
-
-    /* ---------- RESPONSIVE ---------- */
-    @media (max-width: 980px) {
-      .hero-grid, .trial-grid, .toolkit-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .hero-shot { margin-right: 0; }
-      .offer-card { grid-template-columns: 1fr; }
-      .offer-buy { border-left: none; border-top: 1px solid var(--line); }
-      .ledger { grid-template-columns: 1fr 1fr; }
-      .nav-links li:not(.nav-cta) { display: none; }
-    }
-    @media (max-width: 680px) {
-      .shell { padding: 0 1.25rem; }
-      .hero { padding-top: 3rem; }
-      .ledger { grid-template-columns: 1fr; }
-      .tools { grid-template-columns: 1fr; }
-      .fit-grid { grid-template-columns: 1fr; }
-      .fit-col { padding: 2rem 0; }
-      .fit-col:last-child { padding-left: 0; border-left: none; border-top: 1px solid var(--line-soft); }
-      .offer-main, .offer-buy { padding: 2rem 1.5rem; }
-      .cta-row .btn { flex: 1 1 100%; }
-    }
-  </style>
-
-  <script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
-  <script async src="https://r.wdfl.co/rw.js" data-rewardful="e92558"></script>
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "xc4ai7h62y");
-  </script>
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;gap:2.5rem}
+  .modules-grid{grid-template-columns:1fr 1fr}
+  .testimonials{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .nav{padding:0 1.25rem}
+  .hero{padding:3rem 1.25rem 2rem}
+  .modules-grid{grid-template-columns:1fr}
+  .screen-labels{grid-template-columns:1fr 1fr}
+  .trust{gap:1.5rem;padding:1.25rem}
+  .tools-strip,.section,.how,.pricing{padding:3rem 1.25rem}
+}
+</style>
+<script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
+<script async src="https://r.wdfl.co/rw.js" data-rewardful="e92558"></script>
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "xc4ai7h62y");
+    </script>
 </head>
 <body>
 
-  <header class="nav">
-    <div class="shell">
-      <a class="nav-logo" href="/">VIRTU<span>EASY</span></a>
-      <ul class="nav-links">
-        <li><a href="/va-job-board">Job Board</a></li>
-        <li><a href="/pricing-tool/">Pricing Tool</a></li>
-        <li><a href="/blog/">Blog</a></li>
-        <li class="nav-cta"><a class="btn btn-primary btn-sm" href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05">Get the Kit</a></li>
-      </ul>
+<!-- NAV -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <a class="nav-logo" href="/">
+    <img decoding="async" src="/assets/virtueasy-logo.png" alt="Virtueasy" width="140" height="32" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="nav-logo-text">VIRTUEASY</span>
+  </a>
+  <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/resources/">Resources</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/va-job-board">Job Board</a></li>
+    <li><a href="https://www.facebook.com/groups/974455928445420" target="_blank" rel="noopener" class="nav-community"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.885v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>Community</a></li>
+    <li class="nav-cta"><a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" target="_blank" rel="noopener" data-rewardful>Get the Kit - $27</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">The VA Starter Kit</div>
+    <h1>Your First Client<br>Is <em>Closer</em> Than<br>You Think.</h1>
+    <p class="hero-sub">6 self-guided modules, built-in AI tools, 260 prompts, a pricing calculator, proposal builder, and portfolio builder. Everything in one dashboard.</p>
+    <div class="hero-price">
+      <span class="hero-price-num">$27</span>
+      <span class="hero-price-note">One-time. Instant access. Yours forever.</span>
     </div>
-  </header>
+    <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="btn-primary" target="_blank" rel="noopener" data-rewardful>Get Instant Access - $27 →</a>
+    <p class="hero-guarantee">Less than dinner out. <span>No subscription. No upsells.</span></p>
+  </div>
 
-  <!-- HERO ------------------------------------------------------ -->
-  <section class="hero">
-    <div class="shell hero-grid">
-      <div>
-        <p class="eyebrow">The VA Starter Kit</p>
-        <h1>Your first client, <em>without the guesswork.</em></h1>
-        <p class="hero-sub">Six modules that end with real leads, a sent proposal, and a portfolio you can show. Not theory.</p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05">Get the Kit, $27</a>
-          <a class="btn btn-ghost" href="/starterkit/preview.html">Try 3 lessons free</a>
+  <div class="screenshots">
+    <div class="screen-browser">
+      <div class="screen-bar">
+        <div class="screen-dots">
+          <div class="screen-dot r"></div>
+          <div class="screen-dot y"></div>
+          <div class="screen-dot g"></div>
         </div>
+        <span class="screen-url">virtueasy.com/starterkit/</span>
       </div>
-      <div class="hero-shot">
-        <img src="/assets/kit-dashboard.webp" alt="The VA Starter Kit dashboard showing six modules, lesson progress, and the built in tools"
-             width="1611" height="915" fetchpriority="high"
-             onerror="this.onerror=null;this.src='/assets/kit-dashboard.png'">
-      </div>
-    </div>
-  </section>
-
-  <!-- OUTPUTS --------------------------------------------------- -->
-  <section class="outputs">
-    <div class="shell">
-      <h2 class="rise">Most courses end with notes. This one ends with assets.</h2>
-
-      <div class="ledger">
-        <div class="ledger-item rise">
-          <span class="ledger-num">10-50</span>
-          <div class="ledger-label">Named leads</div>
-        </div>
-        <div class="ledger-item rise">
-          <span class="ledger-num">1</span>
-          <div class="ledger-label">Sent proposal</div>
-        </div>
-        <div class="ledger-item rise">
-          <span class="ledger-num">1</span>
-          <div class="ledger-label">Portfolio you can link</div>
-        </div>
-        <div class="ledger-item rise">
-          <span class="ledger-num">1</span>
-          <div class="ledger-label">Rate you can say out loud</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MODULES --------------------------------------------------- -->
-  <section class="modules">
-    <div class="shell">
-      <div class="modules-head">
-        <h2 class="rise">Six modules. 33 lessons.</h2>
-        <p class="modules-hint rise">Scroll across to see all six</p>
-      </div>
-
-      <div class="track">
-        <article class="mod">
-          <span class="mod-n">Module 1</span>
-          <h3>Foundation</h3>
-          <p>Pick your service and set your price.</p>
-          <p class="mod-out"><i class="ph ph-arrow-right"></i> A service and a price</p>
-        </article>
-        <article class="mod">
-          <span class="mod-n">Module 2</span>
-          <h3>Client Targeting</h3>
-          <p>Find real people to contact, not hypotheticals.</p>
-          <p class="mod-out"><i class="ph ph-arrow-right"></i> 10-50 targets to contact</p>
-        </article>
-        <article class="mod">
-          <span class="mod-n">Module 3</span>
-          <h3>Outreach System</h3>
-          <p>What to send, and how to follow up.</p>
-          <p class="mod-out"><i class="ph ph-arrow-right"></i> Outreach that actually goes out</p>
-        </article>
-        <article class="mod">
-          <span class="mod-n">Module 4</span>
-          <h3>Conversion</h3>
-          <p>Turn a reply into paid work.</p>
-          <p class="mod-out"><i class="ph ph-arrow-right"></i> A proposal in their inbox</p>
-        </article>
-        <article class="mod">
-          <span class="mod-n">Module 5</span>
-          <h3>7 to 14 Day Sprint</h3>
-          <p>A dated plan for the two weeks after.</p>
-          <p class="mod-out"><i class="ph ph-arrow-right"></i> A schedule, not a someday</p>
-        </article>
-        <article class="mod">
-          <span class="mod-n">Module 6</span>
-          <h3>AI Toolkit</h3>
-          <p>Five tools inside the workflow itself.</p>
-          <p class="mod-out"><i class="ph ph-arrow-right"></i> Faster, not different</p>
-        </article>
+      <div class="screen-video-wrap">
+        <video
+          id="kitVideo"
+          class="screen-video"
+          src="/assets/va-starter-kit-16x9.mp4"
+          poster="/assets/va-starter-kit-poster.jpg"
+          autoplay muted loop playsinline preload="metadata"
+          aria-label="VA Starter Kit walkthrough video"
+        ></video>
+        <button type="button" class="video-sound-btn" id="kitVideoSound" aria-label="Unmute video">
+          <span class="vsb-icon" aria-hidden="true">&#x1F507;</span><span class="vsb-text">Tap for sound</span>
+        </button>
       </div>
     </div>
-  </section>
+    <div class="screen-glow"></div>
+  </div>
+</section>
 
-  <!-- FREE TRIAL: the single dark block ------------------------- -->
-  <section class="trial" id="try">
-    <div class="shell trial-grid">
-      <div>
-        <p class="eyebrow">No card required</p>
-        <h2>Read three lessons before you decide.</h2>
-        <p>The first three lessons open in your browser right now. If the teaching does not suit you, you have lost nothing and you keep what you read.</p>
-        <div class="cta-row">
-          <a class="btn btn-onDark" href="/starterkit/preview.html">Open the free lessons</a>
-          <a class="btn btn-ghostDark" href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05">Skip ahead, $27</a>
+<!-- LIVE PREVIEW SECTION -->
+<div style="background:#050505; padding:5rem 1.5rem;">
+  <div style="max-width:860px; margin:0 auto;">
+    <div style="text-align:center; margin-bottom:2.5rem;">
+      <span style="display:inline-block; background:#FF1F7A; color:#fff; font-size:0.6rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; padding:0.3rem 0.9rem; margin-bottom:1rem;">Try Before You Buy</span>
+      <h2 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(2.2rem,5vw,3.4rem); letter-spacing:0.04em; color:#F8F8F8; line-height:1.05; margin-bottom:0.75rem;">Start Day 1 Right Now. Free.</h2>
+      <p style="font-size:1rem; color:rgba(248,248,248,0.5); max-width:480px; margin:0 auto; font-family:'Barlow',sans-serif;">This is the real thing. Pick your niche, complete the checklist, and see exactly what you're getting before you spend a dollar.</p>
+    </div>
+
+    <div style="position:relative; border-radius:14px; overflow:hidden; border:1px solid rgba(255,31,122,0.3); box-shadow:0 0 80px rgba(255,31,122,0.12);">
+      <div style="background:#111; border-bottom:1px solid #1e1e1e; padding:10px 18px; display:flex; align-items:center; gap:1rem;">
+        <div style="display:flex; gap:6px; flex-shrink:0;">
+          <span style="width:12px;height:12px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
+          <span style="width:12px;height:12px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
+          <span style="width:12px;height:12px;border-radius:50%;background:#28c840;display:inline-block;"></span>
         </div>
+        <div style="flex:1; background:#1a1a1a; border-radius:5px; padding:4px 12px; font-size:11px; color:#444; font-family:'Barlow',sans-serif;">virtueasy.com/starterkit/</div>
+        <span style="background:#FF1F7A22;border:1px solid #FF1F7A55;color:#FF1F7A;font-size:10px;font-weight:700;padding:3px 12px;border-radius:20px;letter-spacing:0.5px;font-family:'Barlow',sans-serif;white-space:nowrap;flex-shrink:0;">FREE PREVIEW</span>
       </div>
-      <div class="live">
-        <div class="live-bar"><span class="dot"></span> Live preview, running right here</div>
-        <iframe src="/starterkit/preview.html" title="Live preview of the first three Starter Kit lessons" loading="lazy"></iframe>
+      <iframe
+        src="/starterkit/preview.html"
+        style="width:100%;height:620px;border:none;display:block;background:#0A0A0A;"
+        title="VA Starter Kit Interactive Preview"
+        loading="lazy"
+        sandbox="allow-scripts allow-same-origin allow-forms"
+      ></iframe>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:90px;background:linear-gradient(to top,#050505 40%,transparent);pointer-events:none;"></div>
+    </div>
+
+    <div style="text-align:center; margin-top:2rem;">
+      <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" target="_blank" rel="noopener" style="display:inline-block; background:#FF1F7A; color:#fff; font-family:'Barlow',sans-serif; font-weight:700; font-size:0.82rem; letter-spacing:0.12em; text-transform:uppercase; padding:1rem 2.5rem; text-decoration:none; border-radius:3px;" data-rewardful>Unlock the Full Kit - $27 →</a>
+      <p style="font-size:0.75rem; color:rgba(248,248,248,0.3); font-family:'Barlow',sans-serif; margin-top:0.6rem;">One-time payment. Instant access. No subscription.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust">
+  <div class="trust-item"><strong>6</strong> structured modules</div>
+  <div class="trust-item"><strong>260</strong> plug-and-play prompts</div>
+  <div class="trust-item"><strong>Self-guided</strong> no videos</div>
+  <div class="trust-item"><strong>6</strong> built-in AI tools</div>
+</div>
+
+<!-- WHAT'S INSIDE - MODULES -->
+<div class="section">
+  <div class="section-eyebrow">What's inside</div>
+  <h2>Six Modules.<br>Zero Fluff.</h2>
+  <p class="section-sub">Each module has one job: move you closer to a paying client. Work through them in order. Use the tools anytime.</p>
+
+  <div class="modules-grid">
+    <div class="module-card">
+      <div class="module-num">01</div>
+      <div class="module-icon">🔵</div>
+      <div class="module-title">Foundation</div>
+      <div class="module-desc">Define your service, pick your lane, set your price. Remove the confusion before you do anything else.</div>
+      <div class="module-output">Output: one clear offer</div>
+    </div>
+    <div class="module-card">
+      <div class="module-num">02</div>
+      <div class="module-icon">🟡</div>
+      <div class="module-title">Client Targeting</div>
+      <div class="module-desc">Find where real clients actually are. Build a list of 10-50 real people to contact - not ideas, names.</div>
+      <div class="module-output">Output: lead list ready to send</div>
+    </div>
+    <div class="module-card">
+      <div class="module-num">03</div>
+      <div class="module-icon">🔴</div>
+      <div class="module-title">Outreach System</div>
+      <div class="module-desc">Copy-paste DM templates, email scripts, and a daily routine that gets replies without burning you out.</div>
+      <div class="module-output">Output: messages going out daily</div>
+    </div>
+    <div class="module-card">
+      <div class="module-num">04</div>
+      <div class="module-icon">🟠</div>
+      <div class="module-title">Conversion</div>
+      <div class="module-desc">Discovery call framework, objection scripts, and a proposal template that closes. Get from conversation to cash.</div>
+      <div class="module-output">Output: first paying client</div>
+    </div>
+    <div class="module-card">
+      <div class="module-num">05</div>
+      <div class="module-icon">🟣</div>
+      <div class="module-title">Execution</div>
+      <div class="module-desc">Self-guided, day-by-day actions you work through at your own pace. The most important module in the kit.</div>
+      <div class="module-output">Output: active client pipeline</div>
+    </div>
+    <div class="module-card">
+      <div class="module-num">06</div>
+      <div class="module-icon">⚫</div>
+      <div class="module-title">AI Toolkit</div>
+      <div class="module-desc">Six AI generators embedded in your workflow - cold DMs, follow-ups, proposal openers, pricing scripts, message rewrites, and custom.</div>
+      <div class="module-output">Output: faster execution</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLS STRIP -->
+<div class="tools-strip">
+  <div class="tools-strip-inner">
+    <h3>Plus Every Tool You Need.</h3>
+    <p>All built into the dashboard. No separate subscriptions, no extra tabs.</p>
+    <div class="tools-chips">
+      <div class="tool-chip"><span>💬</span> 260 Plug-and-Play Prompts</div>
+      <div class="tool-chip"><span>💰</span> VA Pricing Calculator</div>
+      <div class="tool-chip"><span>📄</span> Proposal Builder</div>
+      <div class="tool-chip"><span>📁</span> Portfolio Builder</div>
+      <div class="tool-chip"><span>🤖</span> AI Outreach Writer</div>
+      <div class="tool-chip"><span>✍️</span> AI Follow-Up Writer</div>
+      <div class="tool-chip"><span>🎯</span> AI Proposal Opener</div>
+      <div class="tool-chip"><span>🔁</span> Message Rewriter</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="how">
+  <h2>How It Works</h2>
+  <p>Buy once. Log in. Follow the modules.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Buy & Get Access Instantly</h4>
+        <p>You'll receive your access code immediately after checkout. No waiting, no email drip, no onboarding call.</p>
       </div>
     </div>
-  </section>
-
-  <!-- TOOLKIT --------------------------------------------------- -->
-  <section class="toolkit">
-    <div class="shell toolkit-grid">
-      <div>
-        <h2 class="rise">The tools are inside the lessons.</h2>
-        <p class="toolkit-lede rise">You do not finish a lesson and then go find software. The tool for the task is on the same screen as the task.</p>
-      </div>
-      <div class="tools">
-        <div class="tool rise"><i class="ph ph-file-text"></i><div><div class="tool-name">Proposal Builder</div></div></div>
-        <div class="tool rise"><i class="ph ph-folder-open"></i><div><div class="tool-name">Portfolio Builder</div></div></div>
-        <div class="tool rise"><i class="ph ph-calculator"></i><div><div class="tool-name">Pricing Tool</div></div></div>
-        <div class="tool rise"><i class="ph ph-chats-circle"></i><div><div class="tool-name">260 Prompts</div></div></div>
-        <div class="tool rise"><i class="ph ph-paper-plane-tilt"></i><div><div class="tool-name">Outreach Generator</div></div></div>
-        <div class="tool rise"><i class="ph ph-arrow-u-up-left"></i><div><div class="tool-name">Follow Up Writer</div></div></div>
-        <div class="tool rise"><i class="ph ph-microphone-stage"></i><div><div class="tool-name">Pricing Confidence Script</div></div></div>
-        <div class="tool rise"><i class="ph ph-pencil-simple"></i><div><div class="tool-name">Rewrite Any Message</div></div></div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Log In to Your Dashboard</h4>
+        <p>Everything is inside - modules, tools, prompts. Work at your own pace, module by module. Self-guided, no videos.</p>
       </div>
     </div>
-  </section>
-
-  <!-- OFFER ----------------------------------------------------- -->
-  <section class="offer">
-    <div class="shell">
-      <div class="offer-card">
-        <div class="offer-main">
-          <p class="eyebrow">One payment</p>
-          <h2>Everything, for less than a client pays you for one hour.</h2>
-          <ul class="stack">
-            <li><span>6 modules, 33 lessons</span><span class="v">Core</span></li>
-            <li><span>Proposal Builder, Portfolio Builder, Pricing Tool</span><span class="v">3 builders</span></li>
-            <li><span>260 prompts, sorted by task</span><span class="v">Included</span></li>
-            <li><span>5 AI tools embedded in the workflow</span><span class="v">Included</span></li>
-            <li><span>7 to 14 day sprint plan</span><span class="v">Included</span></li>
-            <li><span>Progress saved across devices</span><span class="v">Lifetime</span></li>
-          </ul>
-        </div>
-        <div class="offer-buy">
-          <div class="price"><sup>$</sup>27</div>
-          <p class="price-note">One time. No subscription, no upsell inside.</p>
-          <a class="btn btn-primary" href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05">Get the Kit, $27</a>
-          <ul class="assure">
-            <li><i class="ph-fill ph-check-circle"></i> First 3 lessons free, no card</li>
-            <li><i class="ph-fill ph-check-circle"></i> Yours for life, including updates</li>
-            <li><i class="ph-fill ph-check-circle"></i> Works in any browser, nothing to install</li>
-          </ul>
-        </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Follow the Modules in Order</h4>
+        <p>Each module has a clear output. Don't move on until you have it. The structure is the strategy.</p>
       </div>
     </div>
-  </section>
-
-  <!-- FIT ------------------------------------------------------- -->
-  <section class="fit">
-    <div class="shell">
-      <div class="fit-grid">
-        <div class="fit-col yes">
-          <h3>Built for you if</h3>
-          <ul>
-            <li><i class="ph ph-check"></i> You want the money and the schedule control.</li>
-            <li><i class="ph ph-check"></i> You have admin skills and no idea how to sell them.</li>
-            <li><i class="ph ph-check"></i> You learn by doing, not by watching.</li>
-            <li><i class="ph ph-check"></i> You have a few hours a week to spend well.</li>
-          </ul>
-        </div>
-        <div class="fit-col no">
-          <h3>Not for you if</h3>
-          <ul>
-            <li><i class="ph ph-x"></i> You want passive income. This is client work.</li>
-            <li><i class="ph ph-x"></i> You want an employer. This builds your own thing.</li>
-            <li><i class="ph ph-x"></i> You want a coach on call. This is self guided.</li>
-            <li><i class="ph ph-x"></i> You already have steady clients.</li>
-          </ul>
-        </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>Use the Tools Anytime</h4>
+        <p>The AI tools, prompts, proposal builder, and pricing calculator are always accessible from the sidebar.</p>
       </div>
     </div>
-  </section>
+  </div>
+</div>
 
-  <!-- CLOSE ----------------------------------------------------- -->
-  <section class="close">
-    <div class="shell">
-      <h2>The first three lessons cost nothing.</h2>
-      <p>Read them, then decide. That is the whole pitch.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05">Get the Kit, $27</a>
-        <a class="btn btn-ghostDark" href="#try">Back to the free lessons</a>
-      </div>
-    </div>
-  </section>
+<!-- WHAT YOU'LL BUILD -->
+<div class="proof">
+  <div class="proof-inner">
+    <h2>What You'll Build by the End</h2>
+    <ul style="list-style:none;padding:0;margin:2rem auto 0;max-width:660px;display:grid;grid-template-columns:repeat(2,1fr);gap:0.9rem 1.75rem;text-align:left;">
+      <li style="font-size:0.9rem;color:rgba(248,248,248,0.8);line-height:1.5;">A clear VA offer you can explain in one sentence</li>
+      <li style="font-size:0.9rem;color:rgba(248,248,248,0.8);line-height:1.5;">A starter portfolio, even with zero clients</li>
+      <li style="font-size:0.9rem;color:rgba(248,248,248,0.8);line-height:1.5;">A pricing structure you can stand behind</li>
+      <li style="font-size:0.9rem;color:rgba(248,248,248,0.8);line-height:1.5;">A lead list of businesses to reach out to</li>
+      <li style="font-size:0.9rem;color:rgba(248,248,248,0.8);line-height:1.5;">Outreach messages ready to send</li>
+      <li style="font-size:0.9rem;color:rgba(248,248,248,0.8);line-height:1.5;">Follow-up scripts that keep conversations alive</li>
+      <li style="font-size:0.9rem;color:rgba(248,248,248,0.8);line-height:1.5;">A client-ready proposal you can send</li>
+    </ul>
+  </div>
+</div>
 
-  <footer class="foot">
-    <div class="shell">
-      <div class="foot-top">
-        <div>
-          <div class="foot-brand">VIRTUEASY</div>
-          <p class="foot-tag">Everything you need to build your VA business.</p>
-        </div>
-        <nav>
-          <div>
-            <h4>Hub</h4>
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/resources/">Resources</a></li>
-              <li><a href="/blog/">Blog</a></li>
-              <li><a href="/va-job-board">Job Board</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4>Tools</h4>
-            <ul>
-              <li><a href="/starterkit/">VA Starter Kit</a></li>
-              <li><a href="/onboarding-kit/">Client Onboarding Kit</a></li>
-              <li><a href="/pricing-tool/">Pricing Tool</a></li>
-              <li><a href="/va-proposal-template/">Proposal Template</a></li>
-              <li><a href="/va-portfolio-builder/">Portfolio Builder</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4>Legal</h4>
-            <ul>
-              <li><a href="/privacy-policy.html">Privacy Policy</a></li>
-              <li><a href="/affiliate-terms.html">Affiliate Terms</a></li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-      <div class="foot-bottom">
-        &copy; <span id="yr"></span> Virtueasy. Owned and operated by
-        <a href="https://messickmarketing.com" target="_blank" rel="noopener">Messick Marketing</a>.
-      </div>
-    </div>
-  </footer>
+<!-- PRICING -->
+<div class="pricing">
+  <h2>One Price.<br>Everything Inside.</h2>
+  <div class="pricing-card">
+    <div class="pricing-badge">VA Starter Kit</div>
+    <div class="pricing-amount">$27</div>
+    <div class="pricing-note">One-time payment. Yours forever.</div>
+    <ul class="pricing-includes">
+      <li>6 structured modules (30 lessons)</li>
+      <li>Self-guided execution module (no videos)</li>
+      <li>6 built-in AI tools (cold DM, follow-up, proposal opener, pricing, rewrite, custom)</li>
+      <li>260 plug-and-play ChatGPT prompts</li>
+      <li>Proposal builder</li>
+      <li>Portfolio builder</li>
+      <li>VA pricing calculator</li>
+      <li>Progress tracking dashboard</li>
+      <li>Instant access - no waiting</li>
+    </ul>
+    <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="pricing-cta" target="_blank" rel="noopener" data-rewardful>Get Instant Access - $27 →</a>
+    <p class="pricing-sub">Questions? Email hello@virtueasy.com</p>
+  </div>
+</div>
 
-  <script>
-    document.getElementById('yr').textContent = new Date().getFullYear();
+<!-- FOOTER -->
+<footer class="footer">
+  <p><a href="/">Virtueasy</a> &nbsp;·&nbsp; <a href="/blog/">Blog</a> &nbsp;·&nbsp; <a href="/va-job-board">Job Board</a> &nbsp;·&nbsp; <a href="/pricing-tool/">Pricing Tool</a> &nbsp;·&nbsp; <a href="/privacy-policy.html">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="/affiliate-terms.html">Affiliate Terms</a></p>
+  <p style="margin-top:0.5rem">© 2026 Virtueasy. Operated by <a href="https://messickmarketing.com" target="_blank" rel="noopener">Messick Marketing</a>.</p>
+</footer>
 
-    // Entrance reveal. Motivated: it sequences the ledger and the tool grid so
-    // the eye lands on one item at a time instead of a wall arriving at once.
-    if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((e, i) => {
-          if (!e.isIntersecting) return;
-          e.target.style.transitionDelay = (i * 55) + 'ms';
-          e.target.classList.add('in');
-          io.unobserve(e.target);
-        });
-      }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
-      document.querySelectorAll('.rise').forEach(el => io.observe(el));
+<script>
+(function(){
+  var v = document.getElementById('kitVideo');
+  if(!v) return;
+  var btn = document.getElementById('kitVideoSound');
+  function syncBtn(){
+    if(!btn) return;
+    var icon = btn.querySelector('.vsb-icon');
+    var text = btn.querySelector('.vsb-text');
+    if(v.muted){
+      btn.classList.remove('is-unmuted');
+      if(icon) icon.innerHTML = '&#x1F507;';
+      if(text) text.textContent = 'Tap for sound';
+      btn.setAttribute('aria-label','Unmute video');
     } else {
-      document.querySelectorAll('.rise').forEach(el => el.classList.add('in'));
+      btn.classList.add('is-unmuted');
+      if(icon) icon.innerHTML = '&#x1F50A;';
+      btn.setAttribute('aria-label','Mute video');
     }
-  </script>
+  }
+  function unmute(){
+    v.muted = false;
+    v.volume = 1;
+    var p = v.play();
+    if(p && p.catch) p.catch(function(){});
+    syncBtn();
+  }
+  function onGesture(){
+    if(v.muted) unmute();
+    cleanup();
+  }
+  function cleanup(){
+    ['click','touchstart','keydown'].forEach(function(ev){
+      document.removeEventListener(ev, onGesture);
+    });
+  }
+  ['click','touchstart','keydown'].forEach(function(ev){
+    document.addEventListener(ev, onGesture, { passive: true });
+  });
+  if(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      if(v.muted){ unmute(); } else { v.muted = true; syncBtn(); }
+      cleanup();
+    });
+  }
+  syncBtn();
+})();
+</script>
 </body>
 </html>
