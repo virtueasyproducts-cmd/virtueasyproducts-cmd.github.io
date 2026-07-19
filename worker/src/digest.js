@@ -14,6 +14,18 @@ export const GROUP_ID = '185458839430104953';
 export const FROM = 'hello@virtueasy.com';
 export const FROM_NAME = 'Virtueasy';
 
+// The digest is sent to this group, NOT to GROUP_ID directly. It holds
+// everyone on the job board list who has finished the welcome sequence.
+//
+// Without it a Saturday signup gets welcome email 1, the Monday digest, and
+// welcome email 2 all inside their first weekend. Three emails from a brand
+// they just met reads as a list they need to escape.
+export const DIGEST_READY_GROUP_ID = '193439252824983344';
+
+// Must be longer than the welcome sequence (last email lands day 10). If the
+// sequence gets longer, raise this or the two start overlapping again.
+export const WELCOME_GRACE_DAYS = 10;
+
 // Must match EARLY_ACCESS_DAYS in va-job-board.html. If these drift, the
 // email either repeats jobs the board already shows or skips jobs entirely.
 export const EARLY_ACCESS_DAYS = 7;
@@ -213,7 +225,10 @@ export async function sendReminder(env, result) {
         Subject line: ${result.subject}
       </p>
       <p><a href="${result.reviewUrl}" style="background:#FF1F7A;color:#fff;padding:12px 24px;text-decoration:none;font-weight:700;display:inline-block;">Review and send</a></p>
-      <p style="color:#6b6b6b;font-size:13px;">Nothing goes out until you send it. Goes to 145 subscribers.</p>`;
+      <p style="color:#6b6b6b;font-size:13px;">
+      Nothing goes out until you send it. Goes to ${result.audience?.eligible ?? '?'} subscribers
+      (${result.audience?.inSequence ?? 0} held back, still in the welcome sequence).
+    </p>`;
   } else if (result.status === 'skipped') {
     subject = `VA digest skipped this week`;
     body = `<p style="font-size:16px;">No draft was created: <strong>${result.reason}</strong>.</p>
@@ -271,7 +286,7 @@ async function ml(apiKey, path, options = {}) {
   const raw = await res.text();
   let body = null;
   try { body = JSON.parse(raw); } catch { /* non-JSON error page */ }
-  return { ok: res.ok, status: res.status, body, raw };
+  return { ok: res.ok, status: res.status, body, raw, headers: res.headers };
 }
 
 /** Guard against a double-run creating two identical drafts for one week. */
@@ -279,6 +294,98 @@ async function draftExists(apiKey, name) {
   const res = await ml(apiKey, '/campaigns?filter[status]=draft&limit=25');
   if (!res.ok) return false; // Non-fatal: worst case a duplicate draft to delete.
   return (res.body?.data || []).some(c => c.name === name);
+}
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+/**
+ * MailerLite allows ~120 requests a minute. Promoting the backlog on the
+ * first run means one call per subscriber, which blew straight through it:
+ * 117 succeeded and the next 28 came back 429.
+ *
+ * Paces every call and backs off when told to. Honours Retry-After when the
+ * response carries it, since guessing shorter just burns the next attempt.
+ */
+async function mlWithRetry(apiKey, path, options = {}, attempts = 3) {
+  let res;
+  for (let i = 0; i < attempts; i++) {
+    await sleep(550); // ~109 req/min, comfortably under the ceiling
+    res = await ml(apiKey, path, options);
+    if (res.status !== 429) return res;
+    const retryAfter = Number(res.headers?.get?.('Retry-After')) || 0;
+    await sleep(retryAfter ? retryAfter * 1000 : 5000 * (i + 1));
+  }
+  return res;
+}
+
+/** Page through a MailerLite collection endpoint, following its cursor. */
+async function mlPaginate(apiKey, path) {
+  const out = [];
+  let cursor = null;
+  // A hard page cap. The list is ~145 people; anything past 50 pages means
+  // the cursor is not advancing and we would otherwise loop forever.
+  for (let page = 0; page < 50; page++) {
+    const sep = path.includes('?') ? '&' : '?';
+    const url = `${path}${sep}limit=100${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ''}`;
+    const res = await ml(apiKey, url);
+    if (!res.ok) throw new Error(`MailerLite HTTP ${res.status} on ${path}: ${res.raw.slice(0, 200)}`);
+    out.push(...(res.body?.data || []));
+    cursor = res.body?.meta?.next_cursor || null;
+    if (!cursor) break;
+  }
+  return out;
+}
+
+/**
+ * Move job board subscribers who are past the welcome sequence into the
+ * digest group. Runs before every digest build.
+ *
+ * Uses account-level `subscribed_at`, which is not the same as the date they
+ * joined the job board group. Someone already on another Virtueasy list who
+ * later joins the job board looks old enough on day one and will get the
+ * next digest while still mid-sequence. Rare, and the failure is one extra
+ * email rather than a missed one, so it is not worth a per-group lookup.
+ */
+export async function syncDigestReady(apiKey) {
+  const cutoff = Date.now() - WELCOME_GRACE_DAYS * 86400000;
+
+  const [members, ready] = await Promise.all([
+    mlPaginate(apiKey, `/groups/${GROUP_ID}/subscribers`),
+    mlPaginate(apiKey, `/groups/${DIGEST_READY_GROUP_ID}/subscribers`),
+  ]);
+
+  const alreadyReady = new Set(ready.map(s => s.id));
+
+  // An unparseable date is treated as too new. Better to delay someone's
+  // first digest by a week than to blast a subscriber mid-sequence.
+  const pending = members.filter(s => !alreadyReady.has(s.id));
+  const due = pending.filter(s => {
+    const t = new Date(s.subscribed_at).getTime();
+    return !isNaN(t) && t < cutoff;
+  });
+  // Counted from the filter, not by subtracting successes. Deriving it meant
+  // a failed add was indistinguishable from someone legitimately still in
+  // the sequence, which hid 28 rate-limit failures behind a plausible number.
+  const inSequence = pending.length - due.length;
+
+  let added = 0;
+  const failed = [];
+  for (const s of due) {
+    const res = await mlWithRetry(apiKey, `/subscribers/${s.id}/groups/${DIGEST_READY_GROUP_ID}`, { method: 'POST' });
+    if (res.ok) added++;
+    else {
+      failed.push(s.id);
+      console.error(`digest: could not add ${s.id} to digest group - HTTP ${res.status}`);
+    }
+  }
+
+  // Not fatal. A subscriber who misses this week's promotion gets picked up
+  // by next week's run, so the digest still goes out to everyone else.
+  if (failed.length) {
+    console.error(`digest: ${failed.length} of ${due.length} promotions failed, they retry next run`);
+  }
+
+  return { added, failed: failed.length, eligible: alreadyReady.size + added, inSequence };
 }
 
 /**
@@ -300,6 +407,18 @@ export async function createDigestDraft(apiKey, jobsService = null) {
     return { status: 'skipped', reason: 'draft already exists for this week', name, count: jobs.length };
   }
 
+  // Promote anyone who has finished the welcome sequence, then check there is
+  // actually someone to send to. A campaign aimed at an empty group is a
+  // draft that cannot be sent, which is a confusing thing to review.
+  const audience = await syncDigestReady(apiKey);
+  if (!audience.eligible) {
+    return {
+      status: 'skipped',
+      reason: `no subscribers past the ${WELCOME_GRACE_DAYS}-day welcome sequence yet`,
+      count: jobs.length,
+    };
+  }
+
   const subject = `${jobs.length} new VA jobs (before they go public)`;
   const html = renderEmail(jobs);
 
@@ -308,7 +427,7 @@ export async function createDigestDraft(apiKey, jobsService = null) {
     body: JSON.stringify({
       name,
       type: 'regular',
-      groups: [GROUP_ID],
+      groups: [DIGEST_READY_GROUP_ID],
       emails: [{ subject, from: FROM, from_name: FROM_NAME, content: html }],
     }),
   });
@@ -325,6 +444,7 @@ export async function createDigestDraft(apiKey, jobsService = null) {
     subject,
     count: jobs.length,
     total: all.length,
+    audience,
     reviewUrl: `https://dashboard.mailerlite.com/campaigns/${c.id}/edit`,
   };
 }
