@@ -1,0 +1,7 @@
+name = "virtueasy-subscribe"
+main = "src/index.js"
+compatibility_date = "2026-07-19"
+
+# MAILERLITE_API_KEY is a secret, not a var. Set it with:
+#   npx wrangler secret put MAILERLITE_API_KEY
+# Never put the key in this file - this repo is public.

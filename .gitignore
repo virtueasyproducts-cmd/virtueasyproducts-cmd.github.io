@@ -1,0 +1,11 @@
+# Wrangler build artifacts and local state
+.wrangler/
+worker/.wrangler/
+
+# Local secrets for `wrangler dev`. The real key belongs in a Worker secret
+# (npx wrangler secret put MAILERLITE_API_KEY), never in the repo.
+.dev.vars
+*.dev.vars
+worker/.dev.vars
+
+node_modules/
