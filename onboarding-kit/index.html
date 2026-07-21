@@ -126,14 +126,18 @@ img{max-width:100%;display:block}
 .footer-copy{font-size:0.72rem;color:#444}
 
 /* PRODUCT SHOTS - browser mockup */
-.browser{border-radius:12px;overflow:hidden;border:1px solid var(--border-s);background:var(--surface);box-shadow:0 34px 80px -34px rgba(0,0,0,0.9),0 0 70px -34px var(--pink-glow)}
+.browser{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--border-s);background:var(--surface);box-shadow:0 34px 80px -34px rgba(0,0,0,0.9),0 0 70px -34px var(--pink-glow)}
+.browser::after{content:'';position:absolute;left:1px;right:1px;bottom:1px;height:38px;background:linear-gradient(to top,#f4f4f6,rgba(244,244,246,0));pointer-events:none}
 .browser-bar{display:flex;align-items:center;gap:0.5rem;padding:0.7rem 1rem;background:var(--surface-2);border-bottom:1px solid var(--border-s)}
 .browser-bar i{width:11px;height:11px;border-radius:50%;background:#3a343a;display:block;flex-shrink:0}
 .browser-bar i.r{background:#4a2030}
 .browser-url{margin-left:0.55rem;font-size:0.72rem;color:var(--muted);background:var(--black);border:1px solid var(--border-s);border-radius:5px;padding:0.25rem 0.7rem;font-family:monospace;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;flex:1;max-width:78%}
-.browser-frame{aspect-ratio:16/10;overflow:hidden;background:#f4f4f6}
-.browser-frame img{width:100%;height:100%;object-fit:cover;object-position:left top}
-.browser-frame.is-center img{object-position:center top}
+.browser-frame{height:clamp(360px,62vh,600px);overflow-y:auto;overflow-x:hidden;background:#f4f4f6;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#c3bcc4 #e7e7ea}
+.browser-frame img{width:100%;height:auto;display:block}
+.browser-frame::-webkit-scrollbar{width:10px}
+.browser-frame::-webkit-scrollbar-track{background:#e7e7ea}
+.browser-frame::-webkit-scrollbar-thumb{background:#c3bcc4;border-radius:8px;border:2px solid #e7e7ea}
+.browser-frame::-webkit-scrollbar-thumb:hover{background:var(--pink)}
 
 /* HERO SHOT */
 .hero-shot{padding:0 2rem 1rem;max-width:1000px;margin:0 auto}
@@ -204,7 +208,7 @@ img{max-width:100%;display:block}
     <div class="browser-frame">
       <picture>
         <source srcset="/assets/ok-shot-scope.webp" type="image/webp">
-        <img src="/assets/ok-shot-scope.jpg" alt="The Onboarding Kit app - Scope of Work step with a sidebar wizard, selectable deliverables, and an auto-generated document" width="1075" height="1120" fetchpriority="high">
+        <img src="/assets/ok-shot-scope.jpg" alt="The Onboarding Kit app - Scope of Work step with a sidebar wizard, selectable deliverables, and an auto-generated document" width="1075" height="2171" fetchpriority="high">
       </picture>
     </div>
   </div>
@@ -275,35 +279,35 @@ img{max-width:100%;display:block}
   <div class="gallery-panel on" id="g1">
     <div class="browser">
       <div class="browser-bar"><i></i><i></i><i class="r"></i><span class="browser-url">Step 2 of 6 - Welcome Email</span></div>
-      <div class="browser-frame"><picture><source srcset="/assets/ok-shot-welcome.webp" type="image/webp"><img src="/assets/ok-shot-welcome.jpg" alt="Welcome Email step - a ready-to-send email with one-click copy" width="1075" height="1000" loading="lazy"></picture></div>
+      <div class="browser-frame"><picture><source srcset="/assets/ok-shot-welcome.webp" type="image/webp"><img src="/assets/ok-shot-welcome.jpg" alt="Welcome Email step - a ready-to-send email with one-click copy" width="1075" height="1438" loading="lazy"></picture></div>
     </div>
     <p class="gallery-cap"><b>Welcome Email.</b> Pre-written and ready to send within 24 hours of a client saying yes - copy it in one click.</p>
   </div>
   <div class="gallery-panel" id="g2">
     <div class="browser">
       <div class="browser-bar"><i></i><i></i><i class="r"></i><span class="browser-url">Step 3 of 6 - Client Intake Form</span></div>
-      <div class="browser-frame"><picture><source srcset="/assets/ok-shot-intake.webp" type="image/webp"><img src="/assets/ok-shot-intake.jpg" alt="Client Intake Form step - ten questions ready to copy and send" width="1075" height="1050" loading="lazy"></picture></div>
+      <div class="browser-frame"><picture><source srcset="/assets/ok-shot-intake.webp" type="image/webp"><img src="/assets/ok-shot-intake.jpg" alt="Client Intake Form step - ten questions ready to copy and send" width="1075" height="1389" loading="lazy"></picture></div>
     </div>
     <p class="gallery-cap"><b>Intake Form.</b> Ten questions that tell you exactly how to work with a client - and protect you if things go sideways.</p>
   </div>
   <div class="gallery-panel" id="g3">
     <div class="browser">
       <div class="browser-bar"><i></i><i></i><i class="r"></i><span class="browser-url">Step 4 of 6 - Scope of Work</span></div>
-      <div class="browser-frame"><picture><source srcset="/assets/ok-shot-scope.webp" type="image/webp"><img src="/assets/ok-shot-scope.jpg" alt="Scope of Work step - select deliverables and generate a clean document" width="1075" height="1120" loading="lazy"></picture></div>
+      <div class="browser-frame"><picture><source srcset="/assets/ok-shot-scope.webp" type="image/webp"><img src="/assets/ok-shot-scope.jpg" alt="Scope of Work step - select deliverables and generate a clean document" width="1075" height="2171" loading="lazy"></picture></div>
     </div>
     <p class="gallery-cap"><b>Scope of Work.</b> Tick your deliverables from 18 options, fill in the dates, and a clean scope document builds itself.</p>
   </div>
   <div class="gallery-panel" id="g4">
     <div class="browser">
       <div class="browser-bar"><i></i><i></i><i class="r"></i><span class="browser-url">Step 5 of 6 - Contract + Payment Terms</span></div>
-      <div class="browser-frame"><picture><source srcset="/assets/ok-shot-contract.webp" type="image/webp"><img src="/assets/ok-shot-contract.jpg" alt="Contract step - a plain-language service agreement with payment terms" width="1075" height="1050" loading="lazy"></picture></div>
+      <div class="browser-frame"><picture><source srcset="/assets/ok-shot-contract.webp" type="image/webp"><img src="/assets/ok-shot-contract.jpg" alt="Contract step - a plain-language service agreement with payment terms" width="1075" height="1918" loading="lazy"></picture></div>
     </div>
     <p class="gallery-cap"><b>Contract.</b> A plain-language agreement covering payment, kill fees, ownership, and termination. No lawyer required.</p>
   </div>
   <div class="gallery-panel" id="g5">
     <div class="browser">
       <div class="browser-bar"><i></i><i></i><i class="r"></i><span class="browser-url">Step 6 of 6 - Onboarding Checklist</span></div>
-      <div class="browser-frame"><picture><source srcset="/assets/ok-shot-checklist.webp" type="image/webp"><img src="/assets/ok-shot-checklist.jpg" alt="Onboarding Checklist step - a checkable list that resets for each new client" width="1075" height="1050" loading="lazy"></picture></div>
+      <div class="browser-frame"><picture><source srcset="/assets/ok-shot-checklist.webp" type="image/webp"><img src="/assets/ok-shot-checklist.jpg" alt="Onboarding Checklist step - a checkable list that resets for each new client" width="1075" height="1332" loading="lazy"></picture></div>
     </div>
     <p class="gallery-cap"><b>Checklist.</b> Eleven steps to run with every new client - checkable, repeatable, nothing falls through the cracks.</p>
   </div>
@@ -334,7 +338,7 @@ img{max-width:100%;display:block}
     <div class="how-shot">
       <div class="browser">
         <div class="browser-bar"><i></i><i></i><i class="r"></i><span class="browser-url">Step 1 of 6 - My Details</span></div>
-        <div class="browser-frame is-center"><picture><source srcset="/assets/ok-shot-details.webp" type="image/webp"><img src="/assets/ok-shot-details.jpg" alt="My Details step - enter your name, rate, and terms once to auto-fill every document" width="684" height="756" loading="lazy"></picture></div>
+        <div class="browser-frame is-center"><picture><source srcset="/assets/ok-shot-details.webp" type="image/webp"><img src="/assets/ok-shot-details.jpg" alt="My Details step - enter your name, rate, and terms once to auto-fill every document" width="684" height="768" loading="lazy"></picture></div>
       </div>
     </div>
   </div>
