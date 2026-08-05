@@ -61,6 +61,13 @@ p{font-size:0.95rem;color:var(--muted);line-height:1.6;max-width:340px;margin:0 
   const sessionId = params.get("session_id") || "";
   const existingToken = localStorage.getItem(TOKEN_KEY);
 
+  // Meta's browser cookies. Forwarded so the Worker's server-side Purchase
+  // can be matched to this visitor and deduped against the browser event.
+  function cookie(name){
+    var m = document.cookie.match("(^|; )" + name + "=([^;]*)");
+    return m ? decodeURIComponent(m[2]) : "";
+  }
+
   function fail(msg){
     document.querySelector(".note").textContent = msg || "We couldn't confirm your purchase. Taking you to sign in…";
     setTimeout(function(){ window.location.href = "login.html"; }, 2600);
@@ -70,7 +77,8 @@ p{font-size:0.95rem;color:var(--muted);line-height:1.6;max-width:340px;margin:0 
     const res = await fetch(API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "product-unlock", product: "onboarding", session_id: sessionId, token: existingToken || "" }),
+      body: JSON.stringify({ action: "product-unlock", product: "onboarding", session_id: sessionId, token: existingToken || "",
+        fbp: cookie("_fbp"), fbc: cookie("_fbc"), source_url: window.location.origin + window.location.pathname }),
     });
     const data = await res.json();
     if (data.token) {
