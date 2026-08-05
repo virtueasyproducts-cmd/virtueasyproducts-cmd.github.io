@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Gated / transactional pages — no SEO value, keep out of the index
+Disallow: /starterkit/login.html
+Disallow: /starterkit/unlock.html
+Disallow: /starterkit/dashboard.html
+Disallow: /starterkit/preview.html
+Disallow: /onboarding-kit/login.html
+Disallow: /onboarding-kit/unlock.html
+Disallow: /onboarding-kit/ok-2026-access.html
+Disallow: /pricing-tool/app.html
+Disallow: /pricing-tool/pay.html
+Disallow: /pricing-tool/unlock.html
+Disallow: /pricing-tool/get-access.html
+Disallow: /va-proposal-template/template.html
+Disallow: /emails/
+
+Sitemap: https://virtueasy.com/sitemap.xml
