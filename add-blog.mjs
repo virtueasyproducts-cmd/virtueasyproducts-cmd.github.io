@@ -44,6 +44,7 @@ const TAGS = new Set([
 
 function die(msg) { console.error('ERROR: ' + msg); process.exit(1); }
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const jesc = s => JSON.stringify(String(s)).slice(1, -1);
 
 const manifestPath = process.argv[2];
 const dry = process.argv.includes('--dry');
@@ -83,6 +84,17 @@ for (const p of posts) {
   // 4. og:description
   html = html.replace(/<meta property="og:description" content="[\s\S]*?"\s*\/>/,
     `<meta property="og:description" content="${esc(p.metaDescription)}" />`);
+
+  // 4b. canonical + JSON-LD (template carries the source post's URLs)
+  const canonical = `https://virtueasy.com/blog/posts/${p.slug}.html`;
+  const date = p.date || new Date().toISOString().slice(0, 10);
+  html = html.replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${canonical}">`);
+  html = html.replace(/("@id":\s*")[^"]*(")/, `$1${canonical}$2`);
+  html = html.replace(/("headline":\s*")[^"]*(")/, `$1${jesc(p.title)}$2`);
+  html = html.replace(/("description":\s*")[^"]*(")/, `$1${jesc(p.metaDescription)}$2`);
+  html = html.replace(/("url":\s*")https:\/\/virtueasy\.com\/blog\/posts\/[^"]*(")/, `$1${canonical}$2`);
+  html = html.replace(/("datePublished":\s*")[^"]*(")/, `$1${date}$2`);
+  html = html.replace(/("dateModified":\s*")[^"]*(")/, `$1${date}$2`);
 
   // 5. .post-hero block (span.post-tag, h1, post-meta, post-intro)
   const hero =
