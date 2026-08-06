@@ -32,6 +32,7 @@ import path from 'path';
 const ROOT = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
 const POSTS_DIR = path.join(ROOT, 'blog', 'posts');
 const INDEX = path.join(ROOT, 'blog', 'index.html');
+const SITEMAP = path.join(ROOT, 'sitemap.xml');
 const TEMPLATE = path.join(POSTS_DIR, 'how-to-handle-scope-creep.html');
 
 // Filter tags that exist in blog/index.html — a post's tag MUST be one of these
@@ -57,6 +58,10 @@ const template = fs.readFileSync(TEMPLATE, 'utf8');
 let index = fs.readFileSync(INDEX, 'utf8');
 const gridAnchor = '<div class="grid" id="post-grid">';
 if (!index.includes(gridAnchor)) die('could not find #post-grid anchor in blog/index.html');
+
+let sitemap = fs.readFileSync(SITEMAP, 'utf8');
+const sitemapClose = '</urlset>';
+if (!sitemap.includes(sitemapClose)) die('could not find </urlset> in sitemap.xml');
 
 const added = [];
 for (const p of posts) {
@@ -126,6 +131,17 @@ for (const p of posts) {
 `;
   index = index.replace(gridAnchor, gridAnchor + card);
 
+  // --- sitemap entry (appended before </urlset>; crawlers ignore order) ---
+  if (!sitemap.includes(canonical)) {
+    sitemap = sitemap.replace(sitemapClose,
+`  <url>
+    <loc>${canonical}</loc>
+    <lastmod>${date}</lastmod>
+    <priority>0.7</priority>
+  </url>
+` + sitemapClose);
+  }
+
   if (!dry) fs.writeFileSync(dest, html);
   added.push({ slug: p.slug, url: `https://virtueasy.com/blog/posts/${p.slug}.html` });
   console.log(`  + ${p.slug}`);
@@ -133,7 +149,8 @@ for (const p of posts) {
 
 if (!added.length) { console.log('Nothing new to add.'); process.exit(0); }
 if (!dry) fs.writeFileSync(INDEX, index);
+if (!dry) fs.writeFileSync(SITEMAP, sitemap);
 
-console.log(`\n${dry ? '[dry] ' : ''}Wrote ${added.length} post(s) + index card(s).`);
+console.log(`\n${dry ? '[dry] ' : ''}Wrote ${added.length} post(s) + index card(s) + sitemap entr(ies).`);
 console.log('New URLs:');
 added.forEach(a => console.log('  ' + a.url));
