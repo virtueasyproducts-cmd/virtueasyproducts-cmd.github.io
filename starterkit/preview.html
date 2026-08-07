@@ -14,7 +14,9 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1552355892525925');
-fbq('track', 'PageView');
+// This page is also embedded as an iframe on /starterkit/. Firing PageView in
+// that context double-counts a single visit, so only track it standalone.
+if (window.top === window.self) { fbq('track', 'PageView'); }
 </script>
 <noscript><img alt="" decoding="async" height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"

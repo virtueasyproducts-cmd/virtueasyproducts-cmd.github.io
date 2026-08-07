@@ -27,8 +27,15 @@
     ["/starterkit/",        "starterkit"],
     ["/onboarding-kit/index", "onboarding"],
     ["/onboarding-kit/",      "onboarding"],
-    ["/pricing-tool/pay",   "pricing-tool"]
+    ["/pricing-tool/pay",   "pricing-tool"],
+    ["/pricing-tool/index", "pricing-tool"],
+    ["/pricing-tool/",      "pricing-tool"],
+    ["/pricing-tool.html",  "pricing-tool"]
   ];
+
+  // Free lead magnets that live under a product path. They are a Lead, not a
+  // $7 product view, so they must not be counted as ViewContent.
+  var NOT_A_PRODUCT_VIEW = /\/(get-access|dashboard|login|unlock|app|ok-2026-access)\.html$/;
 
   function track(event, product, extra) {
     if (typeof window.fbq !== "function") return;
@@ -41,11 +48,19 @@
     window.fbq("track", event, data);
   }
 
+  // True when this document is inside an iframe. /starterkit/ embeds
+  // preview.html, which carries its own pixel, so an unguarded page-load
+  // event fires twice on one visit and Meta cannot dedupe them.
+  function framed() {
+    try { return window.top !== window.self; } catch (e) { return true; }
+  }
+
   /* ---- ViewContent -------------------------------------------------- */
   function viewContent() {
+    if (framed()) return;
     var path = window.location.pathname;
     // Gated pages are not product views - the buyer is already past them.
-    if (/\/(dashboard|login|unlock|app|ok-2026-access)\.html$/.test(path)) return;
+    if (NOT_A_PRODUCT_VIEW.test(path)) return;
     for (var i = 0; i < PRODUCT_PAGES.length; i++) {
       if (path.indexOf(PRODUCT_PAGES[i][0]) === 0) {
         track("ViewContent", PRODUCT_PAGES[i][1]);
@@ -71,34 +86,44 @@
   }
 
   /* ---- Lead (MailerLite signup) -------------------------------------- */
+  /* webforms.min.js rebuilds the embed after we run, so the .ml-form-successBody
+     node present at DOMContentLoaded is thrown away and replaced. Binding an
+     observer to those original nodes silently watched detached elements and no
+     Lead ever fired. Watch the document instead and re-query every time. */
   function watchMailerLite() {
-    var panels = document.querySelectorAll(".ml-form-successBody");
-    if (!panels.length) return;
+    if (framed()) return;
     var fired = false;
 
     function check() {
-      if (fired) return;
+      if (fired) return true;
+      var panels = document.querySelectorAll(".ml-form-successBody");
       for (var i = 0; i < panels.length; i++) {
         // offsetParent is null while MailerLite keeps the panel display:none.
         if (panels[i].offsetParent !== null) {
           fired = true;
           observer.disconnect();
+          clearInterval(poll);
           track("Lead", null, {
             content_name: "Email signup",
             content_category: window.location.pathname
           });
-          return;
+          return true;
         }
       }
+      return false;
     }
 
     var observer = new MutationObserver(check);
-    for (var i = 0; i < panels.length; i++) {
-      observer.observe(panels[i], { attributes: true, attributeFilter: ["style", "class"] });
-      if (panels[i].parentNode) {
-        observer.observe(panels[i].parentNode, { attributes: true, childList: true });
-      }
-    }
+    observer.observe(document.documentElement, {
+      childList: true, subtree: true,
+      attributes: true, attributeFilter: ["style", "class"]
+    });
+
+    // Backstop: MailerLite can swap the panel in a way that produces no
+    // mutation we are watching. Give up after two minutes on the page.
+    var poll = setInterval(check, 1000);
+    setTimeout(function () { clearInterval(poll); }, 120000);
+
     check();
   }
 
