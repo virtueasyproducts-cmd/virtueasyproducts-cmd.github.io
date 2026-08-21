@@ -19,7 +19,7 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 /></noscript>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VA Pricing Tool - VIRTUEASY</title>
   <meta name="robots" content="noindex, follow">
 <meta name="description" content="Build your VA pricing - hourly rates, packages, and project quotes. Powered by VIRTUEASY">
@@ -232,14 +232,17 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
 
   // ── Gate check: verify token with server before showing ANY content ─────────
   async function checkAccess() {
-    const token = localStorage.getItem(TOKEN_KEY);
+    let token = null;
+    try { token = localStorage.getItem(TOKEN_KEY); } catch(e) {}
 
     // The server-issued token + Worker verification is the ONLY path to access.
     // Legacy localStorage flags (trialStart / lifetimeAccess) are no longer
     // honored — anyone could set lifetimeAccess="true" in the console. Clear
     // any stale legacy flags so they can't be used as a bypass.
-    localStorage.removeItem("trialStart");
-    localStorage.removeItem("lifetimeAccess");
+    try {
+      localStorage.removeItem("trialStart");
+      localStorage.removeItem("lifetimeAccess");
+    } catch(e) {}
 
     if (!token) {
       window.location.replace("get-access.html");
@@ -266,7 +269,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
         window.location.replace("pay.html");
       } else {
         // Invalid/tampered token - back to gate
-        localStorage.removeItem(TOKEN_KEY);
+        try { localStorage.removeItem(TOKEN_KEY); } catch(e) {}
         window.location.replace("get-access.html");
       }
       return;
@@ -286,7 +289,9 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
   function bootApp(accessResult) {
 
     const isLifetime     = accessResult.type === "lifetime";
-    const userEmail      = accessResult.email || localStorage.getItem("ve-pricing-email") || "";
+    let storedEmail = "";
+    try { storedEmail = localStorage.getItem("ve-pricing-email") || ""; } catch(e) {}
+    const userEmail      = accessResult.email || storedEmail || "";
     const MAX_DAILY_USES = 3;
 
     // ── App state ──
@@ -323,7 +328,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2000)}
     function suggestedRate(){const b=BASE_RATES[state.profile.vaType]||25;const e=EXP_LEVELS.find(x=>x.value===state.profile.experience);return Math.round(b*(e?e.mult:1))}
     function todayKey(){return new Date().toISOString().slice(0,10)}
-    function getLocalUsesLeft(){const k=`ve-uses-${userEmail||"anon"}-${todayKey()}`;return Math.max(0,MAX_DAILY_USES-parseInt(localStorage.getItem(k)||"0"))}
+    function getLocalUsesLeft(){const k=`ve-uses-${userEmail||"anon"}-${todayKey()}`;let raw="0";try{raw=localStorage.getItem(k)||"0"}catch(e){}return Math.max(0,MAX_DAILY_USES-parseInt(raw))}
     function trackEvent(name){
       try{ if(window.clarity) window.clarity("set", name, "1"); }catch(e){}
       try{ fetch(ACCESS_API,{method:"POST",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"event",name:name,token:localStorage.getItem(TOKEN_KEY)||"",email:userEmail})}).catch(()=>{}); }catch(e){}
@@ -332,16 +337,18 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     // whether this use is allowed; localStorage is only an optimistic display.
     async function recordUse(){
       const k=`ve-uses-${userEmail||"anon"}-${todayKey()}`;
+      let useTok=null;
+      try{ useTok=localStorage.getItem(TOKEN_KEY); }catch(e){}
       try{
-        const res=await fetch(ACCESS_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"track-use",token:localStorage.getItem(TOKEN_KEY),email:userEmail})});
+        const res=await fetch(ACCESS_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"track-use",token:useTok,email:userEmail})});
         const data=await res.json();
         if(data.unlimited) return true;
         if(data.allowed===false||data.capHit){
-          localStorage.setItem(k,String(MAX_DAILY_USES));
+          try{ localStorage.setItem(k,String(MAX_DAILY_USES)); }catch(e){}
           trackEvent("cap_hit");
           return false;
         }
-        if(typeof data.count==="number") localStorage.setItem(k,String(data.count));
+        if(typeof data.count==="number"){ try{ localStorage.setItem(k,String(data.count)); }catch(e){} }
         // Backward-compat with the pre-upgrade Worker (returns {count} but no
         // `allowed`): it increments unconditionally, so enforce the cap here.
         if(data.allowed===undefined && typeof data.count==="number" && data.count>MAX_DAILY_USES){
@@ -352,9 +359,11 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
       }catch(e){
         // Network error - fall back to the optimistic local counter so users on
         // bad connections aren't hard-blocked.
-        const used=parseInt(localStorage.getItem(k)||"0");
+        let usedRaw="0";
+        try{ usedRaw=localStorage.getItem(k)||"0"; }catch(e2){}
+        const used=parseInt(usedRaw);
         if(used>=MAX_DAILY_USES) return false;
-        localStorage.setItem(k,(used+1).toString());
+        try{ localStorage.setItem(k,(used+1).toString()); }catch(e2){}
         return true;
       }
     }
@@ -618,7 +627,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     window.addProject=function(){const name=document.getElementById("projName")?.value?.trim();const hours=+document.getElementById("projHours")?.value;const complexity=document.getElementById("projComplexity")?.value||"standard";if(!name||!hours)return;const mult=complexity==="complex"?1.5:complexity==="simple"?0.75:1;state.projects.push({name,hours,complexity,price:Math.round(hours*state.hourlyRate*mult)});save();render()};
     window.removeProject=function(i){state.projects.splice(i,1);save();render()};
     window.saveAndToast=function(){save();toast("Pricing saved!")};
-    window.resetAll=function(){if(!confirm("Start over? This will clear all your pricing data."))return;state={step:0,profile:{vaType:"",experience:"",name:""},services:[],pricingModels:[],hourlyRate:25,packages:[{name:"Starter",hours:10,discount:0,services:[]},{name:"Growth",hours:20,discount:5,services:[]},{name:"Premium",hours:40,discount:10,services:[]}],projects:[]};localStorage.removeItem(STORAGE_KEY);render()};
+    window.resetAll=function(){if(!confirm("Start over? This will clear all your pricing data."))return;state={step:0,profile:{vaType:"",experience:"",name:""},services:[],pricingModels:[],hourlyRate:25,packages:[{name:"Starter",hours:10,discount:0,services:[]},{name:"Growth",hours:20,discount:5,services:[]},{name:"Premium",hours:40,discount:10,services:[]}],projects:[]};try{localStorage.removeItem(STORAGE_KEY)}catch(e){};render()};
     window.shareRate=function(){
       const hr=state.hourlyRate;
       const text=`My VA rate should be $${hr}/hr.\n\nCalculate yours:\nvirtueasy.com/pricing-tool`;

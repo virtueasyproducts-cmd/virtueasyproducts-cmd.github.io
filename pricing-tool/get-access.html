@@ -20,7 +20,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 /></noscript>
 
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Free VA Pricing Calculator -- VIRTUEASY</title>
   <meta name="robots" content="noindex, follow">
   <meta name="description" content="Calculate your ideal VA rate in minutes. Try free - only $7 to upgrade for lifetime access.">
@@ -219,7 +219,7 @@ function showAccessError(msg) {
 
 async function grantAndRedirect(email) {
   // Save email immediately (used as an optimistic display key inside the app)
-  if (email) localStorage.setItem('ve-pricing-email', email);
+  if (email) { try { localStorage.setItem('ve-pricing-email', email); } catch(e) {} }
 
   // Fire ML subscription in background - don't wait for it
   if (email) {
@@ -243,8 +243,10 @@ async function grantAndRedirect(email) {
     });
     const data = await res.json();
     if (data.token) {
-      localStorage.setItem('ve-pricing-token', data.token);
-      localStorage.setItem('ve-pricing-email', email);
+      try {
+        localStorage.setItem('ve-pricing-token', data.token);
+        localStorage.setItem('ve-pricing-email', email);
+      } catch(e) {}
       redirectToApp();
       return;
     }
@@ -291,7 +293,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Auto-redirect returning users with a valid token
 (function () {
-  const token = localStorage.getItem('ve-pricing-token');
+  let token = null;
+  try { token = localStorage.getItem('ve-pricing-token'); } catch(e) {}
   if (!token) return;
   fetch(ACCESS_API, {
     method: 'POST',

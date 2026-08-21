@@ -92,6 +92,11 @@
      Lead ever fired. Watch the document instead and re-query every time. */
   function watchMailerLite() {
     if (framed()) return;
+    // Only three pages carry a MailerLite embed. Everywhere else (36 blog posts,
+    // /starterkit/, /resources/, the job board) this observer would watch the
+    // whole document for the lifetime of the session and find nothing, running a
+    // full-document querySelectorAll on every class/style mutation.
+    if (!document.querySelector(".ml-form-embedContainer, .ml-block-form, .ml-form-successBody")) return;
     var fired = false;
 
     function check() {
@@ -122,7 +127,10 @@
     // Backstop: MailerLite can swap the panel in a way that produces no
     // mutation we are watching. Give up after two minutes on the page.
     var poll = setInterval(check, 1000);
-    setTimeout(function () { clearInterval(poll); }, 120000);
+    setTimeout(function () {
+      clearInterval(poll);
+      observer.disconnect();
+    }, 120000);
 
     check();
   }

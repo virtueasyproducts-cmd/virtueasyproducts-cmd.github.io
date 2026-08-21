@@ -265,11 +265,16 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.18)}
 <script async src="https://r.wdfl.co/rw.js" data-rewardful="e92558"></script>
     <!-- Microsoft Clarity -->
     <script type="text/javascript">
+        // This page is also embedded as an iframe on /starterkit/, which loads
+        // its own Clarity tag. Booting a second one in that context double-counts
+        // a single visit, so only load it standalone.
+        if (window.top === window.self) {
         (function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
             t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
         })(window, document, "clarity", "script", "xc4ai7h62y");
+        }
     </script>
 <script src="/assets/js/track.js" defer></script>
 </head>
@@ -481,7 +486,7 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.18)}
       <div class="modal-price-label">One-time payment. Instant access. Yours forever.</div>
     </div>
     <ul class="modal-features">
-      <li>All 6 modules - 30 lessons complete</li>
+      <li>All 6 modules - 33 lessons complete</li>
       <li>Module 2: Build a real lead list of 10-50 targets</li>
       <li>Module 3: Copy-paste DM + email templates</li>
       <li>Module 4: Discovery call scripts that close</li>
@@ -490,7 +495,7 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.18)}
       <li>260 plug-and-play prompts</li>
       <li>Proposal Builder, Portfolio Builder, Pricing Tool</li>
     </ul>
-    <a class="modal-cta" href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" data-rewardful>Get Instant Access - $27 →</a>
+    <a class="modal-cta" href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" target="_blank" rel="noopener" data-rewardful>Get Instant Access - $27 →</a>
     <button class="modal-skip" onclick="closeModal()">No thanks, I'll keep guessing</button>
   </div>
 </div>

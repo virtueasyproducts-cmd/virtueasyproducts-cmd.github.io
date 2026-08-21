@@ -852,11 +852,17 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     // ── POPUP ────────────────────────────────────────────────────
     const POPUP_KEY = 've_jobs_access';     // subscribed
     const DISMISS_KEY = 've_jobs_dismissed'; // declined, don't nag again
-    const POPUP_DELAY_MS = 30000;
+    const POPUP_DELAY_MS = 8000;
     let popupTriggered = false;
 
     function popupSuppressed() {
-      return !!(localStorage.getItem(POPUP_KEY) || localStorage.getItem(DISMISS_KEY));
+      // Storage can throw in restricted iOS webviews. Failing open (not
+      // suppressed) keeps the page's only email capture alive; the cost is that
+      // a dismissal can't persist, and popupTriggered still prevents a repeat
+      // within the same page load.
+      try {
+        return !!(localStorage.getItem(POPUP_KEY) || localStorage.getItem(DISMISS_KEY));
+      } catch(e) { return false; }
     }
 
     function showPopup() {
@@ -871,7 +877,9 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
     // Closing without subscribing is a real choice — remember it.
     function dismissPopup() {
-      if (!localStorage.getItem(POPUP_KEY)) localStorage.setItem(DISMISS_KEY, '1');
+      try {
+        if (!localStorage.getItem(POPUP_KEY)) localStorage.setItem(DISMISS_KEY, '1');
+      } catch(e) {}
       hidePopup();
     }
 
@@ -952,8 +960,10 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
         return;
       }
 
-      localStorage.setItem(POPUP_KEY, '1');
-      localStorage.removeItem(DISMISS_KEY);
+      try {
+        localStorage.setItem(POPUP_KEY, '1');
+        localStorage.removeItem(DISMISS_KEY);
+      } catch(e) {}
 
       const banner = document.getElementById('early-banner');
       banner.querySelector('.sub').textContent =

@@ -126,8 +126,10 @@ async function doLogin(){
     });
     const data = await res.json();
     if(data.valid && data.token){
-      localStorage.setItem(SK_TOKEN, data.token);
-      localStorage.removeItem('sk_auth');
+      try {
+        localStorage.setItem(SK_TOKEN, data.token);
+        localStorage.removeItem('sk_auth');
+      } catch(e) {}
       window.location.href = 'dashboard.html';
       return;
     }
@@ -147,7 +149,7 @@ emailInput.addEventListener('keydown', function(e){
   emailInput.style.borderColor='';
 });
 // Already unlocked on this device? Let the dashboard verify the token.
-if(localStorage.getItem(SK_TOKEN)) window.location.href='dashboard.html';
+try { if(localStorage.getItem(SK_TOKEN)) window.location.href='dashboard.html'; } catch(e) {}
 </script>
 </body>
 </html>

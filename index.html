@@ -2426,7 +2426,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     </section>
 
     <script defer src="https://groot.mailerlite.com/js/w/webforms.min.js?v95037e5bac78f29ed026832ca21a7c7b" type="text/javascript"></script>
-    <script>fetch("https://assets.mailerlite.com/jsonp/2199748/forms/185198994698273934/takel");</script>
+    <script>fetch("https://assets.mailerlite.com/jsonp/2199748/forms/185198994698273934/takel").catch(function(){});</script>
 
   </main>
 
@@ -2598,9 +2598,6 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       document.removeEventListener(ev, onGesture);
     });
   }
-  ['click','touchstart','keydown'].forEach(function(ev){
-    document.addEventListener(ev, onGesture, { passive: true });
-  });
   if(btn){
     btn.addEventListener('click', function(e){
       e.stopPropagation();

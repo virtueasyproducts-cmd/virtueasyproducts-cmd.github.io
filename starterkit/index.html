@@ -338,7 +338,7 @@ img{max-width:100%;display:block}
         style="width:100%;height:620px;border:none;display:block;background:#0A0A0A;"
         title="VA Starter Kit Interactive Preview"
         loading="lazy"
-        sandbox="allow-scripts allow-same-origin allow-forms"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
       ></iframe>
       <div style="position:absolute;bottom:0;left:0;right:0;height:90px;background:linear-gradient(to top,#050505 40%,transparent);pointer-events:none;"></div>
     </div>
@@ -507,9 +507,6 @@ img{max-width:100%;display:block}
       document.removeEventListener(ev, onGesture);
     });
   }
-  ['click','touchstart','keydown'].forEach(function(ev){
-    document.addEventListener(ev, onGesture, { passive: true });
-  });
   if(btn){
     btn.addEventListener('click', function(e){
       e.stopPropagation();

@@ -104,7 +104,7 @@ async function doLogin(){
     });
     const data = await res.json();
     if(data.valid && data.token){
-      localStorage.setItem(OK_TOKEN, data.token);
+      try { localStorage.setItem(OK_TOKEN, data.token); } catch(e) {}
       window.location.href = 'ok-2026-access.html';
       return;
     }
@@ -123,7 +123,7 @@ emailInput.addEventListener('keydown', function(e){
   errEl.classList.remove('show');
   emailInput.style.borderColor='';
 });
-if(localStorage.getItem(OK_TOKEN)) window.location.href='ok-2026-access.html';
+try { if(localStorage.getItem(OK_TOKEN)) window.location.href='ok-2026-access.html'; } catch(e) {}
 </script>
 </body>
 </html>

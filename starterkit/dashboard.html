@@ -627,7 +627,7 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
     </div>
     <div class="dash-stats">
       <div class="stat-card">
-        <div class="stat-num" id="statLessons">0<span>/30</span></div>
+        <div class="stat-num" id="statLessons">0<span>/33</span></div>
         <div class="stat-label">Lessons Complete</div>
       </div>
       <div class="stat-card">
@@ -1009,7 +1009,8 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
 (function(){
   var SK_API = "https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev";
   var SK_TOKEN = "sk-access-token";
-  var t = localStorage.getItem(SK_TOKEN);
+  var t = null;
+  try { t = localStorage.getItem(SK_TOKEN); } catch(e) {}
   if(!t){ window.location.replace('login.html'); return; }
   var root = document.documentElement;
   root.style.visibility = 'hidden'; // hide until the purchase is confirmed
@@ -1018,16 +1019,17 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
     body: JSON.stringify({ action:'product-verify', product:'starterkit', token: t })
   }).then(function(r){ return r.json(); }).then(function(d){
     if(d && d.valid){ root.style.visibility = ''; }
-    else { localStorage.removeItem(SK_TOKEN); window.location.replace('login.html'); }
+    else { try { localStorage.removeItem(SK_TOKEN); } catch(e) {} window.location.replace('login.html'); }
   }).catch(function(){ root.style.visibility = ''; }); // network hiccup: don't lock out a real buyer
 })();
-function logout(){ localStorage.removeItem('sk-access-token'); localStorage.removeItem('sk_auth'); window.location.replace('login.html'); }
+function logout(){ try { localStorage.removeItem('sk-access-token'); localStorage.removeItem('sk_auth'); } catch(e) {} window.location.replace('login.html'); }
 function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
 
 // ── STORAGE ──
 var STORE_KEY = 'sk_v1';
-var state = JSON.parse(localStorage.getItem(STORE_KEY)||'{}');
-function save(){ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
+var state = {};
+try { state = JSON.parse(localStorage.getItem(STORE_KEY)||'{}') || {}; } catch(e) { state = {}; }
+function save(){ try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch(e) {} }
 
 // ── PROGRESS ──
 function updateProgress(){
@@ -1240,9 +1242,11 @@ function aiGenerate(mid, idx){
   var prompt = gen.buildPrompt(values);
   var btn = document.getElementById('aiBtn_'+mid+'_'+idx);
   btn.textContent = 'Generating...'; btn.disabled=true;
+  var skTok = '';
+  try { skTok = localStorage.getItem('sk-access-token')||''; } catch(e) {}
   fetch(PROXY_URL, {
     method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({prompt: prompt, token: localStorage.getItem('sk-access-token')||''})
+    body: JSON.stringify({prompt: prompt, token: skTok})
   }).then(function(r){return r.json();}).then(function(d){
     var text = d.result || (d.content&&d.content[0]&&d.content[0].text) || 'Error generating. Please try again.';
     document.getElementById('aiText_'+mid+'_'+idx).textContent = text;
@@ -2182,9 +2186,11 @@ function aitkGenerate(){
   var btn = document.getElementById('aitkGenBtn');
   btn.textContent='Generating...'; btn.disabled=true;
   document.getElementById('aitkResult').style.display='none';
+  var aitkTok = '';
+  try { aitkTok = localStorage.getItem('sk-access-token')||''; } catch(e) {}
   fetch('https://workbook-theta.vercel.app/api/generate',{
     method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({prompt:prompt, token: localStorage.getItem('sk-access-token')||''})
+    body: JSON.stringify({prompt:prompt, token: aitkTok})
   }).then(function(r){return r.json();}).then(function(d){
     var text = d.result || (d.content && typeof d.content === 'string' ? d.content : '') || 'Something went wrong. Try again.';
     document.getElementById('aitkText').textContent = text;

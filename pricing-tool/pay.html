@@ -19,7 +19,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unlock Pricing Tool - VIRTUEASY</title>
   <meta name="robots" content="noindex, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -136,13 +136,16 @@ body{font-family:var(--font-body);background:var(--white);color:var(--black);min
 <script>
 // Legacy client-flag bypass removed: access is governed by the server-issued
 // token + Worker verification, not a localStorage flag. Clear any stale flag.
-localStorage.removeItem("lifetimeAccess");
-localStorage.removeItem("trialStart");
+try {
+  localStorage.removeItem("lifetimeAccess");
+  localStorage.removeItem("trialStart");
+} catch(e) {}
 
 // Funnel tracking: who saw the offer, and who clicked through to checkout.
 (function(){
   var ACCESS_API = "https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev";
-  var token = localStorage.getItem("ve-pricing-token") || "";
+  var token = "";
+  try { token = localStorage.getItem("ve-pricing-token") || ""; } catch(e) {}
   function ev(name){
     try{ if(window.clarity) window.clarity("set", name, "1"); }catch(e){}
     try{ fetch(ACCESS_API,{method:"POST",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"event",name:name,token:token})}).catch(function(){}); }catch(e){}

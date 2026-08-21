@@ -744,7 +744,8 @@ body {
 (function(){
   var OK_API = "https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev";
   var OK_TOKEN = "ok-access-token";
-  var t = localStorage.getItem(OK_TOKEN);
+  var t = null;
+  try { t = localStorage.getItem(OK_TOKEN); } catch(e) {}
   if(!t){ window.location.replace('login.html'); return; }
   var root = document.documentElement;
   root.style.visibility = 'hidden'; // hide until the purchase is confirmed
@@ -753,7 +754,7 @@ body {
     body: JSON.stringify({ action:'product-verify', product:'onboarding', token: t })
   }).then(function(r){ return r.json(); }).then(function(d){
     if(d && d.valid){ root.style.visibility = ''; }
-    else { localStorage.removeItem(OK_TOKEN); window.location.replace('login.html'); }
+    else { try { localStorage.removeItem(OK_TOKEN); } catch(e) {} window.location.replace('login.html'); }
   }).catch(function(){ root.style.visibility = ''; }); // network hiccup: don't lock out a real buyer
 })();
 </script>
