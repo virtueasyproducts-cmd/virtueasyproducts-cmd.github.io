@@ -401,7 +401,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       width: 100%;
     }
     #mlb2-40125544.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button {
-      background-color: #e51085 !important;
+      background-color: #FF1F7A !important;
       border: none !important;
       border-radius: 4px !important;
       box-shadow: none !important;
@@ -410,6 +410,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
       font-size: 14px !important;
       font-weight: 700 !important;
+      color: #0A0A0A !important;
       line-height: 21px !important;
       height: auto;
       padding: 10px !important;
@@ -702,7 +703,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       border-radius: 4px;
       padding: 0.3rem 0.75rem;
       font-size: 0.7rem;
-      color: rgba(248,248,248,0.35);
+      color: rgba(248,248,248,0.6);
       margin-left: 0.5rem;
       font-family: monospace;
     }
@@ -1006,7 +1007,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
     .video-frame-title {
       font-size: 0.7rem;
-      color: rgba(248,248,248,0.35);
+      color: rgba(248,248,248,0.6);
       margin-left: 0.5rem;
       letter-spacing: 0.05em;
     }
@@ -1110,7 +1111,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       top: 50px;
       right: -20px;
       background: var(--pink);
-      color: #fff;
+      color: #0A0A0A;
       border-radius: 8px;
       padding: 0.75rem 1rem;
       font-size: 0.75rem;
@@ -1636,6 +1637,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
     .form-submit {
       background: var(--pink);
+      color: #0A0A0A;
       border: none;
       border-radius: 0 5px 5px 0;
       padding: 0.9rem 1.5rem;
@@ -1644,7 +1646,6 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #fff;
       cursor: pointer;
       transition: background 0.2s, box-shadow 0.2s;
       white-space: nowrap;
@@ -1657,7 +1658,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
     .form-note {
       font-size: 0.73rem;
-      color: rgba(248,248,248,0.35);
+      color: rgba(248,248,248,0.62);
     }
 
     /* ── RESPONSIVE ── */
@@ -1671,7 +1672,11 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     }
 
     @media (max-width: 960px) {
-.feature-inner { grid-template-columns: 1fr; gap: 3rem; }
+      /* minmax(0,1fr) stops the track inheriting min-width:auto from its widest
+         item; without it the nowrap carousel tab labels force the whole section
+         221px past the viewport and body{overflow-x:hidden} clips it away. */
+      .feature-inner { grid-template-columns: minmax(0, 1fr); gap: 3rem; }
+      .feature-content, .feature-video-wrap { min-width: 0; }
       .resources-grid { grid-template-columns: repeat(2, 1fr); }
       .resource-card--featured { flex-direction: column; }
       .resource-card--featured .resource-thumb { width: 100%; min-height: 160px; }
@@ -1684,10 +1689,20 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
         border-bottom: 1px solid var(--border);
       }
       .orientation-item:last-child { border-bottom: none; }
-      .proof-strip-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .proof-strip-inner { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
     }
 
     @media (max-width: 600px) {
+      .feature-section { padding: 4rem 1.25rem; }
+      .feature-content p, .feature-outcomes li { max-width: 100%; }
+      /* Four nowrap labels cannot fit a phone. The dots below already carry
+         carousel position, so the labels are redundant here. */
+      .kit-screen-labels { display: none; }
+      .video-badge { display: none; }
+      .feature-ctas { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+      .feature-ctas .btn { width: 100%; justify-content: center; white-space: normal; }
+      .kit-carousel-img { height: 220px; }
+
       .hero { min-height: 85vh; padding: 4rem 1.25rem 5rem; }
       .resources-grid { grid-template-columns: 1fr; }
       .form-row { flex-direction: column; }
@@ -1801,7 +1816,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       width: 100%;
     }
     #mlb2-40125544.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button {
-      background-color: #e51085 !important;
+      background-color: #FF1F7A !important;
       border: none !important;
       border-radius: 4px !important;
       box-shadow: none !important;
@@ -1810,6 +1825,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
       font-size: 14px !important;
       font-weight: 700 !important;
+      color: #0A0A0A !important;
       line-height: 21px !important;
       height: auto;
       padding: 10px !important;
@@ -1835,6 +1851,57 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       font-size: 14px;
       margin: 0;
     }
+
+  /* ── PROMO BANNER ── */
+
+  #promo-banner {
+    position: relative;
+    background: var(--pink);
+    color: #0A0A0A;
+    text-align: center;
+    padding: 0 52px 0 16px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.35;
+  }
+
+  .promo-banner-link {
+    color: #0A0A0A;
+    text-decoration: none;
+    display: block;
+    padding: 10px 0;
+  }
+  .promo-banner-link:hover { text-decoration: underline; }
+
+  #promo-banner-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: #0A0A0A;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+  }
+  #promo-banner-close:hover { opacity: 0.65; }
+
+  /* ── PROOF STRIP ── */
+
+  @media (max-width: 600px) {
+    .proof-strip { padding: 2rem 1.25rem; }
+    .proof-strip-inner { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+    .proof-number { font-size: 2.4rem; }
+    .proof-label { font-size: 0.72rem; line-height: 1.35; }
+  }
 
   /* ── MOBILE FIXES ── */
 
@@ -1922,41 +1989,16 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 </head>
 <body>
 
-  <!-- METRICOOL STICKY BANNER -->
-  <div id="metricool-banner" style="
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-    background: #FF1F7A;
-    color: #fff;
-    text-align: center;
-    padding: 10px 40px;
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    line-height: 1.4;
-  ">
-    <a href="/resources/" style="color:#fff; text-decoration:none; display:inline-block;">
-      &#x2728; Free VA tools inside: a pricing calculator, a regularly updated remote job board, and the VA blog &rarr;
+  <!-- PROMO BANNER
+       In normal flow, not fixed. A fixed banner plus a hard-coded 41px spacer
+       let the banner overlap the sticky nav whenever its copy wrapped. In flow,
+       it reserves its own height at any wrap, and the nav pins cleanly on scroll. -->
+  <div id="promo-banner">
+    <a class="promo-banner-link" href="/resources/">
+      Free VA tools: calculator, job board, blog &rarr;
     </a>
-    <button onclick="document.getElementById('metricool-banner').style.display='none'" aria-label="Close" style="
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 18px;
-      cursor: pointer;
-      line-height: 1;
-      padding: 0 4px;
-    ">&times;</button>
+    <button type="button" id="promo-banner-close" aria-label="Dismiss this message">&times;</button>
   </div>
-  <div id="metricool-banner-spacer" style="height: 41px;"></div>
 
   <nav class="site-nav" role="navigation" aria-label="Main navigation">
     <a class="nav-logo" href="/">
@@ -2043,6 +2085,23 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       </div>
     </section>
 
+    <section class="proof-strip" aria-label="What is inside, by the numbers">
+      <div class="proof-strip-inner">
+        <div class="proof-item">
+          <span class="proof-number">260</span>
+          <span class="proof-label">Plug-and-play AI prompts</span>
+        </div>
+        <div class="proof-item">
+          <span class="proof-number">33</span>
+          <span class="proof-label">Lessons across 6 modules</span>
+        </div>
+        <div class="proof-item">
+          <span class="proof-number">36</span>
+          <span class="proof-label">Free guides, no email needed</span>
+        </div>
+      </div>
+    </section>
+
     <section class="orientation" aria-label="Find your starting point">
       <div class="orientation-inner">
 
@@ -2079,7 +2138,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     <section class="section dream-section" aria-label="The life you're picturing" style="background:#fdf9f6;border-top:1px solid rgba(0,0,0,0.05);">
       <div class="section-inner">
         <div class="section-header">
-          <span class="label" style="color:rgba(0,0,0,0.4);">The life you're picturing</span>
+          <span class="label" style="color:rgba(0,0,0,0.62);">The life you're picturing</span>
           <h2 style="color:#0a0a0a;">You already know you want out.</h2>
           <p style="color:#6b6560;font-size:1.05rem;line-height:1.7;max-width:560px;margin:0.75rem auto 0;">The job that doesn't pay enough. The schedule that's someone else's. You know what you want - you just need a clear first step. Here it is.</p>
         </div>
@@ -2192,21 +2251,21 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
           <!-- BLOG-CARDS:START (auto-generated from /blog/index.html by .github/scripts/sync_blog_home.py — do not edit by hand) -->
 
           <a href="/blog/posts/red-flags-va-job-listing-scams.html" style="display:block; background:#141414; border:1px solid rgba(255,31,122,0.12); padding:1.8rem; text-decoration:none; transition:border-color 0.2s;" onmouseover="this.style.borderColor='rgba(255,31,122,0.4)'" onmouseout="this.style.borderColor='rgba(255,31,122,0.12)'">
-            <span style="display:inline-block; background:#FF1F7A; color:#fff; font-size:0.58rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; padding:0.2rem 0.55rem; margin-bottom:1rem;">Finding Clients</span>
+            <span style="display:inline-block; background:#FF1F7A; color:#0A0A0A; font-size:0.58rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; padding:0.2rem 0.55rem; margin-bottom:1rem;">Finding Clients</span>
             <h3 style="font-family:'Bebas Neue',sans-serif; font-size:1.35rem; letter-spacing:0.03em; color:#F8F8F8; line-height:1.15; margin-bottom:0.75rem;">Red Flags in a VA Job Listing (How to Spot a Scam Before You Apply)</h3>
             <p style="font-size:0.88rem; color:rgba(248,248,248,0.55); line-height:1.6; margin-bottom:1.2rem;">Most VA scams show themselves in the listing, before you ever apply. Six warning signs, a vetting checklist, and the two questions to ask on a first call.</p>
             <span style="font-size:0.75rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#FF1F7A;">6 min read &rarr;</span>
           </a>
 
           <a href="/blog/posts/va-job-application-tips-get-responses.html" style="display:block; background:#141414; border:1px solid rgba(255,31,122,0.12); padding:1.8rem; text-decoration:none; transition:border-color 0.2s;" onmouseover="this.style.borderColor='rgba(255,31,122,0.4)'" onmouseout="this.style.borderColor='rgba(255,31,122,0.12)'">
-            <span style="display:inline-block; background:#FF1F7A; color:#fff; font-size:0.58rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; padding:0.2rem 0.55rem; margin-bottom:1rem;">Finding Clients</span>
+            <span style="display:inline-block; background:#FF1F7A; color:#0A0A0A; font-size:0.58rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; padding:0.2rem 0.55rem; margin-bottom:1rem;">Finding Clients</span>
             <h3 style="font-family:'Bebas Neue',sans-serif; font-size:1.35rem; letter-spacing:0.03em; color:#F8F8F8; line-height:1.15; margin-bottom:0.75rem;">How to Apply to VA Job Listings So You Actually Hear Back</h3>
             <p style="font-size:0.88rem; color:rgba(248,248,248,0.55); line-height:1.6; margin-bottom:1.2rem;">Applications vanish into silence for a reason, and it is rarely your skills. How to read a listing, write four short paragraphs, name your rate, and follow up once.</p>
             <span style="font-size:0.75rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#FF1F7A;">6 min read &rarr;</span>
           </a>
 
           <a href="/blog/posts/va-portfolio-for-beginners-with-no-experience.html" style="display:block; background:#141414; border:1px solid rgba(255,31,122,0.12); padding:1.8rem; text-decoration:none; transition:border-color 0.2s;" onmouseover="this.style.borderColor='rgba(255,31,122,0.4)'" onmouseout="this.style.borderColor='rgba(255,31,122,0.12)'">
-            <span style="display:inline-block; background:#FF1F7A; color:#fff; font-size:0.58rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; padding:0.2rem 0.55rem; margin-bottom:1rem;">Getting Started</span>
+            <span style="display:inline-block; background:#FF1F7A; color:#0A0A0A; font-size:0.58rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; padding:0.2rem 0.55rem; margin-bottom:1rem;">Getting Started</span>
             <h3 style="font-family:'Bebas Neue',sans-serif; font-size:1.35rem; letter-spacing:0.03em; color:#F8F8F8; line-height:1.15; margin-bottom:0.75rem;">How to Build a VA Portfolio When You Have Barely Any Clients Yet</h3>
             <p style="font-size:0.88rem; color:rgba(248,248,248,0.55); line-height:1.6; margin-bottom:1.2rem;">A portfolio is proof you can solve a problem, not a gallery of pretty deliverables. How to build one from a single project, spec work, and honest documentation.</p>
             <span style="font-size:0.75rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#FF1F7A;">6 min read &rarr;</span>
@@ -2218,8 +2277,8 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     </section>
 
     <style id="va-quiz-styles">
-    .va-quiz-section{background:linear-gradient(160deg,#FF1F7A 0%,#E01a6e 55%,#C9135E 100%);padding:5.5rem 1.5rem;border-top:1px solid rgba(0,0,0,0.12);border-bottom:1px solid rgba(0,0,0,0.12);position:relative;overflow:hidden}
-    .va-quiz-section::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 0%,rgba(255,255,255,0.14),transparent 65%);pointer-events:none}
+    .va-quiz-section{background:linear-gradient(160deg,#D91565 0%,#D01462 55%,#C9135E 100%);padding:5.5rem 1.5rem;border-top:1px solid rgba(0,0,0,0.12);border-bottom:1px solid rgba(0,0,0,0.12);position:relative;overflow:hidden}
+    .va-quiz-section::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 0%,rgba(255,255,255,0.05),transparent 65%);pointer-events:none}
     .va-quiz{position:relative;max-width:680px;margin:0 auto}
     .vq-screen{text-align:center}
     .vq-screen[hidden]{display:none}
@@ -2227,19 +2286,19 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     @keyframes vqFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
     .vq-eyebrow{display:inline-block;font-family:var(--font-body);font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#fff;margin-bottom:1.1rem;padding:0.35rem 0.9rem;border:1px solid rgba(255,255,255,0.55);border-radius:20px;background:rgba(255,255,255,0.12)}
     .vq-title{font-family:var(--font-display);font-size:clamp(2.6rem,7vw,4.6rem);line-height:0.92;letter-spacing:0.02em;color:#fff;margin:0 0 1rem}
-    .vq-sub{font-family:var(--font-body);font-size:1.02rem;line-height:1.6;color:rgba(255,255,255,0.9);max-width:480px;margin:0 auto 2rem}
-    .vq-meta{font-family:var(--font-body);font-size:0.78rem;color:rgba(255,255,255,0.75);margin-top:1.1rem}
+    .vq-sub{font-family:var(--font-body);font-size:1.02rem;line-height:1.6;color:#fff;max-width:480px;margin:0 auto 2rem}
+    .vq-meta{font-family:var(--font-body);font-size:0.78rem;color:#fff;margin-top:1.1rem}
     .vq-btn{display:inline-block;font-family:var(--font-body);font-weight:700;font-size:0.88rem;letter-spacing:0.08em;text-transform:uppercase;padding:1rem 2.25rem;border-radius:4px;cursor:pointer;border:none;transition:all 0.2s;text-decoration:none}
-    .vq-btn-primary{background:#fff;color:#C9135E}
-    .vq-btn-primary:hover{background:#0a0a0a;color:#fff;transform:translateY(-1px)}
-    .vq-btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.6)}
-    .vq-btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,0.14)}
+    .vq-btn-primary{background:#fff;color:#0A0A0A}
+    .vq-btn-primary:hover{background:#0A0A0A;color:#fff;transform:translateY(-1px)}
+    .vq-btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.7)}
+    .vq-btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,0.16)}
     .vq-progress-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.6rem}
-    .vq-progress-label{font-family:var(--font-body);font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85)}
-    .vq-back{background:none;border:none;color:rgba(255,255,255,0.75);font-family:var(--font-body);font-size:0.8rem;cursor:pointer;padding:0;transition:color 0.2s}
+    .vq-progress-label{font-family:var(--font-body);font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#fff}
+    .vq-back{background:none;border:none;color:#fff;font-family:var(--font-body);font-size:0.8rem;cursor:pointer;padding:0.5rem 0.25rem;transition:color 0.2s}
     .vq-back:hover{color:#fff}
     .vq-back[hidden]{display:none}
-    .vq-progress-bar{height:4px;background:rgba(255,255,255,0.25);border-radius:2px;overflow:hidden;margin-bottom:2rem}
+    .vq-progress-bar{height:4px;background:rgba(255,255,255,0.3);border-radius:2px;overflow:hidden;margin-bottom:2rem}
     .vq-progress-fill{height:100%;width:0;background:#fff;border-radius:2px;transition:width 0.4s cubic-bezier(0.4,0,0.2,1)}
     .vq-question{font-family:var(--font-display);font-size:clamp(1.7rem,4.5vw,2.5rem);line-height:1.08;letter-spacing:0.02em;color:#fff;margin:0 0 1.75rem;text-align:left}
     .vq-options{display:flex;flex-direction:column;gap:0.65rem}
@@ -2250,7 +2309,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     .vq-option:hover .vq-option-dot,.vq-option.selected .vq-option-dot{border-color:#fff;background:#fff}
     .vq-result-ctas{display:flex;flex-direction:column;gap:0.75rem;align-items:center;max-width:360px;margin:0 auto}
     .vq-result-ctas .vq-btn{width:100%;text-align:center}
-    .vq-retake{margin-top:1.5rem;background:none;border:none;color:rgba(255,255,255,0.8);font-family:var(--font-body);font-size:0.82rem;text-decoration:underline;cursor:pointer;transition:color 0.2s}
+    .vq-retake{margin-top:1.5rem;background:none;border:none;color:#fff;font-family:var(--font-body);font-size:0.82rem;text-decoration:underline;cursor:pointer;padding:0.5rem;transition:color 0.2s}
     .vq-retake:hover{color:#fff}
     .vq-confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999}
   </style>
@@ -2293,13 +2352,13 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     <section class="section" aria-label="Common objections answered" style="background:#fdf9f6;">
       <div class="section-inner">
         <div class="section-header">
-          <span class="label" style="color:rgba(0,0,0,0.4);">Let's be real</span>
+          <span class="label" style="color:rgba(0,0,0,0.62);">Let's be real</span>
           <h2 style="color:#0a0a0a;">You've probably already talked yourself out of this.</h2>
         </div>
         <div style="max-width:720px;margin:3rem auto 0;">
 
           <div style="display:flex;gap:28px;padding:32px 0;border-bottom:1px solid #ede8e2;align-items:flex-start;">
-            <div style="font-family:var(--font-display);font-size:22px;color:rgba(0,0,0,0.15);flex-shrink:0;margin-top:3px;">01</div>
+            <div style="font-family:var(--font-display);font-size:22px;color:rgba(0,0,0,0.55);flex-shrink:0;margin-top:3px;">01</div>
             <div>
               <div style="font-size:1rem;font-weight:600;color:#0a0a0a;margin-bottom:8px;line-height:1.3;">"Is this just another VA course I'll never finish?"</div>
               <div style="font-size:0.95rem;color:#6b6560;line-height:1.7;">It's not a sit-and-watch course. It's 6 short, self-guided modules, each one tied to a task you actually do, not hours of passive video you half-watch and forget. You either did the task or you didn't. No falling behind, no guilt. Just open it, do the thing, move forward.</div>
@@ -2307,7 +2366,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
           </div>
 
           <div style="display:flex;gap:28px;padding:32px 0;border-bottom:1px solid #ede8e2;align-items:flex-start;">
-            <div style="font-family:var(--font-display);font-size:22px;color:rgba(0,0,0,0.15);flex-shrink:0;margin-top:3px;">02</div>
+            <div style="font-family:var(--font-display);font-size:22px;color:rgba(0,0,0,0.55);flex-shrink:0;margin-top:3px;">02</div>
             <div>
               <div style="font-size:1rem;font-weight:600;color:#0a0a0a;margin-bottom:8px;line-height:1.3;">"What if $27 is a stretch right now?"</div>
               <div style="font-size:0.95rem;color:#6b6560;line-height:1.7;">That's exactly why so much of this site is free. The pricing tool, the job board, the blog - use all of it at zero cost, no purchase needed. If $27 is a stretch right now, start with the free tools. The Starter Kit is there when you're ready for the full system in one place.</div>
@@ -2316,7 +2375,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
           </div>
 
           <div style="display:flex;gap:28px;padding:32px 0;border-bottom:1px solid #ede8e2;align-items:flex-start;">
-            <div style="font-family:var(--font-display);font-size:22px;color:rgba(0,0,0,0.15);flex-shrink:0;margin-top:3px;">03</div>
+            <div style="font-family:var(--font-display);font-size:22px;color:rgba(0,0,0,0.55);flex-shrink:0;margin-top:3px;">03</div>
             <div>
               <div style="font-size:1rem;font-weight:600;color:#0a0a0a;margin-bottom:8px;line-height:1.3;">"I have no experience. Will this actually work for me?"</div>
               <div style="font-size:0.95rem;color:#6b6560;line-height:1.7;">The Starter Kit is built for zero experience. You don't need a VA background, a portfolio, or a single past client. You need email, a calendar, and the ability to follow a system. If you have those three things, you have what it takes to start.</div>
@@ -2324,7 +2383,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
           </div>
 
           <div style="display:flex;gap:28px;padding:32px 0;align-items:flex-start;">
-            <div style="font-family:var(--font-display);font-size:22px;color:rgba(0,0,0,0.15);flex-shrink:0;margin-top:3px;">04</div>
+            <div style="font-family:var(--font-display);font-size:22px;color:rgba(0,0,0,0.55);flex-shrink:0;margin-top:3px;">04</div>
             <div>
               <div style="font-size:1rem;font-weight:600;color:#0a0a0a;margin-bottom:8px;line-height:1.3;">"What if I buy it and it doesn't work?"</div>
               <div style="font-size:0.95rem;color:#6b6560;line-height:1.7;">We can't promise a result - anyone who does is selling you a fantasy. What we can promise is a real system, real scripts, and a specific action step to take next, instead of another folder of videos you never finish. Do the work and the work works.</div>
@@ -2333,10 +2392,10 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
           <div style="margin-top:48px;background:#0a0a0a;border-radius:16px;padding:48px 44px;text-align:center;">
             <div style="font-family:var(--font-display);font-size:4rem;color:var(--pink);line-height:1;margin-bottom:6px;">$27</div>
-            <div style="font-size:0.85rem;color:rgba(255,255,255,0.35);margin-bottom:8px;">one-time. no subscription. works in your browser today.</div>
+            <div style="font-size:0.85rem;color:rgba(255,255,255,0.66);margin-bottom:8px;">one-time. no subscription. works in your browser today.</div>
             <p style="font-size:0.95rem;color:rgba(255,255,255,0.55);line-height:1.65;max-width:440px;margin:0 auto 32px;">Six self-guided modules and every tool you need to land your first client, all in one dashboard, ready whenever you are.</p>
             <a href="/starterkit/" class="btn btn-primary" style="font-size:1rem;padding:1rem 2.5rem;">Get the Starter Kit - $27</a>
-            <div style="margin-top:16px;font-size:0.8rem;color:rgba(255,255,255,0.25);">Instant access &middot; No subscriptions &middot; Works in any browser</div>
+            <div style="margin-top:16px;font-size:0.8rem;color:rgba(255,255,255,0.66);">Instant access &middot; No subscriptions &middot; Works in any browser</div>
           </div>
 
         </div>
@@ -2786,5 +2845,17 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   });
 })();
 </script>
+  <script>
+    (function () {
+      var b = document.getElementById('promo-banner');
+      var x = document.getElementById('promo-banner-close');
+      if (!b || !x) return;
+      try { if (localStorage.getItem('va_promo_dismissed')) b.style.display = 'none'; } catch (e) {}
+      x.addEventListener('click', function () {
+        b.style.display = 'none';
+        try { localStorage.setItem('va_promo_dismissed', '1'); } catch (e) {}
+      });
+    })();
+  </script>
 </body>
 </html>

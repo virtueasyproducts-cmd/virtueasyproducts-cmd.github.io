@@ -68,7 +68,7 @@ h1, h2, h3, h4 {
 
 .btn-primary {
   background: var(--pink);
-  color: #fff;
+  color: var(--black);
 }
 .btn-primary:hover {
   background: var(--pink-dark);
@@ -166,7 +166,7 @@ h1, h2, h3, h4 {
 }
 .nav-links .nav-cta a:hover {
   background: var(--pink);
-  color: #fff;
+  color: var(--black);
   border-color: var(--pink);
 }
 
@@ -277,7 +277,7 @@ h1, h2, h3, h4 {
 .badge {
   display: inline-block;
   background: var(--pink);
-  color: #fff;
+  color: var(--black);
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.12em;

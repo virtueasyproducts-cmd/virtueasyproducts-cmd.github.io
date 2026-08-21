@@ -36,7 +36,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   --black: #0A0A0A;
   --white: #F8F8F8;
   --gray: #141414;
-  --mid: #666;
+  --mid: #8C8C8C;
   --light: rgba(248,248,248,0.65);
   --border: rgba(255,31,122,0.18);
 }
@@ -66,7 +66,7 @@ nav, .site-nav {
 .nav-links li a:hover { color: var(--white); }
 .nav-links .nav-community { color: var(--pink) !important; }
 .nav-links .nav-community:hover { color: #ff5fa0 !important; }
-.nav-links .nav-cta a, li.nav-cta a { background: var(--pink); color: var(--white) !important; padding: 0.45rem 1rem; }
+.nav-links .nav-cta a, li.nav-cta a { background: var(--pink); color: var(--black) !important; padding: 0.45rem 1rem; }
 .nav-links .nav-cta a:hover, li.nav-cta a:hover { background: #d4005a; }
 @media (max-width: 768px) {
   .nav-toggle { display: flex; }
@@ -77,7 +77,7 @@ nav, .site-nav {
 }
 
 .post-hero { padding: 4rem 2rem 2rem; max-width: 740px; margin: 0 auto; }
-.post-tag { display: inline-block; background: var(--pink); color: var(--white); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.25rem 0.65rem; margin-bottom: 1.2rem; }
+.post-tag { display: inline-block; background: var(--pink); color: var(--black); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.25rem 0.65rem; margin-bottom: 1.2rem; }
 .post-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 6vw, 4.2rem); letter-spacing: 0.04em; line-height: 1.05; margin-bottom: 1rem; }
 .post-meta { font-size: 0.78rem; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2rem; }
 .post-meta span { color: var(--pink); margin: 0 0.4rem; }
@@ -102,7 +102,7 @@ article a:hover { text-decoration: underline; }
 
 .numbered-list { counter-reset: item; list-style: none; padding: 0; }
 .numbered-list li { counter-increment: item; display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; color: var(--light); }
-.numbered-list li::before { content: counter(item); background: var(--pink); color: var(--white); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; min-width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.numbered-list li::before { content: counter(item); background: var(--pink); color: var(--black); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; min-width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
 
 .promo-banner {
   border: 1px solid var(--pink);
@@ -115,7 +115,7 @@ article a:hover { text-decoration: underline; }
 .promo-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.5rem; }
 .promo-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.5rem, 4vw, 2.2rem); letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.5rem; }
 .promo-sub { font-size: 0.92rem; color: var(--light); margin-bottom: 1.3rem; max-width: 420px; margin-left: auto; margin-right: auto; }
-.promo-btn { display: inline-block; background: var(--pink); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.75rem 1.8rem; text-decoration: none; }
+.promo-btn { display: inline-block; background: var(--pink); color: var(--black); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.75rem 1.8rem; text-decoration: none; }
 .promo-btn:hover { background: #d4005a; text-decoration: none; }
 
 .code-pill {
@@ -132,10 +132,10 @@ article a:hover { text-decoration: underline; }
 }
 
 .cta-block { background: var(--pink); padding: 4rem 2rem; text-align: center; }
-.cta-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 0.8rem; }
-.cta-block h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 5vw, 3.2rem); letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.8rem; }
-.cta-sub { font-size: 1rem; color: rgba(255,255,255,0.85); margin-bottom: 1.8rem; max-width: 500px; margin-left: auto; margin-right: auto; }
-.cta-btn { display: inline-block; background: var(--white); color: var(--pink); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.85rem 2.2rem; text-decoration: none; }
+.cta-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(10,10,10,0.85); margin-bottom: 0.8rem; }
+.cta-block h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 5vw, 3.2rem); letter-spacing: 0.04em; color: var(--black); margin-bottom: 0.8rem; }
+.cta-sub { font-size: 1rem; color: rgba(10,10,10,0.9); margin-bottom: 1.8rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+.cta-btn { display: inline-block; background: var(--white); color: var(--black); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.85rem 2.2rem; text-decoration: none; }
 .cta-btn:hover { background: #e8e8e8; text-decoration: none; }
 
 .site-footer { background: #0d0d0d; border-top: 1px solid rgba(255,255,255,0.06); padding: 3.5rem 2rem 2rem; }
@@ -222,7 +222,7 @@ article a:hover { text-decoration: underline; }
 <div class="post-hero">
   <span class="post-tag">Onboarding</span>
   <h1>What to Put in Your VA Contract (and What Happens Without One)</h1>
-  <p class="post-meta">Virtueasy <span>&#183;</span> Contracts &amp; Scope <span>&#183;</span> 8 min read</p>
+  <p class="post-meta"><time datetime="2026-07-10">10 July 2026</time> <span>&#183;</span> Virtueasy <span>&#183;</span> Contracts &amp; Scope <span>&#183;</span> 8 min read</p>
   <p class="post-intro">You landed the client. Things started well. Then the scope crept, an invoice went unpaid, or you found out they had used your work somewhere you never agreed to. And you have nothing in writing to point to. A contract fixes that before it ever happens.</p>
 </div>
 
