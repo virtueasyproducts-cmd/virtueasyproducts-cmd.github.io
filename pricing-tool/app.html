@@ -336,6 +336,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     // Server-enforced daily cap. The Worker counts per account and tells us
     // whether this use is allowed; localStorage is only an optimistic display.
     async function recordUse(){
+      try{ if(window.clarity) window.clarity("event","tool_use"); }catch(e){}
       const k=`ve-uses-${userEmail||"anon"}-${todayKey()}`;
       let useTok=null;
       try{ useTok=localStorage.getItem(TOKEN_KEY); }catch(e){}

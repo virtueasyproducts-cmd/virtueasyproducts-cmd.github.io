@@ -821,6 +821,7 @@ function pickBrief(service, industry) {
 // ─────────────────────────────────────────────
 
 async function downloadAsPng() {
+  try{ if(window.clarity) window.clarity("event","tool_use"); }catch(e){}
   const card = document.getElementById('portfolio-card');
   const btn = document.querySelector('.btn-download-trigger');
   const originalText = btn.innerHTML;

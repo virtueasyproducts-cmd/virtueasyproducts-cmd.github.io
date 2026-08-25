@@ -126,6 +126,9 @@ p{font-size:15px;color:var(--gray-mid);line-height:1.6;max-width:360px;margin:0 
         localStorage.removeItem("lifetimeAccess");
         localStorage.removeItem("trialStart");
       } catch(e) {}
+      if (sessionId && typeof window.clarity === "function") {
+        try { clarity("event", "purchase"); } catch(e) {}
+      }
       // Only on a fresh Stripe redirect - a returning token holder is not a new sale.
       if (sessionId && typeof window.fbq === "function") {
         fbq("track", "Purchase", {

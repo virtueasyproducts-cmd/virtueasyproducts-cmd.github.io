@@ -37,7 +37,14 @@
   // $7 product view, so they must not be counted as ViewContent.
   var NOT_A_PRODUCT_VIEW = /\/(get-access|dashboard|login|unlock|app|ok-2026-access)\.html$/;
 
+  // Clarity mirror of the pixel events, so sessions can be filtered by the
+  // same funnel moments. Purchase and tool_use fire from their own pages.
+  var CLARITY_EVENTS = { InitiateCheckout: "checkout_start", Lead: "email_signup" };
+
   function track(event, product, extra) {
+    if (CLARITY_EVENTS[event] && typeof window.clarity === "function") {
+      try { window.clarity("event", CLARITY_EVENTS[event]); } catch (e) {}
+    }
     if (typeof window.fbq !== "function") return;
     var p = PRODUCTS[product];
     var data = p
