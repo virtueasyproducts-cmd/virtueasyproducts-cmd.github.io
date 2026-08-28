@@ -37,6 +37,9 @@ const TEMPLATE = path.join(POSTS_DIR, 'how-to-handle-scope-creep.html');
 
 // Filter tags that exist in blog/index.html — a post's tag MUST be one of these
 // or it won't be reachable through the on-page filters.
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'];
+
 const TAGS = new Set([
   'Pricing', 'Finding Clients', 'Niche Selection', 'Tools', 'AI for VAs',
   'Onboarding', 'Proposals', 'Services', 'Objections', 'Discovery Calls',
@@ -93,6 +96,7 @@ for (const p of posts) {
   // 4b. canonical + JSON-LD (template carries the source post's URLs)
   const canonical = `https://virtueasy.com/blog/posts/${p.slug}.html`;
   const date = p.date || new Date().toISOString().slice(0, 10);
+  const humanDate = (([y, m, d]) => `${+d} ${MONTHS[+m - 1]} ${y}`)(date.split('-'));
   html = html.replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${canonical}">`);
   html = html.replace(/("@id":\s*")[^"]*(")/, `$1${canonical}$2`);
   html = html.replace(/("headline":\s*")[^"]*(")/, `$1${jesc(p.title)}$2`);
@@ -106,7 +110,7 @@ for (const p of posts) {
 `<div class="post-hero">
   <span class="post-tag">${esc(p.tag)}</span>
   <h1>${esc(p.title)}</h1>
-  <p class="post-meta">Virtueasy <span>&#183;</span> ${esc(p.metaCategory)} <span>&#183;</span> ${esc(p.read)}</p>
+  <p class="post-meta"><time datetime="${date}">${humanDate}</time> <span>&#183;</span> Virtueasy <span>&#183;</span> ${esc(p.metaCategory)} <span>&#183;</span> ${esc(p.read)}</p>
   <p class="post-intro">${esc(p.intro)}</p>
 </div>`;
   if (!/<div class="post-hero">[\s\S]*?<\/div>\s*<article>/.test(html))
