@@ -55,6 +55,17 @@ for (const name of unlockPages) {
   }
 }
 
+// track.js maps payment links to products for InitiateCheckout. It used to key
+// on trailing chunks of the link id, which a find-and-replace over full ids does
+// not touch, so a link swap left the event firing with no product and no value.
+// Every reviewed link must appear in that map, in full.
+const trackJs = await readFile(new URL('assets/js/track.js', rootUrl), 'utf8');
+for (const id of allowedPaymentLinks) {
+  if (!trackJs.includes(id)) {
+    failures.push(`assets/js/track.js: CHECKOUT_LINKS is missing Payment Link ${id}, so InitiateCheckout will fire without product or value`);
+  }
+}
+
 const pricingApp = await readFile(new URL('pricing-tool/app.html', rootUrl), 'utf8');
 if (/networkError\s*:\s*true|result\s*=\s*\{\s*valid\s*:\s*true/.test(pricingApp)) {
   failures.push('pricing-tool/app.html: access verification must fail closed');

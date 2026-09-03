@@ -7,17 +7,49 @@
 (function () {
   "use strict";
 
+  /* ---- First-party visitor id for advanced matching ------------------- */
+  /* Automatic advanced matching only sees what a visitor types into a form,
+     and almost nobody does, so nearly every event reached Meta carrying just
+     a cookie, an IP and a user agent. That is what holds event match quality
+     at 6.1. A stable first-party id gives every event a durable key to match
+     on. It is random and derived from nothing personal. */
+  var PIXEL_ID = "1552355892525925";
+
+  function visitorId() {
+    var KEY = "ve-visitor-id";
+    try {
+      var v = localStorage.getItem(KEY);
+      if (!v) {
+        v = (window.crypto && window.crypto.randomUUID)
+          ? window.crypto.randomUUID()
+          : "ve-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+        localStorage.setItem(KEY, v);
+      }
+      return v;
+    } catch (e) { return null; }   // private mode, blocked storage
+  }
+
+  var VISITOR_ID = visitorId();
+  if (VISITOR_ID && typeof window.fbq === "function") {
+    // Re-init with the same pixel id is how Meta takes advanced matching data.
+    // It does not fire a second PageView; only fbq("track", ...) does that.
+    window.fbq("init", PIXEL_ID, { external_id: VISITOR_ID });
+  }
+
   var PRODUCTS = {
     starterkit:     { name: "VA Starter Kit",           value: 27 },
     onboarding:     { name: "VA Client Onboarding Kit", value: 7  },
     "pricing-tool": { name: "Pricing Tool Lifetime",    value: 7  }
   };
 
-  // Trailing chunk of each Stripe payment link -> product key.
+  // Full Stripe payment link id -> product key. These are the WHOLE ids on
+  // purpose: a trailing-chunk key survives a link swap silently and the event
+  // then fires with no product and no value. Keep them full so any
+  // find-and-replace over the repo updates this map too.
   var CHECKOUT_LINKS = {
-    "63K05": "starterkit",
-    "63K07": "onboarding",
-    "63K06": "pricing-tool"
+    "bJe14ngv08Qo87h5EqdAk00": "starterkit",
+    "cNiaEXfqW0jS73d4AmdAk01": "onboarding",
+    "00wdR91A62s0fzJ3widAk02": "pricing-tool"
   };
 
   // Page path (prefix match) -> product key, for ViewContent.
