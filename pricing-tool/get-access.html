@@ -12,7 +12,7 @@
     s.parentNode.insertBefore(t,s)}
     (window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
-    fbq('init', '1552355892525925');
+    fbq('init','1552355892525925',(function(){try{var k="ve-visitor-id",v=localStorage.getItem(k);if(!v){v=(window.crypto&&window.crypto.randomUUID)?window.crypto.randomUUID():"ve-"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return{external_id:v};}catch(e){return{};}})());
     fbq('track', 'PageView');
   </script>
 <noscript><img alt="" decoding="async" height="1" width="1" style="display:none"
