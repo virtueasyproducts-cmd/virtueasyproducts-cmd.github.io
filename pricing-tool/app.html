@@ -258,10 +258,10 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
       });
       result = await res.json();
     } catch (e) {
-      // Network error - fail open with a short grace period so users on bad
-      // connections aren't locked out. Still don't show expired users.
-      // We'll let them in but note the token must exist.
-      result = { valid: true, type: "unknown", networkError: true };
+      // Never treat an unverified local token as paid access. A forged token
+      // plus a Worker outage must not bypass the server-side entitlement gate.
+      window.location.replace("get-access.html?verification=unavailable");
+      return;
     }
 
     if (!result.valid) {

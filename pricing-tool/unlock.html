@@ -20,6 +20,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 <title>Access Unlocked - VIRTUEASY</title>
   <meta name="robots" content="noindex, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -88,6 +89,7 @@ p{font-size:15px;color:var(--gray-mid);line-height:1.6;max-width:360px;margin:0 
   // verifies that session was actually paid before minting lifetime access.
   const params       = new URLSearchParams(window.location.search);
   const sessionId    = params.get("session_id") || "";
+  if (sessionId) history.replaceState(null, "", window.location.pathname);
   let existingToken = null;
   try { existingToken = localStorage.getItem(TOKEN_KEY); } catch(e) {}
 

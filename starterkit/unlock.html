@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -59,6 +60,7 @@ p{font-size:0.95rem;color:var(--muted);line-height:1.6;max-width:340px;margin:0 
   const TOKEN_KEY = "sk-access-token";
   const params = new URLSearchParams(window.location.search);
   const sessionId = params.get("session_id") || "";
+  if (sessionId) history.replaceState(null, "", window.location.pathname);
   let existingToken = null;
   try { existingToken = localStorage.getItem(TOKEN_KEY); } catch(e) {}
 
