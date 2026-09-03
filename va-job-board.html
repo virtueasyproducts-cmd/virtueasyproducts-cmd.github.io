@@ -604,17 +604,14 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       .hero-meta { margin-top: 0.75rem; }
       .filters-wrap { padding-bottom: 1rem; }
 
-      /* One scrolling row instead of three wrapped rows. */
+      /* Keep every category visible without requiring users to discover a
+         hidden horizontal scroll gesture. */
       .filters {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        scroll-snap-type: x proximity;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        padding-bottom: 2px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        overflow: visible;
       }
-      .filters::-webkit-scrollbar { display: none; }
-      .filter-btn { flex: 0 0 auto; scroll-snap-align: start; }
+      .filter-btn { width: 100%; padding-left: 0.6rem; padding-right: 0.6rem; }
 
       .job-card { grid-template-columns: 1fr; }
       .job-right { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
@@ -766,6 +763,40 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     const earlyBannerNode = document.getElementById('early-banner');
 
     // ── FETCH JOBS ──────────────────────────────────────────────
+    const RELEVANT_TITLE = /\b(virtual assistant|executive assistant|administrative assistant|admin assistant|personal assistant|remote office assistant|social media|online business manager|\bOBM\b|operations assistant|project assistant|graphic design assistant)\b/i;
+    const IRRELEVANT_TITLE = /\b(retail|store manager|assistant manager|shop assistant|stock assistant|sales assistant|sales associate|loss prevention|post office manager|merchandise coordinator)\b/i;
+
+    function cleanText(value) {
+      return String(value || '')
+        .replace(/â|â€“/g, '–')
+        .replace(/â|â€”/g, '—')
+        .replace(/â|â€™/g, '’')
+        .replace(/â|â€œ|â|â€/g, '"')
+        .trim();
+    }
+
+    function isRelevantVAJob(job) {
+      const title = cleanText(job.title);
+      if (!title || IRRELEVANT_TITLE.test(title)) return false;
+      const searchable = [title, ...(job.tags || [])].join(' ');
+      return RELEVANT_TITLE.test(searchable);
+    }
+
+    function escapeHtml(value) {
+      return cleanText(value).replace(/[&<>"']/g, char => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[char]);
+    }
+
+    function safeJobUrl(value) {
+      try {
+        const url = new URL(value);
+        return /^https?:$/.test(url.protocol) ? url.href : '#';
+      } catch (_) {
+        return '#';
+      }
+    }
+
     async function loadJobs() {
   try {
     // 1. Added cache-busting timestamp
@@ -773,7 +804,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     const data = await res.json();
     
     // 2. Extract and SORT jobs newest first
-    const jobs = (data.jobs || []).slice();
+    const jobs = (data.jobs || []).filter(isRelevantVAJob);
     jobs.sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
 
     // 3. Hold the freshest jobs back for email subscribers. Anything
@@ -845,17 +876,17 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       list.innerHTML = jobs.map(job => {
         const tags = (job.tags || []).slice(0, 3);
         return `
-          <a class="job-card" href="${job.url}" target="_blank" rel="noopener noreferrer">
+          <a class="job-card" href="${safeJobUrl(job.url)}" target="_blank" rel="noopener noreferrer">
             <div class="job-left">
-              <div class="job-title">${job.title}</div>
-              <div class="job-company">${job.company}</div>
+              <div class="job-title">${escapeHtml(job.title)}</div>
+              <div class="job-company">${escapeHtml(job.company)}</div>
               <div class="job-tags">
-                <span class="job-tag type">${job.type || 'Remote'}</span>
-                ${tags.map(t => `<span class="job-tag">${t}</span>`).join('')}
+                <span class="job-tag type">${escapeHtml(job.type || 'Remote')}</span>
+                ${tags.map(t => `<span class="job-tag">${escapeHtml(t)}</span>`).join('')}
               </div>
             </div>
             <div class="job-right">
-              ${job.salary ? `<span class="job-salary">${job.salary}</span>` : ''}
+              ${job.salary ? `<span class="job-salary">${escapeHtml(job.salary)}</span>` : ''}
               <span class="job-date">${timeAgo(job.postedAt)}</span>
               <span class="job-apply">Apply</span>
             </div>
