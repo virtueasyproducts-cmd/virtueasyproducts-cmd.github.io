@@ -24,8 +24,28 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   <link rel="canonical" href="https://virtueasy.com/starterkit/">
 <meta name="description" content="6 modules, 33 lessons, 260 AI prompts, plus proposal, portfolio, and pricing tools. Everything you need to land your first paying VA client. $27.">
 <meta property="og:title" content="The VA Starter Kit - Land Your First VA Client">
-<meta property="og:image" content="https://virtueasy.com/assets/og-image.png">
+<meta property="og:image" content="https://virtueasy.com/assets/va-starter-kit-poster.jpg">
 <meta property="og:description" content="The all-in-one first-client launch system for virtual assistants. 6 modules, 33 lessons, AI tools, 260 prompts, and every builder you need in one dashboard. $27.">
+<meta property="og:type" content="product">
+<meta property="og:url" content="https://virtueasy.com/starterkit/">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "The VA Starter Kit",
+  "description": "A self-guided first-client launch system for virtual assistants with 6 modules, 33 lessons, 260 prompts, and 6 built-in AI tools.",
+  "image": "https://virtueasy.com/assets/va-starter-kit-poster.jpg",
+  "brand": {"@type": "Brand", "name": "Virtueasy"},
+  "offers": {
+    "@type": "Offer",
+    "url": "https://virtueasy.com/starterkit/",
+    "priceCurrency": "USD",
+    "price": "27.00",
+    "availability": "https://schema.org/InStock"
+  }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -132,7 +152,7 @@ img{max-width:100%;display:block}
 .mod-lesson:last-child{border-bottom:none}
 .mod-lesson-num{font-family:var(--font-display);font-size:1.1rem;color:var(--pink);min-width:22px}
 .mod-lesson-title{flex:1;color:rgba(248,248,248,0.85)}
-.mod-lesson-state{font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--pink)}
+.mod-lesson-state{font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--pink);display:inline-flex;align-items:center;min-height:24px;padding:0 0.2rem}
 .mod-lesson-lock{font-size:0.8rem;color:#8a828a}
 
 /* ── PROMPT SHOWCASE ── */
@@ -203,6 +223,9 @@ img{max-width:100%;display:block}
 .footer{background:var(--surface);border-top:1px solid var(--border-s);padding:2rem;text-align:center;font-size:0.78rem;color:var(--muted)}
 .footer a{color:var(--muted)}
 .footer a:hover{color:var(--white)}
+.sale-terms{font-size:0.75rem;color:var(--muted);line-height:1.55;margin-top:0.8rem}
+.sale-terms a{text-decoration:underline;text-underline-offset:2px}
+.mobile-buy-bar{display:none}
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
@@ -210,6 +233,7 @@ img{max-width:100%;display:block}
   .mod-tabs{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:600px){
+  body{padding-bottom:72px}
   .hero{padding:3rem 1.25rem 2rem}
   .mod-tabs{grid-template-columns:repeat(2,1fr)}
   .mod-panel{padding:1.25rem}
@@ -218,6 +242,11 @@ img{max-width:100%;display:block}
   .proof ul{grid-template-columns:1fr !important}
   .tools-strip,.section,.how,.pricing{padding:3rem 1.25rem}
   .hero-ctas .btn-primary,.hero-ctas .btn-ghost{width:100%;text-align:center}
+  .mobile-buy-bar{position:fixed;z-index:150;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:0.75rem;padding:0.65rem max(1rem,env(safe-area-inset-right)) calc(0.65rem + env(safe-area-inset-bottom)) max(1rem,env(safe-area-inset-left));background:rgba(10,10,10,0.97);border-top:1px solid rgba(255,31,122,0.35);transform:translateY(110%);transition:transform 0.2s ease;box-shadow:0 -8px 24px rgba(0,0,0,0.35)}
+  .mobile-buy-bar.show{transform:translateY(0)}
+  .mobile-buy-copy{font-size:0.78rem;color:var(--muted);line-height:1.25}
+  .mobile-buy-copy strong{display:block;color:var(--white);font-size:0.9rem}
+  .mobile-buy-bar a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;background:var(--pink);color:#0A0A0A;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:0.65rem 1rem;border-radius:3px;white-space:nowrap}
 }
 </style>
 <script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
@@ -269,6 +298,7 @@ img{max-width:100%;display:block}
       <a href="#modules" class="btn-ghost">See What's Inside</a>
     </div>
     <p class="hero-guarantee">Less than dinner out. <span>No subscription. No upsells.</span></p>
+    <p class="sale-terms">Instant digital access. All sales are final and non-refundable except where required by law. <a href="/terms-of-sale.html">Terms of Sale</a>.</p>
   </div>
 
   <div class="screenshots">
@@ -460,17 +490,39 @@ img{max-width:100%;display:block}
       <li>Instant access - no waiting</li>
     </ul>
     <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" class="pricing-cta" target="_blank" rel="noopener" data-rewardful>Get Instant Access - $27 →</a>
+    <p class="sale-terms">Instant digital access. All sales are final and non-refundable except where required by law. <a href="/terms-of-sale.html">Read the Terms of Sale</a>.</p>
     <p class="pricing-sub">Questions? Email hello@virtueasy.com</p>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer class="footer">
-  <p><a href="/">Virtueasy</a> &nbsp;·&nbsp; <a href="/blog/">Blog</a> &nbsp;·&nbsp; <a href="/va-job-board">Job Board</a> &nbsp;·&nbsp; <a href="/pricing-tool/">Pricing Tool</a> &nbsp;·&nbsp; <a href="/privacy-policy.html">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="/affiliate-terms.html">Affiliate Terms</a></p>
+  <p><a href="/">Virtueasy</a> &nbsp;·&nbsp; <a href="/blog/">Blog</a> &nbsp;·&nbsp; <a href="/va-job-board">Job Board</a> &nbsp;·&nbsp; <a href="/pricing-tool/">Pricing Tool</a> &nbsp;·&nbsp; <a href="/privacy-policy.html">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="/terms-of-sale.html">Terms of Sale</a> &nbsp;&middot;&nbsp; <a href="/affiliate-terms.html">Affiliate Terms</a></p>
   <p style="margin-top:0.5rem">© 2026 Virtueasy. Operated by <a href="https://messickmarketing.com" target="_blank" rel="noopener">Messick Marketing</a>.</p>
 </footer>
 
+<div class="mobile-buy-bar" id="mobileBuyBar" aria-label="Starter Kit purchase">
+  <div class="mobile-buy-copy"><strong>VA Starter Kit · $27</strong>One-time payment</div>
+  <a href="https://buy.stripe.com/6oU3cxeav7xyaft8iE63K05" target="_blank" rel="noopener" data-rewardful>Get access</a>
+</div>
+
 <script>
+/* ── MOBILE PURCHASE BAR ── */
+(function(){
+  var hero = document.querySelector('.hero');
+  var bar = document.getElementById('mobileBuyBar');
+  if(!hero || !bar || !('IntersectionObserver' in window)) return;
+  var tracked = false;
+  new IntersectionObserver(function(entries){
+    var show = !entries[0].isIntersecting;
+    bar.classList.toggle('show', show);
+    if(show && !tracked && typeof window.clarity === 'function'){
+      tracked = true;
+      window.clarity('event', 'mobile_cta_view');
+    }
+  }, {threshold:0.05}).observe(hero);
+})();
+
 /* ── HERO VIDEO SOUND ── */
 (function(){
   var v = document.getElementById('kitVideo');
@@ -702,6 +754,7 @@ img{max-width:100%;display:block}
     ['Do I need any experience?','No. Module 01 assumes you are starting from zero. It walks you through picking your service, your niche, and your rate before you contact anyone.'],
     ['Are there videos to sit through?','None. The whole kit is self-guided and text-based, so you can move at your own pace and skip back to anything without scrubbing a timeline.'],
     ['How fast do I get access?','Instantly. Your access code appears the moment checkout completes, and you can log in and start Module 01 straight away.'],
+    ['What is the refund policy?','Because the full digital kit is available immediately after purchase, all sales are final and non-refundable except where required by law. If you have an access or technical issue, email hello@virtueasy.com and we will help.'],
     ['What if I already have a client?','The kit still works. Modules 03 through 05 are about building a repeatable pipeline, and the pricing calculator and proposal builder are useful whether it is your first client or your fifth.'],
     ['Can I use the AI tools without paying for ChatGPT?','Yes. The six AI tools are built into the dashboard and run there. The 260 prompts work in any AI tool you already use, including free tiers.']
   ];

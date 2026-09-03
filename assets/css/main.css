@@ -29,6 +29,13 @@ body {
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 
+/* A consistent keyboard indicator across every public page. Individual pages
+   may change borders on focus, but must not rely on color alone. */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid var(--pink);
+  outline-offset: 3px;
+}
+
 /* ── TYPOGRAPHY ── */
 
 h1, h2, h3, h4 {

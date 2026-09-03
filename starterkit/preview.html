@@ -348,7 +348,7 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.18)}
   <div class="sb-upsell">
     <div class="sb-upsell-label">Unlock Everything</div>
     <h4>Get the Full Kit</h4>
-    <p>6 modules, 30 lessons, 260 prompts, and every builder you need. $27 one-time.</p>
+    <p>6 modules, 33 lessons, 260 prompts, and every builder you need. $27 one-time.</p>
     <button class="sb-upsell-btn" onclick="showModal()">Get Instant Access - $27 →</button>
   </div>
 </aside>
@@ -361,11 +361,11 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.18)}
     <div class="dash-hero">
       <div class="dash-greeting">Free Preview - VA Starter Kit</div>
       <h1>Your Business.<br>Built Step by Step.</h1>
-      <p>Start Module 1 free. See exactly what you're getting before you spend a dollar. The full kit unlocks all 6 modules, 30 lessons, and every tool.</p>
+      <p>Start Module 1 free. See exactly what you're getting before you spend a dollar. The full kit unlocks all 6 modules, 33 lessons, and every tool.</p>
     </div>
     <div class="dash-stats">
       <div class="stat-card">
-        <div class="stat-num" id="statLessons">0<span>/30</span></div>
+        <div class="stat-num" id="statLessons">0<span>/33</span></div>
         <div class="stat-label">Lessons Complete</div>
       </div>
       <div class="stat-card">
@@ -465,7 +465,7 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.18)}
       <div class="unlock-block">
         <div class="unlock-eyebrow">4 more lessons in Module 1 - plus 5 more modules</div>
         <div class="unlock-headline">Unlock the Full Kit</div>
-        <p class="unlock-sub">30 lessons, 260 prompts, Proposal Builder, Portfolio Builder, Pricing Tool, and 6 AI generators. Everything to land your first paying client.</p>
+        <p class="unlock-sub">33 lessons, 260 prompts, Proposal Builder, Portfolio Builder, Pricing Tool, and 6 AI generators. Everything to land your first paying client.</p>
         <button class="unlock-btn" onclick="showModal()">Get Instant Access - $27 →</button>
       </div>
     </div>
@@ -671,7 +671,7 @@ function updateProgress(){
   document.getElementById('progressFill').style.width = pct+'%';
   // lessons stat
   var doneLessons = LESSONS.filter(function(l,i){ return state['done_'+i]; }).length;
-  document.getElementById('statLessons').innerHTML = doneLessons+'<span>/30</span>';
+  document.getElementById('statLessons').innerHTML = doneLessons+'<span>/33</span>';
   // module check
   var allDone = LESSONS.every(function(l,i){ return state['done_'+i]; });
   var chk = document.getElementById('chk-m1');

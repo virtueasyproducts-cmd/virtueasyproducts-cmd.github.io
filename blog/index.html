@@ -26,6 +26,9 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   <meta property="og:title" content="VA Resources & Blog | Virtueasy" />
   <meta property="og:description" content="Free guides for new VAs. Pricing, finding clients, tools, AI, niching down, onboarding, proposals, and more." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://virtueasy.com/blog/" />
+  <meta property="og:image" content="https://virtueasy.com/assets/va-starter-kit-poster.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
@@ -99,7 +102,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
     .filters {
       display: flex; flex-wrap: wrap; gap: 0.45rem;
-      justify-content: center; padding: 0 2rem 3rem;
+      justify-content: center; padding: 0 2rem 1.25rem;
     }
     .filter-btn {
       background: transparent;
@@ -114,6 +117,14 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       color: var(--pink);
       background: rgba(255,31,122,0.08);
     }
+    .blog-tools { max-width:680px; margin:0 auto 1.25rem; padding:0 2rem; }
+    .blog-search-label { display:block; font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--light); margin-bottom:0.45rem; }
+    .blog-search { width:100%; min-height:48px; padding:0.8rem 1rem; border:1px solid rgba(255,255,255,0.18); background:var(--gray); color:var(--white); font:inherit; border-radius:3px; }
+    .blog-search::placeholder { color:rgba(248,248,248,0.48); }
+    .blog-category-select { display:none; width:100%; min-height:48px; margin-top:0.75rem; padding:0.75rem 2.5rem 0.75rem 1rem; border:1px solid rgba(255,255,255,0.18); background:var(--gray); color:var(--white); font:inherit; border-radius:3px; }
+    .results-status { max-width:1180px; margin:0 auto; padding:0 2rem 1rem; color:var(--light); font-size:0.82rem; }
+    .no-results { display:none; max-width:680px; margin:0 auto 4rem; padding:2rem; text-align:center; color:var(--light); border:1px solid rgba(255,255,255,0.1); }
+    .no-results.show { display:block; }
 
     .grid {
       max-width: 1180px; margin: 0 auto;
@@ -156,7 +167,6 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       font-size: 0.88rem; color: var(--light);
       line-height: 1.58; flex: 1;
     }
-    .card-
     .card-read {
       font-size: 0.68rem; color: var(--mid);
       font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
@@ -190,6 +200,9 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
     @media (max-width: 700px) {
       .grid { grid-template-columns: 1fr; }
+      .filters { display:none; }
+      .blog-category-select { display:block; }
+      .blog-tools { margin-bottom:1rem; }
     }
   </style>
   <link rel="stylesheet" href="../assets/css/main.css">
@@ -246,6 +259,19 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   <p>Practical guides for new virtual assistants who want to build a real business, not just a side hustle.</p>
 </div>
 
+<div class="blog-tools">
+  <label class="blog-search-label" for="blog-search">Search the resource library</label>
+  <input class="blog-search" id="blog-search" type="search" placeholder="Search pricing, clients, proposals…" autocomplete="off">
+  <label class="blog-search-label" for="blog-category" style="margin-top:0.85rem;">Category</label>
+  <select class="blog-category-select" id="blog-category">
+    <option value="all">All categories</option>
+    <option>Pricing</option><option>Finding Clients</option><option>Niche Selection</option>
+    <option>Tools</option><option>AI for VAs</option><option>Onboarding</option>
+    <option>Proposals</option><option>Services</option><option>Objections</option>
+    <option>Discovery Calls</option><option>Outreach</option><option>Getting Started</option>
+  </select>
+</div>
+
 <div class="filters">
   <button class="filter-btn active" data-tag="all">All</button>
   <button class="filter-btn" data-tag="Pricing">Pricing</button>
@@ -261,6 +287,8 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   <button class="filter-btn" data-tag="Outreach">Outreach</button>
   <button class="filter-btn" data-tag="Getting Started">Getting Started</button>
 </div>
+
+<p class="results-status" id="results-status" aria-live="polite"></p>
 
 <div class="grid" id="post-grid">
   <a href="posts/subcontracting-for-virtual-assistants.html" class="card" data-tag="Services">
@@ -618,6 +646,10 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
 </div>
 
+<div class="no-results" id="no-results">
+  <strong>No matching guides yet.</strong><br>Try a broader search or another category.
+</div>
+
 <section class="cta-section">
   <p class="cta-eyebrow">Ready to go deeper?</p>
   <h2>The VA Starter Kit</h2>
@@ -628,20 +660,49 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 <script>
   const btns = document.querySelectorAll('.filter-btn');
   const cards = document.querySelectorAll('.card');
+  const search = document.getElementById('blog-search');
+  const category = document.getElementById('blog-category');
+  const status = document.getElementById('results-status');
+  const noResults = document.getElementById('no-results');
+  let activeTag = 'all';
+
+  function applyFilters(trackEvent) {
+    const query = search.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach(card => {
+      const tagMatches = activeTag === 'all' || card.dataset.tag === activeTag;
+      const queryMatches = !query || card.innerText.toLowerCase().includes(query);
+      const show = tagMatches && queryMatches;
+      card.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    status.textContent = `${visible} ${visible === 1 ? 'guide' : 'guides'} found`;
+    noResults.classList.toggle('show', visible === 0);
+    if (trackEvent && typeof window.clarity === 'function') {
+      try { window.clarity('event', query ? 'resource_search' : 'resource_filter'); } catch (e) {}
+    }
+  }
+
   btns.forEach(btn => {
     btn.addEventListener('click', () => {
       btns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const tag = btn.dataset.tag;
-      cards.forEach(card => {
-        if (tag === 'all' || card.dataset.tag === tag) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
+      activeTag = btn.dataset.tag;
+      category.value = activeTag;
+      applyFilters(true);
     });
   });
+  category.addEventListener('change', () => {
+    activeTag = category.value;
+    btns.forEach(btn => btn.classList.toggle('active', btn.dataset.tag === activeTag));
+    applyFilters(true);
+  });
+  let searchTimer;
+  search.addEventListener('input', () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => applyFilters(true), 250);
+  });
+  applyFilters(false);
 </script>
 
 
@@ -704,6 +765,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
           <h4>Legal</h4>
           <ul>
             <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="/terms-of-sale.html">Terms of Sale</a></li>
             <li><a href="/affiliate-terms.html">Affiliate Terms</a></li>
           </ul>
         </div>

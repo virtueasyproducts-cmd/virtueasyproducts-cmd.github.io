@@ -56,7 +56,8 @@ Home (/)
 | VA Starter Kit | $27 | virtueasy.com/starterkit/ |
 | Client Onboarding Kit | $7 | virtueasy.com/onboarding-kit/ |
 | VA Proposal Template | Free | virtueasy.com/va-proposal-template/ |
-| VA Pricing Tool | Free | virtueasy.com/pricing-tool/ |
+| VA Pricing Tool | Free preview / $7 lifetime unlock | virtueasy.com/pricing-tool/ |
+| Terms of Sale | Legal | virtueasy.com/terms-of-sale.html |
 | VA Proposal Template | Free | virtueasy.com/va-proposal-template/ |
 
 ---
@@ -77,5 +78,5 @@ Home (/)
 - [ ] Add Meta Pixel to new hub pages if tracking is needed
 - [ ] Add blog posts when content is ready
 - [ ] Add more resource cards as products launch
-- [ ] Add OG image at `/og-image.jpg` for social sharing
+- [x] Add a valid social-sharing image to key public pages
 - [ ] Consider adding a `/start-here/` page as a guided onboarding flow
