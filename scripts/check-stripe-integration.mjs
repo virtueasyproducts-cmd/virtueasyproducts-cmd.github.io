@@ -5,9 +5,9 @@ import { fileURLToPath } from 'node:url';
 const rootUrl = new URL('../', import.meta.url);
 const root = fileURLToPath(rootUrl);
 const allowedPaymentLinks = new Set([
-  '5kQdRb1nJ2de3R50Qc63K07',
-  '6oU3cxeav7xyaft8iE63K05',
-  '9B64gB1nJaJKcnBaqM63K06',
+  'cNiaEXfqW0jS73d4AmdAk01',
+  'bJe14ngv08Qo87h5EqdAk00',
+  '00wdR91A62s0fzJ3widAk02',
 ]);
 const textExtensions = new Set(['.html', '.js', '.mjs', '.toml', '.md', '.yml', '.yaml']);
 const ignoredDirectories = new Set(['.git', '.wrangler', 'node_modules']);
