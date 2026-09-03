@@ -100,6 +100,19 @@ article a:hover { text-decoration: underline; }
 .numbered-list li { counter-increment: item; display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; color: var(--light); }
 .numbered-list li::before { content: counter(item); background: var(--pink); color: var(--black); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; min-width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
 
+/* Related reading: gives each post real internal links instead of leaving it
+   a dead end reachable only from the blog index. Sits after the buy CTA so
+   purchase intent is captured first and browsing is the fallback. */
+.related-block { background: var(--gray); padding: 3.5rem 2rem; border-top: 1px solid var(--border); }
+.related-inner { max-width: 740px; margin: 0 auto; }
+.related-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.7rem; }
+.related-block h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 1.4rem; }
+.related-list { list-style: none; padding: 0; margin: 0; }
+.related-list li { border-top: 1px solid rgba(255,255,255,0.08); }
+.related-list li:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
+.related-list a { display: block; padding: 1rem 0; color: var(--light); font-size: 1rem; line-height: 1.4; text-decoration: none; transition: color 0.2s; }
+.related-list a:hover { color: var(--pink); text-decoration: none; }
+.related-list a:focus-visible { color: var(--pink); outline: 2px solid var(--pink); outline-offset: 3px; }
 .cta-block { background: var(--pink); padding: 4rem 2rem; text-align: center; }
 .cta-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(10,10,10,0.85); margin-bottom: 0.8rem; }
 .cta-block h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 5vw, 3.2rem); letter-spacing: 0.04em; color: var(--black); margin-bottom: 0.8rem; }
@@ -246,6 +259,17 @@ footer a { color: var(--pink); text-decoration: none; }
   <h2>The VA Starter Kit</h2>
   <p class="cta-sub">The VA Starter Kit gives you the exact steps, scripts, AI tools, and strategy to land your first paying client. No guesswork.</p>
   <a href="https://buy.stripe.com/bJe14ngv08Qo87h5EqdAk00" class="cta-btn" data-rewardful>Get the VA Starter Kit for $27</a>
+</section>
+<section class="related-block" aria-labelledby="related-heading">
+  <div class="related-inner">
+    <p class="related-label">Keep reading</p>
+    <h2 id="related-heading">Related guides</h2>
+    <ul class="related-list">
+      <li><a href="client-onboarding-for-vas-step-by-step.html">Client Onboarding for VAs (Step by Step)</a></li>
+      <li><a href="what-goes-in-a-va-contract.html">What to Put in Your VA Contract (and What Happens Without One)</a></li>
+      <li><a href="discovery-calls.html">How to Run a Discovery Call That Converts to a Paying Client</a></li>
+    </ul>
+  </div>
 </section>
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">

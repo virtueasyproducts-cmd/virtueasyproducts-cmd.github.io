@@ -83,6 +83,19 @@ article a:hover { text-decoration: underline; }
 .checklist { list-style: none; padding: 0; }
 .checklist li { display: flex; gap: 0.8rem; align-items: flex-start; margin-bottom: 0.9rem; color: var(--light); font-size: 1rem; }
 .checklist li::before { content: ""; display: block; width: 18px; height: 18px; border: 2px solid var(--pink); border-radius: 2px; flex-shrink: 0; margin-top: 3px; }
+/* Related reading: gives each post real internal links instead of leaving it
+   a dead end reachable only from the blog index. Sits after the buy CTA so
+   purchase intent is captured first and browsing is the fallback. */
+.related-block { background: var(--gray); padding: 3.5rem 2rem; border-top: 1px solid var(--border); }
+.related-inner { max-width: 740px; margin: 0 auto; }
+.related-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.7rem; }
+.related-block h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 1.4rem; }
+.related-list { list-style: none; padding: 0; margin: 0; }
+.related-list li { border-top: 1px solid rgba(255,255,255,0.08); }
+.related-list li:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
+.related-list a { display: block; padding: 1rem 0; color: var(--light); font-size: 1rem; line-height: 1.4; text-decoration: none; transition: color 0.2s; }
+.related-list a:hover { color: var(--pink); text-decoration: none; }
+.related-list a:focus-visible { color: var(--pink); outline: 2px solid var(--pink); outline-offset: 3px; }
 .cta-block { background: var(--pink); padding: 4rem 2rem; text-align: center; }
 .cta-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(10,10,10,0.85); margin-bottom: 0.8rem; }
 .cta-block h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 5vw, 3.2rem); letter-spacing: 0.04em; color: var(--black); margin-bottom: 0.8rem; }
@@ -236,6 +249,17 @@ footer a { color: var(--pink); text-decoration: none; }
   <a href="https://virtueasy.com/starterkit/" class="cta-btn">Get the VA Starter Kit for $27</a>
 </section>
 
+<section class="related-block" aria-labelledby="related-heading">
+  <div class="related-inner">
+    <p class="related-label">Keep reading</p>
+    <h2 id="related-heading">Related guides</h2>
+    <ul class="related-list">
+      <li><a href="dm-templates-for-vas.html">DM Templates That Actually Get Replies From VA Prospects</a></li>
+      <li><a href="find-first-va-client.html">How to Find Your First VA Client Without a Portfolio or a Following</a></li>
+      <li><a href="set-your-va-rates.html">How to Set Your VA Rates With Confidence</a></li>
+    </ul>
+  </div>
+</section>
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">
     <div class="footer-top">

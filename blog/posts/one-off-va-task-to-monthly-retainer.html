@@ -131,6 +131,19 @@ article a:hover { text-decoration: underline; }
   border-radius: 2px;
 }
 
+/* Related reading: gives each post real internal links instead of leaving it
+   a dead end reachable only from the blog index. Sits after the buy CTA so
+   purchase intent is captured first and browsing is the fallback. */
+.related-block { background: var(--gray); padding: 3.5rem 2rem; border-top: 1px solid var(--border); }
+.related-inner { max-width: 740px; margin: 0 auto; }
+.related-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.7rem; }
+.related-block h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 1.4rem; }
+.related-list { list-style: none; padding: 0; margin: 0; }
+.related-list li { border-top: 1px solid rgba(255,255,255,0.08); }
+.related-list li:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
+.related-list a { display: block; padding: 1rem 0; color: var(--light); font-size: 1rem; line-height: 1.4; text-decoration: none; transition: color 0.2s; }
+.related-list a:hover { color: var(--pink); text-decoration: none; }
+.related-list a:focus-visible { color: var(--pink); outline: 2px solid var(--pink); outline-offset: 3px; }
 .cta-block { background: var(--pink); padding: 4rem 2rem; text-align: center; }
 .cta-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(10,10,10,0.85); margin-bottom: 0.8rem; }
 .cta-block h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 5vw, 3.2rem); letter-spacing: 0.04em; color: var(--black); margin-bottom: 0.8rem; }
@@ -326,6 +339,17 @@ article a:hover { text-decoration: underline; }
   <a href="/starterkit/" class="cta-btn">Get the VA Starter Kit - $27</a>
 </section>
 
+<section class="related-block" aria-labelledby="related-heading">
+  <div class="related-inner">
+    <p class="related-label">Keep reading</p>
+    <h2 id="related-heading">Related guides</h2>
+    <ul class="related-list">
+      <li><a href="three-va-packages-3k-month.html">3 VA Packages That Add Up to $3K a Month</a></li>
+      <li><a href="monthly-client-report-va-retention.html">The Monthly Client Report That Makes You Hard to Cancel</a></li>
+      <li><a href="va-sop-playbook-document-work-raise-rates-delegate.html">The VA SOP Playbook: Document Work, Raise Rates</a></li>
+    </ul>
+  </div>
+</section>
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">
     <div class="footer-top">
