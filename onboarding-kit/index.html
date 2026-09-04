@@ -150,25 +150,17 @@ img{max-width:100%;display:block}
 /* HERO SHOT */
 .hero-shot{padding:0 2rem 1rem;max-width:1000px;margin:0 auto}
 
-/* SEE IT IN ACTION - gallery */
+/* SEE IT IN ACTION - live preview */
 .gallery-section{padding:5rem 2rem;max-width:1000px;margin:0 auto;text-align:center}
 .gallery-section .section-eyebrow,.gallery-section .section-sub{text-align:center}
 .gallery-section .section-title{margin-left:auto;margin-right:auto}
 .gallery-section .section-sub{margin-left:auto;margin-right:auto}
-.gallery-tabs{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin:0 auto 2rem;max-width:760px}
-.gallery-tab{font-family:var(--font-body);font-size:0.8rem;font-weight:600;color:rgba(248,248,248,0.6);background:var(--surface);border:1px solid var(--border-s);border-radius:6px;padding:0.55rem 1.05rem;cursor:pointer;transition:color 0.2s,background 0.2s,border-color 0.2s;letter-spacing:0.02em}
-.gallery-tab:hover{color:var(--white);border-color:rgba(255,31,122,0.3)}
-.gallery-tab[aria-selected="true"]{background:var(--pink);color:#fff;border-color:var(--pink)}
-.gallery-panel{display:none}
-.gallery-panel.on{display:block;animation:fadeUp 0.3s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .gallery-cap{font-size:0.85rem;color:var(--muted);margin:1.25rem auto 0;max-width:540px;line-height:1.6}
 .gallery-cap b{color:rgba(248,248,248,0.8);font-weight:600}
 .live-preview .browser::after{display:none}
 .live-preview iframe{width:100%;height:clamp(420px,72vh,660px);border:none;display:block;background:#f4f4f6}
 .preview-badge{margin-left:auto;flex-shrink:0;background:rgba(255,31,122,0.13);border:1px solid rgba(255,31,122,0.45);color:var(--pink);font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.25rem 0.7rem;border-radius:20px;white-space:nowrap}
 .preview-cta{margin-top:2.25rem}
-@media(prefers-reduced-motion:reduce){.gallery-panel.on{animation:none}}
 
 /* HOW IT WORKS shot */
 .how-shot{max-width:520px;margin:3rem auto 0}
@@ -454,21 +446,6 @@ img{max-width:100%;display:block}
   <p class="footer-copy">&#169; 2026 Virtueasy. All rights reserved.</p>
 </footer>
 
-<script>
-(function(){
-  var tabs = document.querySelectorAll('.gallery-tab');
-  tabs.forEach(function(tab){
-    tab.addEventListener('click', function(){
-      var section = tab.closest('.gallery-section');
-      section.querySelectorAll('.gallery-tab').forEach(function(t){ t.setAttribute('aria-selected','false'); });
-      tab.setAttribute('aria-selected','true');
-      section.querySelectorAll('.gallery-panel').forEach(function(p){ p.classList.remove('on'); });
-      var panel = section.querySelector('#' + tab.dataset.g);
-      if (panel) panel.classList.add('on');
-    });
-  });
-})();
-</script>
 
 </body>
 </html>
