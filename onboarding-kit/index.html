@@ -164,6 +164,10 @@ img{max-width:100%;display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .gallery-cap{font-size:0.85rem;color:var(--muted);margin:1.25rem auto 0;max-width:540px;line-height:1.6}
 .gallery-cap b{color:rgba(248,248,248,0.8);font-weight:600}
+.live-preview .browser::after{display:none}
+.live-preview iframe{width:100%;height:clamp(420px,72vh,660px);border:none;display:block;background:#f4f4f6}
+.preview-badge{margin-left:auto;flex-shrink:0;background:rgba(255,31,122,0.13);border:1px solid rgba(255,31,122,0.45);color:var(--pink);font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.25rem 0.7rem;border-radius:20px;white-space:nowrap}
+.preview-cta{margin-top:2.25rem}
 @media(prefers-reduced-motion:reduce){.gallery-panel.on{animation:none}}
 
 /* HOW IT WORKS shot */
@@ -337,49 +341,28 @@ img{max-width:100%;display:block}
   <h2 class="section-title">Not a PDF. A real tool.</h2>
   <p class="section-sub">This is exactly what you get the moment you buy - a guided, six-step app that builds every document from your details. No blank pages, no formatting, no guessing.</p>
 
-  <div class="gallery-tabs" role="tablist">
-    <button class="gallery-tab" role="tab" aria-selected="true" data-g="g1">Welcome Email</button>
-    <button class="gallery-tab" role="tab" aria-selected="false" data-g="g2">Intake Form</button>
-    <button class="gallery-tab" role="tab" aria-selected="false" data-g="g3">Scope of Work</button>
-    <button class="gallery-tab" role="tab" aria-selected="false" data-g="g4">Contract</button>
-    <button class="gallery-tab" role="tab" aria-selected="false" data-g="g5">Checklist</button>
+  <div class="live-preview" id="preview">
+    <div class="browser">
+      <div class="browser-bar">
+        <i></i><i></i><i class="r"></i>
+        <span class="browser-url">virtueasy.com/onboarding-kit/</span>
+        <span class="preview-badge">Free preview</span>
+      </div>
+      <iframe
+        src="/onboarding-kit/preview.html"
+        title="VA Client Onboarding Kit interactive preview"
+        loading="lazy"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+    </div>
   </div>
 
-  <div class="gallery-panel on" id="g1">
-    <div class="browser">
-      <div class="browser-bar"><i></i><i></i><i class="r"></i><span class="browser-url">Step 2 of 6 - Welcome Email</span></div>
-      <div class="browser-frame"><picture><source srcset="/assets/ok-shot-welcome.webp" type="image/webp"><img src="/assets/ok-shot-welcome.jpg" alt="Welcome Email step - a ready-to-send email with one-click copy" width="1075" height="1438" loading="lazy"></picture></div>
-    </div>
-    <p class="gallery-cap"><b>Welcome Email.</b> Pre-written and ready to send within 24 hours of a client saying yes - copy it in one click.</p>
+  <p class="gallery-cap">Click through all six steps using the sidebar. It is the real app, filled in with an example client, so you can read what it produces before you buy. Typing is switched off in the preview.</p>
+
+  <div class="preview-cta">
+    <a href="https://buy.stripe.com/cNiaEXfqW0jS73d4AmdAk01" class="hero-cta" target="_blank" rel="noopener" data-rewardful>Get Instant Access - $7</a>
+    <p class="hero-sub-cta">One-time payment. Instant access. No subscription.</p>
   </div>
-  <div class="gallery-panel" id="g2">
-    <div class="browser">
-      <div class="browser-bar"><i></i><i></i><i class="r"></i><span class="browser-url">Step 3 of 6 - Client Intake Form</span></div>
-      <div class="browser-frame"><picture><source srcset="/assets/ok-shot-intake.webp" type="image/webp"><img src="/assets/ok-shot-intake.jpg" alt="Client Intake Form step - ten questions ready to copy and send" width="1075" height="1389" loading="lazy"></picture></div>
-    </div>
-    <p class="gallery-cap"><b>Intake Form.</b> Ten questions that tell you exactly how to work with a client - and protect you if things go sideways.</p>
-  </div>
-  <div class="gallery-panel" id="g3">
-    <div class="browser">
-      <div class="browser-bar"><i></i><i></i><i class="r"></i><span class="browser-url">Step 4 of 6 - Scope of Work</span></div>
-      <div class="browser-frame"><picture><source srcset="/assets/ok-shot-scope.webp" type="image/webp"><img src="/assets/ok-shot-scope.jpg" alt="Scope of Work step - select deliverables and generate a clean document" width="1075" height="2171" loading="lazy"></picture></div>
-    </div>
-    <p class="gallery-cap"><b>Scope of Work.</b> Tick your deliverables from 18 options, fill in the dates, and a clean scope document builds itself.</p>
-  </div>
-  <div class="gallery-panel" id="g4">
-    <div class="browser">
-      <div class="browser-bar"><i></i><i></i><i class="r"></i><span class="browser-url">Step 5 of 6 - Contract + Payment Terms</span></div>
-      <div class="browser-frame"><picture><source srcset="/assets/ok-shot-contract.webp" type="image/webp"><img src="/assets/ok-shot-contract.jpg" alt="Contract step - a plain-language service agreement with payment terms" width="1075" height="1918" loading="lazy"></picture></div>
-    </div>
-    <p class="gallery-cap"><b>Contract.</b> A plain-language agreement covering payment, kill fees, ownership, and termination. No lawyer required.</p>
-  </div>
-  <div class="gallery-panel" id="g5">
-    <div class="browser">
-      <div class="browser-bar"><i></i><i></i><i class="r"></i><span class="browser-url">Step 6 of 6 - Onboarding Checklist</span></div>
-      <div class="browser-frame"><picture><source srcset="/assets/ok-shot-checklist.webp" type="image/webp"><img src="/assets/ok-shot-checklist.jpg" alt="Onboarding Checklist step - a checkable list that resets for each new client" width="1075" height="1332" loading="lazy"></picture></div>
-    </div>
-    <p class="gallery-cap"><b>Checklist.</b> Eleven steps to run with every new client - checkable, repeatable, nothing falls through the cracks.</p>
-  </div>
+
 </section>
 
 <!-- HOW IT WORKS -->
