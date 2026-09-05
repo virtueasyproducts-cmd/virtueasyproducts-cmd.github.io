@@ -1613,9 +1613,14 @@ document.addEventListener('DOMContentLoaded', function() {
   opacity: 0.92;
 }
 .is-preview input:focus, .is-preview textarea:focus, .is-preview select:focus { outline: none; }
-/* Anything that writes state is inert, but still visible. */
-.is-preview .task-tile, .is-preview .scope-task, .is-preview [data-task],
-.is-preview .check-item, .is-preview #checklist-items {
+/* Anything that writes state is inert, but still visible.
+   The onboarding checklist is deliberately NOT in this list. Its click
+   handler only toggles a CSS class and a checkmark glyph; it touches no
+   storage (vok_setup is the app's only key and the checklist never reads
+   or writes it). Freezing it made eleven checkboxes that the step's own
+   copy tells you to tick do nothing, which is where the dead clicks
+   measured on the sales page on 2026-09-05 came from. */
+.is-preview .task-tile, .is-preview .scope-task, .is-preview [data-task] {
   pointer-events: none;
 }
 .is-preview .copy-btn { cursor: pointer; }
