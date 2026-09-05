@@ -109,11 +109,21 @@ const PREVIEW_JS = `
       if (el && !el.value) el.value = SEED[id];
     });
 
-    // Pick a few scope tasks so the generated document is not empty.
-    var tiles = document.querySelectorAll('.task-tile, .scope-task, [data-task]');
-    for (var i = 0; i < tiles.length && i < 4; i++) {
-      try { tiles[i].click(); } catch(e) {}
-    }
+    // Pick a few scope tasks so the generated document is not empty. The
+    // control is .scope-tag; an earlier guess at .task-tile matched nothing,
+    // which left the preview's Scope of Work rendering the literal string
+    // "[Select deliverables above]" where the deliverables belong.
+    // Prefer tasks that suit the sample VA (Jamie Lane, Social Media VA),
+    // then top up from the start of the grid so this still seeds four if
+    // SCOPE_TASKS is ever reworded.
+    var WANT = ['Social media posting', 'Content creation',
+                'Graphic design (Canva)', 'Newsletter management'];
+    var tags = [].slice.call(document.querySelectorAll('.scope-tag'));
+    var pick = tags.filter(function(el){
+      return WANT.indexOf((el.textContent || '').trim()) > -1;
+    });
+    tags.forEach(function(el){ if (pick.length < 4 && pick.indexOf(el) < 0) pick.push(el); });
+    pick.slice(0, 4).forEach(function(el){ try { el.click(); } catch(e) {} });
 
     try { if (window.refreshAll) refreshAll(); } catch(e) {}
 
@@ -170,16 +180,18 @@ const PREVIEW_JS = `
   opacity: 0.92;
 }
 .is-preview input:focus, .is-preview textarea:focus, .is-preview select:focus { outline: none; }
-/* Anything that writes state is inert, but still visible.
-   The onboarding checklist is deliberately NOT in this list. Its click
-   handler only toggles a CSS class and a checkmark glyph; it touches no
-   storage (vok_setup is the app's only key and the checklist never reads
-   or writes it). Freezing it made eleven checkboxes that the step's own
-   copy tells you to tick do nothing, which is where the dead clicks
-   measured on the sales page on 2026-09-05 came from. */
-.is-preview .task-tile, .is-preview .scope-task, .is-preview [data-task] {
-  pointer-events: none;
-}
+/* No control is frozen by pointer-events any more, and that is deliberate.
+   The two that look stateful both write nothing: the onboarding checklist
+   toggles a CSS class and a checkmark glyph, and a .scope-tag mutates an
+   in-memory Set and regenerates the document text. vok_setup is the app's
+   only storage key and neither one reads or writes it, so letting both
+   respond costs nothing and is the point of a live preview.
+   Typing is still blocked, by readOnly and disabled on the inputs above.
+   The rule that used to sit here listed .task-tile, .scope-task and
+   [data-task], none of which exist in the kit, so it froze nothing while
+   reading as though it froze the deliverables. The real freeze it did
+   achieve was on .check-item, which produced the dead clicks measured on
+   the sales page on 2026-09-05. */
 .is-preview .copy-btn { cursor: pointer; }
 
 .preview-fade {
