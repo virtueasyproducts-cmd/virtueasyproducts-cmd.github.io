@@ -5,7 +5,7 @@
  *
  *   fetch()     POST /subscribe - adds an email from the job board to the
  *               MailerLite job-board group.
- *   scheduled() Weekly cron - builds the job digest as a MailerLite DRAFT.
+ *   scheduled() Weekly cron - builds the job digest and sends it.
  *
  * They live in one Worker on purpose. Both need the MailerLite API key, and
  * a second Worker would mean a second copy of that key - which is the exact
@@ -20,7 +20,7 @@
  *   npx wrangler deploy
  */
 
-import { createDigestDraft, sendReminder, sendEmail, fetchJobs, normalizeCategory } from './digest.js';
+import { createAndSendDigest, sendReminder, sendEmail, fetchJobs, normalizeCategory } from './digest.js';
 import { buildInsights, renderInsightsEmail } from './insights.js';
 
 /** ISO-8601 week number; even weeks carry the fortnightly engagement report. */
@@ -151,11 +151,15 @@ export default {
   },
 
   /**
-   * Weekly digest. Creates a DRAFT campaign and stops.
+   * Weekly digest. Builds the campaign and sends it, then emails Morgan a
+   * receipt. Changed 2026-09-08 at her request: the digest is the same
+   * email every week off the same feed, so approving it each Monday was
+   * approving an unchanged template.
    *
-   * This handler must never send or schedule the campaign. Morgan reviews
-   * the draft in MailerLite and sends it herself - an automated blast to a
-   * real subscriber list cannot be recalled if a run goes wrong.
+   * A send cannot be recalled, so the safety now sits in the build rather
+   * than in a human: the run refuses an empty digest, refuses a list with
+   * nobody past the welcome sequence, and aborts outright if it cannot
+   * confirm this week's digest was not already sent.
    */
   async scheduled(event, env, ctx) {
     if (!env.MAILERLITE_API_KEY) {
@@ -182,15 +186,17 @@ export default {
     ctx.waitUntil((async () => {
       let result;
       try {
-        result = await createDigestDraft(env.MAILERLITE_API_KEY, env.JOBS);
-        if (result.status === 'created') {
-          console.log(`digest: created draft ${result.id} with ${result.count} jobs - ${result.reviewUrl}`);
+        result = await createAndSendDigest(env.MAILERLITE_API_KEY, env.JOBS);
+        if (result.status === 'sent') {
+          console.log(`digest: sent ${result.id} with ${result.count} jobs to ${result.audience?.eligible ?? '?'} subscribers`);
+        } else if (result.status === 'send_failed') {
+          console.error(`digest: built ${result.id} but the send failed - ${result.error}`);
         } else {
           console.log(`digest: skipped - ${result.reason}`);
         }
       } catch (err) {
         // Surfaces in `wrangler tail` and Workers logs. A failed week means
-        // no draft, which is visible by absence rather than a broken send.
+        // nothing went out, which the reminder below reports explicitly.
         console.error(`digest: failed - ${err.message}`);
         result = { status: 'failed', error: err.message };
       }

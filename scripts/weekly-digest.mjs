@@ -7,13 +7,21 @@
  * produce, and shares its logic with the Worker via worker/src/digest.js so
  * both build identical emails.
  *
- * Never sends. Creates a draft and stops.
+ * Creates a draft and stops unless --send is passed. The Monday cron sends
+ * on its own; sending stays opt-in here so running this to look at something
+ * cannot blast the list by accident.
+ *
+ * Careful: a bare run leaves a draft for the current week, and the cron
+ * skips a week it has already built. So a draft made here before Monday's
+ * run means no digest goes out that week until it is sent by hand or
+ * deleted. The script says so after it creates one.
  *
  * Key: MAILERLITE_API_KEY env var, else ~/.virtueasy/mailerlite.key.
  * (The scheduled run does not use either - it reads the Worker secret.)
  *
  * Usage:
- *   node scripts/weekly-digest.mjs            # create the draft
+ *   node scripts/weekly-digest.mjs            # create the draft, do not send
+ *   node scripts/weekly-digest.mjs --send     # create it and send it now
  *   node scripts/weekly-digest.mjs --dry-run  # build + report, touch nothing
  */
 
@@ -25,10 +33,12 @@ import {
   renderEmail,
   campaignName,
   createDigestDraft,
+  createAndSendDigest,
   EARLY_ACCESS_DAYS,
 } from '../worker/src/digest.js';
 
 const DRY_RUN = process.argv.includes('--dry-run');
+const SEND = process.argv.includes('--send');
 
 function die(msg) {
   console.error(`ERROR: ${msg}`);
@@ -62,7 +72,7 @@ async function main() {
     return;
   }
 
-  const result = await createDigestDraft(apiKey);
+  const result = SEND ? await createAndSendDigest(apiKey) : await createDigestDraft(apiKey);
 
   if (result.status === 'skipped') {
     console.log(`Skipped: ${result.reason}`);
@@ -71,11 +81,33 @@ async function main() {
 
   console.log(`feed total:      ${result.total}`);
   console.log(`early-access:    ${result.count}`);
-  console.log(`\nDRAFT CREATED`);
+  console.log('');
+
+  if (result.status === 'send_failed') {
+    console.log(`BUILT BUT NOT SENT`);
+    console.log(`  id:     ${result.id}`);
+    console.log(`  name:   ${result.name}`);
+    console.log(`  review: ${result.reviewUrl}`);
+    die(`MailerLite refused the send: ${result.error}`);
+  }
+
+  if (result.status === 'sent') {
+    console.log(`SENT`);
+    console.log(`  id:     ${result.id}`);
+    console.log(`  name:   ${result.name}`);
+    console.log(`  to:     ${result.audience?.eligible ?? '?'} subscribers`);
+    console.log(`  report: ${result.reportUrl}`);
+    return;
+  }
+
+  console.log(`DRAFT CREATED`);
   console.log(`  id:     ${result.id}`);
   console.log(`  name:   ${result.name}`);
   console.log(`  review: ${result.reviewUrl}`);
-  console.log(`\nNot sent. Review it in MailerLite and send when you are happy with it.`);
+  console.log('');
+  console.log(`Not sent, because --send was not passed.`);
+  console.log(`Heads up: the Monday cron skips a week it has already built, so`);
+  console.log(`this draft suppresses the automatic send. Send it, or delete it.`);
 }
 
 main().catch(err => die(err.stack || err.message));

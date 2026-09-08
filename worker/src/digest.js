@@ -204,8 +204,13 @@ export function renderEmail(jobs) {
 }
 
 /**
- * Monday reminder that the draft is waiting. Mirrors the AIOS worker's
- * Resend setup (same RESEND_KEY, same onboarding@resend.dev sender).
+ * Monday note saying what the digest did. Mirrors the AIOS worker's Resend
+ * setup (same RESEND_KEY, same onboarding@resend.dev sender).
+ *
+ * This used to ask Morgan to review and send. The digest now sends itself,
+ * so the normal case is a receipt rather than a request, and the two cases
+ * that still need her - a build that could not send, and an outright
+ * failure - have to look different enough to notice in an inbox.
  *
  * Sends only to REPORT_TO. It has no access to the MailerLite subscriber
  * list and cannot reach it - that separation is deliberate.
@@ -216,7 +221,32 @@ export async function sendReminder(env, result) {
   const to = env.REPORT_TO || 'morganmessick@gmail.com';
   let subject, body;
 
-  if (result.status === 'created') {
+  if (result.status === 'sent') {
+    subject = `Sent: ${result.count} VA jobs went out this week`;
+    body = `
+      <p style="font-size:16px;">This week's job digest has gone out. Nothing needed from you.</p>
+      <p style="font-size:16px;">
+        <strong>${result.count} jobs</strong> &nbsp;&middot;&nbsp; ${result.name}<br>
+        Subject line: ${result.subject}
+      </p>
+      <p><a href="${result.reportUrl}" style="background:#FF1F7A;color:#fff;padding:12px 24px;text-decoration:none;font-weight:700;display:inline-block;">See the report</a></p>
+      <p style="color:#6b6b6b;font-size:13px;">
+        Delivered to ${result.audience?.eligible ?? '?'} subscribers
+        (${result.audience?.inSequence ?? 0} held back, still in the welcome sequence).
+      </p>`;
+  } else if (result.status === 'send_failed') {
+    subject = `ACTION NEEDED: VA digest built but did not send`;
+    body = `
+      <p style="font-size:16px;">The digest built fine, but MailerLite refused the send. It is sitting as a <strong>draft</strong> and will not go out on its own.</p>
+      <p style="font-size:16px;">
+        <strong>${result.count} jobs</strong> &nbsp;&middot;&nbsp; ${result.name}<br>
+        Subject line: ${result.subject}
+      </p>
+      <pre style="background:#f4f4f4;padding:12px;font-size:13px;white-space:pre-wrap;">${result.error}</pre>
+      <p><a href="${result.reviewUrl}" style="background:#FF1F7A;color:#fff;padding:12px 24px;text-decoration:none;font-weight:700;display:inline-block;">Open the draft and send it</a></p>`;
+  } else if (result.status === 'created') {
+    // Only reachable if something calls createDigestDraft on its own. Kept so
+    // a draft-only path never reports itself as delivered.
     subject = `${result.count} VA jobs ready to review`;
     body = `
       <p style="font-size:16px;">This week's job digest is built and waiting as a <strong>draft</strong>.</p>
@@ -224,20 +254,16 @@ export async function sendReminder(env, result) {
         <strong>${result.count} jobs</strong> &nbsp;&middot;&nbsp; ${result.name}<br>
         Subject line: ${result.subject}
       </p>
-      <p><a href="${result.reviewUrl}" style="background:#FF1F7A;color:#fff;padding:12px 24px;text-decoration:none;font-weight:700;display:inline-block;">Review and send</a></p>
-      <p style="color:#6b6b6b;font-size:13px;">
-      Nothing goes out until you send it. Goes to ${result.audience?.eligible ?? '?'} subscribers
-      (${result.audience?.inSequence ?? 0} held back, still in the welcome sequence).
-    </p>`;
+      <p><a href="${result.reviewUrl}" style="background:#FF1F7A;color:#fff;padding:12px 24px;text-decoration:none;font-weight:700;display:inline-block;">Review and send</a></p>`;
   } else if (result.status === 'skipped') {
     subject = `VA digest skipped this week`;
     body = `<p style="font-size:16px;">No draft was created: <strong>${result.reason}</strong>.</p>
             <p style="color:#6b6b6b;font-size:13px;">Nothing is wrong if this says there were no new jobs.</p>`;
   } else {
     subject = `VA digest FAILED`;
-    body = `<p style="font-size:16px;">The weekly digest did not run.</p>
+    body = `<p style="font-size:16px;">The weekly digest did not run, so nothing went out this week.</p>
             <pre style="background:#f4f4f4;padding:12px;font-size:13px;white-space:pre-wrap;">${result.error}</pre>
-            <p style="color:#6b6b6b;font-size:13px;">No draft exists for this week. Check <code>npx wrangler tail</code>.</p>`;
+            <p style="color:#6b6b6b;font-size:13px;">No campaign exists for this week. Check <code>npx wrangler tail</code>.</p>`;
   }
 
   return sendEmail(env, subject, `<div style="font-family:Helvetica,Arial,sans-serif;max-width:560px;">${body}</div>`);
@@ -289,11 +315,27 @@ async function ml(apiKey, path, options = {}) {
   return { ok: res.ok, status: res.status, body, raw, headers: res.headers };
 }
 
-/** Guard against a double-run creating two identical drafts for one week. */
-async function draftExists(apiKey, name) {
-  const res = await ml(apiKey, '/campaigns?filter[status]=draft&limit=25');
-  if (!res.ok) return false; // Non-fatal: worst case a duplicate draft to delete.
-  return (res.body?.data || []).some(c => c.name === name);
+/**
+ * Guard against a double-run building this week's digest twice.
+ *
+ * Checks sent and ready campaigns as well as drafts. While the run stopped
+ * at a draft, that unsent draft was itself the evidence of a prior run. Now
+ * that the run sends, a second run would find no draft left, build a fresh
+ * one and blast the list twice in one week - so a sent campaign has to
+ * count as evidence too.
+ *
+ * A failed lookup used to return false and accept the risk of a duplicate
+ * draft. That was the right trade for a draft and the wrong one for a send,
+ * so mlPaginate's throw is left to propagate and the run aborts instead.
+ *
+ * Returns the status it matched under, or null if this week is unbuilt.
+ */
+async function campaignExistsForWeek(apiKey, name) {
+  for (const status of ['draft', 'ready', 'sent']) {
+    const campaigns = await mlPaginate(apiKey, `/campaigns?filter[status]=${status}`);
+    if (campaigns.some(c => c.name === name)) return status;
+  }
+  return null;
 }
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -389,10 +431,11 @@ export async function syncDigestReady(apiKey) {
 }
 
 /**
- * Build this week's digest and create it as a MailerLite DRAFT.
+ * Build this week's digest and create it as a MailerLite draft.
  *
- * Never sends and never schedules. Sending stays a human decision made in
- * the MailerLite UI. Returns a result object describing what happened.
+ * This is the build half only - it creates and stops. The scheduled run
+ * calls createAndSendDigest below, which sends what this returns; the
+ * manual CLI calls this directly so a by-hand run still stops at a draft.
  */
 export async function createDigestDraft(apiKey, jobsService = null) {
   const all = await fetchJobs(jobsService);
@@ -403,8 +446,16 @@ export async function createDigestDraft(apiKey, jobsService = null) {
   }
 
   const name = campaignName();
-  if (await draftExists(apiKey, name)) {
-    return { status: 'skipped', reason: 'draft already exists for this week', name, count: jobs.length };
+  const existing = await campaignExistsForWeek(apiKey, name);
+  if (existing) {
+    return {
+      status: 'skipped',
+      reason: existing === 'sent'
+        ? "this week's digest has already been sent"
+        : `a ${existing} campaign already exists for this week`,
+      name,
+      count: jobs.length,
+    };
   }
 
   // Promote anyone who has finished the welcome sequence, then check there is
@@ -446,5 +497,52 @@ export async function createDigestDraft(apiKey, jobsService = null) {
     total: all.length,
     audience,
     reviewUrl: `https://dashboard.mailerlite.com/campaigns/${c.id}/edit`,
+  };
+}
+
+/**
+ * Hand a built campaign to MailerLite for immediate delivery.
+ *
+ * `instant` is MailerLite's own word for send-now on the schedule endpoint;
+ * there is no separate send endpoint. A non-2xx leaves the campaign as a
+ * draft, so the caller can report it as still sendable by hand.
+ */
+export async function sendCampaign(apiKey, campaignId) {
+  const res = await ml(apiKey, `/campaigns/${campaignId}/schedule`, {
+    method: 'POST',
+    body: JSON.stringify({ delivery: 'instant' }),
+  });
+  if (!res.ok) {
+    throw new Error(`MailerLite HTTP ${res.status} sending campaign ${campaignId}: ${res.raw.slice(0, 300)}`);
+  }
+  return res.body?.data ?? null;
+}
+
+/**
+ * Build this week's digest and send it.
+ *
+ * The run used to stop at a draft for Morgan to send by hand. It is the same
+ * email every week off the same feed, so that review approved an unchanged
+ * template; she asked for it to send on its own and to be told afterwards.
+ *
+ * The build stays a separate step so a failed send leaves a complete draft
+ * behind rather than nothing. That case returns `send_failed`, which the
+ * reminder reports as needing her - the one path that still does.
+ */
+export async function createAndSendDigest(apiKey, jobsService = null) {
+  const result = await createDigestDraft(apiKey, jobsService);
+  if (result.status !== 'created') return result;
+
+  try {
+    await sendCampaign(apiKey, result.id);
+  } catch (err) {
+    return { ...result, status: 'send_failed', error: err.message };
+  }
+
+  return {
+    ...result,
+    status: 'sent',
+    sentAt: new Date().toISOString(),
+    reportUrl: `https://dashboard.mailerlite.com/campaigns/${result.id}/reports`,
   };
 }
