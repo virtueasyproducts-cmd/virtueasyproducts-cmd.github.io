@@ -437,6 +437,64 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
     .early-banner button:hover { opacity: 0.85; }
 
+    /* Rate banner. Sits below the early-access ask and is deliberately quieter,
+       because the email capture is still the board's first goal. */
+    .rate-banner {
+      display: none;
+      background: var(--gray);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--pink);
+      padding: 1.1rem 1.35rem;
+      margin-bottom: 1.25rem;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .rate-banner.show { display: flex; }
+
+    .rate-banner .eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .rate-banner .headline {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .rate-banner .sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 0.2rem;
+    }
+
+    .rate-banner a.rate-cta {
+      background: transparent;
+      border: 1px solid var(--pink);
+      color: var(--pink);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.4rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .rate-banner a.rate-cta:hover { background: var(--pink); color: var(--black); }
+
     /* POPUP OVERLAY */
     .popup-overlay {
       position: fixed;
@@ -736,6 +794,15 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       </div>
       <button id="early-cta">Get them first</button>
     </div>
+
+    <div class="rate-banner" id="rate-banner">
+      <div class="rate-banner-text">
+        <p class="eyebrow">Pay not listed</p>
+        <p class="headline"><span id="rate-count">0</span> of the jobs on this board do not say what they pay</p>
+        <p class="sub">Decide your number before you reply, not after they name one. The rate calculator is free to try and takes about two minutes.</p>
+      </div>
+      <a class="rate-cta" href="/pricing-tool/" id="rate-cta">Work out my rate</a>
+    </div>
   </div>
 
   <div class="blueprint-banner">
@@ -821,6 +888,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     // Captured once. renderJobs() rewrites jobs-list innerHTML, which would
     // destroy this node now that it is placed between the cards.
     const earlyBannerNode = document.getElementById('early-banner');
+    const rateBannerNode = document.getElementById('rate-banner');
 
     // ── FETCH JOBS ──────────────────────────────────────────────
     const RELEVANT_TITLE = /\b(virtual assistant|executive assistant|administrative assistant|admin assistant|personal assistant|remote office assistant|social media|online business manager|\bOBM\b|operations assistant|project assistant|graphic design assistant)\b/i;
@@ -920,6 +988,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
       // detach so innerHTML cannot take it with the old cards
       if (earlyBannerNode && earlyBannerNode.parentElement) earlyBannerNode.remove();
+      if (rateBannerNode && rateBannerNode.parentElement) rateBannerNode.remove();
 
       if (!jobs.length) {
         list.innerHTML = `
@@ -929,6 +998,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
           </div>`;
         count.textContent = '0 jobs';
         placeEarlyBanner();
+        placeRateBanner(jobs);
         return;
       }
 
@@ -955,6 +1025,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       }).join('');
 
       placeEarlyBanner();
+      placeRateBanner(jobs);
     }
 
     // The email ask earns its place once the visitor has seen real listings.
@@ -967,6 +1038,29 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
         cards[2].insertAdjacentElement('afterend', earlyBannerNode);
       } else {
         list.insertAdjacentElement('afterend', earlyBannerNode);
+      }
+    }
+
+    // On 2026-09-11, 24 of the 53 jobs in the feed carried no pay at all and the
+    // priced ones skewed to low hourly bands. The reader's question at that point
+    // is what to quote, so answer it instead of leaving the slot blank. Counted
+    // off the jobs actually on screen, so a filter keeps the number honest.
+    function placeRateBanner(jobs) {
+      const list = document.getElementById('jobs-list');
+      if (!rateBannerNode || !list) return;
+
+      const noPay = (jobs || []).filter(j => !j.salary || !String(j.salary).trim()).length;
+      if (noPay < 3) { rateBannerNode.classList.remove('show'); return; }
+
+      const rc = rateBannerNode.querySelector('#rate-count');
+      if (rc) rc.textContent = noPay;
+      rateBannerNode.classList.add('show');
+
+      const cards = list.querySelectorAll('.job-card');
+      if (cards.length > 10) {
+        cards[8].insertAdjacentElement('afterend', rateBannerNode);
+      } else {
+        list.insertAdjacentElement('afterend', rateBannerNode);
       }
     }
 
@@ -1049,6 +1143,10 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     });
 
     // Banner CTA re-opens the popup even after a dismissal.
+    document.getElementById('rate-cta').addEventListener('click', () => {
+      if (typeof window.clarity === 'function') window.clarity('event', 'jobboard_to_pricing_tool');
+    });
+
     document.getElementById('early-cta').addEventListener('click', () => {
       popupTriggered = true;
       document.getElementById('popup').classList.add('active');
