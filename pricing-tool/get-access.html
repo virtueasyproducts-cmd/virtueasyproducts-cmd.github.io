@@ -196,6 +196,13 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 const ACCESS_API = 'https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev';
 const APP_URL    = 'https://virtueasy.com/pricing-tool/app.html';
 const ML_URL     = 'https://assets.mailerlite.com/jsonp/2199748/forms/184021092538517454/subscribe';
+// Second capture, deliberate. The form above files the signup under
+// 'Source: Pricing Tool', which no automation triggers on, so until now a VA who
+// handed over an email for the calculator got one access email and then silence
+// forever. This one files the same address under 'Source: Virtueasy Home Page',
+// the trigger group of the General Subscriber Nurture sequence. Attribution is
+// preserved because the first group is still set.
+const ML_NURTURE_URL = 'https://assets.mailerlite.com/jsonp/2199748/forms/185198994698273934/subscribe';
 
 let redirecting = false; // guard against double-fire
 
@@ -221,12 +228,16 @@ async function grantAndRedirect(email) {
   // Save email immediately (used as an optimistic display key inside the app)
   if (email) { try { localStorage.setItem('ve-pricing-email', email); } catch(e) {} }
 
-  // Fire ML subscription in background - don't wait for it
+  // Fire both ML subscriptions in background - don't wait for either.
+  // keepalive so the request survives the redirect to app.html, which fires
+  // moments later and would otherwise cancel an in-flight fetch.
   if (email) {
-    const fd = new FormData();
-    fd.append('fields[email]', email);
-    fd.append('ml-submit', '1');
-    fetch(ML_URL, { method: 'POST', body: fd }).catch(() => {});
+    [ML_URL, ML_NURTURE_URL].forEach(function (url) {
+      const fd = new FormData();
+      fd.append('fields[email]', email);
+      fd.append('ml-submit', '1');
+      fetch(url, { method: 'POST', body: fd, keepalive: true }).catch(() => {});
+    });
   }
 
   // Mint the access token and WAIT for it before redirecting. The server token
