@@ -52,7 +52,7 @@ p{font-size:0.95rem;color:var(--muted);line-height:1.6;max-width:340px;margin:0 
   <div class="brand">VIRTU<span>EASY</span></div>
   <div class="spinner"></div>
   <h1>Unlocking your Onboarding Kit</h1>
-  <p class="note">Confirming your purchase and setting up your access…</p>
+  <p class="note">Confirming your order and setting up your access…</p>
 </div>
 <script>
 (async function(){
@@ -72,7 +72,7 @@ p{font-size:0.95rem;color:var(--muted);line-height:1.6;max-width:340px;margin:0 
   }
 
   function fail(msg){
-    document.querySelector(".note").textContent = msg || "We couldn't confirm your purchase. Taking you to sign in…";
+    document.querySelector(".note").textContent = msg || "We couldn't confirm your order. Taking you to sign in…";
     setTimeout(function(){ window.location.href = "login.html"; }, 2600);
   }
 
@@ -105,11 +105,11 @@ p{font-size:0.95rem;color:var(--muted);line-height:1.6;max-width:340px;margin:0 
     } else {
       console.error("Onboarding Kit unlock failed:", data);
       var reason = data && data.reason ? " (" + data.reason + ")" : "";
-      fail("We couldn't confirm your purchase" + reason + ". Taking you to sign in…");
+      fail("We couldn't confirm your order" + reason + ". Taking you to sign in…");
     }
   } catch (e) {
     console.error("Onboarding Kit unlock error:", e);
-    fail("We hit a snag confirming your purchase. Taking you to sign in…");
+    fail("We hit a snag confirming your order. Taking you to sign in…");
   }
 })();
 </script>
