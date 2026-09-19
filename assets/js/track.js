@@ -180,6 +180,15 @@
     watchMailerLite();
   }
 
+  // Time-boxed promos live in their own file so this one stays about tracking. promo.js
+  // checks its own end date and does nothing once the window has closed.
+  try {
+    var promo = document.createElement("script");
+    promo.src = "/assets/js/promo.js";
+    promo.defer = true;
+    document.head.appendChild(promo);
+  } catch (e) {}
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
   } else {

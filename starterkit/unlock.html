@@ -90,10 +90,14 @@ p{font-size:0.95rem;color:var(--muted);line-height:1.6;max-width:340px;margin:0 
         localStorage.removeItem("sk_auth"); // retire the old client flag
       } catch(e) {}
       if (sessionId && typeof window.clarity === "function") {
-        try { clarity("event", "purchase"); } catch(e) {}
+        try { clarity("event", data.free ? "free_claim" : "purchase"); } catch(e) {}
       }
       // Only on a fresh Stripe redirect - a returning token holder is not a new sale.
-      if (sessionId && typeof window.fbq === "function") {
+      // A free-promo claim ($0 checkout) is a lead, not revenue. Keep it out of Purchase.
+      if (sessionId && data.free && typeof window.fbq === "function") {
+        fbq("track", "Lead", { content_name: "VA Starter Kit (free claim)", content_ids: ["starterkit"] },
+          { eventID: "freeclaim_starterkit_" + sessionId });
+      } else if (sessionId && typeof window.fbq === "function") {
         fbq("track", "Purchase", {
           value: 27.00, currency: "USD",
           content_name: "VA Starter Kit",
