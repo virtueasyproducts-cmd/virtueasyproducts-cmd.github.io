@@ -34,6 +34,10 @@ function isEvenIsoWeek(date) {
 
 const ML_SUBSCRIBERS = 'https://connect.mailerlite.com/api/subscribers';
 const GROUP_ID = '185458839430104953'; // "Source: Job Board"
+// Kit claims during the free giveaway (2026-09-19 to 2026-10-20). Called by the
+// virtueasy-pricing-tool-verification Worker over a service binding once Stripe has
+// confirmed the $0 checkout, so the address here is one Stripe already collected.
+const CLAIM_GROUP_ID = '199061868414764165'; // "Source: Free Kit Claim (Fall 2026)"
 
 const ALLOWED_ORIGINS = new Set([
   'https://virtueasy.com',
@@ -84,9 +88,10 @@ export default {
       return new Response(null, { status: 204, headers: corsHeaders(origin) });
     }
 
-    if (url.pathname !== '/subscribe') {
+    if (url.pathname !== '/subscribe' && url.pathname !== '/claim') {
       return json({ error: 'not_found' }, 404, origin);
     }
+    const groupId = url.pathname === '/claim' ? CLAIM_GROUP_ID : GROUP_ID;
 
     if (request.method !== 'POST') {
       return json({ error: 'method_not_allowed' }, 405, origin);
@@ -130,7 +135,7 @@ export default {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: JSON.stringify({ email, groups: [GROUP_ID] }),
+        body: JSON.stringify({ email, groups: [groupId] }),
       });
     } catch (err) {
       console.error('MailerLite request failed:', err.message);
