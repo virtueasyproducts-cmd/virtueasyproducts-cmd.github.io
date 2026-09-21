@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thanks for the feedback - Virtueasy</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+  body { font-family: "Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #F8F8F8; color: #0A0A0A;
+         display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 1.5rem; box-sizing: border-box; }
+  .wrap { max-width: 32rem; background: #fff; border-top: 4px solid #FF1F7A; padding: 2.5rem 2rem; }
+  .eyebrow { font-size: 0.75rem; letter-spacing: 0.16em; font-weight: 700; text-transform: uppercase; color: #FF1F7A; }
+  h1 { font-family: "Bebas Neue", Impact, sans-serif; font-weight: 400; font-size: 2.75rem; line-height: 1; letter-spacing: 0.02em; margin: 0.5rem 0 1rem; }
+  p { font-size: 1.05rem; line-height: 1.6; color: #2A2A2A; margin: 0 0 1rem; }
+  .box { background: #F8F8F8; padding: 1.25rem 1.25rem 0.25rem; margin: 1.5rem 0 0; }
+  .box strong { display: block; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  a { color: #FF1F7A; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Kit feedback</div>
+  <h1 id="h">Got it. Thank you.</h1>
+  <p id="m">That one click tells us more than you'd think. We read every answer.</p>
+  <div class="box">
+    <strong>Want the Pricing Tool free, for life?</strong>
+    <p>Reply to our email with one sentence on why you picked that answer. We'll unlock unlimited Pricing Tool access on the email you used. No code, nothing to buy.</p>
+  </div>
+  <p style="margin-top:1.5rem"><a href="/">Back to Virtueasy</a></p>
+</div>
+<script>
+  (function () {
+    var r = new URLSearchParams(location.search).get("r");
+    var m = document.getElementById("m");
+    if (r === "useful") m.textContent = "Glad it earned its place. We read every answer.";
+    else if (r === "somewhat") m.textContent = "Somewhat is useful to hear. Tell us what was missing and we'll work on it.";
+    else if (r === "notyet") m.textContent = "Honest answers are the ones we need most. Tell us what got in the way.";
+  })();
+</script>
+</body>
+</html>
