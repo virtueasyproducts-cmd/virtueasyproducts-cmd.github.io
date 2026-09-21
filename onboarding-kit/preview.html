@@ -1464,7 +1464,16 @@ function completeKit() {
 }
 
 function copyText(id, btn) {
-  window.open(PREVIEW_BUY, "_blank", "noopener");
+  /* Open checkout through a real link click, not window.open, so the click
+     listeners in promo.js (FREEKIT code) and track.js (checkout_start) see it. */
+  var a = document.createElement('a');
+  a.href = PREVIEW_BUY;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  a.setAttribute('data-rewardful', '');
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
   return;
   /* eslint-disable no-unreachable */
   var text = document.getElementById(id).textContent;
