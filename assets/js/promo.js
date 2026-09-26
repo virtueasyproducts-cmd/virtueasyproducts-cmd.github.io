@@ -4,7 +4,8 @@
  *   1. Adds ?prefilled_promo_code=FREEKIT to every Starter Kit and Onboarding Kit
  *      Payment Link, so Stripe Checkout opens at $0 with no card field.
  *   2. Rewrites the price on buy buttons and price blocks to show the kit is free.
- *   3. Puts an announcement bar at the top of the page.
+ *   3. Marks the in-page kit promos free (resources cards, job board banner, blog CTAs).
+ *   4. Puts an announcement bar at the top of the page.
  *
  * After END it does nothing at all, so the site reverts to full price on its own.
  * The matching server-side window lives in the virtueasy-pricing-tool-verification
@@ -85,6 +86,30 @@
     if (bar) bar.innerHTML = "<strong>VA Starter Kit &middot; Free</strong>Through " + END_LABEL + ", no card needed";
   }
 
+  // In-page kit promos that link to the sales pages rather than Stripe, so
+  // rewriteLinks never sees them: resources cards, the job board banner, blog CTAs.
+  function rewriteKitPromos() {
+    var badges = document.querySelectorAll('a.stub-card[href="/starterkit/"] .badge, a.stub-card[href="/onboarding-kit/"] .badge');
+    for (var i = 0; i < badges.length; i++) {
+      var was = badges[i].textContent.trim();
+      badges[i].innerHTML = '<s style="opacity:.6;margin-right:.3em">' + was + "</s>Free";
+      badges[i].className += " badge-free";
+    }
+    var bp = document.querySelector(".blueprint-banner");
+    if (bp) {
+      var eyebrow = bp.querySelector(".eyebrow");
+      var btn = bp.querySelector('a[href="/starterkit/"]');
+      if (eyebrow) eyebrow.textContent = "Free through " + END_LABEL + ", no card needed";
+      if (btn) btn.textContent = "Get it free →";
+    }
+    var ctas = document.querySelectorAll('.cta-block a.cta-btn[href="/starterkit/"]');
+    for (var j = 0; j < ctas.length; j++) {
+      ctas[j].textContent = "Get the VA Starter Kit free";
+      var label = ctas[j].parentNode.querySelector(".cta-label");
+      if (label) label.textContent = "Free through " + END_LABEL + ", no card needed";
+    }
+  }
+
   function addBanner() {
     if (QUIET_PAGES.test(window.location.pathname) || document.getElementById("ve-promo-bar")) return;
     var onKitPage = /^\/(starterkit|onboarding-kit)\//.test(window.location.pathname);
@@ -111,6 +136,7 @@
   function run() {
     rewriteLinks();
     rewritePriceBlocks();
+    rewriteKitPromos();
     addBanner();
   }
 
