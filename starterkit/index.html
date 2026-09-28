@@ -541,6 +541,25 @@ img{max-width:100%;display:block}
 </div>
 
 <script>
+// Copy with fallbacks: in-app browsers (Instagram, Facebook) often refuse the
+// clipboard API, so fall back to execCommand, then to a prompt the user can copy from.
+function copyText(text, done){
+  function legacy(){
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;font-size:16px;';
+    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, text.length);
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    if (ok) done(); else window.prompt('Copy this text:', text);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, legacy);
+  } else {
+    legacy();
+  }
+}
 /* ── MOBILE PURCHASE BAR ── */
 (function(){
   var hero = document.querySelector('.hero');
@@ -757,14 +776,7 @@ img{max-width:100%;display:block}
           btn.classList.add('done');
           setTimeout(function(){ btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1600);
         };
-        if(navigator.clipboard && navigator.clipboard.writeText){
-          navigator.clipboard.writeText(t).then(done).catch(function(){});
-        } else {
-          var ta = document.createElement('textarea');
-          ta.value = t; document.body.appendChild(ta); ta.select();
-          try{ document.execCommand('copy'); done(); }catch(e){}
-          document.body.removeChild(ta);
-        }
+        copyText(t, done);
       });
     });
   }

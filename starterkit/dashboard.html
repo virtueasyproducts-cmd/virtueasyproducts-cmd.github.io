@@ -1022,6 +1022,25 @@ textarea.journal-input::placeholder{color:rgba(255,255,255,0.2)}
 </div>
 
 <script>
+// Copy with fallbacks: in-app browsers (Instagram, Facebook) often refuse the
+// clipboard API, so fall back to execCommand, then to a prompt the user can copy from.
+function copyText(text, done){
+  function legacy(){
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;font-size:16px;';
+    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, text.length);
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    if (ok) done(); else window.prompt('Copy this text:', text);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, legacy);
+  } else {
+    legacy();
+  }
+}
 // ── AUTH (server-verified access token) ──
 (function(){
   var SK_API = "https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev";
@@ -1280,7 +1299,7 @@ function aiGenerate(mid, idx){
 
 function aiCopy(mid, idx){
   var text = document.getElementById('aiText_'+mid+'_'+idx).textContent;
-  navigator.clipboard.writeText(text).then(function(){
+  copyText(text, function(){
     var btns = document.querySelectorAll('#aiRes_'+mid+'_'+idx+' .ai-action-btn');
     if(btns[0]){ btns[0].textContent='Copied!'; setTimeout(function(){btns[0].textContent='Copy';},1500); }
   });
@@ -1599,7 +1618,7 @@ function renderPrompts(){
 function copyPrompt(btn, num){
   var p = PROMPTS.find(function(x){return x.num===num;});
   if(!p) return;
-  navigator.clipboard.writeText(p.text).then(function(){
+  copyText(p.text, function(){
     btn.textContent='Copied!'; btn.classList.add('copied');
     setTimeout(function(){btn.textContent='Copy Prompt';btn.classList.remove('copied');},1500);
   });
@@ -1665,7 +1684,7 @@ function buildProposal(){
 function copyProposal(){
   var text = document.getElementById('proposalPreview').textContent;
   if(!text || text.includes('will appear here')) return;
-  navigator.clipboard.writeText(text).then(function(){
+  copyText(text, function(){
     var btn = document.querySelector('#panel-proposal .itool-copy-btn');
     if(btn){ btn.textContent='Copied!'; setTimeout(function(){btn.textContent='Copy Full Proposal';},1800); }
   });
@@ -1725,7 +1744,7 @@ function buildPortfolio(){
 function copyPortfolio(){
   var text = document.getElementById('portfolioPreview').textContent;
   if(!text || text.includes('Add an entry')) return;
-  navigator.clipboard.writeText(text).then(function(){
+  copyText(text, function(){
     var btn = document.querySelector('#panel-portfolio .itool-copy-btn');
     if(btn){ btn.textContent='Copied!'; setTimeout(function(){btn.textContent='Copy Full Portfolio';},1800); }
   });
@@ -2221,7 +2240,7 @@ function aitkGenerate(){
 }
 function aitkCopy(){
   var text = document.getElementById('aitkText').textContent;
-  navigator.clipboard.writeText(text).then(function(){
+  copyText(text, function(){
     var btn = document.querySelector('#aitkResult .ai-action-btn');
     if(btn){btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},1500);}
   });
