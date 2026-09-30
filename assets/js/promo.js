@@ -26,6 +26,10 @@
   var QUIET_PAGES = /\/(unlock|dashboard|login|ok-2026-access|app)(\.html)?$/;
 
   if (Date.now() >= END) return;
+  // The kit sales pages load this file directly as well as through track.js, so the
+  // free price is in place before a slow phone can tap a $27 button. Run once.
+  if (window.__vePromoLoaded) return;
+  window.__vePromoLoaded = true;
 
   function kitFor(href) {
     if (!href || href.indexOf("buy.stripe.com") === -1) return null;
