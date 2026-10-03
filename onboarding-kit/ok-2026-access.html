@@ -312,6 +312,7 @@ body {
 .field input::placeholder,
 .field textarea::placeholder { color: var(--dim); }
 .field textarea { resize: none; min-height: 90px; line-height: 1.6; }
+.field-hint { font-size: 12px; color: var(--dim); line-height: 1.5; }
 
 /* ── COPY BLOCKS ── */
 .copy-block {
@@ -860,8 +861,9 @@ body {
         <div class="card-title">Rates and Terms</div>
         <div class="field-grid">
           <div class="field">
-            <label>Your Rate</label>
+            <label>Your Rate (optional)</label>
             <input type="text" id="s-rate" placeholder="$35/hr or $500/project" oninput="saveSetup()">
+            <div class="field-hint">Rates change by project? Leave this blank and set one per client on the Scope and Contract steps.</div>
           </div>
           <div class="field">
             <label>Payment Method</label>
@@ -1008,6 +1010,13 @@ body {
             </select>
           </div>
         </div>
+        <div class="field-grid full">
+          <div class="field">
+            <label>Rate for This Project (optional)</label>
+            <input type="text" id="sc-rate" placeholder="$500/project or $35/hr" oninput="refreshScope()">
+            <div class="field-hint">Overrides your default rate for this client only. Leave blank to use the rate from My Details.</div>
+          </div>
+        </div>
       </div>
 
       <div class="card">
@@ -1068,6 +1077,13 @@ body {
               <option value="a 5% late fee on the outstanding balance">5% of balance</option>
               <option value="a 10% late fee on the outstanding balance">10% of balance</option>
             </select>
+          </div>
+        </div>
+        <div class="field-grid full">
+          <div class="field">
+            <label>Rate for This Agreement (optional)</label>
+            <input type="text" id="c-rate" placeholder="$500/project or $35/hr" oninput="refreshContract()">
+            <div class="field-hint">Overrides your default rate for this client only. Leave blank to use the rate from My Details.</div>
           </div>
         </div>
       </div>
@@ -1193,6 +1209,12 @@ function ph(id, fallback) {
   return val || fallback;
 }
 
+/* The rate is optional. A per-document rate wins, then the default from
+   My Details, then wording that keeps the document valid with no rate. */
+function rateFor(id, fallback) {
+  return v(id) || v('s-rate') || fallback;
+}
+
 function saveSetup() {
   var data = {
     name: v('s-name'), biz: v('s-biz'), email: v('s-email'),
@@ -1286,7 +1308,7 @@ function refreshEmail() {
   var name    = ph('s-name',     '[Your Name]');
   var biz     = ph('s-biz',     '[Your Business]');
   var email   = ph('s-email',   '[Your Email]');
-  var rate    = ph('s-rate',    '[Your Rate]');
+  var rate    = v('s-rate');
   var resp    = ph('s-response','within 24 hours on business days');
   var paydue  = ph('s-paydue',  'due upon receipt');
   var client  = ph('e-client',  '[Client Name]');
@@ -1306,7 +1328,7 @@ function refreshEmail() {
     + 'Start date: ' + start + '\n\n'
     + callLine + '\n\n'
     + 'A few quick things:\n'
-    + '- My rate is ' + rate + '\n'
+    + (rate ? '- My rate is ' + rate + '\n' : '')
     + '- Invoices are ' + paydue + '\n'
     + '- I respond ' + resp + '\n'
     + '- The best way to reach me is ' + email + '\n\n'
@@ -1374,7 +1396,7 @@ function toggleTask(task, el) {
 function refreshScope() {
   var name     = ph('s-name',  '[Your Name]');
   var biz      = ph('s-biz',   '[Your Business]');
-  var rate     = ph('s-rate',  '[Rate]');
+  var rate     = rateFor('sc-rate', 'Quoted per project and confirmed in writing before work begins');
   var paydue   = ph('s-paydue','due upon receipt');
   var client   = ph('sc-client',  '[Client Name]');
   var start    = ph('sc-start',   '[Start Date]');
@@ -1413,7 +1435,7 @@ function refreshContract() {
   var name      = ph('s-name',    '[Your Name]');
   var biz       = ph('s-biz',     '[Your Business]');
   var email     = ph('s-email',   '[Your Email]');
-  var rate      = ph('s-rate',    '[Rate]');
+  var rate      = rateFor('c-rate', 'As set out in the accompanying Scope of Work');
   var payment   = ph('s-payment', '[Payment Method]');
   var paydue    = ph('s-paydue',  'due upon receipt');
   var client    = ph('c-client',    '[Client Name]');

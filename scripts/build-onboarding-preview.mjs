@@ -69,8 +69,25 @@ s = replaceOnce(s,
   '/* preview: no persistence */', 'saveSetup write');
 
 // 5. Copying is the product. Send the button to the checkout instead.
-s = replaceOnce(s, 'function copyText(id, btn) {',
-  'function copyText(id, btn) {\n  window.open(PREVIEW_BUY, "_blank", "noopener");\n  return;\n  /* eslint-disable no-unreachable */', 'copyText');
+// Open checkout through a real link click, not window.open, so the click
+// listeners in promo.js (FREEKIT code) and track.js (checkout_start) see it.
+// This was first hand-edited into preview.html in 91edbb4; it lives here now
+// so a rebuild does not revert it.
+s = replaceOnce(s, 'function copyText(id, btn) {', [
+  'function copyText(id, btn) {',
+  '  /* Open checkout through a real link click, not window.open, so the click',
+  '     listeners in promo.js (FREEKIT code) and track.js (checkout_start) see it. */',
+  "  var a = document.createElement('a');",
+  '  a.href = PREVIEW_BUY;',
+  "  a.target = '_blank';",
+  "  a.rel = 'noopener';",
+  "  a.setAttribute('data-rewardful', '');",
+  '  document.body.appendChild(a);',
+  '  a.click();',
+  '  document.body.removeChild(a);',
+  '  return;',
+  '  /* eslint-disable no-unreachable */',
+].join('\n'), 'copyText');
 
 const SAMPLE = `
 var PREVIEW_BUY = ${JSON.stringify(BUY)};
