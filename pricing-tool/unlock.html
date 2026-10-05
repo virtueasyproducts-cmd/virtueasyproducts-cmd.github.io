@@ -103,7 +103,7 @@ p{font-size:15px;color:var(--gray-mid);line-height:1.6;max-width:360px;margin:0 
   function goPay(msg) {
     const note = document.querySelector(".redirect-note");
     if (note) note.textContent = msg || "We couldn't confirm your payment. Taking you back...";
-    setTimeout(function() { window.location.href = "pay.html"; }, 2600);
+    setTimeout(function() { window.location.href = "pay"; }, 2600);
   }
 
   try {
@@ -139,7 +139,7 @@ p{font-size:15px;color:var(--gray-mid);line-height:1.6;max-width:360px;margin:0 
           content_ids: ["pricing-tool"], content_type: "product", num_items: 1
         }, { eventID: "purchase_pricing-tool_" + sessionId });
       }
-      setTimeout(function() { window.location.href = "app.html"; }, 2500);
+      setTimeout(function() { window.location.href = "app"; }, 2500);
     } else {
       // No valid paid session -> no access. Surface the reason for debugging.
       console.error("Unlock failed:", data);

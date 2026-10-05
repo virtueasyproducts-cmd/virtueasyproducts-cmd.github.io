@@ -73,7 +73,7 @@ p{font-size:0.95rem;color:var(--muted);line-height:1.6;max-width:340px;margin:0 
 
   function fail(msg){
     document.querySelector(".note").textContent = msg || "We couldn't confirm your order. Taking you to sign in…";
-    setTimeout(function(){ window.location.href = "login.html"; }, 2600);
+    setTimeout(function(){ window.location.href = "login"; }, 2600);
   }
 
   try {
@@ -101,7 +101,7 @@ p{font-size:0.95rem;color:var(--muted);line-height:1.6;max-width:340px;margin:0 
           content_ids: ["onboarding"], content_type: "product", num_items: 1
         }, { eventID: "purchase_onboarding_" + sessionId });
       }
-      setTimeout(function(){ window.location.href = "ok-2026-access.html"; }, 1200);
+      setTimeout(function(){ window.location.href = "ok-2026-access"; }, 1200);
     } else {
       console.error("Onboarding Kit unlock failed:", data);
       var reason = data && data.reason ? " (" + data.reason + ")" : "";

@@ -62,12 +62,12 @@
     ["/pricing-tool/pay",   "pricing-tool"],
     ["/pricing-tool/index", "pricing-tool"],
     ["/pricing-tool/",      "pricing-tool"],
-    ["/pricing-tool.html",  "pricing-tool"]
+    ["/pricing-tool",  "pricing-tool"]
   ];
 
   // Free lead magnets that live under a product path. They are a Lead, not a
   // $7 product view, so they must not be counted as ViewContent.
-  var NOT_A_PRODUCT_VIEW = /\/(get-access|dashboard|login|unlock|app|ok-2026-access)\.html$/;
+  var NOT_A_PRODUCT_VIEW = /\/(get-access|dashboard|login|unlock|app|ok-2026-access)(\.html)?$/;
 
   // Clarity mirror of the pixel events, so sessions can be filtered by the
   // same funnel moments. Purchase and tool_use fire from their own pages.

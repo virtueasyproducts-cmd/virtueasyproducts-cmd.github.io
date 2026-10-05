@@ -73,7 +73,7 @@ p{font-size:0.95rem;color:var(--muted);line-height:1.6;max-width:340px;margin:0 
 
   function fail(msg){
     document.querySelector(".note").textContent = msg || "We couldn't confirm your order. Taking you to sign in…";
-    setTimeout(function(){ window.location.href = "login.html"; }, 2600);
+    setTimeout(function(){ window.location.href = "login"; }, 2600);
   }
 
   try {
@@ -104,7 +104,7 @@ p{font-size:0.95rem;color:var(--muted);line-height:1.6;max-width:340px;margin:0 
           content_ids: ["starterkit"], content_type: "product", num_items: 1
         }, { eventID: "purchase_starterkit_" + sessionId });
       }
-      setTimeout(function(){ window.location.href = "dashboard.html"; }, 1200);
+      setTimeout(function(){ window.location.href = "dashboard"; }, 1200);
     } else {
       console.error("Starter Kit unlock failed:", data);
       var reason = data && data.reason ? " (" + data.reason + ")" : "";

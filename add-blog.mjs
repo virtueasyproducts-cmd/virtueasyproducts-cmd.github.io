@@ -3,7 +3,7 @@
  * assisted-publish routine). Clones an existing post file as the skeleton so the
  * <head>, inline <style>, nav, CTA, and footer stay byte-identical, then swaps
  * only the content regions (title/meta/og, .post-hero, <article>). Also injects
- * a matching card at the top of blog/index.html's #post-grid.
+ * a matching card at the top of blog/'s #post-grid.
  *
  * The home page ("From the Blog") is updated automatically by the repo's
  * sync-blog-home Action on push to blog/** — nothing to do here.
@@ -31,11 +31,11 @@ import path from 'path';
 
 const ROOT = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
 const POSTS_DIR = path.join(ROOT, 'blog', 'posts');
-const INDEX = path.join(ROOT, 'blog', 'index.html');
+const INDEX = path.join(ROOT, 'blog', './');
 const SITEMAP = path.join(ROOT, 'sitemap.xml');
 const TEMPLATE = path.join(POSTS_DIR, 'how-to-handle-scope-creep.html');
 
-// Filter tags that exist in blog/index.html — a post's tag MUST be one of these
+// Filter tags that exist in blog/ — a post's tag MUST be one of these
 // or it won't be reachable through the on-page filters.
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'];
@@ -60,7 +60,7 @@ if (!Array.isArray(posts)) die('manifest must be a JSON array of posts');
 const template = fs.readFileSync(TEMPLATE, 'utf8');
 let index = fs.readFileSync(INDEX, 'utf8');
 const gridAnchor = '<div class="grid" id="post-grid">';
-if (!index.includes(gridAnchor)) die('could not find #post-grid anchor in blog/index.html');
+if (!index.includes(gridAnchor)) die('could not find #post-grid anchor in blog/');
 
 let sitemap = fs.readFileSync(SITEMAP, 'utf8');
 const sitemapClose = '</urlset>';
@@ -74,7 +74,7 @@ for (const p of posts) {
 
   const dest = path.join(POSTS_DIR, p.slug + '.html');
   if (fs.existsSync(dest)) { console.log(`  skip (exists): ${p.slug}`); continue; }
-  if (index.includes(`posts/${p.slug}.html`)) { console.log(`  skip (card exists): ${p.slug}`); continue; }
+  if (index.includes(`posts/${p.slug}"`)) { console.log(`  skip (card exists): ${p.slug}`); continue; }
 
   const titleTag = `${esc(p.title)} | Virtueasy`;
 
@@ -94,7 +94,7 @@ for (const p of posts) {
     `<meta property="og:description" content="${esc(p.metaDescription)}" />`);
 
   // 4b. canonical + JSON-LD (template carries the source post's URLs)
-  const canonical = `https://virtueasy.com/blog/posts/${p.slug}.html`;
+  const canonical = `https://virtueasy.com/blog/posts/${p.slug}`;
   const date = p.date || new Date().toISOString().slice(0, 10);
   const humanDate = (([y, m, d]) => `${+d} ${MONTHS[+m - 1]} ${y}`)(date.split('-'));
   html = html.replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${canonical}">`);
@@ -124,7 +124,7 @@ for (const p of posts) {
   // --- build the index card (inserted at top of the grid) ---
   const card =
 `
-  <a href="posts/${p.slug}.html" class="card" data-tag="${esc(p.tag)}">
+  <a href="posts/${p.slug}" class="card" data-tag="${esc(p.tag)}">
     <div class="card-inner">
       <span class="card-tag">${esc(p.tag)}</span>
       <h2>${esc(p.title)}</h2>
@@ -147,7 +147,7 @@ for (const p of posts) {
   }
 
   if (!dry) fs.writeFileSync(dest, html);
-  added.push({ slug: p.slug, url: `https://virtueasy.com/blog/posts/${p.slug}.html` });
+  added.push({ slug: p.slug, url: `https://virtueasy.com/blog/posts/${p.slug}` });
   console.log(`  + ${p.slug}`);
 }
 

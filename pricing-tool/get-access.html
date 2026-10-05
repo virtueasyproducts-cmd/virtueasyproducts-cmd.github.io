@@ -188,13 +188,13 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       <span class="trust-item">✓ Lifetime access - $7</span>
     </div>
 
-    <p class="already">Used it before? <a href="https://virtueasy.com/pricing-tool/app.html">Go to calculator →</a></p>
+    <p class="already">Used it before? <a href="https://virtueasy.com/pricing-tool/app">Go to calculator →</a></p>
     <p class="bottom-note">A free-to-try tool by <a href="https://virtueasy.com">VIRTUEASY</a></p>
   </div>
 
 <script>
 const ACCESS_API = 'https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev';
-const APP_URL    = 'https://virtueasy.com/pricing-tool/app.html';
+const APP_URL    = 'https://virtueasy.com/pricing-tool/app';
 const ML_URL     = 'https://assets.mailerlite.com/jsonp/2199748/forms/184021092538517454/subscribe';
 // Second capture, deliberate. The form above files the signup under
 // 'Source: Pricing Tool', which no automation triggers on, so until now a VA who
@@ -229,7 +229,7 @@ async function grantAndRedirect(email) {
   if (email) { try { localStorage.setItem('ve-pricing-email', email); } catch(e) {} }
 
   // Fire both ML subscriptions in background - don't wait for either.
-  // keepalive so the request survives the redirect to app.html, which fires
+  // keepalive so the request survives the redirect to app, which fires
   // moments later and would otherwise cancel an in-flight fetch.
   if (email) {
     [ML_URL, ML_NURTURE_URL].forEach(function (url) {
@@ -242,7 +242,7 @@ async function grantAndRedirect(email) {
 
   // Mint the access token and WAIT for it before redirecting. The server token
   // is now the only path to access (legacy localStorage flags were removed), so
-  // we must have it in hand before landing on app.html or the user loops back.
+  // we must have it in hand before landing on app or the user loops back.
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 10000);
   try {
@@ -262,7 +262,7 @@ async function grantAndRedirect(email) {
       return;
     }
     if (data.reason === 'expired') {
-      window.location.href = 'pay.html';
+      window.location.href = 'pay';
       return;
     }
     showAccessError('We could not start your free access. Please try again.');

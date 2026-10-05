@@ -245,7 +245,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     } catch(e) {}
 
     if (!token) {
-      window.location.replace("get-access.html");
+      window.location.replace("get-access");
       return;
     }
 
@@ -260,17 +260,17 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     } catch (e) {
       // Never treat an unverified local token as paid access. A forged token
       // plus a Worker outage must not bypass the server-side entitlement gate.
-      window.location.replace("get-access.html?verification=unavailable");
+      window.location.replace("get-access?verification=unavailable");
       return;
     }
 
     if (!result.valid) {
       if (result.reason === "expired") {
-        window.location.replace("pay.html");
+        window.location.replace("pay");
       } else {
         // Invalid/tampered token - back to gate
         try { localStorage.removeItem(TOKEN_KEY); } catch(e) {}
-        window.location.replace("get-access.html");
+        window.location.replace("get-access");
       }
       return;
     }
@@ -380,7 +380,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
         h+=`<div class="trial-banner lifetime">Lifetime access unlocked</div>`;
       } else {
         const ul=getLocalUsesLeft();
-        h+=`<div class="trial-banner">${ul} free use${ul!==1?"s":""} left \u2014 <a href="pay.html">only $7 for lifetime access!</a></div>`;
+        h+=`<div class="trial-banner">${ul} free use${ul!==1?"s":""} left \u2014 <a href="pay">only $7 for lifetime access!</a></div>`;
       }
 
       // Header
@@ -598,7 +598,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
       if(!canAdvance()||state.step>=4)return;
       if(state.step===3&&!isLifetime){
         const ok=await recordUse();
-        if(!ok){window.location.replace("pay.html");return;}
+        if(!ok){window.location.replace("pay");return;}
       }
       state.step++;save();render();window.scrollTo(0,0);
     };

@@ -130,7 +130,7 @@ async function doLogin(){
         localStorage.setItem(SK_TOKEN, data.token);
         localStorage.removeItem('sk_auth');
       } catch(e) {}
-      window.location.href = 'dashboard.html';
+      window.location.href = 'dashboard';
       return;
     }
     errEl.textContent = "We couldn't find a purchase for that email. Check the address, or get the kit below.";
@@ -149,7 +149,7 @@ emailInput.addEventListener('keydown', function(e){
   emailInput.style.borderColor='';
 });
 // Already unlocked on this device? Let the dashboard verify the token.
-try { if(localStorage.getItem(SK_TOKEN)) window.location.href='dashboard.html'; } catch(e) {}
+try { if(localStorage.getItem(SK_TOKEN)) window.location.href='dashboard'; } catch(e) {}
 </script>
 </body>
 </html>
