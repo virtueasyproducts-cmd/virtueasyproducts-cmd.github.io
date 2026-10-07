@@ -8,6 +8,7 @@ const allowedPaymentLinks = new Set([
   'cNiaEXfqW0jS73d4AmdAk01',
   'bJe14ngv08Qo87h5EqdAk00',
   '00wdR91A62s0fzJ3widAk02',
+  'bJeeVdgv01nW5Z9c2OdAk03',
 ]);
 const textExtensions = new Set(['.html', '.js', '.mjs', '.toml', '.md', '.yml', '.yaml']);
 const ignoredDirectories = new Set(['.git', '.wrangler', 'node_modules']);
@@ -43,6 +44,7 @@ for (const path of await walk(root)) {
 const unlockPages = [
   'starterkit/unlock.html',
   'onboarding-kit/unlock.html',
+  'get-hired-kit/unlock.html',
   'pricing-tool/unlock.html',
 ];
 for (const name of unlockPages) {

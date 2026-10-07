@@ -855,8 +855,9 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       max-width: 1200px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
     }
+    @media (max-width: 1100px) { .orientation-inner { grid-template-columns: 1fr 1fr; } .orientation-item:nth-child(2n) { border-right: none; } }
 
     .orientation-item {
       padding: 2.5rem 2rem;
@@ -2125,6 +2126,15 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
         </div>
 
         <div class="orientation-item">
+          <div class="orientation-icon">&#x1F3AF;</div>
+          <span class="orientation-q">Applying to a job post?</span>
+          <span class="orientation-a">VA Get Hired Kit</span>
+          <a href="/get-hired-kit/" class="orientation-link">
+            Get the Get Hired Kit <span aria-hidden="true">&#x2192;</span>
+          </a>
+        </div>
+
+        <div class="orientation-item">
           <div class="orientation-icon">&#x2728;</div>
           <span class="orientation-q">Free resources</span>
           <span class="orientation-a">Pricing tool, job board + more</span>
@@ -2543,6 +2553,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
           <ul>
             <li><a href="/starterkit/">VA Starter Kit &#x2197;</a></li>
             <li><a href="/pricing-tool/">Pricing Tool</a></li>
+            <li><a href="/get-hired-kit/">Get Hired Kit</a></li>
             
           </ul>
         </div>

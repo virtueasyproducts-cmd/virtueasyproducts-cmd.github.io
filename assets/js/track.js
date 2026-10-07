@@ -39,7 +39,8 @@
   var PRODUCTS = {
     starterkit:     { name: "VA Starter Kit",           value: 27 },
     onboarding:     { name: "VA Client Onboarding Kit", value: 7  },
-    "pricing-tool": { name: "Pricing Tool Lifetime",    value: 7  }
+    "pricing-tool": { name: "Pricing Tool Lifetime",    value: 7  },
+    gethired:       { name: "VA Get Hired Kit",         value: 9  }
   };
 
   // Full Stripe payment link id -> product key. These are the WHOLE ids on
@@ -49,7 +50,8 @@
   var CHECKOUT_LINKS = {
     "bJe14ngv08Qo87h5EqdAk00": "starterkit",
     "cNiaEXfqW0jS73d4AmdAk01": "onboarding",
-    "00wdR91A62s0fzJ3widAk02": "pricing-tool"
+    "00wdR91A62s0fzJ3widAk02": "pricing-tool",
+    "bJeeVdgv01nW5Z9c2OdAk03": "gethired"
   };
 
   // Page path (prefix match) -> product key, for ViewContent.
@@ -59,6 +61,8 @@
     ["/starterkit/",        "starterkit"],
     ["/onboarding-kit/index", "onboarding"],
     ["/onboarding-kit/",      "onboarding"],
+    ["/get-hired-kit/index",  "gethired"],
+    ["/get-hired-kit/",       "gethired"],
     ["/pricing-tool/pay",   "pricing-tool"],
     ["/pricing-tool/index", "pricing-tool"],
     ["/pricing-tool/",      "pricing-tool"],
@@ -67,7 +71,7 @@
 
   // Free lead magnets that live under a product path. They are a Lead, not a
   // $7 product view, so they must not be counted as ViewContent.
-  var NOT_A_PRODUCT_VIEW = /\/(get-access|dashboard|login|unlock|app|ok-2026-access)(\.html)?$/;
+  var NOT_A_PRODUCT_VIEW = /\/(get-access|dashboard|login|unlock|app|ok-2026-access|ghk-2026-access)(\.html)?$/;
 
   // Clarity mirror of the pixel events, so sessions can be filtered by the
   // same funnel moments. Purchase and tool_use fire from their own pages.
