@@ -553,7 +553,7 @@ var TPL = {
 function buildApplication(){
   var lines = [];
   if ((S.hidden || '').trim() || (S.hiddenAnswer || '').trim()) lines.push('{hiddenAnswer|your answer to their hidden instruction}');
-  lines.push('You need someone to {mainTask|the main task, starting with a verb}, {theirHours|their hours and time zone}. I can cover that.');
+  lines.push('You need someone to {mainTask|the main task, starting with a verb} ({theirHours|their hours and time zone}). I can cover that.');
   lines.push('{proof|your one best proof}');
   lines.push('In week one I\'d {week1|what you\'d do in week one}, using {tools|the tools they named}.');
   lines.push('Happy to do a short paid test task if that helps you decide.');
@@ -601,10 +601,18 @@ var FOLLOWUPS = [
   ['After a rejection', 'The last line gets real feedback more often than you\'d expect.', "Thanks for letting me know, {client|their name}. If you ever need extra help to {mainTask|the main task}, I'd be glad to hear from you. Would you be willing to share one thing that would have made my application stronger?\n\n{myName|your name}"]
 ];
 
+/* ANALYZE-START: copied from analyze.js by sync-analyze.mjs; edit that file, not this block */
 /* ---------- listing analysis ---------- */
-var TOOL_LIST = ['Gmail','Google Workspace','Google Calendar','Google Sheets','Google Docs','Google Drive','Outlook','Microsoft 365','Excel','Microsoft Word','Calendly','Acuity','Zoom','Slack','Microsoft Teams','Asana','Trello','ClickUp','Monday.com','Notion','Airtable','HubSpot','Salesforce','GoHighLevel','Pipedrive','Zoho','Keap','Dubsado','HoneyBook','Kajabi','Teachable','Thinkific','Shopify','WooCommerce','WordPress','Squarespace','Wix','Etsy','Amazon Seller Central','Canva','Adobe','Photoshop','CapCut','Later.com','Buffer','Hootsuite','Metricool','Planoly','Meta Business Suite','Mailchimp','MailerLite','ConvertKit','Klaviyo','ActiveCampaign','Flodesk','QuickBooks','Xero','FreshBooks','Wave Accounting','Stripe','PayPal','Zapier','Make.com','ChatGPT','Loom','Dropbox','LinkedIn Sales Navigator','Apollo','Gorgias','Zendesk','Freshdesk','Intercom','Help Scout'];
-var TZ_RE = /\b(EST|EDT|ET|CST|CDT|CT|MST|MDT|MT|PST|PDT|PT|AKST|HST|GMT|BST|UTC|CET|CEST|AEST|AEDT|AWST|NZST|IST|PHT|PST\/PDT|WAT|SGT)\b|\b(Eastern|Central|Mountain|Pacific|UK|London|Sydney|Melbourne|Australian)\s+(time|hours|business hours|mornings|afternoons)\b/i;
-var HIDDEN_RE = /(start|begin|open)\s+(your|the)\s+(reply|response|application|message|proposal|cover letter)|(include|use|mention|put)\s+the\s+(word|phrase|code)|(subject\s+line)\s+(must|should)|so\s+i\s+know\s+you\s+(read|actually)|to\s+show\s+(me\s+)?you\s+(read|actually)|answer\s+(this|the following)\s+question/i;
+/* Kept in its own file so it can be tested in node; build-site.mjs and app.html carry a copy
+   between the ANALYZE-START / ANALYZE-END markers. */
+var TOOL_LIST = ['Gmail','Google Workspace','G Suite','GSuite','Google Calendar','Google Sheets','Google Docs','Google Drive','Google Slides','Google Forms','Google Meet','Google Analytics','Google Ads','Google Business Profile','Outlook','Microsoft 365','Office 365','Microsoft Office','MS Office','Excel','Microsoft Word','MS Word','PowerPoint','OneDrive','SharePoint','Microsoft Teams','Teams','Calendly','Acuity','TidyCal','SavvyCal','Zoom','Slack','Asana','Trello','ClickUp','Monday.com','Monday','Notion','Airtable','Smartsheet','Basecamp','Jira','Confluence','Teamwork','Wrike','Todoist','Evernote','Miro','HubSpot','Salesforce','GoHighLevel','GHL','HighLevel','Pipedrive','Zoho','Zoho CRM','Keap','Infusionsoft','Copper','Close CRM','Freshsales','Dubsado','HoneyBook','17hats','Kajabi','Teachable','Thinkific','Podia','Circle','Skool','Kartra','Systeme.io','ClickFunnels','Leadpages','Shopify','WooCommerce','WordPress','Elementor','Squarespace','Wix','Webflow','Showit','Etsy','eBay','Amazon Seller Central','Amazon','Walmart Marketplace','Canva','Adobe','Photoshop','Illustrator','InDesign','Lightroom','Premiere Pro','Premiere','After Effects','Final Cut','DaVinci Resolve','CapCut','Descript','Figma','Later','Later.com','Buffer','Hootsuite','Metricool','Planoly','Sprout Social','Loomly','Agorapulse','SocialBee','Tailwind','Meta Business Suite','Facebook Business Manager','Business Suite','Facebook','Instagram','TikTok','LinkedIn','LinkedIn Sales Navigator','Sales Navigator','Pinterest','YouTube','X (Twitter)','Twitter','Threads','Mailchimp','MailerLite','ConvertKit','Kit','Klaviyo','ActiveCampaign','Flodesk','Constant Contact','Beehiiv','Substack','Drip','AWeber','Brevo','Sendinblue','QuickBooks','QuickBooks Online','QBO','Xero','FreshBooks','Wave','Gusto','Bill.com','Expensify','Stripe','PayPal','Square','Zapier','Make.com','Make','Integromat','IFTTT','ChatGPT','Claude','Gemini','Jasper','Grammarly','Loom','Dropbox','Box','DocuSign','PandaDoc','Adobe Sign','Typeform','Jotform','Gorgias','Zendesk','Freshdesk','Intercom','Help Scout','Front','Re:amaze','Tidio','Apollo','Apollo.io','Lusha','ZoomInfo','Hunter.io','Seamless.AI','RingCentral','Dialpad','Aircall','Grasshopper','OpenPhone','Google Voice','Skype','WhatsApp','Telegram','LastPass','1Password','Bitwarden','Hubstaff','Time Doctor','Toggl','Clockify','Upwork','Fiverr','Airbnb','Hospitable','Guesty','Yardi','AppFolio','Buildium','Follow Up Boss','kvCORE','Dotloop','Skyslope','MLS','Zillow','Clio','MyCase','Practice Better','SimplePractice','Jane App','Mindbody','Vagaro','Acuity Scheduling','Linktree','Stan Store','Gumroad','ThriveCart','SamCart','WordPress.com','Squarespace Email','Superhuman','Front App','Calendar'];
+// A word that names nothing on its own; dropped from the "experience with ..." extractor.
+var TOOL_STOP = /^(and|or|the|a|an|tools?|software|platforms?|apps?|systems?|similar|etc|other|others|any|basic|advanced|strong|excellent|good|great|working|knowledge|experience|skills?|proficiency|familiarity|social media|email|crm|crms|project management|project management tools|scheduling|spreadsheets?|calendars?|bonus|plus|preferred|required|a plus|is a plus|must|ideally|including|such as|e\.?g\.?|like|tech|technology|computer|internet|office|online|digital|platform|management|marketing|content|design|editing|video|data entry|bookkeeping|customer service|admin|administrative|writing|communication|english|organization|organisational|organizational|time management|attention to detail|it|us|you|we|them|this|that)$/i;
+// "Calendar" and "Monday" alone are too common as plain words; only count them in a tool context.
+var TOOL_NEEDS_CONTEXT = { 'Calendar': 1, 'Monday': 1, 'Make': 1, 'Kit': 1, 'Square': 1, 'Front': 1, 'Box': 1, 'Wave': 1, 'Circle': 1, 'Teams': 1, 'Claude': 1, 'Gemini': 1, 'Later': 1, 'Drip': 1, 'Threads': 1, 'Amazon': 1, 'Close CRM': 0, 'MLS': 0 };
+
+var TZ_RE = /\b(EST|EDT|ET|CST|CDT|CT|MST|MDT|MT|PST|PDT|PT|AKST|HST|GMT|BST|UTC|CET|CEST|AEST|AEDT|AWST|NZST|NZDT|IST|PHT|WAT|SGT|SAST|EAT)\b|\b(Eastern|Central|Mountain|Pacific|UK|London|Sydney|Melbourne|Australian|US|U\.S\.|European|Manila|Philippine)\s+(time|time zone|timezone|hours|business hours|mornings|afternoons|evenings)\b/;
+var HIDDEN_RE = /(start|begin|open)\s+(your|the)\s+(reply|response|application|message|proposal|cover letter|email)|(include|use|mention|put|write|add)\s+(the\s+)?(word|phrase|code|keyword|emoji)|subject\s+line\s+(must|should|has to)|(in|as)\s+the\s+subject\s+line|so\s+(i|we)\s+know\s+you\s+(read|actually)|to\s+show\s+(me\s+|us\s+)?(that\s+)?you\s+(read|actually)|answer\s+(this|these|the following)\s+question|applications?\s+without\s+.{0,40}\s+will\s+(be\s+)?(ignored|deleted|rejected)|if\s+you\s+(read|made\s+it)\s+this\s+far/i;
 var SCAM_RULES = [
   [/telegram|whatsapp|signal app|google hangouts/i, 'Mentions Telegram, WhatsApp, Signal or Hangouts. Fine as a chat tool, but walk away if the whole interview happens there with no call.'],
   [/(registration|training|onboarding|starter|equipment)\s+fee|pay\s+(for|a)\s+(your\s+)?(training|equipment|software|kit|registration)/i, 'Asks you to pay for training, equipment, software or registration. A real client never asks you to pay to work.'],
@@ -614,42 +622,316 @@ var SCAM_RULES = [
   [/no\s+experience\s+(needed|required)[\s\S]{0,200}\$\s?\d{2,3}\s*(\/|per)\s*(hr|hour)|\$\s?\d{2,3}\s*(\/|per)\s*(hr|hour)[\s\S]{0,200}no\s+experience\s+(needed|required)/i, 'High hourly pay together with "no experience needed". Check the company exists before you go further.']
 ];
 
+var RESP_HEAD = /^((key|main|core|primary|your|daily|general)\s+)?(responsibilit(y|ies)|duties|tasks|what\s+you('|’)?ll\s+(be\s+)?(do|doing|handle|handling|own|work on)|what\s+you\s+will\s+(be\s+)?(do|doing|handle)|your\s+(role|responsibilities|tasks|day)|the\s+role|role\s+overview|day[-\s]to[-\s]day|in\s+this\s+role|you\s+will|you('|’)?ll|scope(\s+of\s+work)?|what\s+(we|i)\s+need(\s+help\s+with)?|(we|i)\s+need\s+help\s+with|job\s+description|the\s+job|what\s+the\s+job\s+(is|involves)|key\s+areas|main\s+(tasks|duties))\b/i;
+var REQ_HEAD = /^(requirements?|qualifications?|skills|must[-\s]haves?|nice[-\s]to[-\s]haves?|what\s+you('|’)?ll\s+need|what\s+(we|i)('|’)?re\s+looking\s+for|who\s+you\s+are|about\s+you|you\s+have|you\s+are|ideal\s+candidate|the\s+ideal|tools|tech\s+stack|software|bonus|preferred(\s+experience)?|experience|working\s+arrangement|arrangement|location|what\s+success\s+looks\s+like|success|impact|the\s+opportunity|why\s+join|description|overview|summary|what\s+(we|i)\s+(will\s+)?provide|requirements\s+and\s+qualifications|what\s+we\s+offer|benefits|perks|compensation|pay|schedule|hours|how\s+to\s+apply|to\s+apply|about\s+(us|the\s+company|me|the\s+business)|who\s+we\s+are|company|the\s+company)\b/i;
+
+/* Gerund or third-person verb at the start of a duty, turned into "manage ...", so it reads after "to". */
+var VERB_FIX = { managing:'manage', handling:'handle', scheduling:'schedule', creating:'create', organizing:'organize', organising:'organise', responding:'respond to', answering:'answer', coordinating:'coordinate', preparing:'prepare', updating:'update', booking:'book', tracking:'track', posting:'post', writing:'write', editing:'edit', running:'run', setting:'set', planning:'plan', maintaining:'maintain', monitoring:'monitor', processing:'process', drafting:'draft', researching:'research', supporting:'support', assisting:'assist', sending:'send', following:'follow', making:'make', building:'build', designing:'design', reviewing:'review', reconciling:'reconcile', invoicing:'invoice', filing:'file', sorting:'sort', triaging:'triage', engaging:'engage with', communicating:'communicate', reaching:'reach', generating:'generate', qualifying:'qualify', calling:'call', entering:'enter', inputting:'input', cleaning:'clean', uploading:'upload', formatting:'format', transcribing:'transcribe', proofreading:'proofread', publishing:'publish', growing:'grow', overseeing:'oversee', owning:'own', keeping:'keep', taking:'take', providing:'provide', ensuring:'make sure', helping:'help', working:'work', serving:'serve', acting:'act', arranging:'arrange', bookkeeping:'do bookkeeping for', onboarding:'onboard', ordering:'order', purchasing:'purchase', liaising:'liaise', collecting:'collect', compiling:'compile', analyzing:'analyze', analysing:'analyse', reporting:'report on', optimizing:'optimize', launching:'launch', implementing:'implement', developing:'develop', setting_up:'set up', cleaning_up:'clean up' };
+function baseVerb(s){
+  s = s.replace(/^(you\s+will|you('|’)?ll|will|to|be\s+responsible\s+for|responsible\s+for|in\s+charge\s+of|help\s+(me|us)\s+(with)?|assist\s+(me|us|with)\s+(with)?|support\s+(me|us)\s+(with)?|tasks?\s+(include|including)|this\s+includes?|including)\s+/i, '');
+  var m = s.match(/^([A-Za-z]+)(\b.*)$/);
+  if (!m) return s;
+  var w = m[1].toLowerCase(), rest = m[2];
+  if (VERB_FIX[w]) return VERB_FIX[w] + rest;
+  // "Manages the inbox" -> "manage the inbox"
+  if (/^(manages|handles|schedules|creates|organizes|answers|coordinates|prepares|updates|books|tracks|posts|writes|edits|maintains|monitors|processes|drafts|researches|supports|sends|reviews|builds|designs|owns|keeps|takes|provides|helps)$/.test(w)) return w.replace(/(ch|sh|ss|x)es$/, '$1').replace(/es$/, 'e').replace(/s$/, '') + rest;
+  if (/ing$/.test(w)) return 'help with ' + w + rest;
+  return w + rest;
+}
+
+function toTheirs(s){
+  s = s.replace(/\bI\s*('|’)?m\b/g, "you're").replace(/\bI\s+am\b/gi, 'you are').replace(/\bI\s*('|’)ve\b/gi, "you've").replace(/\bI\s*('|’)ll\b/gi, "you'll").replace(/\bI\s*('|’)d\b/gi, "you'd")
+       .replace(/\bwe\s*('|’)re\b/gi, "you're").replace(/\bwe\s+are\b/gi, 'you are').replace(/\bwe\s*('|’)ve\b/gi, "you've").replace(/\bwe\s*('|’)ll\b/gi, "you'll").replace(/\bI\s+was\b/gi, 'you were').replace(/\bwe\s+were\b/gi, 'you were');
+  var map = { my:'your', our:'your', me:'you', us:'you', i:'you', we:'you', mine:'yours', ours:'yours', myself:'yourself', ourselves:'yourselves' };
+  // "US" in capitals is the country, not "us".
+  return s.replace(/\b(my|our|me|us|I|we|mine|ours|myself|ourselves)\b/g, function(w){ return w === 'US' ? w : map[w.toLowerCase()]; })
+          .replace(/\b(My|Our|Me|We|Mine|Ours)\b/g, function(w){ return map[w.toLowerCase()]; });
+}
+function tidyPhrase(s){
+  s = s.replace(/^[\s\-–•*·▪◦●○■□✓✔✅➤►>#]+|\s+$/g, '').replace(/^\(?\d{1,2}[.)]\s+/, '').replace(/[.;:!]+$/, '').replace(/\s+/g, ' ');
+  return s;
+}
+function lowerFirst(s){ return /^[A-Z][a-z]/.test(s) ? s.charAt(0).toLowerCase() + s.slice(1) : s; }
+
+/* Split a post into labelled sections. A heading is a short line with no full stop that matches a
+   known heading, or any short line ending in a colon. */
+function sections(text){
+  var lines = text.replace(/\r/g, '').split('\n'), out = [], cur = { kind: 'intro', head: '', items: [] };
+  lines.forEach(function(raw){
+    var line = raw.trim();
+    if (!line) return;
+    var bare = line.replace(/^[#*\s]+|[*\s]+$/g, '').replace(/:$/, '').trim();
+    // "Tools: Gmail, Slack" is a heading with its content on the same line.
+    var inline = line.match(/^[#*\s]*([A-Za-z’' /&-]{3,40}):\s*(\S.*)$/);
+    var isHead = bare.length <= 60 && !/[.!?]$/.test(bare) && (RESP_HEAD.test(bare) || REQ_HEAD.test(bare) || (/:$/.test(line) && bare.split(' ').length <= 7));
+    if (inline && (RESP_HEAD.test(inline[1]) || REQ_HEAD.test(inline[1]))){
+      out.push(cur);
+      cur = { kind: RESP_HEAD.test(inline[1]) ? 'resp' : 'req', head: inline[1], items: [inline[2]] };
+      return;
+    }
+    var numbered = /^\(?\d{1,2}[.)]\s+\S/.test(bare);
+    if (isHead){
+      var kind = RESP_HEAD.test(bare) && !/^(job\s+)?description$/i.test(bare) ? 'resp' : (REQ_HEAD.test(bare) ? 'req' : 'other');
+      // "1. Social Media Management:" under "Main Responsibilities:" is still part of the duties.
+      if (kind === 'other' && cur.kind === 'resp' && (numbered || !/(provide|offer|benefit|arrangement|apply|candidate|about|who|requirement|qualif|perk|compensation|pay|schedule|hours|location|success)/i.test(bare))) kind = 'resp';
+      if (/success/i.test(bare)) kind = 'success';
+      out.push(cur);
+      cur = { kind: kind, head: bare, items: [] };
+      return;
+    }
+    // A short Title Case line with no full stop ("HubSpot CRM Administration & Data Management") is a sub-heading.
+    var words = bare.split(/\s+/);
+    if (cur.kind === 'resp' && words.length <= 8 && !/[.,;]$/.test(bare) && words.filter(function(w){ return /^[A-Z&]/.test(w); }).length >= Math.ceil(words.length * 0.6) && !VERB_START.test(bare)) return;
+    cur.items.push(line);
+  });
+  out.push(cur);
+  return out.filter(function(s){ return s.items.length; });
+}
+var VERB_START = /^(manage|handle|schedule|create|organi[sz]e|respond|answer|coordinate|prepare|update|book|track|post|write|edit|run|set|plan|maintain|monitor|process|draft|research|support|assist|send|follow|make|build|design|review|reconcile|invoice|file|sort|triage|engage|communicate|reach|generate|qualify|call|enter|input|clean|upload|format|transcribe|proofread|publish|grow|oversee|own|keep|take|provide|ensure|help|work|serve|act|arrange|onboard|order|purchase|liaise|collect|compile|analy[sz]e|report|optimi[sz]e|launch|implement|develop|contact|confirm|perform|turn|suggest|conduct|identify|troubleshoot)\w*\b/i;
+function sentencesOf(text){
+  return text.replace(/\r/g, '').split(/\n+|(?<=[.!?])\s+(?=[A-Z"“])/).map(function(s){ return s.trim(); }).filter(Boolean);
+}
+
+function findTools(L){
+  var found = [];
+  function add(name, idx){
+    var key = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (found.some(function(f){ return f.key === key || (f.key.indexOf(key) >= 0 && key.length > 3) || (key.indexOf(f.key) >= 0 && f.key.length > 3); })) {
+      // keep the longer, more specific name ("Google Sheets" over "Sheets")
+      found.forEach(function(f){ if (key.indexOf(f.key) >= 0 && key.length > f.key.length){ f.name = name; f.key = key; } });
+      return;
+    }
+    found.push({ name: name, key: key, idx: idx });
+  }
+  var toolContext = /(tool|software|app|platform|stack|proficien|experience|familiar|knowledge|using|use|skilled|comfortable|crm|:)/i;
+  TOOL_LIST.forEach(function(t){
+    var re = new RegExp('(^|[^A-Za-z0-9])' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s*') + '(?![A-Za-z0-9])', TOOL_NEEDS_CONTEXT[t] ? '' : 'i');
+    var m = L.match(re);
+    if (!m) return;
+    var idx = m.index + m[1].length;
+    if (TOOL_NEEDS_CONTEXT[t]){
+      var line = L.slice(L.lastIndexOf('\n', idx) + 1, (L.indexOf('\n', idx) + 1 || L.length + 1) - 1);
+      if (!toolContext.test(line)) return;
+    }
+    add(t, idx);
+  });
+  // "Experience with X, Y and Z" and "Tools: X, Y" catch tools not in the list.
+  var re2 = /(proficien(t|cy)\s+(in|with)|experience\s+(with|in|using)|familiar(ity)?\s+with|knowledge\s+of|comfortable\s+(with|using)|skilled\s+in|expert\s+in|tools?\s*(we\s+use)?\s*:|software\s*:|tech\s+stack\s*:|platforms?\s*:|apps?\s*:|we\s+use)\s*([^\n.]{2,220})/gi, m2;
+  while ((m2 = re2.exec(L))){
+    m2[m2.length - 1].split(/,|\/|;|\band\b|\bor\b|\(|\)|&|\+/i).forEach(function(part){
+      var p = part.trim().replace(/^(the|a|an|tools?\s+like|such\s+as|e\.?g\.?|including|like|ideally|preferably|particularly|especially|mainly|mostly|primarily)\s+/i, '').replace(/^(the|a|an)\s+/i, '').replace(/\s+(is|are)\s+(a\s+)?(plus|preferred|required|bonus|must)$/i, '').replace(/\s+(experience|preferred|required|a plus|tools?|software)$/i, '').trim();
+      if (/^(Docs|Drive|Sheets|Calendar|Slides|Forms|Meet|Chat)$/i.test(p) && /google/i.test(L)) p = 'Google ' + p.charAt(0).toUpperCase() + p.slice(1).toLowerCase();
+      if (!p || p.length > 30 || TOOL_STOP.test(p)) return;
+      // A tool name is capitalised or has a dot ("Monday.com"); lowercase phrases are skills.
+      if (!/^[A-Z0-9]/.test(p) && !/\.[a-z]{2,3}$/.test(p)) return;
+      if (p.split(/\s+/).length > 3) return;
+      var at = L.indexOf(p.replace(/^Google\s+/, ''), m2.index);
+      add(p, at < 0 ? m2.index : at);
+    });
+  }
+  return found.sort(function(a, b){ return a.idx - b.idx; }).map(function(f){ return f.name; });
+}
+
+function findHours(L){
+  var parts = [];
+  var tz = L.match(TZ_RE) || L.match(/\b(est|pst|cst|mst)\b/i);
+  if (tz){
+    var c = clauseAround(L, tz.index);
+    parts.push(c.length < 80 ? c : tz[0]);
+  } else {
+    var range = L.match(/\b\d{1,2}(:\d{2})?\s*(am|pm|a\.m\.|p\.m\.)\s*(-|–|to)\s*\d{1,2}(:\d{2})?\s*(am|pm|a\.m\.|p\.m\.)/i);
+    if (range) parts.push(range[0]);
+  }
+  var ov = L.match(/\b(?:overlap\s+with|available\s+(?:during|in)|work(?:ing)?\s+(?:during|in))\s+((?:[A-Z][a-z]+\s+){1,2})(working|business|office)\s+hours/);
+  if (ov && !parts.length) parts.push(ov[1] + ov[2] + ' hours');
+  var week = L.match(/\b(\d{1,2}\s*(?:-|–|to)\s*\d{1,2}|\d{1,2})\+?\s*(?:hours|hrs)\s*(?:per|a|\/|each)\s*(?:week|wk)\b/i);
+  if (week && !parts.some(function(p){ return p.indexOf(week[0]) >= 0; })) parts.push(week[0].replace(/hrs/i, 'hours').replace(/\s*(per|\/|each)\s*(week|wk)/i, ' a week'));
+  var days = L.match(/\b(Mon(day)?|Tue(sday)?|Sun(day)?)\s*(-|–|to|through|thru)\s*(Fri(day)?|Thu(rsday)?|Sat(urday)?)\b/i);
+  if (days && !parts.some(function(p){ return p.toLowerCase().indexOf(days[0].toLowerCase()) >= 0; })) parts.push(days[0]);
+  if (!parts.length){
+    var ctry = L.match(/\b(?:[Rr]emote\s+in\s+|[Bb]ased\s+in\s+|[Ll]ocated\s+in\s+|[Rr]emote\s*[-–(]\s*)(?:the\s+)?(United\s+States|USA|US|U\.S\.|United\s+Kingdom|UK|Australia|Canada)\b/);
+    if (ctry) parts.push(({ 'united states':'US', usa:'US', us:'US', 'u.s.':'US', 'united kingdom':'UK', uk:'UK', australia:'Australian', canada:'Canadian' })[ctry[1].toLowerCase().replace(/\s+/g, ' ')] + ' business hours');
+  }
+  if (!parts.length){
+    var pt = L.match(/\b(part[-\s]time|full[-\s]time|flexible\s+(hours|schedule)|as[-\s]needed|weekends?\s+only|evenings?)\b/i);
+    if (pt) parts.push(pt[0]);
+  }
+  return parts.join(', ');
+}
+
+function cleanTask(s){
+  s = s.replace(/^(join\s+(your|our|the|a)\s+([\w-]+\s+){0,2}team\s+(and|to)\s+)/i, '');
+  s = s.replace(/\s+(on\s+a\s+[^,]*\bbasis|from\s+home|remotely|asap|immediately)\b.*$/i, '');
+  s = baseVerb(s);
+  if (s.length > 120) s = s.slice(0, 120).replace(/[,\s]+[^,]*$/, '');
+  return toTheirs(lowerFirst(s.trim())).replace(/[.,;:]+$/, '').replace(/,?\s+(and|or)$/i, '');
+}
+function findSummaryTask(L){
+  var sents = sentencesOf(L);
+  for (var i = 0; i < sents.length; i++){
+    var s = sents[i];
+    var m = s.match(/\b(?:looking\s+for|seeking|hiring|searching\s+for|need)\s+(?:an?\s+|the\s+)?[^.:]{0,90}?\b(?:to|who\s+(?:can|will))\s+(.{8,})/i);
+    if (m && !/^(apply|be\s+considered|join\s+us\s*$)/i.test(m[1])) return cleanTask(m[1]);
+    m = s.match(/\b(?:this\s+role|the\s+role|this\s+position|the\s+(?:[\w\/-]+\s+){0,5}(?:assistant|specialist|va|coordinator|manager))\s+(owns|handles|manages|supports|covers|focuses\s+on|is\s+responsible\s+for|will\s+be\s+responsible\s+for|will\s+(?:own|handle|manage|support))\s+(.{8,})/i);
+    if (m){
+      var v = m[1].toLowerCase().replace(/^will\s+(be\s+)?/, '').replace(/^is\s+/, '');
+      v = { owns:'own', handles:'handle', manages:'manage', supports:'support', covers:'cover', 'focuses on':'focus on', 'responsible for':'own' }[v] || v;
+      return cleanTask(v + ' ' + m[2]);
+    }
+  }
+  return '';
+}
+function findMainTasks(L){
+  var secs = sections(L), items = [];
+  secs.forEach(function(s){ if (s.kind === 'resp') items = items.concat(s.items); });
+  // No headed duties: fall back to sentences that describe the work.
+  if (!items.length){
+    sentencesOf(L).forEach(function(s){
+      if (/\b(you\s+will|you('|’)ll|responsible\s+for|duties\s+include|tasks\s+include|help\s+(me|us)\s+with|need\s+(someone|a\s+va|a\s+virtual\s+assistant|an?\s+assistant|help)\s+(to|with|who)|looking\s+for\s+.{0,40}\s+(to|who\s+(can|will))\s+)/i.test(s)) items.push(s);
+    });
+  }
+  return items.map(function(it){
+    var s = tidyPhrase(it);
+    // From a sentence, keep the part after the lead-in.
+    s = s.replace(/^.*?\b(looking\s+for|seeking|hiring|need)\s+(an?\s+)?(experienced\s+|reliable\s+|detail[-\s]oriented\s+|organized\s+|part[-\s]time\s+|full[-\s]time\s+|remote\s+|skilled\s+){0,3}(va|virtual\s+assistant|executive\s+assistant|assistant|person|someone|freelancer|help)\s+(to|who\s+(can|will)|with)\s+/i, function(_, a, b, c, d, e){ return /with/i.test(e) ? 'help with ' : ''; });
+    s = s.replace(/^.*?\b(you\s+will\s+be|you('|’)ll\s+be|you\s+will|you('|’)ll)\s+/i, '');
+    s = s.replace(/^(duties|tasks)\s+include\s+/i, '');
+    s = s.split(/;|\s+[-–]\s+|\.\s/)[0];
+    return cleanTask(s);
+  }).filter(function(s){ return s && s.split(' ').length >= 2 && !/:$/.test(s) && !/^(including|such as)\b/i.test(s); });
+}
+
+function findPain(L){
+  var crack0 = L.match(/\bno\s+(\w+?)s?\s+falls?\s+through\s+the\s+cracks/i);
+  if (crack0) return crack0[1].toLowerCase() + 's are slipping through the cracks and need someone tracking them';
+  var hit = null;
+  sentencesOf(L).some(function(s){
+    if (/\b(overwhelm|drowning|buried|swamped|stretched\s+thin|falling\s+behind|falls?\s+through\s+the\s+cracks|continues?\s+to\s+grow|growing\s+(team|business|company)|rapidly\s+(growing|expanding)|slipping|missing|behind\s+on|can('|’)?t\s+keep\s+up|don('|’)?t\s+have\s+(the\s+)?time|no\s+time|too\s+much|spending\s+(too\s+much|hours|all)|frees?\s+(me|us|up)|get\s+back\s+to|focus\s+on|take\s+(things|this|tasks|work)\s+off|off\s+(my|our)\s+plate|growing\s+fast|grown|scaling|busy)\b/i.test(s) && s.length < 260){ hit = s; return true; }
+  });
+  if (!hit) return '';
+  var s = tidyPhrase(hit);
+  var crack = s.match(/\bno\s+(\w+?)s?\s+falls?\s+through\s+the\s+cracks/i);
+  if (crack) return crack[1].toLowerCase() + 's are slipping through the cracks and need someone tracking them';
+  var grow = s.match(/\b(growing|continues?\s+to\s+grow|rapidly\s+(growing|expanding))\b/i);
+  if (grow) return 'your team is growing and the work in this post needs an owner';
+  var focus = s.match(/so\s+(that\s+)?(I|we)\s+can\s+(focus\s+on|get\s+back\s+to|spend\s+(more\s+)?time\s+on)\s+([^.,;]+)/i);
+  if (focus) return toTheirs("you need time back for " + focus[5].trim());
+  return toTheirs(lowerFirst(s)).replace(/^(and|but|so)\s+/i, '');
+}
+
+function findSuccess(L, mainTask){
+  var hit = null;
+  sentencesOf(L).some(function(s){
+    if (s.replace(/^.*?\b(success|objective|purpose|aim|goal)\b[^:]*?(looks\s+like|means|is|will\s+be)\b\s*:?/i, '').trim().length < 15 && /success|goal|objective/i.test(s) && s.split(/\s+/).length < 8) return false;
+    if (/\b(success(\s+in\s+this\s+(role|position))?\s+(looks\s+like|means|is|will\s+be)|(objective|purpose|aim|goal)\s+of\s+(this|the)\s+(role|position|job)\s+is|you('|’)ll\s+be\s+successful|successful\s+candidate\s+will|in\s+(your|the)\s+first\s+(30|60|90|few)\s+(days|weeks)|(30|60|90)[-\s]day|kpis?|measured\s+(by|on)|the\s+goal\s+is|our\s+goal|my\s+goal|by\s+the\s+end\s+of\s+(the\s+)?(first\s+)?(month|week)|so\s+that\s+(I|we))\b/i.test(s) && s.length < 260){ hit = s; return true; }
+  });
+  if (hit){
+    var s = tidyPhrase(hit).replace(/^.*?\b(success(\s+in\s+this\s+(role|position))?\s+(looks\s+like|means|is|will\s+be)|(objective|purpose|aim|goal)\s+of\s+(this|the)\s+(role|position|job)\s+is(\s+to)?|the\s+goal\s+is(\s+to)?|our\s+goal\s+is(\s+to)?|my\s+goal\s+is(\s+to)?)\s*:?\s*/i, '');
+    s = s.replace(/^being\s+able\s+to\s+/i, 'someone who can ').replace(/^help\s+(you|us)\s+/i, '');
+    if (s.length > 160) s = s.slice(0, 160).replace(/[,\s]+[^,]*$/, '');
+    return toTheirs(lowerFirst(s)).replace(/[.,;:]+$/, '');
+  }
+  return mainTask ? mainTask + ', handled reliably without you having to check on it' : '';
+}
+
+function findHidden(L){
+  var re = new RegExp(HIDDEN_RE.source, 'gi'), m, hits = [];
+  while ((m = re.exec(L))) hits.push(sentenceAround(L, m.index));
+  if (!hits.length) return { hidden: '', answer: '' };
+  var start = hits.filter(function(h){ return /(start|begin|open|word|phrase|code|keyword|subject)/i.test(h); })[0];
+  var questions = hits.filter(function(h){ return /answer\s+(this|these|the\s+following)\s+question/i.test(h); })[0];
+  hits = hits.map(tidyPhrase).map(function(h){ return /[.!?]$/.test(h) ? h : h + '.'; });
+  start = start && tidyPhrase(start); if (start && !/[.!?]$/.test(start)) start += '.';
+  questions = questions && tidyPhrase(questions);
+  var sent = start || hits[0];
+  var hidden = start && questions ? start + ' Also answer every question in the post.' : sent;
+  var bare = sent.match(/(?:words?|phrase|code|keyword)\s*:\s*([A-Za-z0-9][^\n."”']{0,40})/i);
+  if (bare) return { hidden: hidden, answer: bare[1].trim() };
+  var q = sent.match(/(word|phrase|code|keyword|emoji|subject\s+line)[^"“'‘]{0,25}["“'‘]([^"”'’]{1,40})["”'’]/i) || sent.match(/(word|phrase|code|keyword)\s+([A-Z][A-Za-z0-9-]{1,30})\b/);
+  return { hidden: hidden, answer: q ? q[2].trim() : '' };
+}
+
+function findRole(L){
+  var first = L.replace(/\r/g, '').split('\n').map(function(l){ return l.trim(); }).filter(Boolean)[0] || '';
+  first = first.replace(/^(job\s+title|title|position|role)\s*:\s*/i, '').replace(/^[#*\s]+|[*\s]+$/g, '');
+  if (first && first.length <= 90 && !/[.!?]$/.test(first) && /(assistant|va\b|manager|coordinator|specialist|admin|support|associate|virtual|executive|operations|bookkeeper|social|marketing|customer|data|research|writer|editor|designer|scheduler|receptionist|secretary)/i.test(first)) return first;
+  var t = L.match(/(?:job\s+title|position|role)\s*:\s*([^\n]{3,80})/i);
+  return t ? t[1].trim() : '';
+}
+function findClient(L){
+  var lines = L.replace(/\r/g, '').split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
+  var second = lines[1] || '';
+  if (second && second.length <= 50 && !/[.!?:]$/.test(second) && second.split(/\s+/).length <= 5 && /^[A-Z0-9]/.test(second) && !/(remote|\$|usd|hour|posted|full[-\s]time|part[-\s]time|salary|location|united|philippines|anywhere|worldwide|\d)/i.test(second) && !findRole(second)) return second;
+  var m = L.match(/(?:company|client|business|organi[sz]ation|employer|brand)\s*(?:name)?\s*:\s*([^\n,.;]{2,60})/i)
+       || L.match(/\babout\s+((?:[A-Z][\w&'’.-]*\s?){1,4})\s*\n/)
+       || L.match(/\b(?:at|join|with)\s+((?:[A-Z][\w&'’-]*(?:\s+|$)){1,4})(?:,|\.|\s+(?:is|we|a|an|where|as))/);
+  if (!m) return '';
+  var c = m[1].trim().replace(/\s+(is|we|a|an)$/i, '');
+  return /^(us|the|our|my|you|this|a|an|team|we|virtual|remote)$/i.test(c) ? '' : c;
+}
+
+function weekOne(tasks){
+  if (!tasks.length) return '';
+  var t = tasks.slice(0, 2).map(function(x){
+    x = x.split(/\s+so\s+(?:that\s+)?|\s+using\s+|\s+through\s+|\s+while\s+|\s+within\s+/)[0].replace(/^help\s+with\s+/, '');
+    var w = x.split(/\s+/);
+    if (w.length <= 10) return x.replace(/,$/, '');
+    var cut = x.search(/,\s/);
+    return cut > 0 && x.slice(0, cut).split(/\s+/).length >= 4 ? x.slice(0, cut) : w.slice(0, 10).join(' ').replace(/,$/, '');
+  });
+  return 'learn how you like things done, ' + (t.length === 2 ? t[0] + ', ' + t[1] : t[0]) + ', and send you a short end-of-day update';
+}
+
+/* Reads the post and returns a first draft of every job field. Nothing here is saved; analyze() decides. */
+function readListing(L){
+  var tasks = findMainTasks(L);
+  var h = findHidden(L);
+  var main = findSummaryTask(L) || tasks[0] || '';
+  return {
+    role: findRole(L),
+    client: findClient(L),
+    tools: findTools(L).join(', '),
+    theirHours: findHours(L),
+    mainTask: main,
+    // No problem stated in the post: say the plain one rather than repeat the main task back to them.
+    pain: findPain(L) || (main ? 'this work needs someone reliable to own it' : ''),
+    hidden: h.hidden,
+    hiddenAnswer: h.answer ? h.answer.charAt(0).toUpperCase() + h.answer.slice(1) + '.' : '',
+    success: findSuccess(L, main),
+    week1: weekOne(tasks),
+    _tasks: tasks
+  };
+}
+
+var AUTO_KEYS = ['role','client','tools','theirHours','mainTask','pain','hidden','hiddenAnswer','success','week1'];
+var AUTO_LABELS = { role:'the job title', client:'the client', tools:'the tools', theirHours:'the hours', mainTask:'the main task', pain:'the problem', hidden:'a hidden instruction', hiddenAnswer:'its answer', success:'what success looks like', week1:'a week-one plan' };
 function analyze(){
   var L = (S.listing || '').trim();
   if (!L){ alert('Paste the job post first.'); return; }
-  var found = [];
-  var tools = TOOL_LIST.filter(function(t){
-    var re = new RegExp('\\b' + t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s*') + '\\b','i');
-    return re.test(L);
+  var r = readListing(L);
+  var auto = S._auto || {};
+  // A new post replaces everything the kit filled for the last one. Anything you typed yourself stays.
+  if (S._listingRead !== L){
+    AUTO_KEYS.forEach(function(k){ if (auto[k] && S[k] === auto[k]) delete S[k]; });
+    auto = {};
+  }
+  var found = [], missing = [];
+  AUTO_KEYS.forEach(function(k){
+    if ((S[k] || '').trim()) return;
+    if (r[k]){ S[k] = r[k]; auto[k] = r[k]; found.push(AUTO_LABELS[k]); }
+    else if (k !== 'hidden' && k !== 'hiddenAnswer') missing.push(AUTO_LABELS[k]);
   });
-  if (tools.length && !(S.tools||'').trim()){ S.tools = tools.join(', '); found.push('tools'); }
-  var tz = L.match(TZ_RE);
-  if (tz && !(S.theirHours||'').trim()){
-    var clause = clauseAround(L, tz.index);
-    S.theirHours = clause.length < 80 ? clause : tz[0];
-    found.push('hours');
-  }
-  var hid = L.match(HIDDEN_RE);
-  if (hid && !(S.hidden||'').trim()){ S.hidden = sentenceAround(L, hid.index); found.push('a hidden instruction'); }
-  var need = L.match(/(looking for|need|seeking|hiring)[^.!?\n]{10,160}/i);
-  if (need && !(S.mainTask||'').trim()){
-    var guess = need[0].replace(/^(looking for|need|seeking|hiring)\s+(someone|a va|a virtual assistant|an assistant|a person|help)?\s*(to|who\s+can|who\s+will)?\s*/i,'');
-    /* "an experienced VA to manage..." -> "manage..." */
-    guess = guess.replace(/^(?:(?:a|an|the)\s+)?(?:[\w'-]+\s+){0,3}?(?:va|virtual assistant|assistant|person|someone|freelancer)\s+(?:to|who\s+can|who\s+will)\s+/i,'').split(/[,;]/)[0].trim();
-    if (/^(with|on)\b/i.test(guess)) guess = 'help ' + guess;
-    S.mainTask = toTheirs(guess); found.push('a first guess at the main task');
-  }
+  S._auto = auto; S._listingRead = L;
   save(STATE_KEY, S);
   syncInputs();
   var note = document.getElementById('detectNote');
-  note.textContent = found.length ? 'Found ' + found.join(', ') + '. Check every field below and fix anything that is off. The main task in particular is only a first guess.' : 'Nothing detected automatically in this post. Fill the six answers below yourself, or use the prompt underneath.';
+  note.textContent = (found.length ? 'Filled from the post: ' + found.join(', ') + '. ' : 'Nothing could be read automatically from this post. ') +
+    (missing.length ? 'Not found, so fill these yourself: ' + missing.join(', ') + '. ' : '') +
+    (r.hidden ? '' : 'No hidden instruction found; read the end of the post once more to be sure. ') +
+    (r.theirHours && !TZ_RE.test(r.theirHours) && !/\d\s*(am|pm)/i.test(r.theirHours) ? 'The post gives no exact time zone, so confirm it before you promise your hours. ' : '') +
+    'Everything here is a first draft from the post, so check it and fix anything that is off.';
   renderAll();
   goTo(1);
-}
-/* The listing is written as "my inbox"; the application speaks to them: "your inbox". */
-function toTheirs(s){
-  var map = { my:'your', our:'your', me:'you', us:'you', i:'you', we:'you', mine:'yours', ours:'yours', myself:'yourself' };
-  return s.replace(/\b(my|our|me|us|I|we|mine|ours|myself)\b/gi, function(w){ return map[w.toLowerCase()]; });
 }
 /* Boundaries skip the colon in "9:00" and the dots in "a.m." / "p.m." so times survive intact. */
 function clauseAround(text, idx){
@@ -664,6 +946,7 @@ function sentenceAround(text, idx){
   var ends = ['.', '\n', '!', '?'].map(function(c){ var i = text.indexOf(c, idx); return i < 0 ? text.length : i; });
   return text.slice(start, Math.min.apply(null, ends) + 1).trim();
 }
+/* ANALYZE-END */
 
 /* ---------- rendering ---------- */
 function renderAll(){
@@ -750,7 +1033,7 @@ function goTo(i){
 }
 
 /* Job fields reset per job; "about you" fields persist. */
-var JOB_KEYS = ['listing','client','role','mainTask','tools','theirHours','pain','hidden','hiddenAnswer','success','week1','startDate','interviewDetail'];
+var JOB_KEYS = ['listing','client','role','mainTask','tools','theirHours','pain','hidden','hiddenAnswer','success','week1','startDate','interviewDetail','_auto','_listingRead'];
 function newJob(){
   if (!confirm('Clear this job and start a new one? Your details and tracker stay.')) return;
   JOB_KEYS.forEach(function(k){ delete S[k]; });
