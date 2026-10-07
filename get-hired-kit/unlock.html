@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1552355892525925',(function(){try{var k="ve-visitor-id",v=localStorage.getItem(k);if(!v){v=(window.crypto&&window.crypto.randomUUID)?window.crypto.randomUUID():"ve-"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return{external_id:v};}catch(e){return{};}})());
+fbq('track', 'PageView');
+</script>
+<noscript><img alt="" decoding="async" height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<title>Unlocking your Get Hired Kit… - VIRTUEASY</title>
+  <meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--pink:#FF1F7A;--black:#0A0A0A;--white:#F8F8F8;--muted:#999;
+  --font-display:'Bebas Neue',sans-serif;--font-body:'Barlow',sans-serif;}
+html,body{height:100%}
+body{font-family:var(--font-body);background:var(--black);color:var(--white);-webkit-font-smoothing:antialiased;
+  display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1.5rem;text-align:center}
+body::before{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:400px;
+  background:radial-gradient(ellipse,rgba(255,31,122,0.12) 0%,transparent 70%);pointer-events:none}
+.wrap{width:100%;max-width:420px}
+.brand{font-family:var(--font-display);font-size:2rem;letter-spacing:0.08em;color:var(--white);margin-bottom:2rem}
+.brand span{color:var(--pink)}
+.spinner{width:56px;height:56px;border-radius:50%;border:3px solid rgba(255,31,122,0.2);border-top-color:var(--pink);
+  margin:0 auto 1.5rem;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+h1{font-family:var(--font-display);font-size:2.2rem;letter-spacing:0.03em;line-height:1;margin-bottom:0.75rem}
+p{font-size:0.95rem;color:var(--muted);line-height:1.6;max-width:340px;margin:0 auto}
+</style>
+<script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
+<script async src="https://r.wdfl.co/rw.js" data-rewardful="e92558"></script>
+<script src="/assets/js/track.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">VIRTU<span>EASY</span></div>
+  <div class="spinner"></div>
+  <h1>Unlocking your Get Hired Kit</h1>
+  <p class="note">Confirming your order and setting up your access…</p>
+</div>
+<script>
+(async function(){
+  const API = "https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev";
+  const TOKEN_KEY = "ghk-access-token";
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get("session_id") || "";
+  if (sessionId) history.replaceState(null, "", window.location.pathname);
+  let existingToken = null;
+  try { existingToken = localStorage.getItem(TOKEN_KEY); } catch(e) {}
+
+  // Meta's browser cookies. Forwarded so the Worker's server-side Purchase
+  // can be matched to this visitor and deduped against the browser event.
+  function cookie(name){
+    var m = document.cookie.match("(^|; )" + name + "=([^;]*)");
+    return m ? decodeURIComponent(m[2]) : "";
+  }
+
+  function fail(msg){
+    document.querySelector(".note").textContent = msg || "We couldn't confirm your order. Taking you to sign in…";
+    setTimeout(function(){ window.location.href = "login"; }, 2600);
+  }
+
+  try {
+    const res = await fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "product-unlock", product: "gethired", session_id: sessionId, token: existingToken || "",
+        fbp: cookie("_fbp"), fbc: cookie("_fbc"), source_url: window.location.origin + window.location.pathname }),
+    });
+    const data = await res.json();
+    if (data.token) {
+      try { localStorage.setItem(TOKEN_KEY, data.token); } catch(e) {}
+      if (sessionId && typeof window.clarity === "function") {
+        try { clarity("event", data.free ? "free_claim" : "purchase"); } catch(e) {}
+      }
+      // Only on a fresh Stripe redirect - a returning token holder is not a new sale.
+      // A free-promo claim ($0 checkout) is a lead, not revenue. Keep it out of Purchase.
+      if (sessionId && data.free && typeof window.fbq === "function") {
+        fbq("track", "Lead", { content_name: "VA Get Hired Kit (free claim)", content_ids: ["gethired"] },
+          { eventID: "freeclaim_gethired_" + sessionId });
+      } else if (sessionId && typeof window.fbq === "function") {
+        fbq("track", "Purchase", {
+          value: 9.00, currency: "USD",
+          content_name: "VA Get Hired Kit",
+          content_ids: ["gethired"], content_type: "product", num_items: 1
+        }, { eventID: "purchase_gethired_" + sessionId });
+      }
+      setTimeout(function(){ window.location.href = "ghk-2026-access"; }, 1200);
+    } else {
+      console.error("Get Hired Kit unlock failed:", data);
+      var reason = data && data.reason ? " (" + data.reason + ")" : "";
+      fail("We couldn't confirm your order" + reason + ". Taking you to sign in…");
+    }
+  } catch (e) {
+    console.error("Get Hired Kit unlock error:", e);
+    fail("We hit a snag confirming your order. Taking you to sign in…");
+  }
+})();
+</script>
+</body>
+</html>

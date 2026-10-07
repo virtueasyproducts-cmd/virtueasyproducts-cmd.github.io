@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1552355892525925',(function(){try{var k="ve-visitor-id",v=localStorage.getItem(k);if(!v){v=(window.crypto&&window.crypto.randomUUID)?window.crypto.randomUUID():"ve-"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return{external_id:v};}catch(e){return{};}})());
+fbq('track', 'PageView');
+</script>
+<noscript><img alt="" decoding="async" height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<meta name="robots" content="noindex, follow">
+<title>VA Get Hired Kit - Virtueasy</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#FF1F7A;--pink-light:#fff0f6;--pink-border:#ffc2da;
+  --bg:#f7f8fa;--white:#ffffff;--border:#e8eaed;--border2:#d1d5db;
+  --text:#111827;--muted:#6b7280;--dim:#9ca3af;
+  --green:#16a34a;--green-light:#f0fdf4;--green-border:#bbf7d0;
+  --amber:#b45309;--amber-light:#fffbeb;--amber-border:#fde68a;
+  --red:#b91c1c;--red-light:#fef2f2;--red-border:#fecaca;
+  --sidebar-w:230px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+.draft-banner{background:#2a0f1b;color:var(--pink);text-align:center;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:6px 12px}
+
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.logo{font-size:18px;font-weight:700;letter-spacing:-0.3px}
+.logo span{color:var(--pink)}
+.kit-badge{background:var(--pink-light);border:1px solid var(--pink-border);color:var(--pink);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px}
+
+.app-layout{display:flex;min-height:calc(100vh - 56px)}
+.sidebar{width:var(--sidebar-w);background:var(--white);border-right:1px solid var(--border);flex-shrink:0;padding:24px 0 32px;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
+.sidebar-heading{font-size:10px;font-weight:700;color:var(--dim);letter-spacing:1.5px;text-transform:uppercase;padding:0 20px 14px}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 20px;cursor:pointer;border-left:3px solid transparent;transition:all 0.15s}
+.nav-item:hover{background:var(--bg)}
+.nav-item.active{background:var(--pink-light);border-left-color:var(--pink)}
+.nav-num{width:28px;height:28px;border-radius:50%;background:var(--bg);border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);flex-shrink:0}
+.nav-item.active .nav-num{background:var(--pink);border-color:var(--pink);color:#fff}
+.nav-item.done .nav-num{background:var(--green-light);border-color:var(--green-border);color:var(--green)}
+.nav-label{font-size:13px;font-weight:500;color:var(--muted)}
+.nav-item.active .nav-label{color:var(--pink);font-weight:600}
+.nav-item.done .nav-label{color:var(--green)}
+.sidebar-divider{border:none;border-top:1px solid var(--border);margin:16px 20px}
+.sidebar-job{padding:0 20px;font-size:12px;color:var(--muted);line-height:1.5}
+.sidebar-job b{display:block;color:var(--text);font-size:13px;margin-bottom:2px}
+.sidebar-btn{margin:14px 20px 0;display:block;width:calc(100% - 40px);background:var(--white);border:1.5px solid var(--border2);border-radius:8px;padding:8px;font-family:inherit;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer}
+.sidebar-btn:hover{border-color:var(--pink);color:var(--pink)}
+
+.main{flex:1;padding:36px 44px 80px;max-width:800px}
+.eyebrow{font-size:11px;font-weight:700;color:var(--pink);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.section-title{font-size:28px;font-weight:700;letter-spacing:-0.5px;margin-bottom:6px;line-height:1.2}
+.section-sub{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.65}
+.step{display:none}
+.step.active{display:block}
+
+.card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.card-title{font-size:11px;font-weight:700;color:var(--pink);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:18px}
+.card p,.card li{font-size:14px;line-height:1.7;color:#374151}
+.card ul,.card ol{padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.card p+p{margin-top:10px}
+
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.field-grid.full{grid-template-columns:1fr}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0.3px}
+.field input,.field select,.field textarea{background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:inherit;font-size:14px;outline:none;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,31,122,0.08);background:var(--white)}
+.field textarea{resize:vertical;min-height:90px;line-height:1.6}
+.field textarea.listing{min-height:200px}
+.field-hint{font-size:12px;color:var(--dim);line-height:1.5}
+
+.copy-block{background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:18px;margin-bottom:12px;position:relative}
+.copy-block-label{font-size:10px;font-weight:700;color:var(--dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.copy-text{font-size:13px;line-height:1.85;white-space:pre-wrap;word-break:break-word;padding-right:64px}
+.copy-text .ph{background:var(--amber-light);color:var(--amber);border-radius:3px;padding:0 3px}
+.copy-btn{position:absolute;top:14px;right:14px;background:var(--white);border:1.5px solid var(--border2);border-radius:6px;padding:5px 12px;font-family:inherit;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer}
+.copy-btn:hover{border-color:var(--pink);color:var(--pink)}
+.copy-btn.copied{background:var(--green-light);border-color:var(--green-border);color:var(--green)}
+
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.btn-primary{background:var(--pink);color:#fff;border:none;border-radius:8px;padding:12px 22px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.btn-primary:hover{background:#D91565}
+.btn-secondary{background:var(--white);color:var(--text);border:1.5px solid var(--border2);border-radius:8px;padding:11px 20px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.btn-secondary:hover{border-color:var(--pink);color:var(--pink)}
+
+.notice{border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.6;margin-bottom:14px}
+.notice.warn{background:var(--red-light);border:1px solid var(--red-border);color:var(--red)}
+.notice.ok{background:var(--green-light);border:1px solid var(--green-border);color:var(--green)}
+.notice.tip{background:var(--pink-light);border:1px solid var(--pink-border);color:#9d174d}
+.notice ul{padding-left:18px;margin-top:6px}
+
+.check-list{list-style:none;padding:0 !important;gap:8px !important}
+.check-list label{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.55;cursor:pointer}
+.check-list input{margin-top:4px;accent-color:var(--pink);width:16px;height:16px;flex-shrink:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.compare div{border-radius:10px;padding:14px;font-size:13px;line-height:1.65}
+.compare .bad{background:var(--bg);border:1px solid var(--border);color:var(--muted)}
+.compare .good{background:var(--pink-light);border:1px solid var(--pink-border)}
+.compare b{display:block;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+
+details.acc{border:1px solid var(--border);border-radius:10px;background:var(--white);margin-bottom:8px}
+details.acc summary{cursor:pointer;padding:14px 16px;font-size:14px;font-weight:600;list-style:none;display:flex;gap:10px;align-items:baseline}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary .q-num{color:var(--pink);font-size:12px;font-weight:700;min-width:22px}
+details.acc summary::after{content:'+';margin-left:auto;color:var(--pink);font-weight:700}
+details.acc[open] summary::after{content:'\2212'}
+details.acc .acc-body{padding:0 16px 16px}
+details.acc .acc-body .copy-block{margin-top:4px}
+.acc-note{font-size:12.5px;color:var(--muted);margin-bottom:8px;line-height:1.6}
+.task-meta{font-size:13px;color:var(--muted);margin-bottom:8px}
+.task-meta b{color:var(--text)}
+
+.word-count{font-size:12px;color:var(--muted);margin:-4px 0 12px}
+.word-count.over{color:var(--red);font-weight:600}
+
+.tracker-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.tracker-table th{text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);padding:8px 6px;border-bottom:1px solid var(--border)}
+.tracker-table td{padding:8px 6px;border-bottom:1px solid var(--border);vertical-align:top}
+.tracker-table select{font-family:inherit;font-size:12px;border:1px solid var(--border2);border-radius:6px;padding:3px 4px;background:var(--white)}
+.tracker-wrap{overflow-x:auto}
+.del-btn{background:none;border:none;color:var(--dim);cursor:pointer;font-size:16px}
+.del-btn:hover{color:var(--red)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stat{background:var(--bg);border-radius:10px;padding:12px;text-align:center}
+.stat b{display:block;font-size:22px}
+.stat span{font-size:11px;color:var(--muted)}
+
+@media(max-width:820px){
+  .app-layout{flex-direction:column}
+  .sidebar{width:100%;height:auto;position:static;display:flex;overflow-x:auto;padding:8px 8px;border-right:none;border-bottom:1px solid var(--border)}
+  .sidebar-heading,.sidebar-divider,.sidebar-job,.sidebar-btn{display:none}
+  .nav-item{flex-direction:column;gap:4px;padding:8px 10px;border-left:none;border-bottom:3px solid transparent;min-width:76px}
+  .nav-item.active{border-bottom-color:var(--pink)}
+  .nav-label{font-size:11px;text-align:center;white-space:nowrap}
+  .main{padding:24px 16px 80px}
+  .field-grid,.compare{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .topbar{padding:0 16px}
+}
+</style>
+<script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
+<script async src="https://r.wdfl.co/rw.js" data-rewardful="e92558"></script>
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "xc4ai7h62y");
+    </script>
+<script src="/assets/js/track.js" defer></script>
+</head>
+<body>
+
+<script>
+// AUTH (server-verified access token), runs before anything renders
+(function(){
+  var GHK_API = "https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev";
+  var GHK_TOKEN = "ghk-access-token";
+  var t = null;
+  try { t = localStorage.getItem(GHK_TOKEN); } catch(e) {}
+  if(!t){ window.location.replace('login'); return; }
+  var root = document.documentElement;
+  root.style.visibility = 'hidden'; // hide until the purchase is confirmed
+  fetch(GHK_API, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ action:'product-verify', product:'gethired', token: t })
+  }).then(function(r){ return r.json(); }).then(function(d){
+    if(d && d.valid){ root.style.visibility = ''; }
+    else { try { localStorage.removeItem(GHK_TOKEN); } catch(e) {} window.location.replace('login'); }
+  }).catch(function(){ root.style.visibility = ''; }); // network hiccup: don't lock out a real buyer
+})();
+</script>
+
+<div class="topbar">
+  <div class="logo">VIRTUE<span>EASY</span></div>
+  <div class="kit-badge">Get Hired Kit</div>
+</div>
+
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-heading">Your Kit</div>
+    <div class="sidebar-divider" style="display:none"></div>
+  </aside>
+
+  <main class="main">
+
+    <!-- STEP 0: THE JOB -->
+    <section class="step" data-step="0">
+      <div class="eyebrow">Start here</div>
+      <h1 class="section-title">Paste the job post</h1>
+      <p class="section-sub">Paste the full listing you want to apply for. The kit pulls out the tools, the hours, any hidden instruction and any scam warning signs, then fills every template and prompt with this job's details. Do this once per job.</p>
+
+      <div class="card">
+        <div class="card-title">The listing</div>
+        <div class="field-grid full">
+          <div class="field">
+            <label for="listing">Full job post</label>
+            <textarea id="listing" class="listing" data-k="listing" placeholder="Paste everything: title, description, requirements, pay, hours."></textarea>
+          </div>
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="client">Client or company name</label>
+            <input id="client" data-k="client" placeholder="e.g. Sarah, or Bright Path Coaching">
+          </div>
+          <div class="field">
+            <label for="role">Job title</label>
+            <input id="role" data-k="role" placeholder="e.g. Executive Assistant (part-time)">
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn-primary" onclick="analyze()">Read this listing</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">About you (saved for every job)</div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="myName">Your first name</label>
+            <input id="myName" data-k="myName" placeholder="e.g. Amaka">
+          </div>
+          <div class="field">
+            <label for="niche">What you do, and for who</label>
+            <input id="niche" data-k="niche" placeholder="e.g. inbox and calendar support for coaches">
+          </div>
+        </div>
+        <div class="field-grid full">
+          <div class="field">
+            <label for="proof">Your one best proof</label>
+            <textarea id="proof" data-k="proof" placeholder="One specific thing you did, with a number or a tool. e.g. I set up a label and filter system in Gmail for a 1,200-email inbox, screenshot attached."></textarea>
+            <div class="field-hint">No clients yet? Do a one-hour practice project first. Ideas are in step 2.</div>
+          </div>
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="myHours">Your working hours, your time</label>
+            <input id="myHours" data-k="myHours" placeholder="e.g. 2 PM to 10 PM WAT">
+          </div>
+          <div class="field">
+            <label for="rate">Your rate</label>
+            <input id="rate" data-k="rate" placeholder="e.g. $8 an hour">
+          </div>
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="setup">Internet and power backup</label>
+            <input id="setup" data-k="setup" placeholder="e.g. fibre plus a mobile hotspot, and an inverter">
+          </div>
+          <div class="field">
+            <label for="weakness">One thing you're not great at</label>
+            <input id="weakness" data-k="weakness" placeholder="e.g. design from scratch">
+          </div>
+        </div>
+      </div>
+      <div class="btn-row"><button class="btn-primary" onclick="(S.listing||'').trim() ? analyze() : goTo(1)">Next: read the listing</button></div>
+    </section>
+
+    <!-- STEP 1: READ THE LISTING -->
+    <section class="step" data-step="1">
+      <div class="eyebrow">Step 1</div>
+      <h1 class="section-title">Read the listing</h1>
+      <p class="section-sub">Most applications fail before they're written, because the VA answered the job title instead of the job. Five minutes here decides whether yours gets read.</p>
+
+      <div id="scamBox"></div>
+
+      <div class="card">
+        <div class="card-title">What this job actually is</div>
+        <p class="acc-note" id="detectNote">Paste a listing on the first step and press "Read this listing". Anything the kit finds is filled in below. Check it and fix it; you know the post better than a script does.</p>
+        <div class="field-grid full">
+          <div class="field">
+            <label for="mainTask">1. The main task, starting with a verb</label>
+            <input id="mainTask" data-k="mainTask" placeholder="e.g. take your inbox from 400 unread to zero and keep it there">
+            <div class="field-hint">The task they mention first or most, written to them: "manage your inbox", not "manage my inbox". Everything else is nice to have.</div>
+          </div>
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="tools">2. Tools they named</label>
+            <input id="tools" data-k="tools" placeholder="e.g. Gmail, Google Calendar, ClickUp">
+          </div>
+          <div class="field">
+            <label for="theirHours">3. Their hours and time zone</label>
+            <input id="theirHours" data-k="theirHours" placeholder="e.g. Eastern mornings, 9 AM to 1 PM EST">
+          </div>
+        </div>
+        <div class="field-grid full">
+          <div class="field">
+            <label for="pain">4. The problem under the post, one line</label>
+            <input id="pain" data-k="pain" placeholder="e.g. you're answering email at 10 PM and missing client follow-ups">
+            <div class="field-hint">Written to them, like the main task: "you're", not "I'm".</div>
+          </div>
+          <div class="field">
+            <label for="hidden">5. Hidden instruction or question</label>
+            <input id="hidden" data-k="hidden" placeholder="e.g. Start your reply with the word 'blue'">
+            <div class="field-hint">Many posts hide a test to see who read to the end. Miss it and you're out.</div>
+          </div>
+          <div class="field">
+            <label for="hiddenAnswer">Your answer to it</label>
+            <input id="hiddenAnswer" data-k="hiddenAnswer" placeholder="e.g. Blue. (Then the rest of your application.)">
+          </div>
+          <div class="field">
+            <label for="success">6. What success looks like for them after 30 days</label>
+            <input id="success" data-k="success" placeholder="e.g. inbox at zero every day by noon and no missed follow-ups">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Prompt: decode the listing with ChatGPT</div>
+        <p class="acc-note">Stuck on any of the six? Paste this into ChatGPT (the free version works) and use its answers above.</p>
+        <div class="copy-block"><div class="copy-block-label">Prompt</div><div class="copy-text" data-tpl="pDecode"></div><button class="copy-btn">Copy</button></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Scam check: walk away if you see any of these</div>
+        <ul>
+          <li>They ask you to pay for anything: training, software, equipment, a "registration fee."</li>
+          <li>They send you a check or money to buy equipment and "send back the rest."</li>
+          <li>The whole interview runs over text only (Telegram, WhatsApp, Signal), with no call and no company you can find.</li>
+          <li>They ask for your bank login, ID scan or tax number before a written offer.</li>
+          <li>The pay is far above the market for the work, with "no experience needed."</li>
+          <li>The company name, website or LinkedIn doesn't exist or was created last week.</li>
+          <li>They want you to receive packages at home and re-ship them.</li>
+        </ul>
+        <p style="margin-top:12px"><b>A real client will never ask you to pay to work for them.</b></p>
+      </div>
+      <div class="btn-row"><button class="btn-primary" onclick="goTo(2)">Next: write the application</button></div>
+    </section>
+
+    <!-- STEP 2: APPLICATION -->
+    <section class="step" data-step="2">
+      <div class="eyebrow">Step 2</div>
+      <h1 class="section-title">Write the application</h1>
+      <p class="section-sub">The person hiring reads the first two lines of 50 applications, on their phone. Yours must name the main task, the tools and the time zone before anything else. Skills lists, your story and your rate come later, or not at all.</p>
+
+      <div class="card">
+        <div class="card-title">Same VA, same job</div>
+        <div class="compare">
+          <div class="bad"><b>The usual application</b>Dear Sir/Madam, I am writing to apply for the Virtual Assistant position. I am a hardworking, dedicated and detail-oriented professional with excellent communication skills. I can handle any task you give me...</div>
+          <div class="good"><b>After the kit</b>You need your inbox taken from 400 unread to zero and kept there, Eastern mornings. I set up a label and filter system in Gmail for a 1,200-email inbox last month, screenshot attached. In week one I'd draft replies for your approval and send a 5-minute end-of-day summary.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Your draft, built from this listing</div>
+        <div class="field-grid full">
+          <div class="field">
+            <label for="week1">What you'd do in week one</label>
+            <input id="week1" data-k="week1" placeholder="e.g. set up labels and filters, draft replies for your approval and send you a 5-minute end-of-day summary">
+          </div>
+        </div>
+        <div class="copy-block"><div class="copy-block-label">Application</div><div class="copy-text" data-tpl="application" id="appDraft"></div><button class="copy-btn">Copy</button></div>
+        <div class="word-count" id="wordCount"></div>
+        <p class="acc-note">Highlighted brackets are details still missing. Fill them on the earlier steps, or edit after you paste. Then run prompts 3 and 4 below on it before you send.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">ChatGPT prompts for this job</div>
+        <details class="acc"><summary><span class="q-num">2</span>Draft it with ChatGPT instead</summary><div class="acc-body"><div class="copy-block"><div class="copy-text" data-tpl="pDraft"></div><button class="copy-btn">Copy</button></div></div></details>
+        <details class="acc"><summary><span class="q-num">3</span>Cut it down</summary><div class="acc-body"><div class="copy-block"><div class="copy-text" data-tpl="pCut"></div><button class="copy-btn">Copy</button></div></div></details>
+        <details class="acc"><summary><span class="q-num">4</span>Check it like the client would</summary><div class="acc-body"><div class="copy-block"><div class="copy-text" data-tpl="pCheck"></div><button class="copy-btn">Copy</button></div></div></details>
+      </div>
+
+      <div class="card">
+        <div class="card-title">No clients yet? Make your proof in an hour</div>
+        <p>You don't need a past client to have proof. You need a finished example. Pick the one that matches this job, do it, and use it as your proof line.</p>
+        <ul style="margin-top:10px">
+          <li><b>Inbox job:</b> set up a label and filter system for a practice inbox of 1,000+ emails. Screenshot before and after.</li>
+          <li><b>Social media job:</b> write and schedule 5 sample posts for a real local business as a practice project.</li>
+          <li><b>Data entry job:</b> clean a 500-row lead list. Remove duplicates, standardise formatting, share before and after.</li>
+          <li><b>Scheduling job:</b> build a booking system in Calendly for a mock coaching business, with buffers and reminders.</li>
+        </ul>
+        <p style="margin-top:10px">Always say it was a practice project. One honest hour of work beats a paragraph about how fast you learn.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Words that get applications skipped</div>
+        <p>"Dear Sir/Madam." "I am writing to apply for." "Hardworking, dedicated and detail-oriented." "I can do any task." "Kindly." "I have gone through your job post." "I am the perfect candidate."</p>
+        <div id="bannedHits"></div>
+      </div>
+      <div class="btn-row"><button class="btn-primary" onclick="logApplication()">I sent it: add to my tracker</button><button class="btn-secondary" onclick="goTo(3)">Next: the interview</button></div>
+    </section>
+
+    <!-- STEP 3: INTERVIEW -->
+    <section class="step" data-step="3">
+      <div class="eyebrow">Step 3</div>
+      <h1 class="section-title">The interview</h1>
+      <p class="section-sub">Clients are told to ask "tell me about a time" questions and to watch for two things: specific answers and good questions back. Answer each one as situation, what you did, result, in under a minute. Never claim experience you don't have. Practice projects count if you say they were practice.</p>
+
+      <div class="card">
+        <div class="card-title">Before the call</div>
+        <ul class="check-list" data-checks="prep">
+          <li><label><input type="checkbox">Camera, mic and internet tested 15 minutes early, from the room you'll use</label></li>
+          <li><label><input type="checkbox">The listing and your step 1 answers open on screen</label></li>
+          <li><label><input type="checkbox">Your two questions for them picked (bottom of this page)</label></li>
+          <li><label><input type="checkbox">Joined 2 minutes early</label></li>
+          <li><label><input type="checkbox">Thank-you note sent within 2 hours (step 5)</label></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">The 20 questions, with answers built from your details</div>
+        <div id="questions"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Your questions for them (always ask two)</div>
+        <ul>
+          <li>"What would make you say this hire was a success after 30 days?"</li>
+          <li>"What's the task you most want off your plate first?"</li>
+          <li>"How do you prefer updates: email, Slack, or a quick call?"</li>
+          <li>"Did someone do this work before, and what would you like done differently?"</li>
+        </ul>
+      </div>
+      <div class="btn-row"><button class="btn-primary" onclick="goTo(4)">Next: the test task</button></div>
+    </section>
+
+    <!-- STEP 4: TEST TASK -->
+    <section class="step" data-step="4">
+      <div class="eyebrow">Step 4</div>
+      <h1 class="section-title">The paid test task</h1>
+      <p class="section-sub">Most clients now hire after a short paid trial. They aren't only checking the result. They're checking whether you followed instructions, asked good questions, and made it easy to review.</p>
+
+      <div class="card">
+        <div class="card-title">Rules for every test task</div>
+        <ol>
+          <li><b>Read the instructions twice and do exactly what was asked.</b> Extras come after, marked as optional.</li>
+          <li><b>Ask your questions once, all together, before you start.</b></li>
+          <li><b>Hit the deadline,</b> or tell them before it passes.</li>
+          <li><b>Send it back with a short cover note:</b> what you did, any assumption, time taken, one suggestion.</li>
+          <li><b>Make it easy to check.</b> Clear file names, and links that open without requesting access.</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <div class="card-title">The 6 test tasks you're most likely to get</div>
+        <div id="tasks"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Prompt: check your work before you send it</div>
+        <div class="copy-block"><div class="copy-text" data-tpl="pTask"></div><button class="copy-btn">Copy</button></div>
+      </div>
+      <div class="btn-row"><button class="btn-primary" onclick="goTo(5)">Next: follow up</button></div>
+    </section>
+
+    <!-- STEP 5: FOLLOW UP -->
+    <section class="step" data-step="5">
+      <div class="eyebrow">Step 5</div>
+      <h1 class="section-title">Follow up</h1>
+      <p class="section-sub">Most VAs never follow up. One polite message gets replies that silence would have lost. Send each one once, never more.</p>
+      <div class="card">
+        <div class="field-grid">
+          <div class="field">
+            <label for="startDate">Date you can start</label>
+            <input id="startDate" data-k="startDate" placeholder="e.g. Monday 19 October">
+          </div>
+          <div class="field">
+            <label for="interviewDetail">Something they said in the interview</label>
+            <input id="interviewDetail" data-k="interviewDetail" placeholder="e.g. how you're launching the new course in November">
+          </div>
+        </div>
+      </div>
+      <div id="followups"></div>
+      <div class="btn-row"><button class="btn-primary" onclick="goTo(6)">Next: your tracker</button></div>
+    </section>
+
+    <!-- STEP 6: TRACKER -->
+    <section class="step" data-step="6">
+      <div class="eyebrow">Step 6</div>
+      <h1 class="section-title">Application tracker</h1>
+      <p class="section-sub">Log every application. After 20, the reply rate tells you whether your first two lines are working. Saved in this browser only.</p>
+      <div class="stats" id="stats"></div>
+      <div id="trackerVerdict"></div>
+      <div class="card">
+        <div class="card-title">Your applications</div>
+        <div class="tracker-wrap"><table class="tracker-table" id="trackerTable"></table></div>
+        <div class="btn-row" style="margin-top:14px">
+          <button class="btn-secondary" onclick="addBlankRow()">Add an application</button>
+          <button class="btn-secondary" onclick="exportCsv()">Download as CSV</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+var STATE_KEY = 'ghk-state', TRACK_KEY = 'ghk-tracker', SEEN_KEY = 'ghk-seen';
+var STEPS = ['The Job','Read the Listing','Application','Interview','Test Task','Follow Up','Tracker'];
+var S = load(STATE_KEY, {});
+var T = load(TRACK_KEY, []);
+var seen = load(SEEN_KEY, {});
+var current = 0;
+
+function load(k, d){ try { var v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch(e){ return d; } }
+function save(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ---------- placeholders ---------- */
+/* A template uses {key|fallback}. Filled keys render as text; empty ones as a highlighted [fallback]. */
+function fill(tpl, asHtml){
+  return tpl.replace(/\{(\w+)\|([^}]*)\}/g, function(_, k, fb){
+    var v = (k === 'proofSpoken' ? spoken(S.proof) : (S[k] || '')).trim();
+    if (v) return asHtml ? esc(v) : v;
+    return asHtml ? '<span class="ph">[' + esc(fb) + ']</span>' : '[' + fb + ']';
+  });
+}
+/* The proof line said out loud: drop "screenshot attached" and end on a full stop. */
+function spoken(s){
+  s = (s || '').trim().replace(/[,;]?\s*(and\s+)?(an?\s+|the\s+)?(screenshots?|links?|samples?|files?|examples?)\s+(is\s+|are\s+)?(attached|below|included|linked)\.?$/i, '');
+  return s ? s.replace(/[.\s]*$/, '.') : '';
+}
+function renderTpl(el, tpl){
+  // escape the static text, keep placeholders
+  var parts = tpl.split(/(\{\w+\|[^}]*\})/g);
+  el.innerHTML = parts.map(function(p){ return /^\{\w+\|[^}]*\}$/.test(p) ? fill(p, true) : esc(p); }).join('');
+}
+
+/* ---------- templates ---------- */
+var TPL = {
+  pDecode:
+"Here is a job post for a virtual assistant. List: (1) the main task, in the client's own words, (2) every tool named, (3) the hours and time zone, (4) the problem the client is trying to solve, in one sentence, (5) any hidden instruction or test in the post, such as a word to start the reply with, (6) what success would look like for them after 30 days. Do not write an application yet.\n\n{listing|paste the full job post}",
+  application: null, // built in buildApplication()
+  pDraft:
+"Write a job application of 120 to 180 words for this virtual assistant job.\n\nLine 1 restates their main problem in their words and mentions their hours. They need someone to {mainTask|the main task}, {theirHours|their hours and time zone}.\nLine 2 is my proof: {proof|your one best proof}\nLine 3 says what I would do in week one using the tools they named ({tools|tools they named}): {week1|your week one plan}\nLine 4 answers their hidden instruction: {hiddenAnswer|your answer, or delete this line}\nLine 5 offers a short paid test task.\n\nPlain language. No \"I am writing to apply.\" No \"hardworking and dedicated.\" No exclamation marks. Sign it {myName|your name}.\n\nThe job post:\n{listing|paste the full job post}",
+  pCut:
+"Rewrite this application so a busy business owner reading on their phone gets the point in 10 seconds. Remove every sentence that would be true for any VA applying to any job. Keep the first line about their main task and time zone.\n\n[paste your application]",
+  pCheck:
+"You are the business owner who wrote the job post below, and you have 60 applications to get through. Read mine. Would you reply? Tell me the one sentence that would make you stop reading and the one sentence that would make you reply. Be blunt.\n\nThe job post:\n{listing|paste the full job post}\n\nMy application:\n[paste your application]",
+  pTask:
+"Here are the instructions for a test task and my finished work. Check it like a strict client would. List anything the instructions asked for that I did not do, anything I did that they did not ask for, and anything that would be confusing to review. Then write a 4-line cover note: what I did, assumptions I made, time taken, and one suggestion.\n\nInstructions:\n[paste the task instructions]\n\nMy work:\n[paste or describe your work]"
+};
+
+function buildApplication(){
+  var lines = [];
+  if ((S.hidden || '').trim() || (S.hiddenAnswer || '').trim()) lines.push('{hiddenAnswer|your answer to their hidden instruction}');
+  lines.push('You need someone to {mainTask|the main task, starting with a verb}, {theirHours|their hours and time zone}. I can cover that.');
+  lines.push('{proof|your one best proof}');
+  lines.push('In week one I\'d {week1|what you\'d do in week one}, using {tools|the tools they named}.');
+  lines.push('Happy to do a short paid test task if that helps you decide.');
+  lines.push('{myName|your name}');
+  return lines.join('\n\n');
+}
+
+var QUESTIONS = [
+  ['Tell me about yourself.', "I'm a VA focused on {niche|what you do, and for who}. Most recently, {proofSpoken|your one best proof} I like work where the goal is to take something off someone's plate completely, so they don't have to think about it again.", 'Under a minute. What you do, one proof, why you like it. Not your life story.'],
+  ['Why do you want this role?', "Your post said you need someone to {mainTask|the main task}. That's the work I'm best at. It sounds like {pain|the problem under the post}, and that's exactly the kind of problem I like fixing.", 'Use their words back to them. It proves you read the post.'],
+  ['What tools have you used?', "{tools|the tools they named}: [say what you did with each one you've really used]. I haven't used [any tool you haven't] yet, but I've used [a similar tool] and I'll be set up on it before day one.", 'Only claim tools you have actually used. Say what you did with each.'],
+  ['Tell me about a time you made a mistake.', "I [a small, real mistake]. I told the client the same day, fixed it, and since then I [the system you added so it doesn't happen again].", 'The system you added is what they are listening for.'],
+  ['How do you handle a task when the instructions aren\'t clear?', "I ask one round of questions up front, all at once, instead of drip-feeding them. If I'm still unsure, I do a small first version and check it with you before I finish.", ''],
+  ['How do you prioritise when everything is urgent?', "I ask what has a deadline or a cost if it's late, do those first, and send a short note on what's moved. You'll always know what I'm working on and what's waiting.", ''],
+  ['How do you communicate during the day?', "A short end-of-day update: done, in progress, and what I need from you. Anything urgent, right away, in whatever channel you prefer.", ''],
+  ['What hours can you work? How do you handle time zones?', "I can cover {theirHours|their hours}. That's {myHours|your hours, your time} for me, and I've worked that schedule [for how long, or on which project].", 'Do the time zone maths before the call. Getting it wrong here ends interviews.'],
+  ['What is your internet and power situation?', "{setup|your internet and power backup}. If there's ever an outage I can't cover, I'll tell you before it affects your work.", 'Have a real answer. Clients hiring overseas always ask.'],
+  ['How do you keep client information confidential?', "I use a password manager, never share logins in chat, keep 2-factor on every account, and I'm happy to sign an NDA.", ''],
+  ['What would you do in your first week?', "Learn how you like things done, write it down, and take one recurring task fully off your plate by Friday. For you I'd start here: {mainTask|the main task}.", ''],
+  ['What is your rate?', "My rate for this is {rate|your rate}.", 'Say it and stop. No apology. If they push back, offer less scope, not a lower rate.'],
+  ['Why should we hire you over the other applicants?', "Because I'll {mainTask|the main task}. You won't have to manage me to do it, and I'm happy to prove that with a paid test task.", ''],
+  ['Tell me about a difficult client or coworker.', "[Short situation.] I [what you did: asked questions, set expectations, put it in writing]. It ended with [the result].", 'Calm and short. Never criticise a past client.'],
+  ['How do you handle repetitive work?', "I like it, because repetitive work is where I can build a checklist or template and get faster every week.", ''],
+  ['What do you do when you finish early?', "Tell you, and suggest the next thing I've noticed I could take off your plate.", ''],
+  ['How do you learn a new tool?', "The official help docs and a short video, then one real task on it, and I write down the steps so the next time is faster.", ''],
+  ['What are you not good at?', "{weakness|one thing you're not great at}, so [what you do about it, e.g. I work from templates instead of starting from blank].", 'One real thing plus what you do about it.'],
+  ['Are you working with other clients?', "Yes, [number], and I've blocked [hours] for this role so your work always has a fixed slot.", 'Honest and reassuring. If no, say this would be your main client.'],
+  ['Do you have any questions for us?', "Yes. What would make you say this hire was a success after 30 days? And what's the task you most want off your plate first?", 'Always say yes. Pick two from the list below.']
+];
+
+var TASKS = [
+  ['Clean up a messy spreadsheet', 'Attention to detail.', 'Remove duplicates, make formatting consistent (dates, phone numbers, capital letters), freeze the header row, add a filter, and flag rows you couldn\'t fix instead of guessing. Keep the original data on a separate tab.', 'Removed 37 duplicates, standardised dates to MM/DD/YYYY, and flagged 6 rows with missing emails in yellow. The original data is on the "Raw" tab. Took 45 minutes. Suggestion: a dropdown on the Status column would stop this happening again.'],
+  ['Sort an inbox', 'Judgement.', 'Label everything into 4 or 5 groups (Action today, Waiting on someone, Read later, Receipts, Unsubscribe). Draft replies to the action items for approval rather than sending them. Summarise what needs them in 5 lines.', 'Sorted 212 emails into 5 labels. 9 need you today; drafts are in Drafts for approval, nothing was sent. 14 newsletters marked to unsubscribe. Took 1 hour. Suggestion: a filter for receipts would keep 30% of the inbox out of sight automatically.'],
+  ['Schedule a meeting across time zones', 'Whether you get time zones right.', 'Always write both time zones ("10:00 AM EST / 3:00 PM London"). Double-check daylight saving dates. Add buffers, and put the video link and agenda in the invite.', 'Booked Tuesday 10:00 AM EST / 3:00 PM London, 30 minutes with a 10-minute buffer either side. Zoom link and the 3-point agenda are in the invite. Note: the UK clocks change on 25 October, so I checked the time for that week too.'],
+  ['Reply to a customer complaint', 'Tone.', 'Acknowledge the problem in the first line, say what will happen and by when, no blaming, no long apology. Under 120 words. Pass anything you aren\'t authorised to decide (refunds, discounts) back to them.', 'Draft reply below, 94 words. I didn\'t offer a refund because that\'s your call; I said we\'d confirm by Thursday. Took 15 minutes.'],
+  ['Research task (leads, venues, suppliers)', 'Following criteria and organising results.', 'One row per result, columns that match what they asked for, a source link on every row, and a note of anything that almost qualified but didn\'t.', '20 results in the sheet, all matching your 3 criteria, each with a source link. 4 near-misses are on a second tab with the reason they didn\'t qualify. Took 1 hour 20 minutes.'],
+  ['Write or schedule social posts', 'Their brand voice, not yours.', 'Read their last 10 posts first and match the length, emoji use and tone. Show the posts in a simple table (date, caption, image idea) for approval before scheduling anything.', '5 posts in the table for approval, matched to the tone of your last 10 (short, one emoji, a question at the end). Nothing is scheduled until you approve. Took 50 minutes.']
+];
+
+var FOLLOWUPS = [
+  ['After applying, day 3 to 5', 'Only on platforms that allow messages.', "Hi {client|their name}, following up on my application for {role|the job title}. I'm still very interested in helping you {mainTask|the main task}. If it helps you decide, I'm happy to do a short paid test task this week.\n\n{myName|your name}"],
+  ['After applying, day 7 to 10', 'The last one. Never send a third.', "Hi {client|their name}, one last note on {role|the job title}. If you've filled it, no problem, and good luck with it. If it's still open, I'm available from {startDate|the date you can start}.\n\n{myName|your name}"],
+  ['After an interview, within 2 hours', '', "Thanks for your time today, {client|their name}. I enjoyed hearing about {interviewDetail|something they said}. Based on our conversation, my first focus would be to {mainTask|the task they most want gone}. Let me know if you need anything else from me.\n\n{myName|your name}"],
+  ['After a test task, 3 working days of silence', '', "Hi {client|their name}, checking that the test task came through and the links open for you. Happy to answer any questions about it.\n\n{myName|your name}"],
+  ['After a rejection', 'The last line gets real feedback more often than you\'d expect.', "Thanks for letting me know, {client|their name}. If you ever need extra help to {mainTask|the main task}, I'd be glad to hear from you. Would you be willing to share one thing that would have made my application stronger?\n\n{myName|your name}"]
+];
+
+/* ---------- listing analysis ---------- */
+var TOOL_LIST = ['Gmail','Google Workspace','Google Calendar','Google Sheets','Google Docs','Google Drive','Outlook','Microsoft 365','Excel','Microsoft Word','Calendly','Acuity','Zoom','Slack','Microsoft Teams','Asana','Trello','ClickUp','Monday.com','Notion','Airtable','HubSpot','Salesforce','GoHighLevel','Pipedrive','Zoho','Keap','Dubsado','HoneyBook','Kajabi','Teachable','Thinkific','Shopify','WooCommerce','WordPress','Squarespace','Wix','Etsy','Amazon Seller Central','Canva','Adobe','Photoshop','CapCut','Later.com','Buffer','Hootsuite','Metricool','Planoly','Meta Business Suite','Mailchimp','MailerLite','ConvertKit','Klaviyo','ActiveCampaign','Flodesk','QuickBooks','Xero','FreshBooks','Wave Accounting','Stripe','PayPal','Zapier','Make.com','ChatGPT','Loom','Dropbox','LinkedIn Sales Navigator','Apollo','Gorgias','Zendesk','Freshdesk','Intercom','Help Scout'];
+var TZ_RE = /\b(EST|EDT|ET|CST|CDT|CT|MST|MDT|MT|PST|PDT|PT|AKST|HST|GMT|BST|UTC|CET|CEST|AEST|AEDT|AWST|NZST|IST|PHT|PST\/PDT|WAT|SGT)\b|\b(Eastern|Central|Mountain|Pacific|UK|London|Sydney|Melbourne|Australian)\s+(time|hours|business hours|mornings|afternoons)\b/i;
+var HIDDEN_RE = /(start|begin|open)\s+(your|the)\s+(reply|response|application|message|proposal|cover letter)|(include|use|mention|put)\s+the\s+(word|phrase|code)|(subject\s+line)\s+(must|should)|so\s+i\s+know\s+you\s+(read|actually)|to\s+show\s+(me\s+)?you\s+(read|actually)|answer\s+(this|the following)\s+question/i;
+var SCAM_RULES = [
+  [/telegram|whatsapp|signal app|google hangouts/i, 'Mentions Telegram, WhatsApp, Signal or Hangouts. Fine as a chat tool, but walk away if the whole interview happens there with no call.'],
+  [/(registration|training|onboarding|starter|equipment)\s+fee|pay\s+(for|a)\s+(your\s+)?(training|equipment|software|kit|registration)/i, 'Asks you to pay for training, equipment, software or registration. A real client never asks you to pay to work.'],
+  [/\b(check|cheque)\b.*\b(equipment|deposit|purchase)|send\s+(back|the\s+rest)|mobile\s+deposit/i, 'Mentions sending you a check or money to buy equipment. This is a classic scam.'],
+  [/bank\s+(login|password|account\s+details)|social\s+security|ssn|bvn|nin\b|passport\s+(scan|copy)/i, 'Asks for bank details, ID numbers or a passport copy. Never share these before a written offer.'],
+  [/re-?ship|receive\s+(packages|parcels)|package\s+(handler|forwarding)|reshipping/i, 'Mentions receiving or re-shipping packages. This is a known scam.'],
+  [/no\s+experience\s+(needed|required)[\s\S]{0,200}\$\s?\d{2,3}\s*(\/|per)\s*(hr|hour)|\$\s?\d{2,3}\s*(\/|per)\s*(hr|hour)[\s\S]{0,200}no\s+experience\s+(needed|required)/i, 'High hourly pay together with "no experience needed". Check the company exists before you go further.']
+];
+
+function analyze(){
+  var L = (S.listing || '').trim();
+  if (!L){ alert('Paste the job post first.'); return; }
+  var found = [];
+  var tools = TOOL_LIST.filter(function(t){
+    var re = new RegExp('\\b' + t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s*') + '\\b','i');
+    return re.test(L);
+  });
+  if (tools.length && !(S.tools||'').trim()){ S.tools = tools.join(', '); found.push('tools'); }
+  var tz = L.match(TZ_RE);
+  if (tz && !(S.theirHours||'').trim()){
+    var clause = clauseAround(L, tz.index);
+    S.theirHours = clause.length < 80 ? clause : tz[0];
+    found.push('hours');
+  }
+  var hid = L.match(HIDDEN_RE);
+  if (hid && !(S.hidden||'').trim()){ S.hidden = sentenceAround(L, hid.index); found.push('a hidden instruction'); }
+  var need = L.match(/(looking for|need|seeking|hiring)[^.!?\n]{10,160}/i);
+  if (need && !(S.mainTask||'').trim()){
+    var guess = need[0].replace(/^(looking for|need|seeking|hiring)\s+(someone|a va|a virtual assistant|an assistant|a person|help)?\s*(to|who\s+can|who\s+will)?\s*/i,'');
+    /* "an experienced VA to manage..." -> "manage..." */
+    guess = guess.replace(/^(?:(?:a|an|the)\s+)?(?:[\w'-]+\s+){0,3}?(?:va|virtual assistant|assistant|person|someone|freelancer)\s+(?:to|who\s+can|who\s+will)\s+/i,'').split(/[,;]/)[0].trim();
+    if (/^(with|on)\b/i.test(guess)) guess = 'help ' + guess;
+    S.mainTask = toTheirs(guess); found.push('a first guess at the main task');
+  }
+  save(STATE_KEY, S);
+  syncInputs();
+  var note = document.getElementById('detectNote');
+  note.textContent = found.length ? 'Found ' + found.join(', ') + '. Check every field below and fix anything that is off. The main task in particular is only a first guess.' : 'Nothing detected automatically in this post. Fill the six answers below yourself, or use the prompt underneath.';
+  renderAll();
+  goTo(1);
+}
+/* The listing is written as "my inbox"; the application speaks to them: "your inbox". */
+function toTheirs(s){
+  var map = { my:'your', our:'your', me:'you', us:'you', i:'you', we:'you', mine:'yours', ours:'yours', myself:'yourself' };
+  return s.replace(/\b(my|our|me|us|I|we|mine|ours|myself)\b/gi, function(w){ return map[w.toLowerCase()]; });
+}
+/* Boundaries skip the colon in "9:00" and the dots in "a.m." / "p.m." so times survive intact. */
+function clauseAround(text, idx){
+  var before = text.slice(0, idx), after = text.slice(idx);
+  var re = /[,;!?\n]|\.(?=\s)(?<![ap]\.m\.)|:(?!\d)/gi, m, s = 0;
+  while ((m = re.exec(before))) s = m.index + 1;
+  var em = after.match(/[,;!?\n]|\.(?=\s|$)(?<![ap]\.m\.)/i);
+  return (before.slice(s) + after.slice(0, em ? em.index : after.length)).trim();
+}
+function sentenceAround(text, idx){
+  var start = Math.max(text.lastIndexOf('.', idx), text.lastIndexOf('\n', idx), text.lastIndexOf('!', idx), text.lastIndexOf('?', idx)) + 1;
+  var ends = ['.', '\n', '!', '?'].map(function(c){ var i = text.indexOf(c, idx); return i < 0 ? text.length : i; });
+  return text.slice(start, Math.min.apply(null, ends) + 1).trim();
+}
+
+/* ---------- rendering ---------- */
+function renderAll(){
+  document.querySelectorAll('[data-tpl]').forEach(function(el){
+    var k = el.getAttribute('data-tpl');
+    renderTpl(el, k === 'application' ? buildApplication() : TPL[k]);
+  });
+  var words = fill(buildApplication(), false).split(/\s+/).filter(Boolean).length;
+  var wc = document.getElementById('wordCount');
+  wc.textContent = words + ' words. Aim for under 180.';
+  wc.className = 'word-count' + (words > 180 ? ' over' : '');
+
+  var qs = document.getElementById('questions');
+  if (!qs.dataset.built){
+    qs.innerHTML = QUESTIONS.map(function(q, i){
+      return '<details class="acc"><summary><span class="q-num">' + (i+1) + '</span>' + esc(q[0]) + '</summary><div class="acc-body">' +
+        (q[2] ? '<p class="acc-note">' + esc(q[2]) + '</p>' : '') +
+        '<div class="copy-block"><div class="copy-block-label">Sample answer</div><div class="copy-text" data-q="' + i + '"></div><button class="copy-btn">Copy</button></div></div></details>';
+    }).join('');
+    qs.dataset.built = 1;
+  }
+  qs.querySelectorAll('[data-q]').forEach(function(el){ renderTpl(el, QUESTIONS[+el.getAttribute('data-q')][1]); });
+
+  var ts = document.getElementById('tasks');
+  if (!ts.dataset.built){
+    ts.innerHTML = TASKS.map(function(t, i){
+      return '<details class="acc"><summary><span class="q-num">' + (i+1) + '</span>' + esc(t[0]) + '</summary><div class="acc-body">' +
+        '<p class="task-meta"><b>What they\'re testing:</b> ' + esc(t[1]) + '</p>' +
+        '<p class="acc-note">' + esc(t[2]) + '</p>' +
+        '<div class="copy-block"><div class="copy-block-label">Example cover note</div><div class="copy-text">' + esc(t[3]) + '</div><button class="copy-btn">Copy</button></div></div></details>';
+    }).join('');
+    ts.dataset.built = 1;
+  }
+
+  document.getElementById('followups').innerHTML = FOLLOWUPS.map(function(f, i){
+    return '<div class="card"><div class="card-title">' + esc(f[0]) + '</div>' + (f[1] ? '<p class="acc-note">' + esc(f[1]) + '</p>' : '') +
+      '<div class="copy-block"><div class="copy-text" data-f="' + i + '"></div><button class="copy-btn">Copy</button></div></div>';
+  }).join('');
+  document.querySelectorAll('[data-f]').forEach(function(el){ renderTpl(el, FOLLOWUPS[+el.getAttribute('data-f')][2]); });
+
+  renderScam();
+  renderBanned();
+  renderSidebar();
+  renderTracker();
+}
+
+function renderScam(){
+  var box = document.getElementById('scamBox'), L = S.listing || '';
+  if (!L.trim()){ box.innerHTML = ''; return; }
+  var hits = SCAM_RULES.filter(function(r){ return r[0].test(L); }).map(function(r){ return r[1]; });
+  box.innerHTML = hits.length
+    ? '<div class="notice warn"><b>Warning signs in this listing:</b><ul>' + hits.map(function(h){ return '<li>' + esc(h) + '</li>'; }).join('') + '</ul></div>'
+    : '<div class="notice ok">No common scam phrases found in this listing. Still check the company exists before you share anything personal.</div>';
+}
+
+var BANNED = ['dear sir','sir/madam','i am writing to apply','hardworking','hard-working','dedicated and','detail-oriented','any task','kindly','gone through your job','perfect candidate','to whom it may concern'];
+function renderBanned(){
+  var text = (fill(buildApplication(), false) + ' ' + (S.proof||'') + ' ' + (S.week1||'')).toLowerCase();
+  var hits = BANNED.filter(function(b){ return text.indexOf(b) >= 0; });
+  document.getElementById('bannedHits').innerHTML = hits.length
+    ? '<div class="notice warn" style="margin-top:12px">Your draft uses: ' + hits.map(function(h){ return '"' + esc(h) + '"'; }).join(', ') + '. Cut it.</div>' : '';
+}
+
+function renderSidebar(){
+  var sb = document.getElementById('sidebar');
+  var html = '<div class="sidebar-heading">Your Kit</div>';
+  STEPS.forEach(function(s, i){
+    var cls = 'nav-item' + (i === current ? ' active' : (seen[i] ? ' done' : ''));
+    html += '<div class="' + cls + '" onclick="goTo(' + i + ')"><div class="nav-num">' + (seen[i] && i !== current ? '✓' : i) + '</div><div class="nav-label">' + s + '</div></div>';
+  });
+  html += '<hr class="sidebar-divider"><div class="sidebar-job"><b>' + esc(S.role || 'No job loaded') + '</b>' + esc(S.client || 'Paste a listing on step 0') + '</div>';
+  html += '<button class="sidebar-btn" onclick="newJob()">Start a new job</button>';
+  sb.innerHTML = html;
+}
+
+function goTo(i){
+  current = i; seen[i] = true; save(SEEN_KEY, seen);
+  document.querySelectorAll('.step').forEach(function(s){ s.classList.toggle('active', +s.getAttribute('data-step') === i); });
+  renderSidebar();
+  /* On phones the steps are a sideways strip; keep the current one in view. */
+  var a = document.querySelector('.nav-item.active');
+  if (a && window.innerWidth <= 820) a.scrollIntoView({ inline: 'center', block: 'nearest' });
+  window.scrollTo(0, 0);
+}
+
+/* Job fields reset per job; "about you" fields persist. */
+var JOB_KEYS = ['listing','client','role','mainTask','tools','theirHours','pain','hidden','hiddenAnswer','success','week1','startDate','interviewDetail'];
+function newJob(){
+  if (!confirm('Clear this job and start a new one? Your details and tracker stay.')) return;
+  JOB_KEYS.forEach(function(k){ delete S[k]; });
+  save(STATE_KEY, S); syncInputs(); renderAll();
+  document.getElementById('detectNote').textContent = 'Paste a listing on the first step and press "Read this listing".';
+  goTo(0);
+}
+
+function syncInputs(){
+  document.querySelectorAll('[data-k]').forEach(function(el){ el.value = S[el.getAttribute('data-k')] || ''; });
+}
+
+/* ---------- tracker ---------- */
+var YN = ['', 'Yes', 'No'];
+var RESULTS = ['', 'Waiting', 'Hired', 'Rejected', 'No reply'];
+function logApplication(){
+  T.unshift({ date: new Date().toISOString().slice(0,10), role: S.role || '', client: S.client || '', task: S.mainTask || '', hidden: (S.hidden||'').trim() ? 'Yes' : '', followed: '', reply: '', interview: '', test: '', result: 'Waiting' });
+  save(TRACK_KEY, T); renderTracker(); goTo(6);
+}
+function addBlankRow(){
+  T.unshift({ date: new Date().toISOString().slice(0,10), role: '', client: '', task: '', hidden: '', followed: '', reply: '', interview: '', test: '', result: 'Waiting' });
+  save(TRACK_KEY, T); renderTracker();
+}
+function sel(i, k, opts){
+  return '<select onchange="setT(' + i + ',\'' + k + '\',this.value)">' + opts.map(function(o){ return '<option' + (T[i][k] === o ? ' selected' : '') + '>' + o + '</option>'; }).join('') + '</select>';
+}
+function txt(i, k, w){
+  return '<input style="width:' + w + 'px;font-family:inherit;font-size:12px;border:1px solid var(--border2);border-radius:6px;padding:3px 6px" value="' + esc(T[i][k] || '').replace(/"/g,'&quot;') + '" onchange="setT(' + i + ',\'' + k + '\',this.value)">';
+}
+function setT(i, k, v){ T[i][k] = v; save(TRACK_KEY, T); renderTracker(); }
+function delT(i){ if (confirm('Remove this application from your tracker?')){ T.splice(i,1); save(TRACK_KEY, T); renderTracker(); } }
+function renderTracker(){
+  var n = T.length, replies = T.filter(function(r){ return r.reply === 'Yes'; }).length;
+  var interviews = T.filter(function(r){ return r.interview === 'Yes'; }).length;
+  var hired = T.filter(function(r){ return r.result === 'Hired'; }).length;
+  document.getElementById('stats').innerHTML =
+    '<div class="stat"><b>' + n + '</b><span>applications</span></div><div class="stat"><b>' + replies + '</b><span>replies</span></div>' +
+    '<div class="stat"><b>' + interviews + '</b><span>interviews</span></div><div class="stat"><b>' + hired + '</b><span>hired</span></div>';
+  var v = document.getElementById('trackerVerdict');
+  if (n >= 20 && replies < 2) v.innerHTML = '<div class="notice warn">' + n + ' applications and ' + replies + ' replies. The problem is your first two lines. Run prompt 4 on step 2 before you send any more.</div>';
+  else if (n >= 20) v.innerHTML = '<div class="notice ok">' + replies + ' replies from ' + n + ' applications. Your first lines are working. If interviews aren\'t turning into offers, focus on step 3 and step 4.</div>';
+  else v.innerHTML = '<div class="notice tip">' + (20 - n) + ' more applications until your reply rate means something. Log every one.</div>';
+  var h = '<tr><th>Date</th><th>Job</th><th>Client</th><th>Hidden test?</th><th>Followed up</th><th>Reply</th><th>Interview</th><th>Test task</th><th>Result</th><th></th></tr>';
+  T.forEach(function(r, i){
+    h += '<tr><td>' + txt(i,'date',88) + '</td><td>' + txt(i,'role',130) + '</td><td>' + txt(i,'client',100) + '</td><td>' + sel(i,'hidden',YN) + '</td><td>' + txt(i,'followed',88) + '</td><td>' + sel(i,'reply',YN) + '</td><td>' + sel(i,'interview',YN) + '</td><td>' + sel(i,'test',YN) + '</td><td>' + sel(i,'result',RESULTS) + '</td><td><button class="del-btn" title="Remove" onclick="delT(' + i + ')">×</button></td></tr>';
+  });
+  if (!n) h += '<tr><td colspan="10" style="color:var(--dim);padding:16px 6px">Nothing logged yet. Press "I sent it" on step 2 after each application.</td></tr>';
+  document.getElementById('trackerTable').innerHTML = h;
+}
+function exportCsv(){
+  var cols = ['date','role','client','task','hidden','followed','reply','interview','test','result'];
+  var rows = [cols.join(',')].concat(T.map(function(r){ return cols.map(function(c){ return '"' + String(r[c]||'').replace(/"/g,'""') + '"'; }).join(','); }));
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([rows.join('\n')], { type: 'text/csv' }));
+  a.download = 'va-applications.csv'; a.click();
+}
+
+/* ---------- events ---------- */
+document.addEventListener('input', function(e){
+  var k = e.target.getAttribute && e.target.getAttribute('data-k');
+  if (!k) return;
+  S[k] = e.target.value; save(STATE_KEY, S); renderAll();
+});
+document.addEventListener('click', function(e){
+  if (!e.target.classList.contains('copy-btn')) return;
+  var text = e.target.parentNode.querySelector('.copy-text').innerText;
+  var done = function(){ e.target.textContent = 'Copied'; e.target.classList.add('copied'); setTimeout(function(){ e.target.textContent = 'Copy'; e.target.classList.remove('copied'); }, 1600); };
+  if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){});
+  else { var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); done(); }
+});
+document.addEventListener('change', function(e){
+  var list = e.target.closest && e.target.closest('[data-checks]');
+  if (!list) return;
+  var k = 'checks-' + list.getAttribute('data-checks');
+  S[k] = Array.prototype.map.call(list.querySelectorAll('input'), function(c){ return c.checked; });
+  save(STATE_KEY, S);
+});
+
+syncInputs();
+document.querySelectorAll('[data-checks]').forEach(function(list){
+  var v = S['checks-' + list.getAttribute('data-checks')] || [];
+  list.querySelectorAll('input').forEach(function(c, i){ c.checked = !!v[i]; });
+});
+renderAll();
+goTo(0);
+</script>
+</body>
+</html>

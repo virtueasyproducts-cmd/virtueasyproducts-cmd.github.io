@@ -23,6 +23,7 @@
 | URL | Destination | Notes |
 |-----|-------------|-------|
 | `virtueasy.com/onboarding-kit/` | `/onboarding-kit/index.html` | Live | Client Onboarding Kit ($7) |
+| `virtueasy.com/get-hired-kit/` | `/get-hired-kit/index.html` | Live | VA Get Hired Kit ($9); app at ghk-2026-access |
 | `virtueasyproducts-cmd.github.io/va-blueprint-preview` | External | Blueprint Days 10-12 free preview |
 
 ---
