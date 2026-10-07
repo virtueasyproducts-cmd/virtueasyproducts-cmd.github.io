@@ -2041,6 +2041,48 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     .hub-card.is-free::before{background:rgba(255,255,255,0.35)}
     .hub-card-head{display:flex;align-items:center;gap:0.9rem}
     .hub-card-head .hub-price{margin-left:auto}
+    .hub-section.hub-free-sec{padding:2.25rem 2rem 0}
+    .hub-free-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem}
+    .hub-free{display:flex;align-items:center;gap:0.8rem;padding:0.9rem 1rem;border:1px solid var(--border-subtle);border-radius:12px;background:#111;text-decoration:none;transition:border-color .2s,background .2s}
+    .hub-free:hover{border-color:rgba(255,31,122,0.45);background:#151215}
+    .hub-free-icon{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:9px;background:rgba(255,255,255,0.06);color:#F8F8F8;flex-shrink:0}
+    .hub-free-txt b{display:block;font-family:var(--font-body);font-weight:700;font-size:0.98rem;color:#F8F8F8;line-height:1.2}
+    .hub-free-txt small{font-family:var(--font-body);font-size:0.82rem;color:rgba(248,248,248,0.5)}
+    .hub-free-tag{margin-left:auto;font-family:var(--font-body);font-size:0.66rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#4ade80;border:1px solid rgba(74,222,128,0.35);border-radius:999px;padding:0.2rem 0.55rem}
+    .hub-section.hub-kits{padding-top:3rem}
+    .hub-kits-head{margin-bottom:1.6rem}
+    .hub-kits-head .hub-h2{margin:0}
+    .hub-kit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .hub-kit{display:flex;flex-direction:column;border:1px solid var(--border-subtle);border-radius:16px;background:#111;text-decoration:none;overflow:hidden;transition:border-color .2s,transform .2s}
+    .hub-kit:hover{border-color:rgba(255,31,122,0.55);transform:translateY(-3px)}
+    .hub-kit.feat{border-color:rgba(255,31,122,0.4);box-shadow:0 0 0 1px rgba(255,31,122,0.15),0 24px 60px rgba(255,31,122,0.08)}
+    .art{height:210px;padding:1.4rem 1.4rem 0;background:radial-gradient(120% 90% at 50% 0%,rgba(255,31,122,0.14),transparent 70%),#0c0b0c;border-bottom:1px solid var(--border-subtle);display:flex;flex-direction:column;gap:0.45rem;overflow:hidden;font-family:var(--font-body)}
+    .art-post{background:#1b181b;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.55rem 0.7rem;display:flex;flex-direction:column;gap:5px}
+    .art-post span{display:block;height:6px;border-radius:3px;background:rgba(255,255,255,0.14)}
+    .art-post span.short{width:55%}
+    .art-arrow{text-align:center;color:var(--pink);font-size:0.8rem;line-height:1}
+    .art-chip{display:flex;align-items:center;gap:0.5rem;background:#F8F8F8;color:#111;border-radius:7px;padding:0.38rem 0.6rem;font-size:0.8rem;font-weight:600}
+    .art-chip em{font-style:normal;font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--pink);min-width:68px}
+    .art-chip.ok svg{margin-left:auto;color:#16a34a}
+    .art-doc{display:flex;align-items:center;gap:0.55rem;background:#1b181b;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.3rem 0.7rem;font-size:0.8rem;font-weight:600;color:#F8F8F8}
+    .art-doc svg{color:#4ade80;flex-shrink:0}
+    .art-onb{gap:0.35rem}
+    .art-onb .art-doc:nth-child(odd){margin-right:1.4rem}
+    .art-onb .art-doc:nth-child(even){margin-left:1.4rem}
+    .art-bar{height:6px;border-radius:3px;background:rgba(255,255,255,0.08);margin-bottom:0.35rem;overflow:hidden}
+    .art-bar span{display:block;height:100%;background:var(--pink);border-radius:3px}
+    .art-mod{display:flex;align-items:center;gap:0.6rem;padding:0.45rem 0.7rem;border-radius:8px;background:#1b181b;border:1px solid rgba(255,255,255,0.06);font-size:0.84rem;font-weight:600;color:rgba(248,248,248,0.55)}
+    .art-mod i{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+    .art-mod.done{color:#F8F8F8}
+    .art-mod.done svg{margin-left:auto;color:#4ade80}
+    .art-mod.now{color:#F8F8F8;border-color:rgba(255,31,122,0.5)}
+    .hub-kit-body{padding:1.2rem 1.4rem 1.4rem;display:flex;flex-direction:column;gap:0.55rem;flex:1}
+    .hub-kit-top{display:flex;align-items:baseline;justify-content:space-between}
+    .hub-kit-name{font-family:var(--font-body);font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(248,248,248,0.6)}
+    .hub-kit-price{font-family:var(--font-display);font-size:1.9rem;line-height:1;color:var(--pink)}
+    .hub-kit h3{font-family:var(--font-display);font-weight:400;font-size:1.75rem;line-height:1.02;letter-spacing:0.02em;color:#F8F8F8;margin:0;flex:1;text-wrap:balance}
+    .hub-kit-go{font-family:var(--font-body);font-size:0.76rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);margin-top:0.4rem}
+    @media(max-width:900px){.hub-free-row,.hub-kit-grid{grid-template-columns:1fr}.hub-section.hub-free-sec{padding:1.75rem 1rem 0}.hub-section.hub-kits{padding-top:2.5rem}.art{height:auto;padding-bottom:1.2rem}}
     @media(max-width:900px){.hub-hero-inner{grid-template-columns:minmax(0,1fr);gap:2.5rem}}
     @media(max-width:600px){.hub-jobs{padding:1.1rem}}
     .hub-kicker{font-family:var(--font-body);font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--pink);margin-bottom:1.1rem}
@@ -2092,62 +2134,62 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       </div>
     </section>
 
-    <section class="hub-section" aria-label="Tools">
+    <section class="hub-section hub-free-sec" aria-label="Free tools">
       <div class="hub-inner">
-        <p class="hub-label">What's here</p>
-        <h2 class="hub-h2">Use what you need.</h2>
-        <div class="hub-grid">
-          <a href="/va-job-board" class="hub-card is-free">
-            <div class="hub-card-top hub-card-head"><span class="hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v12H4z"/><path d="M9 7V5h6v2"/><path d="M4 12h16"/></svg></span><h3>VA Job Board</h3><span class="hub-price free">Free</span></div>
-            <p>Remote VA jobs, refreshed often. Subscribers see new ones first.</p>
-            <span class="hub-go">Browse jobs &#x2192;</span>
-          </a>
-          <a href="/pricing-tool/" class="hub-card is-free">
-            <div class="hub-card-top hub-card-head"><span class="hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M16.5 7.5c0-1.7-2-3-4.5-3s-4.5 1.3-4.5 3 2 2.6 4.5 3 4.5 1.3 4.5 3-2 3-4.5 3-4.5-1.3-4.5-3"/></svg></span><h3>VA Pricing Tool</h3><span class="hub-price free">Free to try</span></div>
-            <p>Work out a rate you can explain. Free three times a day.</p>
-            <span class="hub-go">Price a service &#x2192;</span>
-          </a>
-          <a href="/blog/" class="hub-card is-free">
-            <div class="hub-card-top hub-card-head"><span class="hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h10l4 4v12H5z"/><path d="M15 4v4h4"/><path d="M8 12h8M8 16h6"/></svg></span><h3>Blog</h3><span class="hub-price free">Free</span></div>
-            <p>Plain guides on pricing, proposals and finding clients.</p>
-            <span class="hub-go">Read the blog &#x2192;</span>
-          </a>
-          <a href="/get-hired-kit/" class="hub-card">
-            <div class="hub-card-top hub-card-head"><span class="hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.8"/></svg></span><h3>VA Get Hired Kit</h3><span class="hub-price">$9</span></div>
-            <p>Paste a job post. Get your application and interview answers.</p>
-            <span class="hub-go">See the kit &#x2192;</span>
-          </a>
-          <a href="/onboarding-kit/" class="hub-card">
-            <div class="hub-card-top hub-card-head"><span class="hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v16H7z"/><path d="M10 9l1.5 1.5L14 8"/><path d="M10 14h4"/></svg></span><h3>Client Onboarding Kit</h3><span class="hub-price">$7</span></div>
-            <p>Welcome email, scope, contract and checklist, filled in for you.</p>
-            <span class="hub-go">See the kit &#x2192;</span>
-          </a>
-          <a href="/starterkit/" class="hub-card">
-            <div class="hub-card-top hub-card-head"><span class="hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8l8-4 8 4-8 4z"/><path d="M4 12l8 4 8-4"/><path d="M4 16l8 4 8-4"/></svg></span><h3>VA Starter Kit</h3><span class="hub-price">$27</span></div>
-            <p>Six modules and 260 prompts to land your first client.</p>
-            <span class="hub-go">See the kit &#x2192;</span>
-          </a>
+        <div class="hub-free-row">
+          <a class="hub-free" href="/va-job-board"><span class="hub-free-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16v12H4z"/><path d="M9 7V5h6v2"/><path d="M4 12h16"/></svg></span><span class="hub-free-txt"><b>Job Board</b><small>Remote VA jobs</small></span><span class="hub-free-tag">Free</span></a>
+          <a class="hub-free" href="/pricing-tool/"><span class="hub-free-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M16.5 7.5c0-1.7-2-3-4.5-3s-4.5 1.3-4.5 3 2 2.6 4.5 3 4.5 1.3 4.5 3-2 3-4.5 3-4.5-1.3-4.5-3"/></svg></span><span class="hub-free-txt"><b>Pricing Tool</b><small>Know what to charge</small></span><span class="hub-free-tag">Free</span></a>
+          <a class="hub-free" href="/blog/"><span class="hub-free-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h10l4 4v12H5z"/><path d="M15 4v4h4"/><path d="M8 12h8M8 16h6"/></svg></span><span class="hub-free-txt"><b>Blog</b><small>Plain how-to guides</small></span><span class="hub-free-tag">Free</span></a>
         </div>
       </div>
     </section>
 
-    <section class="hub-section alt" aria-label="Where to start">
+    <section class="hub-section hub-kits" aria-label="Kits">
       <div class="hub-inner">
-        <p class="hub-label">Where are you right now?</p>
-        <h2 class="hub-h2">Start from where you are.</h2>
-        <div class="hub-paths">
-          <div class="hub-path">
-            <h3>No clients yet</h3>
-            <p>Start with the <a href="/blog/">blog</a>, or the <a href="/starterkit/">Starter Kit</a> (days 1 and 2 are free).</p>
-          </div>
-          <div class="hub-path">
-            <h3>Applying to job posts</h3>
-            <p>Pick one on the <a href="/va-job-board">Job Board</a>, then write it with the <a href="/get-hired-kit/">Get Hired Kit</a>.</p>
-          </div>
-          <div class="hub-path">
-            <h3>You have a client</h3>
-            <p>Price it with the <a href="/pricing-tool/">Pricing Tool</a>, then onboard them with the <a href="/onboarding-kit/">Onboarding Kit</a>.</p>
-          </div>
+        <div class="hub-kits-head"><p class="hub-label">The kits</p><h2 class="hub-h2">Pay once. Yours to keep.</h2></div>
+        <div class="hub-kit-grid">
+          <a class="hub-kit feat" href="/get-hired-kit/">
+              <div class="art art-hired" aria-hidden="true">
+                <div class="art-post"><span></span><span></span><span class="short"></span></div>
+                <div class="art-arrow">&#x2193;</div>
+                <div class="art-chip"><em>Task</em>Answer customer emails</div>
+                <div class="art-chip"><em>Tools</em>Shopify &middot; Gorgias</div>
+                <div class="art-chip ok"><em>Hidden test</em>PINEAPPLE <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+            <div class="hub-kit-body">
+              <div class="hub-kit-top"><span class="hub-kit-name">Get Hired Kit</span><span class="hub-kit-price">$9</span></div>
+              <h3>Job post in. Application out.</h3>
+              <span class="hub-kit-go">See the kit &#x2192;</span>
+            </div>
+          </a>
+          <a class="hub-kit" href="/onboarding-kit/">
+              <div class="art art-onb" aria-hidden="true">
+                <div class="art-doc"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Welcome email</div>
+                <div class="art-doc"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Intake form</div>
+                <div class="art-doc"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Scope of work</div>
+                <div class="art-doc"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Contract</div>
+                <div class="art-doc"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Checklist</div>
+              </div>
+            <div class="hub-kit-body">
+              <div class="hub-kit-top"><span class="hub-kit-name">Onboarding Kit</span><span class="hub-kit-price">$7</span></div>
+              <h3>Client paperwork, done for you.</h3>
+              <span class="hub-kit-go">See the kit &#x2192;</span>
+            </div>
+          </a>
+          <a class="hub-kit" href="/starterkit/">
+              <div class="art art-kit" aria-hidden="true">
+                <div class="art-bar"><span style="width:62%"></span></div>
+                <div class="art-mod done"><i style="background:#3b82f6"></i>Foundation <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="art-mod done"><i style="background:#eab308"></i>Client targeting <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="art-mod now"><i style="background:#ef4444"></i>Outreach system</div>
+                <div class="art-mod"><i style="background:#f97316"></i>Conversion</div>
+              </div>
+            <div class="hub-kit-body">
+              <div class="hub-kit-top"><span class="hub-kit-name">Starter Kit</span><span class="hub-kit-price">$27</span></div>
+              <h3>Your first client, step by step.</h3>
+              <span class="hub-kit-go">See the kit &#x2192;</span>
+            </div>
+          </a>
         </div>
       </div>
     </section>
