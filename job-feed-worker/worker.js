@@ -16,9 +16,6 @@ const FREELANCER_QUERIES = ["virtual assistant", "data entry", "executive assist
 // JSearch (RapidAPI) Query - Aggregates LinkedIn, Indeed, Glassdoor, etc.
 const JSEARCH_QUERY = "Virtual Assistant"; 
 
-// UPWORK RSS LINK
-const UPWORK_RSS_URL = "https://www.upwork.com/ab/feed/jobs/rss?proposals=0-4,5-9,10-14&q=virtual%20assistant";
-
 // ── REFINED FILTERS ──────────────────────────────────────────────
 
 const REQUIRE_TITLE_KEYWORDS = [
@@ -105,31 +102,6 @@ async function fetchJSearch(query, env) {
     console.error("JSearch error:", err.message);
     return [];
   }
-}
-
-async function fetchUpwork(url) {
-  if (!url) return [];
-  try {
-    const res = await fetch(url, { headers: { "User-Agent": "Virtueasy/1.0" } });
-    if (!res.ok) return [];
-    const xml = await res.text();
-    const items = xml.match(/<item>([\s\S]*?)<\/item>/g) || [];
-    return items.map(item => {
-      const titleMatch = item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/) || item.match(/<title>(.*?)<\/title>/);
-      const linkMatch = item.match(/<link>(.*?)<\/link>/);
-      const pubDateMatch = item.match(/<pubDate>(.*?)<\/pubDate>/);
-      let title = titleMatch ? titleMatch[1].trim() : "Unknown Job";
-      title = title.replace(/\s*- Upwork$/, '');
-      const guidMatch = item.match(/<guid.*?>.*?_(~.*?)<\/guid>/) || item.match(/<guid.*?>(.*?)<\/guid>/);
-      const id = guidMatch ? guidMatch[1].trim() : Math.random().toString(36).substring(2, 9);
-      return {
-        id: `upwork-${id}`,
-        title: title, company: "Upwork Client", type: "Contract", category: "Virtual Assistant",
-        url: linkMatch ? linkMatch[1].trim() : "", postedAt: pubDateMatch ? pubDateMatch[1].trim() : new Date().toISOString(),
-        source: "Upwork",
-      };
-    });
-  } catch (e) { return []; }
 }
 
 async function fetchWWR({ url, category }) {
@@ -237,7 +209,6 @@ async function runFetch(env) {
     fetchSequential(HIMALAYAS_QUERIES, fetchHimalayas, "Himalayas"),
     fetchSequential(WWR_FEEDS, fetchWWR, "WWR"),
     fetchSequential(FREELANCER_QUERIES, fetchFreelancer, "Freelancer"),
-    fetchSequential([UPWORK_RSS_URL], fetchUpwork, "Upwork"),
     fetchSequential([JSEARCH_QUERY], fetchJSearch, "JSearch", true) // requiresEnv = true to pass the secret
   ]);
 
