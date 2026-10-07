@@ -1991,17 +1991,6 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 </head>
 <body>
 
-  <!-- PROMO BANNER
-       In normal flow, not fixed. A fixed banner plus a hard-coded 41px spacer
-       let the banner overlap the sticky nav whenever its copy wrapped. In flow,
-       it reserves its own height at any wrap, and the nav pins cleanly on scroll. -->
-  <div id="promo-banner">
-    <a class="promo-banner-link" href="/resources/">
-      Free VA tools: calculator, job board, blog &rarr;
-    </a>
-    <button type="button" id="promo-banner-close" aria-label="Dismiss this message">&times;</button>
-  </div>
-
   <nav class="site-nav" role="navigation" aria-label="Main navigation">
     <a class="nav-logo" href="/">
       <img decoding="async" src="/assets/virtueasy-logo.png" alt="Virtueasy" width="140" height="32" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
@@ -2016,236 +2005,115 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       <li><a href="/blog/">Blog</a></li>
       <li><a href="/va-job-board">Job Board</a></li>
       <li><a href="https://www.facebook.com/groups/974455928445420" target="_blank" rel="noopener" class="nav-community"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.885v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>Community</a></li>
-      <li class="nav-cta"><a href="/starterkit/">Land Your First Client</a></li>
+      <li class="nav-cta"><a href="/starterkit/">Get Started</a></li>
     </ul>
   </nav>
 
   <main>
 
-    <section class="hero" aria-label="Hero">
-      <div class="hero-bg" aria-hidden="true"></div>
-      <div class="hero-grid-lines" aria-hidden="true"></div>
-      <div class="hero-blob-1" aria-hidden="true"></div>
-      <div class="hero-blob-2" aria-hidden="true"></div>
-      <img decoding="async" fetchpriority="high" src="https://images.unsplash.com/photo-1499557354967-2b2d8910bcca?w=1200&q=75&auto=format" srcset="https://images.unsplash.com/photo-1499557354967-2b2d8910bcca?w=600&q=75&auto=format 600w, https://images.unsplash.com/photo-1499557354967-2b2d8910bcca?w=900&q=75&auto=format 900w, https://images.unsplash.com/photo-1499557354967-2b2d8910bcca?w=1200&q=75&auto=format 1200w" sizes="100vw" alt="Woman working on laptop in a bright home office" width="1200" height="800" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:0.07;pointer-events:none;z-index:0;">
 
-      <div class="hero-inner">
+  <style id="hub-styles">
+    .hub-hero{padding:6rem 2rem 4.5rem;background:#0A0A0A;border-bottom:1px solid var(--border-subtle)}
+    .hub-hero-inner{max-width:880px;margin:0 auto}
+    .hub-kicker{font-family:var(--font-body);font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--pink);margin-bottom:1.1rem}
+    .hub-hero h1{font-family:var(--font-display);font-size:clamp(3rem,8vw,5.6rem);line-height:0.95;letter-spacing:0.02em;color:#F8F8F8;margin:0 0 1.4rem}
+    .hub-hero h1 em{font-style:normal;color:var(--pink)}
+    .hub-hero p{font-family:var(--font-body);font-size:1.12rem;line-height:1.7;color:rgba(248,248,248,0.72);max-width:620px;margin:0 0 2.2rem}
+    .hub-ctas{display:flex;gap:0.9rem;flex-wrap:wrap}
+    .hub-section{padding:5rem 2rem;background:#0A0A0A}
+    .hub-section.alt{background:#111}
+    .hub-inner{max-width:1100px;margin:0 auto}
+    .hub-label{font-family:var(--font-body);font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--pink);margin-bottom:0.6rem}
+    .hub-h2{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.2rem);letter-spacing:0.03em;line-height:1.02;color:#F8F8F8;margin:0 0 2.5rem}
+    .hub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+    .hub-card{display:flex;flex-direction:column;gap:0.7rem;background:var(--surface);border:1px solid var(--border-subtle);border-radius:10px;padding:1.6rem 1.5rem;text-decoration:none;transition:border-color .2s,transform .2s}
+    .hub-card:hover{border-color:rgba(255,31,122,0.45);transform:translateY(-2px)}
+    .hub-card-top{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+    .hub-card h3{font-family:var(--font-display);font-size:1.45rem;letter-spacing:0.04em;color:#F8F8F8;margin:0}
+    .hub-price{font-family:var(--font-body);font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:3px;white-space:nowrap;background:rgba(255,31,122,0.12);color:var(--pink)}
+    .hub-price.free{background:rgba(255,255,255,0.08);color:#F8F8F8}
+    .hub-card p{font-family:var(--font-body);font-size:0.94rem;line-height:1.65;color:rgba(248,248,248,0.62);margin:0;flex:1}
+    .hub-go{font-family:var(--font-body);font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--pink)}
+    .hub-paths{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border-subtle);border-radius:10px;overflow:hidden}
+    .hub-path{padding:2rem 1.75rem;border-right:1px solid var(--border-subtle);display:flex;flex-direction:column;gap:0.8rem}
+    .hub-path:last-child{border-right:none}
+    .hub-path h3{font-family:var(--font-display);font-size:1.6rem;letter-spacing:0.04em;color:#F8F8F8;margin:0}
+    .hub-path p{font-family:var(--font-body);font-size:0.95rem;line-height:1.7;color:rgba(248,248,248,0.66);margin:0}
+    .hub-path a{color:var(--pink);font-weight:600;text-decoration:none}
+    .hub-path a:hover{text-decoration:underline}
+    @media(max-width:900px){.hub-grid{grid-template-columns:1fr 1fr}.hub-paths{grid-template-columns:1fr}.hub-path{border-right:none;border-bottom:1px solid var(--border-subtle)}.hub-path:last-child{border-bottom:none}}
+    @media(max-width:600px){.hub-hero{padding:4rem 1rem 3.5rem}.hub-section{padding:3.5rem 1rem}.hub-grid{grid-template-columns:1fr}}
+  </style>
 
-        <div class="hero-content">
-          <div class="hero-eyebrow">
-            <span class="hero-eyebrow-dot" aria-hidden="true"></span>
-            
-          </div>
-
-          <h1 class="hero-headline">
-            Land your first
-            <em>VA client.</em>
-          </h1>
-
-          <p class="hero-sub">
-            You don&#39;t need experience, a portfolio, or a fancy setup. You need everything in one place. Six self-guided modules, built-in AI tools, and 260 prompts that take you from zero to your first client. No videos to sit through, no fluff.
-          </p>
-
-          <div class="hero-ctas">
-            <a href="/starterkit/" class="btn btn-primary">
-              Get the VA Starter Kit - $27
-            </a>
-            <a href="/resources/" class="btn btn-secondary">
-              Explore Free Tools
-            </a>
-          </div>
-        </div>
-
-        <div class="hero-visual">
-
-          <div class="mockup-browser">
-            <div class="mockup-browser-bar">
-              <div class="browser-dots">
-                <span class="browser-dot browser-dot-r"></span>
-                <span class="browser-dot browser-dot-y"></span>
-                <span class="browser-dot browser-dot-g"></span>
-              </div>
-              <div class="browser-url">virtueasy.com/starterkit</div>
-            </div>
-            <div class="hero-video-wrap">
-              <video
-                id="heroVideo"
-                class="hero-video"
-                src="/assets/va-starter-kit-16x9.mp4"
-                poster="/assets/va-starter-kit-poster.jpg"
-                autoplay muted loop playsinline preload="metadata"
-                aria-label="VA Starter Kit walkthrough video"
-              ></video>
-              <button type="button" class="video-sound-btn" id="heroVideoSound" aria-label="Unmute video">
-                <span class="vsb-icon" aria-hidden="true">&#x1F507;</span><span class="vsb-text">Tap for sound</span>
-              </button>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <section class="proof-strip" aria-label="What is inside, by the numbers">
-      <div class="proof-strip-inner">
-        <div class="proof-item">
-          <span class="proof-number">260</span>
-          <span class="proof-label">Plug-and-play AI prompts</span>
-        </div>
-        <div class="proof-item">
-          <span class="proof-number">33</span>
-          <span class="proof-label">Lessons across 6 modules</span>
-        </div>
-        <div class="proof-item">
-          <span class="proof-number">36</span>
-          <span class="proof-label">Free guides, no email needed</span>
+    <section class="hub-hero" aria-label="Introduction">
+      <div class="hub-hero-inner">
+        <p class="hub-kicker">For virtual assistants</p>
+        <h1>Tools and guides for <em>virtual assistants.</em></h1>
+        <p>Find VA jobs, work out what to charge, and apply with a plan. Most of it is free. The paid kits are listed below with their prices.</p>
+        <div class="hub-ctas">
+          <a href="/va-job-board" class="btn btn-primary">Browse VA jobs</a>
+          <a href="/pricing-tool/" class="btn btn-secondary">Work out your rate</a>
         </div>
       </div>
     </section>
 
-    <section class="orientation" aria-label="Find your starting point">
-      <div class="orientation-inner">
-
-        <div class="orientation-item">
-          <div class="orientation-icon">&#x1F331;</div>
-          <span class="orientation-q">Ready to start?</span>
-          <span class="orientation-a">The VA Starter Kit</span>
-          <a href="/starterkit/" class="orientation-link">
-            Start the VA Starter Kit <span aria-hidden="true">&#x2192;</span>
+    <section class="hub-section" aria-label="Tools">
+      <div class="hub-inner">
+        <p class="hub-label">What's here</p>
+        <h2 class="hub-h2">Use what you need.</h2>
+        <div class="hub-grid">
+          <a href="/va-job-board" class="hub-card">
+            <div class="hub-card-top"><h3>VA Job Board</h3><span class="hub-price free">Free</span></div>
+            <p>Remote VA jobs, filtered for real assistant work and refreshed often. Subscribers get the newest ones by email a week early.</p>
+            <span class="hub-go">Browse jobs &#x2192;</span>
           </a>
-        </div>
-
-        <div class="orientation-item">
-          <div class="orientation-icon">&#x1F4B0;</div>
-          <span class="orientation-q">Need to price your services?</span>
-          <span class="orientation-a">VA Pricing Tool</span>
-          <a href="/pricing-tool/" class="orientation-link">
-            Use the VA Pricing Tool <span aria-hidden="true">&#x2192;</span>
+          <a href="/pricing-tool/" class="hub-card">
+            <div class="hub-card-top"><h3>VA Pricing Tool</h3><span class="hub-price free">Free to try</span></div>
+            <p>Work out an hourly, package or project rate you can explain to a client. Three quotes a day free, or $7 once for unlimited.</p>
+            <span class="hub-go">Price a service &#x2192;</span>
           </a>
-        </div>
-
-        <div class="orientation-item">
-          <div class="orientation-icon">&#x1F3AF;</div>
-          <span class="orientation-q">Applying to a job post?</span>
-          <span class="orientation-a">VA Get Hired Kit</span>
-          <a href="/get-hired-kit/" class="orientation-link">
-            Get the Get Hired Kit <span aria-hidden="true">&#x2192;</span>
+          <a href="/blog/" class="hub-card">
+            <div class="hub-card-top"><h3>Blog</h3><span class="hub-price free">Free</span></div>
+            <p>Plain guides on pricing, proposals, onboarding and finding clients. No email needed to read them.</p>
+            <span class="hub-go">Read the blog &#x2192;</span>
           </a>
-        </div>
-
-        <div class="orientation-item">
-          <div class="orientation-icon">&#x2728;</div>
-          <span class="orientation-q">Free resources</span>
-          <span class="orientation-a">Pricing tool, job board + more</span>
-          <a href="/resources/" class="orientation-link">
-            Browse free VA resources <span aria-hidden="true">&#x2192;</span>
+          <a href="/get-hired-kit/" class="hub-card">
+            <div class="hub-card-top"><h3>VA Get Hired Kit</h3><span class="hub-price">$9</span></div>
+            <p>Paste a job post and get your application, interview answers, test-task notes and follow-ups built from it.</p>
+            <span class="hub-go">See the kit &#x2192;</span>
           </a>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="section dream-section" aria-label="The life you're picturing" style="background:#fdf9f6;border-top:1px solid rgba(0,0,0,0.05);">
-      <div class="section-inner">
-        <div class="section-header">
-          <span class="label" style="color:rgba(0,0,0,0.62);">The life you're picturing</span>
-          <h2 style="color:#0a0a0a;">You already know you want out.</h2>
-          <p style="color:#6b6560;font-size:1.05rem;line-height:1.7;max-width:560px;margin:0.75rem auto 0;">The job that doesn't pay enough. The schedule that's someone else's. You know what you want - you just need a clear first step. Here it is.</p>
-        </div>
-        <div class="dream-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:2px;max-width:960px;margin:3rem auto 0;border-radius:16px;overflow:hidden;">
-          <div style="background:#fff;padding:40px 36px;position:relative;overflow:hidden;">
-            <img decoding="async" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&q=80&auto=format" alt="Woman who quit her job to become a virtual assistant" loading="lazy" width="56" height="56" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:3px solid #ffe0ee;margin-bottom:18px;display:block;">
-            <h3 style="font-family:var(--font-display);font-size:1.5rem;letter-spacing:0.04em;color:#0a0a0a;margin-bottom:10px;line-height:1.1;">Quit the job you've been tolerating</h3>
-            <p style="font-size:0.92rem;color:#6b6560;line-height:1.65;">You don't need a new employer. You need to be your own. VAs work with 2-4 clients at a time and control their schedule entirely.</p>
-            <div style="position:absolute;bottom:0;left:0;height:3px;width:40px;background:var(--pink);"></div>
-          </div>
-          <div style="background:#fff;padding:40px 36px;position:relative;overflow:hidden;">
-            <img decoding="async" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=120&q=80&auto=format" alt="Virtual assistant managing finances and paying off debt" loading="lazy" width="56" height="56" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:3px solid #ffe0ee;margin-bottom:18px;display:block;">
-            <h3 style="font-family:var(--font-display);font-size:1.5rem;letter-spacing:0.04em;color:#0a0a0a;margin-bottom:10px;line-height:1.1;">Actually pay down what's been hanging over you</h3>
-            <p style="font-size:0.92rem;color:#6b6560;line-height:1.65;">Depending on niche, skill level, and client type, VA rates can vary widely. The goal is to help you build an offer you can explain, price, and pitch with confidence.</p>
-            <div style="position:absolute;bottom:0;left:0;height:3px;width:40px;background:var(--pink);"></div>
-          </div>
-          <div style="background:#fff;padding:40px 36px;position:relative;overflow:hidden;">
-            <img decoding="async" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=120&q=80&auto=format" alt="Woman working remotely from home as a virtual assistant" loading="lazy" width="56" height="56" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:3px solid #ffe0ee;margin-bottom:18px;display:block;">
-            <h3 style="font-family:var(--font-display);font-size:1.5rem;letter-spacing:0.04em;color:#0a0a0a;margin-bottom:10px;line-height:1.1;">Work from anywhere - including your couch</h3>
-            <p style="font-size:0.92rem;color:#6b6560;line-height:1.65;">Laptop. Wi-Fi. A client who needs help with tasks they don't want to do. That's the whole setup. No office, no commute, no dress code.</p>
-            <div style="position:absolute;bottom:0;left:0;height:3px;width:40px;background:var(--pink);"></div>
-          </div>
-          <div style="background:#fff;padding:40px 36px;position:relative;overflow:hidden;">
-            <img decoding="async" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=120&q=80&auto=format" alt="Parent with schedule flexibility as a virtual assistant" loading="lazy" width="56" height="56" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:3px solid #ffe0ee;margin-bottom:18px;display:block;">
-            <h3 style="font-family:var(--font-display);font-size:1.5rem;letter-spacing:0.04em;color:#0a0a0a;margin-bottom:10px;line-height:1.1;">Be there for the things that actually matter</h3>
-            <p style="font-size:0.92rem;color:#6b6560;line-height:1.65;">School pickup. Appointments. The random Tuesday where you just need a slow morning. When you control your schedule, you control your life.</p>
-            <div style="position:absolute;bottom:0;left:0;height:3px;width:40px;background:var(--pink);"></div>
-          </div>
+          <a href="/onboarding-kit/" class="hub-card">
+            <div class="hub-card-top"><h3>Client Onboarding Kit</h3><span class="hub-price">$7</span></div>
+            <p>Welcome email, intake form, scope of work, contract and checklist, filled in from your details.</p>
+            <span class="hub-go">See the kit &#x2192;</span>
+          </a>
+          <a href="/starterkit/" class="hub-card">
+            <div class="hub-card-top"><h3>VA Starter Kit</h3><span class="hub-price">$27</span></div>
+            <p>Six self-guided modules, 260 prompts and the builders for landing a first client. Days 1 and 2 are free to read.</p>
+            <span class="hub-go">See the kit &#x2192;</span>
+          </a>
         </div>
       </div>
     </section>
 
-    <section class="feature-section" aria-label="Featured: VA Starter Kit">
-      <div class="feature-inner">
-
-        <div class="feature-content">
-          <div class="feature-label-row">
-            <span class="badge">Start Here</span>
-            <span class="label">Featured Resource</span>
+    <section class="hub-section alt" aria-label="Where to start">
+      <div class="hub-inner">
+        <p class="hub-label">Where are you right now?</p>
+        <h2 class="hub-h2">Start from where you are.</h2>
+        <div class="hub-paths">
+          <div class="hub-path">
+            <h3>No clients yet</h3>
+            <p>Read the <a href="/blog/">blog</a> for the basics, then work out what to charge with the <a href="/pricing-tool/">Pricing Tool</a>. If you want the whole path laid out, the <a href="/starterkit/">VA Starter Kit</a> lets you read days 1 and 2 before you pay.</p>
           </div>
-
-          <h2>The VA Starter Kit</h2>
-
-          <p>
-            Six self-guided modules. Built-in AI tools that write your outreach, proposals, and follow-ups. 260 prompts and every builder you need. Everything to land your first client, in one place, for $27.
-          </p>
-
-
-          <ul class="feature-outcomes">
-            <li>6 modules from offer clarity to closing your first client</li>
-            <li>Self-guided daily action steps, no videos to sit through</li>
-            <li>AI tools that write outreach, proposals, and follow-ups for you</li>
-            <li>260 prompts, pricing calculator, portfolio and proposal builder included</li>
-          </ul>
-
-          <div class="feature-ctas">
-            <a href="/starterkit/" class="btn btn-primary">
-              Get the Starter Kit - $27
-            </a>
-            <a href="/pricing-tool/" class="btn btn-secondary">
-              Calculate Your Rate Free
-            </a>
+          <div class="hub-path">
+            <h3>Applying to job posts</h3>
+            <p>Pick a post from the <a href="/va-job-board">Job Board</a>. The <a href="/get-hired-kit/">Get Hired Kit</a> reads the post and builds the application, so your first two lines answer what the client asked for.</p>
+          </div>
+          <div class="hub-path">
+            <h3>You have a client</h3>
+            <p>Check your rate in the <a href="/pricing-tool/">Pricing Tool</a>, then send the welcome email, scope and contract from the <a href="/onboarding-kit/">Onboarding Kit</a>.</p>
           </div>
         </div>
-
-        <div class="feature-video-wrap">
-          <div class="video-frame">
-            <div class="video-frame-bar">
-              <div class="browser-dots">
-                <span class="browser-dot browser-dot-r"></span>
-                <span class="browser-dot browser-dot-y"></span>
-                <span class="browser-dot browser-dot-g"></span>
-              </div>
-              <span class="video-frame-title">virtueasy.com/starterkit</span><div class="kit-screen-labels" id="kitLabels"><span class="kit-slabel active">Dashboard</span><span class="kit-slabel">AI Toolkit</span><span class="kit-slabel">Modules</span><span class="kit-slabel">Proposal Builder</span></div>
-            </div>
-            <div class="kit-carousel" aria-label="VA Starter Kit screenshots">
-              <div class="kit-carousel-track" id="kitCarousel">
-                <img decoding="async" src="/assets/kit-dashboard.webp" alt="VA Starter Kit dashboard" class="kit-carousel-img" loading="lazy" width="1611" height="915">
-                <img decoding="async" src="/assets/kit-module.webp" alt="Module view with AI toolkit" class="kit-carousel-img" loading="lazy" width="1612" height="910">
-                <img decoding="async" src="/assets/kit-lessons.webp" alt="Client targeting module lessons" class="kit-carousel-img" loading="lazy" width="1618" height="917">
-                <img decoding="async" src="/assets/kit-proposal.webp" alt="Proposal builder tool" class="kit-carousel-img" loading="lazy" width="1610" height="913">
-              </div>
-              <div class="kit-carousel-dots" aria-hidden="true">
-                <span class="kit-dot active" onclick="kitGoTo(0)"></span>
-                <span class="kit-dot" onclick="kitGoTo(1)"></span>
-                <span class="kit-dot" onclick="kitGoTo(2)"></span>
-                <span class="kit-dot" onclick="kitGoTo(3)"></span>
-              </div>
-            </div>
-          </div>
-          <div class="video-glow" aria-hidden="true"></div>
-          <div class="video-badge" aria-hidden="true">
-            &#x26A1; Inside<br>your browser
-          </div>
-        </div>
-
       </div>
     </section>
 
@@ -2287,131 +2155,6 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       </div>
     </section>
 
-    <style id="va-quiz-styles">
-    .va-quiz-section{background:linear-gradient(160deg,#D91565 0%,#D01462 55%,#C9135E 100%);padding:5.5rem 1.5rem;border-top:1px solid rgba(0,0,0,0.12);border-bottom:1px solid rgba(0,0,0,0.12);position:relative;overflow:hidden}
-    .va-quiz-section::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 0%,rgba(255,255,255,0.05),transparent 65%);pointer-events:none}
-    .va-quiz{position:relative;max-width:680px;margin:0 auto}
-    .vq-screen{text-align:center}
-    .vq-screen[hidden]{display:none}
-    .vq-anim{animation:vqFade 0.35s ease}
-    @keyframes vqFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-    .vq-eyebrow{display:inline-block;font-family:var(--font-body);font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#fff;margin-bottom:1.1rem;padding:0.35rem 0.9rem;border:1px solid rgba(255,255,255,0.55);border-radius:20px;background:rgba(255,255,255,0.12)}
-    .vq-title{font-family:var(--font-display);font-size:clamp(2.6rem,7vw,4.6rem);line-height:0.92;letter-spacing:0.02em;color:#fff;margin:0 0 1rem}
-    .vq-sub{font-family:var(--font-body);font-size:1.02rem;line-height:1.6;color:#fff;max-width:480px;margin:0 auto 2rem}
-    .vq-meta{font-family:var(--font-body);font-size:0.78rem;color:#fff;margin-top:1.1rem}
-    .vq-btn{display:inline-block;font-family:var(--font-body);font-weight:700;font-size:0.88rem;letter-spacing:0.08em;text-transform:uppercase;padding:1rem 2.25rem;border-radius:4px;cursor:pointer;border:none;transition:all 0.2s;text-decoration:none}
-    .vq-btn-primary{background:#fff;color:#0A0A0A}
-    .vq-btn-primary:hover{background:#0A0A0A;color:#fff;transform:translateY(-1px)}
-    .vq-btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.7)}
-    .vq-btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,0.16)}
-    .vq-progress-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.6rem}
-    .vq-progress-label{font-family:var(--font-body);font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#fff}
-    .vq-back{background:none;border:none;color:#fff;font-family:var(--font-body);font-size:0.8rem;cursor:pointer;padding:0.5rem 0.25rem;transition:color 0.2s}
-    .vq-back:hover{color:#fff}
-    .vq-back[hidden]{display:none}
-    .vq-progress-bar{height:4px;background:rgba(255,255,255,0.3);border-radius:2px;overflow:hidden;margin-bottom:2rem}
-    .vq-progress-fill{height:100%;width:0;background:#fff;border-radius:2px;transition:width 0.4s cubic-bezier(0.4,0,0.2,1)}
-    .vq-question{font-family:var(--font-display);font-size:clamp(1.7rem,4.5vw,2.5rem);line-height:1.08;letter-spacing:0.02em;color:#fff;margin:0 0 1.75rem;text-align:left}
-    .vq-options{display:flex;flex-direction:column;gap:0.65rem}
-    .vq-option{display:flex;align-items:center;gap:0.85rem;width:100%;text-align:left;background:#141214;border:1px solid rgba(0,0,0,0.2);border-radius:8px;padding:1rem 1.1rem;font-family:var(--font-body);font-size:0.97rem;line-height:1.35;color:rgba(255,255,255,0.88);cursor:pointer;transition:all 0.18s}
-    .vq-option:hover{border-color:#fff;background:#1e1a1e;transform:translateX(2px)}
-    .vq-option.selected{border-color:#fff;background:#0a0a0a;color:#fff;box-shadow:0 0 0 1px #fff}
-    .vq-option-dot{flex-shrink:0;width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,0.4);transition:all 0.18s}
-    .vq-option:hover .vq-option-dot,.vq-option.selected .vq-option-dot{border-color:#fff;background:#fff}
-    .vq-result-ctas{display:flex;flex-direction:column;gap:0.75rem;align-items:center;max-width:360px;margin:0 auto}
-    .vq-result-ctas .vq-btn{width:100%;text-align:center}
-    .vq-retake{margin-top:1.5rem;background:none;border:none;color:#fff;font-family:var(--font-body);font-size:0.82rem;text-decoration:underline;cursor:pointer;padding:0.5rem;transition:color 0.2s}
-    .vq-retake:hover{color:#fff}
-    .vq-confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999}
-  </style>
-
-    <section class="va-quiz-section" aria-label="Do you have what it takes quiz" id="va-quiz">
-      <div class="va-quiz">
-
-        <div class="vq-screen vq-intro" data-screen="intro">
-          <span class="vq-eyebrow">60-second gut check</span>
-          <h2 class="vq-title">Do You Have<br>What It Takes?</h2>
-          <p class="vq-sub">Six honest questions, no email required. Find out if becoming a virtual assistant actually fits you, and exactly where to start.</p>
-          <button type="button" class="vq-btn vq-btn-primary" data-action="start">Start the Quiz</button>
-          <p class="vq-meta">Takes about a minute. No catch.</p>
-        </div>
-
-        <div class="vq-screen vq-body" data-screen="quiz" hidden>
-          <div class="vq-progress-row">
-            <span class="vq-progress-label" id="vqProgressLabel">Question 1 of 6</span>
-            <button type="button" class="vq-back" id="vqBack" hidden>&larr; Back</button>
-          </div>
-          <div class="vq-progress-bar"><div class="vq-progress-fill" id="vqProgressFill"></div></div>
-          <h3 class="vq-question" id="vqQuestion" aria-live="polite">Quiz question</h3>
-          <div class="vq-options" id="vqOptions"></div>
-        </div>
-
-        <div class="vq-screen vq-result" data-screen="result" hidden>
-          <span class="vq-eyebrow" id="vqResultEyebrow">Your result</span>
-          <h2 class="vq-title" id="vqResultTitle">Your quiz result</h2>
-          <p class="vq-sub" id="vqResultText"></p>
-          <div class="vq-result-ctas">
-            <a href="/starterkit/" class="vq-btn vq-btn-primary">Get the VA Starter Kit - $27</a>
-            <a href="/resources/" class="vq-btn vq-btn-ghost">Explore the free tools first</a>
-          </div>
-          <button type="button" class="vq-retake" data-action="retake">Retake the quiz</button>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="section" aria-label="Common objections answered" style="background:#fdf9f6;">
-      <div class="section-inner">
-        <div class="section-header">
-          <span class="label" style="color:rgba(0,0,0,0.62);">Let's be real</span>
-          <h2 style="color:#0a0a0a;">You've probably already talked yourself out of this.</h2>
-        </div>
-        <div style="max-width:720px;margin:3rem auto 0;">
-
-          <div style="display:flex;gap:28px;padding:32px 0;border-bottom:1px solid #ede8e2;align-items:flex-start;">
-            <div style="font-family:var(--font-display);font-size:22px;color:rgba(0,0,0,0.55);flex-shrink:0;margin-top:3px;">01</div>
-            <div>
-              <div style="font-size:1rem;font-weight:600;color:#0a0a0a;margin-bottom:8px;line-height:1.3;">"Is this just another VA course I'll never finish?"</div>
-              <div style="font-size:0.95rem;color:#6b6560;line-height:1.7;">It's not a sit-and-watch course. It's 6 short, self-guided modules, each one tied to a task you actually do, not hours of passive video you half-watch and forget. You either did the task or you didn't. No falling behind, no guilt. Just open it, do the thing, move forward.</div>
-            </div>
-          </div>
-
-          <div style="display:flex;gap:28px;padding:32px 0;border-bottom:1px solid #ede8e2;align-items:flex-start;">
-            <div style="font-family:var(--font-display);font-size:22px;color:rgba(0,0,0,0.55);flex-shrink:0;margin-top:3px;">02</div>
-            <div>
-              <div style="font-size:1rem;font-weight:600;color:#0a0a0a;margin-bottom:8px;line-height:1.3;">"What if $27 is a stretch right now?"</div>
-              <div style="font-size:0.95rem;color:#6b6560;line-height:1.7;">That's exactly why so much of this site is free. The job board and blog cost nothing, and the pricing tool is free to try with an optional $7 lifetime upgrade. If $27 is a stretch right now, start there. The Starter Kit is ready when you want the full system in one place.</div>
-
-            </div>
-          </div>
-
-          <div style="display:flex;gap:28px;padding:32px 0;border-bottom:1px solid #ede8e2;align-items:flex-start;">
-            <div style="font-family:var(--font-display);font-size:22px;color:rgba(0,0,0,0.55);flex-shrink:0;margin-top:3px;">03</div>
-            <div>
-              <div style="font-size:1rem;font-weight:600;color:#0a0a0a;margin-bottom:8px;line-height:1.3;">"I have no experience. Will this actually work for me?"</div>
-              <div style="font-size:0.95rem;color:#6b6560;line-height:1.7;">The Starter Kit is built for zero experience. You don't need a VA background, a portfolio, or a single past client. You need email, a calendar, and the ability to follow a system. If you have those three things, you have what it takes to start.</div>
-            </div>
-          </div>
-
-          <div style="display:flex;gap:28px;padding:32px 0;align-items:flex-start;">
-            <div style="font-family:var(--font-display);font-size:22px;color:rgba(0,0,0,0.55);flex-shrink:0;margin-top:3px;">04</div>
-            <div>
-              <div style="font-size:1rem;font-weight:600;color:#0a0a0a;margin-bottom:8px;line-height:1.3;">"What if I buy it and it doesn't work?"</div>
-              <div style="font-size:0.95rem;color:#6b6560;line-height:1.7;">We can't promise a result - anyone who does is selling you a fantasy. What we can promise is a real system, real scripts, and a specific action step to take next, instead of another folder of videos you never finish. Do the work and the work works.</div>
-            </div>
-          </div>
-
-          <div style="margin-top:48px;background:#0a0a0a;border-radius:16px;padding:48px 44px;text-align:center;">
-            <div style="font-family:var(--font-display);font-size:4rem;color:var(--pink);line-height:1;margin-bottom:6px;">$27</div>
-            <div style="font-size:0.85rem;color:rgba(255,255,255,0.66);margin-bottom:8px;">one-time. no subscription. works in your browser today.</div>
-            <p style="font-size:0.95rem;color:rgba(255,255,255,0.55);line-height:1.65;max-width:440px;margin:0 auto 32px;">Six self-guided modules and every tool you need to land your first client, all in one dashboard, ready whenever you are.</p>
-            <a href="/starterkit/" class="btn btn-primary" style="font-size:1rem;padding:1rem 2.5rem;">Get the Starter Kit - $27</a>
-            <div style="margin-top:16px;font-size:0.8rem;color:rgba(255,255,255,0.66);">Instant access &middot; No subscriptions &middot; Works in any browser</div>
-          </div>
-
-        </div>
-      </div>
-    </section>
 
     <section class="section newsletter-section" aria-label="Stay updated">
       <div class="newsletter-inner">
