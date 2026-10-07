@@ -79,8 +79,34 @@ function json(body, status, origin) {
   });
 }
 
+// Ported back from the live script 2026-10-07: deployed 2026-09-19 but never committed,
+// so a deploy from the repo would have silently dropped the claim notices.
+async function notifyClaim(env, email, product) {
+  try {
+    let total = null;
+    const res = await fetch(`https://connect.mailerlite.com/api/groups?filter[name]=${encodeURIComponent('Source: Free Kit Claim')}`, {
+      headers: { Authorization: `Bearer ${env.MAILERLITE_API_KEY}`, Accept: 'application/json' },
+    });
+    if (res.ok) {
+      const group = ((await res.json()).data || []).find((g) => g.id === CLAIM_GROUP_ID);
+      if (group) total = group.active_count;
+    }
+    const kit = product === 'onboarding' ? 'Client Onboarding Kit' : product === 'starterkit' ? 'VA Starter Kit' : 'a kit';
+    const safe = String(email).replace(/[<>&]/g, '');
+    await sendEmail(
+      env,
+      `Free kit claimed: ${kit}${total != null ? ` (${total} people so far)` : ''}`,
+      `<p style="font-size:16px;"><strong>${safe}</strong> just claimed the ${kit}.</p>
+       <p style="font-size:16px;">${total != null ? `${total} people are in the Free Kit Claim group.` : 'Could not read the group total this time.'}</p>
+       <p style="color:#6b6b6b;font-size:13px;">Giveaway runs through Oct 20. They are in MailerLite under "Source: Free Kit Claim (Fall 2026)".</p>`
+    );
+  } catch (err) {
+    console.error('claim notice failed:', err.message);
+  }
+}
+
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const origin = request.headers.get('Origin');
     const url = new URL(request.url);
 
@@ -152,6 +178,10 @@ export default {
       return json({ error: status === 400 ? 'invalid_email' : 'upstream_error' }, status, origin);
     }
 
+    if (url.pathname === '/claim') {
+      const product = typeof payload?.product === 'string' ? payload.product.slice(0, 20) : '';
+      ctx.waitUntil(notifyClaim(env, email, product));
+    }
     return json({ ok: true }, 200, origin);
   },
 

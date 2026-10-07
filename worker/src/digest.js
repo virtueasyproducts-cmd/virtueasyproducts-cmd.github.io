@@ -179,7 +179,13 @@ export function renderEmail(jobs) {
 
   <tr><td style="padding-top:12px;color:${MUTED};font-size:15px;line-height:1.6;">
     These are not on the public board yet. They go up in a week, after you have
-    had first crack at them. Apply early &mdash; that is the whole advantage.
+    had first crack at them. Apply early. That is the whole advantage.
+  </td></tr>
+
+  <tr><td style="padding-top:16px;color:${INK};font-size:15px;line-height:1.6;">
+    Before you apply, paste the post into the
+    <a href="https://virtueasy.com/get-hired-kit/" style="color:${PINK};font-weight:700;">VA Get Hired Kit</a>.
+    It builds your application, interview answers and follow-ups from the listing itself. $9, one time.
   </td></tr>
 
   ${sections}

@@ -804,6 +804,15 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       <a class="rate-cta" href="/pricing-tool/" id="rate-cta">Work out my rate</a>
     </div>
 
+    <div class="rate-banner show" id="ghk-banner">
+      <div class="rate-banner-text">
+        <p class="eyebrow">Before you hit Apply</p>
+        <p class="headline">The first two lines of your application decide whether anyone reads the rest</p>
+        <p class="sub">Paste any of these posts into the Get Hired Kit. It pulls out the tools, the hours and any hidden test, then builds your application, interview answers and follow-ups from it. $9, one time.</p>
+      </div>
+      <a class="rate-cta" href="/get-hired-kit/" id="ghk-cta">See the kit</a>
+    </div>
+
     <div class="rate-banner show" id="deel-banner">
       <div class="rate-banner-text">
         <p class="eyebrow">Client overseas?</p>
@@ -898,6 +907,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     // destroy this node now that it is placed between the cards.
     const earlyBannerNode = document.getElementById('early-banner');
     const rateBannerNode = document.getElementById('rate-banner');
+    const ghkBannerNode = document.getElementById('ghk-banner');
 
     // ── FETCH JOBS ──────────────────────────────────────────────
     const RELEVANT_TITLE = /\b(virtual assistant|executive assistant|administrative assistant|admin assistant|personal assistant|remote office assistant|social media|online business manager|\bOBM\b|operations assistant|project assistant|graphic design assistant)\b/i;
@@ -998,6 +1008,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       // detach so innerHTML cannot take it with the old cards
       if (earlyBannerNode && earlyBannerNode.parentElement) earlyBannerNode.remove();
       if (rateBannerNode && rateBannerNode.parentElement) rateBannerNode.remove();
+      if (ghkBannerNode && ghkBannerNode.parentElement) ghkBannerNode.remove();
 
       if (!jobs.length) {
         list.innerHTML = `
@@ -1008,6 +1019,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
         count.textContent = '0 jobs';
         placeEarlyBanner();
         placeRateBanner(jobs);
+        placeGhkBanner();
         return;
       }
 
@@ -1035,6 +1047,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
       placeEarlyBanner();
       placeRateBanner(jobs);
+      placeGhkBanner();
     }
 
     // The email ask earns its place once the visitor has seen real listings.
@@ -1070,6 +1083,19 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
         cards[8].insertAdjacentElement('afterend', rateBannerNode);
       } else {
         list.insertAdjacentElement('afterend', rateBannerNode);
+      }
+    }
+
+    // Added 2026-10-07. Sits between the email ask (after card 3) and the rate ask (after card 9),
+    // so the reader meets it while they are choosing which post to answer.
+    function placeGhkBanner() {
+      const list = document.getElementById('jobs-list');
+      if (!ghkBannerNode || !list) return;
+      const cards = list.querySelectorAll('.job-card');
+      if (cards.length > 6) {
+        cards[5].insertAdjacentElement('afterend', ghkBannerNode);
+      } else {
+        list.insertAdjacentElement('afterend', ghkBannerNode);
       }
     }
 
