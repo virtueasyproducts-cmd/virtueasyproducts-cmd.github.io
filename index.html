@@ -2013,8 +2013,36 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
 
   <style id="hub-styles">
-    .hub-hero{padding:6rem 2rem 4.5rem;background:#0A0A0A;border-bottom:1px solid var(--border-subtle)}
-    .hub-hero-inner{max-width:880px;margin:0 auto}
+    .hub-hero{position:relative;overflow:hidden;padding:5.5rem 2rem 4.5rem;background:#0A0A0A;border-bottom:1px solid var(--border-subtle)}
+    .hub-hero::before{content:"";position:absolute;top:-30%;right:-10%;width:60%;height:120%;background:radial-gradient(closest-side,rgba(255,31,122,0.16),transparent);pointer-events:none}
+    .hub-hero-inner{position:relative;max-width:1150px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);gap:3.5rem;align-items:center}
+    .hub-hero-inner>*{min-width:0}
+    .hub-alt-link{font-family:var(--font-body);font-size:0.92rem;color:rgba(248,248,248,0.7);text-decoration:none;align-self:center}
+    .hub-alt-link:hover{color:#F8F8F8;text-decoration:underline}
+    .hub-jobs{background:var(--surface);border:1px solid rgba(255,31,122,0.25);border-radius:12px;padding:1.4rem;box-shadow:0 20px 60px rgba(0,0,0,0.45)}
+    .hub-jobs-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem}
+    .hub-jobs-count{font-family:var(--font-display);font-size:1.5rem;letter-spacing:0.04em;color:#F8F8F8}
+    .hub-jobs-count b{color:var(--pink);font-weight:400}
+    .hub-live{display:inline-flex;align-items:center;gap:0.45rem;font-family:var(--font-body);font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(248,248,248,0.6)}
+    .hub-live::before{content:"";width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,0.2)}
+    .hub-job{display:block;padding:0.85rem 0.9rem;border-radius:8px;border:1px solid var(--border-subtle);margin-bottom:0.6rem;text-decoration:none;background:#0f0d0f;transition:border-color .2s}
+    .hub-job:hover{border-color:rgba(255,31,122,0.5)}
+    .hub-job-title{font-family:var(--font-body);font-weight:600;font-size:0.95rem;color:#F8F8F8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .hub-job-meta{display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:0.3rem;font-family:var(--font-body);font-size:0.78rem;color:rgba(248,248,248,0.55)}
+    .hub-job-pay{color:#F8F8F8;font-weight:600}
+    .hub-job.skel{height:58px;background:linear-gradient(90deg,#141214,#1c191c,#141214);background-size:200% 100%;animation:hubskel 1.4s infinite}
+    @keyframes hubskel{to{background-position:-200% 0}}
+    .hub-jobs-foot{display:flex;justify-content:space-between;align-items:center;margin-top:0.9rem;font-family:var(--font-body);font-size:0.8rem;color:rgba(248,248,248,0.5)}
+    .hub-jobs-foot a{color:var(--pink);font-weight:700;text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;font-size:0.74rem}
+    .hub-icon{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;background:rgba(255,31,122,0.12);color:var(--pink);flex-shrink:0}
+    .hub-card.is-free .hub-icon{background:rgba(255,255,255,0.07);color:#F8F8F8}
+    .hub-card{position:relative;overflow:hidden}
+    .hub-card::before{content:"";position:absolute;left:0;top:0;right:0;height:3px;background:var(--pink)}
+    .hub-card.is-free::before{background:rgba(255,255,255,0.35)}
+    .hub-card-head{display:flex;align-items:center;gap:0.9rem}
+    .hub-card-head .hub-price{margin-left:auto}
+    @media(max-width:900px){.hub-hero-inner{grid-template-columns:minmax(0,1fr);gap:2.5rem}}
+    @media(max-width:600px){.hub-jobs{padding:1.1rem}}
     .hub-kicker{font-family:var(--font-body);font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--pink);margin-bottom:1.1rem}
     .hub-hero h1{font-family:var(--font-display);font-size:clamp(3rem,8vw,5.6rem);line-height:0.95;letter-spacing:0.02em;color:#F8F8F8;margin:0 0 1.4rem}
     .hub-hero h1 em{font-style:normal;color:var(--pink)}
@@ -2042,17 +2070,24 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     .hub-path a{color:var(--pink);font-weight:600;text-decoration:none}
     .hub-path a:hover{text-decoration:underline}
     @media(max-width:900px){.hub-grid{grid-template-columns:1fr 1fr}.hub-paths{grid-template-columns:1fr}.hub-path{border-right:none;border-bottom:1px solid var(--border-subtle)}.hub-path:last-child{border-bottom:none}}
-    @media(max-width:600px){.hub-hero{padding:4rem 1rem 3.5rem}.hub-section{padding:3.5rem 1rem}.hub-grid{grid-template-columns:1fr}}
+    @media(max-width:600px){.hub-hero{padding:3.5rem 1rem 3rem}.hub-section{padding:3.5rem 1rem}.hub-grid{grid-template-columns:1fr}}
   </style>
 
     <section class="hub-hero" aria-label="Introduction">
       <div class="hub-hero-inner">
-        <p class="hub-kicker">For virtual assistants</p>
-        <h1>Tools and guides for <em>virtual assistants.</em></h1>
-        <p>Find VA jobs, price your work, and apply with a plan. Most of it is free.</p>
-        <div class="hub-ctas">
-          <a href="/va-job-board" class="btn btn-primary">Browse VA jobs</a>
-          <a href="/pricing-tool/" class="btn btn-secondary">Work out your rate</a>
+        <div>
+          <p class="hub-kicker">For virtual assistants</p>
+          <h1>Tools and guides for <em>virtual assistants.</em></h1>
+          <p>Find VA jobs, price your work, and apply with a plan. Most of it is free.</p>
+          <div class="hub-ctas">
+            <a href="/va-job-board" class="btn btn-primary">Browse VA jobs</a>
+            <a href="/pricing-tool/" class="hub-alt-link">or work out your rate &#x2192;</a>
+          </div>
+        </div>
+        <div class="hub-jobs" id="hubJobs" aria-live="polite">
+          <div class="hub-jobs-head"><span class="hub-jobs-count" id="hubJobsCount">Open VA jobs</span><span class="hub-live">On the board</span></div>
+          <div id="hubJobsList"><div class="hub-job skel"></div><div class="hub-job skel"></div><div class="hub-job skel"></div></div>
+          <div class="hub-jobs-foot"><span>Subscribers see new jobs a week early</span><a href="/va-job-board">See all &#x2192;</a></div>
         </div>
       </div>
     </section>
@@ -2062,33 +2097,33 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
         <p class="hub-label">What's here</p>
         <h2 class="hub-h2">Use what you need.</h2>
         <div class="hub-grid">
-          <a href="/va-job-board" class="hub-card">
-            <div class="hub-card-top"><h3>VA Job Board</h3><span class="hub-price free">Free</span></div>
+          <a href="/va-job-board" class="hub-card is-free">
+            <div class="hub-card-top hub-card-head"><span class="hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v12H4z"/><path d="M9 7V5h6v2"/><path d="M4 12h16"/></svg></span><h3>VA Job Board</h3><span class="hub-price free">Free</span></div>
             <p>Remote VA jobs, refreshed often. Subscribers see new ones first.</p>
             <span class="hub-go">Browse jobs &#x2192;</span>
           </a>
-          <a href="/pricing-tool/" class="hub-card">
-            <div class="hub-card-top"><h3>VA Pricing Tool</h3><span class="hub-price free">Free to try</span></div>
+          <a href="/pricing-tool/" class="hub-card is-free">
+            <div class="hub-card-top hub-card-head"><span class="hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M16.5 7.5c0-1.7-2-3-4.5-3s-4.5 1.3-4.5 3 2 2.6 4.5 3 4.5 1.3 4.5 3-2 3-4.5 3-4.5-1.3-4.5-3"/></svg></span><h3>VA Pricing Tool</h3><span class="hub-price free">Free to try</span></div>
             <p>Work out a rate you can explain. Free three times a day.</p>
             <span class="hub-go">Price a service &#x2192;</span>
           </a>
-          <a href="/blog/" class="hub-card">
-            <div class="hub-card-top"><h3>Blog</h3><span class="hub-price free">Free</span></div>
+          <a href="/blog/" class="hub-card is-free">
+            <div class="hub-card-top hub-card-head"><span class="hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h10l4 4v12H5z"/><path d="M15 4v4h4"/><path d="M8 12h8M8 16h6"/></svg></span><h3>Blog</h3><span class="hub-price free">Free</span></div>
             <p>Plain guides on pricing, proposals and finding clients.</p>
             <span class="hub-go">Read the blog &#x2192;</span>
           </a>
           <a href="/get-hired-kit/" class="hub-card">
-            <div class="hub-card-top"><h3>VA Get Hired Kit</h3><span class="hub-price">$9</span></div>
+            <div class="hub-card-top hub-card-head"><span class="hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.8"/></svg></span><h3>VA Get Hired Kit</h3><span class="hub-price">$9</span></div>
             <p>Paste a job post. Get your application and interview answers.</p>
             <span class="hub-go">See the kit &#x2192;</span>
           </a>
           <a href="/onboarding-kit/" class="hub-card">
-            <div class="hub-card-top"><h3>Client Onboarding Kit</h3><span class="hub-price">$7</span></div>
+            <div class="hub-card-top hub-card-head"><span class="hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v16H7z"/><path d="M10 9l1.5 1.5L14 8"/><path d="M10 14h4"/></svg></span><h3>Client Onboarding Kit</h3><span class="hub-price">$7</span></div>
             <p>Welcome email, scope, contract and checklist, filled in for you.</p>
             <span class="hub-go">See the kit &#x2192;</span>
           </a>
           <a href="/starterkit/" class="hub-card">
-            <div class="hub-card-top"><h3>VA Starter Kit</h3><span class="hub-price">$27</span></div>
+            <div class="hub-card-top hub-card-head"><span class="hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8l8-4 8 4-8 4z"/><path d="M4 12l8 4 8-4"/><path d="M4 16l8 4 8-4"/></svg></span><h3>VA Starter Kit</h3><span class="hub-price">$27</span></div>
             <p>Six modules and 260 prompts to land your first client.</p>
             <span class="hub-go">See the kit &#x2192;</span>
           </a>
@@ -2243,6 +2278,35 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     <script>fetch("https://assets.mailerlite.com/jsonp/2199748/forms/185198994698273934/takel").catch(function(){});</script>
 
   </main>
+  <script>
+  /* Hero jobs panel. Mirrors va-job-board.html: same title filters, and the newest 7 days are held
+     back for email subscribers, so only jobs the board itself shows publicly appear here. */
+  (function(){
+    var RELEVANT = /\b(virtual assistant|executive assistant|administrative assistant|admin assistant|personal assistant|remote office assistant|social media|online business manager|\bOBM\b|operations assistant|project assistant|graphic design assistant)\b/i;
+    var IRRELEVANT = /\b(retail|store manager|assistant manager|shop assistant|stock assistant|sales assistant|sales associate|loss prevention|post office manager|merchandise coordinator)\b/i;
+    var list = document.getElementById('hubJobsList'), count = document.getElementById('hubJobsCount');
+    if (!list) return;
+    function esc(v){ return String(v || '').replace(/[&<>"']/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]; }); }
+    function ago(d){ var days = Math.floor((Date.now() - new Date(d).getTime()) / 864e5); if (isNaN(days)) return ''; if (days < 14) return days + 'd ago'; if (days < 30) return Math.floor(days / 7) + 'w ago'; return Math.floor(days / 30) + 'mo ago'; }
+    function fail(){ list.innerHTML = '<a class="hub-job" href="/va-job-board"><div class="hub-job-title">See the open VA jobs</div><div class="hub-job-meta">Updated regularly</div></a>'; }
+    fetch('https://virtueasy-va-job-board.morgan-2bf.workers.dev/jobs?t=' + Date.now(), { cache: 'no-store' }).then(function(r){ return r.json(); }).then(function(data){
+      var cutoff = Date.now() - 7 * 864e5;
+      var jobs = (data.jobs || []).filter(function(j){
+        var t = String(j.title || ''); if (!t || IRRELEVANT.test(t)) return false;
+        if (!RELEVANT.test([t].concat(j.tags || []).join(' '))) return false;
+        var ts = new Date(j.postedAt).getTime(); return isNaN(ts) || ts <= cutoff;
+      }).sort(function(a, b){ return new Date(b.postedAt) - new Date(a.postedAt); });
+      if (!jobs.length) return fail();
+      count.innerHTML = '<b>' + jobs.length + '</b> open VA jobs';
+      list.innerHTML = jobs.slice(0, 3).map(function(j){
+        return '<a class="hub-job" href="/va-job-board"><div class="hub-job-title">' + esc(j.title) + '</div><div class="hub-job-meta">' +
+          (j.company && !/freelancer client/i.test(j.company) ? '<span>' + esc(j.company) + '</span>' : '') +
+          (j.salary ? '<span class="hub-job-pay">' + esc(j.salary) + '</span>' : '') +
+          '<span>' + esc(ago(j.postedAt)) + '</span></div></a>';
+      }).join('');
+    }).catch(fail);
+  })();
+  </script>
 
   <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">
