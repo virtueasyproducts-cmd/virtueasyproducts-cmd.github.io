@@ -112,7 +112,7 @@ async function doLogin(){
     errEl.classList.add('show');
     emailInput.style.borderColor = 'var(--pink)';
   }catch(e){
-    errEl.textContent = 'Network hiccup — please try again.';
+    errEl.textContent = 'Network hiccup. Please try again.';
     errEl.classList.add('show');
   }finally{
     btn.disabled = false; btn.textContent = 'Open the Kit →';
