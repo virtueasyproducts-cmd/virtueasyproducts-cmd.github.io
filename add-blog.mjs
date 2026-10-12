@@ -31,7 +31,7 @@ import path from 'path';
 
 const ROOT = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
 const POSTS_DIR = path.join(ROOT, 'blog', 'posts');
-const INDEX = path.join(ROOT, 'blog', './');
+const INDEX = path.join(ROOT, 'blog', 'index.html');
 const SITEMAP = path.join(ROOT, 'sitemap.xml');
 const TEMPLATE = path.join(POSTS_DIR, 'how-to-handle-scope-creep.html');
 
