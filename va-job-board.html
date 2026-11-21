@@ -24,7 +24,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   <link rel="canonical" href="https://virtueasy.com/va-job-board">
   <meta name="description" content="Browse the latest remote virtual assistant jobs, updated regularly. Find VA, executive assistant, social media, and OBM roles - all remote." />
   <meta property="og:title" content="Remote VA Job Board | Virtueasy" />
-  <meta property="og:description" content="Remote virtual assistant, executive assistant, social media and OBM jobs, pulled from public job sources. Free to browse. New listings reach email subscribers a week early." />
+  <meta property="og:description" content="Remote virtual assistant, executive assistant, social media and OBM jobs, pulled from public job sources. Free to browse, updated daily. Get the week's new jobs by email every Monday." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://virtueasy.com/va-job-board" />
   <meta property="og:image" content="https://virtueasy.com/assets/job-board-og.png" />
@@ -788,11 +788,11 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     </div>
     <div class="early-banner" id="early-banner">
       <div class="early-banner-text">
-        <p class="lock">Subscriber early access</p>
+        <p class="lock">Fresh this week</p>
         <p class="headline"><span id="early-count">0</span> new jobs posted this week</p>
-        <p class="sub">This week's jobs go out by email first. They reach the public board a week later, after subscribers have already applied.</p>
+        <p class="sub">Early applicants get read first. Get each week's new jobs in your inbox every Monday so you never miss one.</p>
       </div>
-      <button id="early-cta">Get them first</button>
+      <button id="early-cta">Email me new jobs</button>
     </div>
 
     <div class="rate-banner" id="rate-banner">
@@ -838,9 +838,9 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     <div class="popup">
       <button class="popup-close" id="popup-close" aria-label="Close">Close &times;</button>
       <div id="popup-form-wrap">
-        <p class="popup-eyebrow">Early access</p>
-        <h2>Get new jobs a week early</h2>
-        <p>The board below is free and always will be. But the newest jobs go out by email every week, a full week before they show up here. Fewer applicants, better odds.</p>
+        <p class="popup-eyebrow">Before you apply</p>
+        <h2>Want next week's jobs too?</h2>
+        <p>The board is free and always will be. Drop your email and every Monday you get the week's new VA jobs in one list, so you can apply while the post is still fresh.</p>
         <div class="popup-form">
           <div class="popup-email-field">
             <label class="popup-label" for="popup-email">Email address</label>
@@ -857,12 +857,12 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
         </div>
         <p class="popup-error" id="popup-error" role="alert"></p>
         <p class="popup-note">No spam. Unsubscribe anytime.</p>
-        <button class="popup-skip" id="popup-skip">No thanks, just browse the board</button>
+        <button class="popup-skip" id="popup-skip">No thanks, take me to the job</button>
       </div>
       <div class="popup-success" id="popup-success">
         <div class="check">✓</div>
         <h3>You're In</h3>
-        <p>Every week's new jobs will hit your inbox before they reach the public board.</p>
+        <p>New jobs land in your inbox every Monday. Opening your job now.</p>
       </div>
     </div>
   </div>
@@ -873,13 +873,10 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     // Source: worker/src/index.js
     const SUBSCRIBE_URL = 'https://virtueasy-subscribe.morgan-2bf.workers.dev/subscribe';
 
-    // Jobs newer than this go out in the weekly email first. They surface
-    // on the public board once they age past the window. Keep this in sync
-    // with the digest routine's window, or the email loses its exclusivity.
-    const EARLY_ACCESS_DAYS = 7;
+    const NEW_WINDOW_DAYS = 7;
 
-    let allJobs = [];      // public board only (aged past the window)
-    let earlyCount = 0;    // held back for subscribers
+    let allJobs = [];
+    let earlyCount = 0;
     let activeFilter = 'all';
 
     function jobsForFilter(filter) {
@@ -910,7 +907,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     const ghkBannerNode = document.getElementById('ghk-banner');
 
     // ── FETCH JOBS ──────────────────────────────────────────────
-    const RELEVANT_TITLE = /\b(virtual assistant|executive assistant|administrative assistant|admin assistant|personal assistant|remote office assistant|social media|online business manager|\bOBM\b|operations assistant|project assistant|graphic design assistant)\b/i;
+    const RELEVANT_TITLE = /\b(virtual assistant|executive assistant|administrative|admin|personal assistant|assistant|social media|online business manager|OBM|operations coordinator|data entry|appointment setter|bookkeep(?:er|ing)?|community manager|content coordinator|chief of staff)\b/i;
     const IRRELEVANT_TITLE = /\b(retail|store manager|assistant manager|shop assistant|stock assistant|sales assistant|sales associate|loss prevention|post office manager|merchandise coordinator)\b/i;
 
     function cleanText(value) {
@@ -954,18 +951,13 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     const jobs = (data.jobs || []).filter(isRelevantVAJob);
     jobs.sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
 
-    // 3. Hold the freshest jobs back for email subscribers. Anything
-    //    without a usable date is treated as public, not withheld.
-    const cutoff = Date.now() - EARLY_ACCESS_DAYS * 86400000;
-    allJobs = jobs.filter(j => {
-      const t = new Date(j.postedAt).getTime();
-      return isNaN(t) || t <= cutoff;
-    });
-    earlyCount = jobs.length - allJobs.length;
+    const cutoff = Date.now() - NEW_WINDOW_DAYS * 86400000;
+    allJobs = jobs;
+    earlyCount = jobs.filter(j => new Date(j.postedAt).getTime() > cutoff).length;
     updateAvailableFilters();
 
     document.getElementById('hero-count').textContent =
-      allJobs.length > 0 ? `${allJobs.length} open jobs` : 'Jobs updating soon';
+      allJobs.length > 0 ? `${allJobs.length} open jobs` : 'New jobs added daily';
 
     if (earlyCount > 0) {
       const ec = (earlyBannerNode || document).querySelector('#early-count');
@@ -1121,7 +1113,6 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     // ── POPUP ────────────────────────────────────────────────────
     const POPUP_KEY = 've_jobs_access';     // subscribed
     const DISMISS_KEY = 've_jobs_dismissed'; // declined, don't nag again
-    const POPUP_DELAY_MS = 8000;
     let popupTriggered = false;
 
     function popupSuppressed() {
@@ -1145,24 +1136,36 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     }
 
     // Closing without subscribing is a real choice — remember it.
+    let pendingJobUrl = null;
+    let pendingJobWin = null;
+
+    function continueToJob() {
+      if (!pendingJobUrl) return;
+      const url = pendingJobUrl;
+      pendingJobUrl = null;
+      const w = window.open(url, '_blank', 'noopener');
+      if (!w) window.location.href = url;
+    }
+
     function dismissPopup() {
       try {
         if (!localStorage.getItem(POPUP_KEY)) localStorage.setItem(DISMISS_KEY, '1');
       } catch(e) {}
       hidePopup();
+      continueToJob();
     }
 
     function initPopup() {
-      if (popupSuppressed()) return;
-
-      // Let people actually read the board first.
-      const elapsed = () => performance.now() >= POPUP_DELAY_MS;
-      setTimeout(showPopup, POPUP_DELAY_MS);
-
-      // Deep scroll also triggers it, but never before the delay is up.
-      window.addEventListener('scroll', () => {
-        if (elapsed() && window.scrollY > window.innerHeight * 2) showPopup();
-      }, { passive: true });
+      document.getElementById('jobs-list').addEventListener('click', e => {
+        const card = e.target.closest('a.job-card');
+        if (!card || popupTriggered || popupSuppressed()) return;
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+        e.preventDefault();
+        pendingJobUrl = card.href;
+        try { if (typeof window.clarity === 'function') window.clarity('event', 'jobboard_apply_popup'); } catch(_) {}
+        showPopup();
+        setTimeout(() => { const el = document.getElementById('popup-email'); if (el) el.focus(); }, 50);
+      });
     }
 
     document.getElementById('popup-close').addEventListener('click', dismissPopup);
@@ -1242,7 +1245,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       if (banner) {
         const sub = banner.querySelector('.sub');
         if (sub) sub.textContent =
-          "You're on the list. These jobs will reach you by email before they land here.";
+          "You're on the list. Next Monday's new jobs will be in your inbox.";
         const cta = banner.querySelector('#early-cta');
         if (cta) cta.remove();
       }
@@ -1251,7 +1254,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       const success = document.getElementById('popup-success');
       success.style.display = 'flex';
 
-      setTimeout(hidePopup, 2500);
+      setTimeout(() => { hidePopup(); continueToJob(); }, 1600);
     });
 
     // ── INIT ─────────────────────────────────────────────────────

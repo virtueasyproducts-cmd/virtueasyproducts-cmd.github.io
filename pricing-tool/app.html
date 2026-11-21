@@ -245,7 +245,9 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     } catch(e) {}
 
     if (!token) {
-      window.location.replace("get-access");
+      document.getElementById("access-loading").style.display = "none";
+      document.getElementById("app").style.display = "block";
+      bootApp({ type: "anon" });
       return;
     }
 
@@ -288,10 +290,13 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
   // ── App boot (only runs after access confirmed) ──────────────────────────────
   function bootApp(accessResult) {
 
-    const isLifetime     = accessResult.type === "lifetime";
+    let isLifetime       = accessResult.type === "lifetime";
+    let isAnon           = accessResult.type === "anon";
+    const ML_URL         = "https://assets.mailerlite.com/jsonp/2199748/forms/184021092538517454/subscribe";
+    const ML_NURTURE_URL = "https://assets.mailerlite.com/jsonp/2199748/forms/185198994698273934/subscribe";
     let storedEmail = "";
     try { storedEmail = localStorage.getItem("ve-pricing-email") || ""; } catch(e) {}
-    const userEmail      = accessResult.email || storedEmail || "";
+    let userEmail        = accessResult.email || storedEmail || "";
     const MAX_DAILY_USES = 3;
 
     // ── App state ──
@@ -378,6 +383,8 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
       // Usage banner
       if(isLifetime){
         h+=`<div class="trial-banner lifetime">Lifetime access unlocked</div>`;
+      } else if(isAnon){
+        h+=`<div class="trial-banner">Free to try. About two minutes to your full rate card.</div>`;
       } else {
         const ul=getLocalUsesLeft();
         h+=`<div class="trial-banner">${ul} free use${ul!==1?"s":""} left \u2014 <a href="pay">only $7 for lifetime access!</a></div>`;
@@ -400,12 +407,14 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
       h+=`</div></div>`;
 
       h+=`<div class="content">`;
-      h+=renderStep(0);h+=renderStep(1);h+=renderStep(2);h+=renderStep(3);h+=renderStep(4);
+      if(state.gating){h+=renderGate();}
+      else{h+=renderStep(0);h+=renderStep(1);h+=renderStep(2);h+=renderStep(3);h+=renderStep(4);}
       h+=`</div>`;
 
       h+=`<div class="bottom-nav">`;
       if(state.step>0)h+=`<button class="back-btn" onclick="goStep(${state.step-1})">\u2190 Back</button>`;
-      if(state.step<4)h+=`<button class="next-btn" onclick="advance()" ${canAdvance()?"":"disabled"}>${state.step===3?"View summary \u2192":"Continue \u2192"}</button>`;
+      if(state.gating){h+=`<button class="back-btn" onclick="cancelGate()">← Back</button>`;}
+      else if(state.step<4)h+=`<button class="next-btn" onclick="advance()" ${canAdvance()?"":"disabled"}>${state.step===3?"View summary \u2192":"Continue \u2192"}</button>`;
       h+=`</div>`;
 
       app.innerHTML=h;
@@ -512,6 +521,18 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
       h+=`</div>`;return h;
     }
 
+    function renderGate(){
+      return `<div class="step-panel visible"><div class="card">
+        <h2 class="card-title">Your rate card is ready</h2>
+        <p class="card-sub">Where should we send it? Enter your email to see your rates, packages and the monthly math. We'll also send you a short series on charging what you're worth.</p>
+        <label class="form-label" for="gate-email">Email address</label>
+        <input class="text-input" id="gate-email" type="email" autocomplete="email" placeholder="you@email.com" style="width:100%;padding:12px 14px;border:1px solid #ddd;border-radius:10px;font-size:15px;margin-bottom:12px" onkeydown="if(event.key==='Enter')submitGate()">
+        <button class="next-btn" id="gate-btn" style="width:100%" onclick="submitGate()">Show my rate card →</button>
+        <p id="gate-error" style="color:var(--pink);font-size:13px;margin-top:10px;min-height:1em"></p>
+        <p style="font-size:12px;color:#888;margin-top:4px">No spam. Unsubscribe anytime.</p>
+      </div></div>`;
+    }
+
     function renderSummary(){
       const expLabel=EXP_LEVELS.find(e=>e.value===state.profile.experience);
       let h=`<div class="${vis(4)}">`;
@@ -596,11 +617,43 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
     window.goStep=function(i){state.step=i;save();render()};
     window.advance=async function(){
       if(!canAdvance()||state.step>=4)return;
+      if(state.step===3&&isAnon){
+        state.gating=true;render();window.scrollTo(0,0);
+        try{ if(window.clarity) window.clarity("event","pricing_gate_shown"); }catch(e){}
+        setTimeout(()=>{const el=document.getElementById("gate-email");if(el)el.focus()},50);
+        return;
+      }
       if(state.step===3&&!isLifetime){
         const ok=await recordUse();
         if(!ok){window.location.replace("pay");return;}
       }
       state.step++;save();render();window.scrollTo(0,0);
+    };
+    window.cancelGate=function(){state.gating=false;render()};
+    window.submitGate=async function(){
+      const input=document.getElementById("gate-email");
+      const err=document.getElementById("gate-error");
+      const btn=document.getElementById("gate-btn");
+      const email=(input&&input.value||"").trim();
+      if(!/^[^s@]+@[^s@]+.[^s@]+$/.test(email)){if(err)err.textContent="Enter a valid email address.";if(input)input.focus();return;}
+      if(btn){btn.disabled=true;btn.textContent="One moment...";}
+      [ML_URL,ML_NURTURE_URL].forEach(url=>{const fd=new FormData();fd.append("fields[email]",email);fd.append("ml-submit","1");fetch(url,{method:"POST",body:fd,keepalive:true}).catch(()=>{});});
+      try{
+        const res=await fetch(ACCESS_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"grant",email})});
+        const data=await res.json();
+        if(data.reason==="expired"){window.location.href="pay";return;}
+        if(!data.token)throw new Error("no token");
+        try{localStorage.setItem(TOKEN_KEY,data.token);localStorage.setItem("ve-pricing-email",email);}catch(e){}
+        const vr=await fetch(ACCESS_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"verify",token:data.token})});
+        const v=await vr.json();
+        isAnon=false;isLifetime=v.type==="lifetime";userEmail=v.email||email;
+        try{ if(window.fbq) window.fbq("track","Lead"); if(window.clarity) window.clarity("event","pricing_gate_email"); }catch(e){}
+        if(!isLifetime){const ok=await recordUse();if(!ok){window.location.replace("pay");return;}}
+        state.gating=false;state.step=4;save();render();window.scrollTo(0,0);
+      }catch(e){
+        if(err)err.textContent="Something went wrong. Please try again.";
+        if(btn){btn.disabled=false;btn.textContent="Show my rate card →";}
+      }
     };
     window.updateName=function(v){state.profile.name=v;save()};
     window.setVAType=function(t){state.profile.vaType=t;if(state.profile.experience){state.hourlyRate=Math.round((BASE_RATES[t]||25)*(EXP_LEVELS.find(e=>e.value===state.profile.experience)?.mult||1))}save();render()};
@@ -636,7 +689,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
       else{navigator.clipboard.writeText(text).then(()=>{const btn=document.querySelector(".share-btn");btn.textContent="Copied!";btn.classList.add("copied");setTimeout(()=>{btn.textContent="Share my VA rate";btn.classList.remove("copied")},2000)});}
     };
 
-    load();render();
+    load();state.gating=false;if(isAnon&&state.step>3)state.step=3;render();
   }
 
 })();
