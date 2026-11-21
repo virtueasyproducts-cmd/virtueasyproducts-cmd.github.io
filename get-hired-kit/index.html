@@ -165,6 +165,7 @@ a{color:inherit;text-decoration:none}
   <br>
   <a href="https://buy.stripe.com/bJeeVdgv01nW5Z9c2OdAk03" class="hero-cta" data-rewardful>Get the Kit</a>
   <p class="hero-sub-cta">One-time payment. No subscription. Already bought it? <a href="login" style="color:var(--pink);text-decoration:underline">Sign in</a>.</p>
+  <p class="hero-sub-cta" style="margin-top:0.8rem"><a href="#decode" style="color:var(--white);text-decoration:underline">Or try it free first: decode a job post</a></p>
 </section>
 
 <div class="trust-bar">
@@ -173,6 +174,111 @@ a{color:inherit;text-decoration:none}
   <div class="trust-item">✓ 6 test tasks walked through</div>
   <div class="trust-item">✓ Scam check built in</div>
 </div>
+
+<!-- FREE DECODER -->
+<style>
+.dec{padding:4.5rem 2rem;max-width:820px;margin:0 auto}
+.dec-box{background:var(--surface);border:1px solid rgba(255,31,122,0.3);border-radius:14px;padding:1.6rem}
+.dec-box label{display:block;font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.6rem}
+.dec-box textarea{width:100%;min-height:190px;resize:vertical;font-family:var(--font-body);font-size:0.95rem;line-height:1.55;padding:0.9rem;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:#0d0c0d;color:var(--white)}
+.dec-box textarea:focus{outline:2px solid var(--pink);outline-offset:1px;border-color:transparent}
+.dec-row{display:flex;gap:0.8rem;align-items:center;margin-top:0.9rem;flex-wrap:wrap}
+.dec-btn{font-family:var(--font-body);font-weight:700;font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.9rem 1.5rem;border:0;border-radius:4px;background:var(--pink);color:#fff;cursor:pointer}
+.dec-hint{font-size:0.82rem;color:var(--muted)}
+.dec-err{color:var(--pink);font-size:0.88rem;margin-top:0.6rem;min-height:1em}
+.dec-out{display:none;margin-top:1.4rem;gap:0.8rem}
+.dec-out.show{display:grid}
+.dec-card{border:1px solid var(--border-s);border-radius:10px;padding:1rem 1.1rem;background:#0f0d0f}
+.dec-card h3{font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--pink);margin-bottom:0.5rem}
+.dec-card p,.dec-card li{font-size:0.95rem;line-height:1.55;color:var(--white)}
+.dec-card ul{list-style:none;display:flex;flex-wrap:wrap;gap:0.4rem}
+.dec-card ul.chips li{font-size:0.82rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:999px;background:rgba(255,255,255,0.07)}
+.dec-card .dim{color:var(--muted)}
+.dec-card.test{border-color:rgba(255,31,122,0.45);background:rgba(255,31,122,0.06)}
+.dec-card.test blockquote{border-left:3px solid var(--pink);padding:0.3rem 0 0.3rem 0.8rem;margin:0.4rem 0;font-size:0.95rem}
+.dec-card.flag{border-color:rgba(250,204,21,0.4);background:rgba(250,204,21,0.05)}
+.dec-card.flag h3{color:#facc15}
+.dec-lock{position:relative;overflow:hidden}
+.dec-lock .blur{filter:blur(5px);user-select:none;pointer-events:none;color:rgba(248,248,248,0.8);font-size:0.95rem;line-height:1.6}
+.dec-lock .first{font-size:0.95rem;line-height:1.6;margin-bottom:0.4rem}
+.dec-lock-cta{position:absolute;left:0;right:0;bottom:0;padding:2.2rem 1rem 1rem;background:linear-gradient(180deg,transparent,#0f0d0f 45%);text-align:center}
+.dec-lock-cta a{display:inline-block;font-weight:700;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.85rem 1.4rem;border-radius:4px;background:var(--pink);color:#fff}
+.dec-lock-cta small{display:block;margin-top:0.5rem;font-size:0.78rem;color:var(--muted)}
+@media(max-width:600px){.dec{padding:3rem 1rem}.dec-box{padding:1.1rem}.dec-btn{width:100%}}
+</style>
+<section class="dec" id="decode" aria-label="Free job post decoder">
+  <div class="section-eyebrow">Try it free</div>
+  <h2 class="section-title">Paste a job post.<br>See what it is really asking for.</h2>
+  <p style="color:var(--muted);margin-bottom:1.4rem">Copy any VA job post from the job board, Upwork, LinkedIn or a Facebook group. The decoder pulls out the hidden test, the tools, the hours, the pay and any scam warning signs. Free, no sign-up, nothing leaves your browser.</p>
+  <div class="dec-box">
+    <label for="dec-in">The job post</label>
+    <textarea id="dec-in" placeholder="Paste the whole post here, including the part at the bottom about how to apply."></textarea>
+    <div class="dec-row">
+      <button class="dec-btn" id="dec-go" type="button">Decode this post</button>
+      <span class="dec-hint">No job post handy? <a href="/va-job-board" style="color:var(--pink);text-decoration:underline">Grab one from the job board</a>.</span>
+    </div>
+    <p class="dec-err" id="dec-err" role="alert"></p>
+    <div class="dec-out" id="dec-out" aria-live="polite"></div>
+  </div>
+</section>
+<script>
+(function(){
+  var TOOLS=["Gmail","Google Workspace","Google Sheets","Google Docs","Google Drive","Google Calendar","Outlook","Microsoft 365","Excel","Microsoft Word","MS Word","PowerPoint","Asana","Trello","ClickUp","Notion","Monday.com","Airtable","Basecamp","Slack","Microsoft Teams","Zoom","Loom","Calendly","Acuity","Canva","Adobe","Photoshop","Figma","CapCut","Premiere","HubSpot","Salesforce","GoHighLevel","GHL","Pipedrive","Zoho","Keap","ActiveCampaign","Mailchimp","Klaviyo","ConvertKit","Kit","Flodesk","MailerLite","QuickBooks","Xero","FreshBooks","Wave","Stripe","PayPal","Shopify","WooCommerce","WordPress","Squarespace","Wix","Kajabi","Teachable","Thinkific","Etsy","eBay","Amazon Seller Central","Zapier","Make.com","ManyChat","ChatGPT","Later","Hootsuite","Buffer","Metricool","Planoly","Meta Business Suite","LinkedIn","Instagram","TikTok","Pinterest","YouTube","Facebook","Zendesk","Gorgias","Freshdesk","Intercom","Dropbox","DocuSign","Follow Up Boss","kvCORE","Dotloop","SkySlope","Lofty","Apollo","Sales Navigator","Upwork","Jira"];
+  var TEST=/(start|begin|open|title|head)\s+(your|the)\s+(application|message|reply|proposal|response|cover letter|email)\s+with|(include|use|mention|type|write|put|add)\s+(the\s+)?(word|phrase|code|keyword|emoji|color|colour|fruit|animal)|subject\s*line|in\s+the\s+subject|answer\s+(these|the\s+following|the\s+questions)|(so|to\s+show|to\s+prove)\s+(that\s+)?(we\s+know\s+)?you\s+(read|have\s+read)|if\s+you\s+(read|made\s+it)\s+(this|to\s+the)|applications?\s+(without|that\s+don.?t)|will\s+(not\s+be|be\s+ignored|be\s+disregarded)|record\s+a\s+(short\s+)?(video|loom)|send\s+a\s+(short\s+)?(video|loom|voice)/i;
+  var FLAGS=[[/telegram|whats\s?app\s+(only|me)|signal\s+app/i,"Moves you to Telegram or WhatsApp straight away"],[/(pay|fee|deposit)\s+(for|to\s+cover)\s+(the\s+)?(training|equipment|software|onboarding|starter)/i,"Asks you to pay for training or equipment"],[/(cheque|check)\s+(to\s+)?(deposit|buy)|deposit\s+(a|the)\s+(cheque|check)/i,"Mentions depositing a check to buy equipment"],[/gift\s*cards?|crypto|bitcoin|usdt/i,"Mentions gift cards or crypto"],[/no\s+(interview|experience)\s+(needed|required)[\s\S]{0,80}\$\s?\d{2,3}\s*(\/|per)\s*(hr|hour)/i,"High hourly pay with no interview or experience"],[/(personal|bank)\s+(account|details)\s+(to|for)\s+(receive|process|transfer)/i,"Wants your bank account to move money"]];
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+  function sentences(t){return t.replace(/\r/g,"").split(/(?<=[.!?])\s+|\n+/).map(function(s){return s.trim()}).filter(function(s){return s.length>6})}
+  function uniq(a){var o=[];a.forEach(function(x){if(o.map(function(y){return y.toLowerCase()}).indexOf(x.toLowerCase())<0)o.push(x)});return o}
+  function decode(t){
+    var ss=sentences(t), r={};
+    r.tests=uniq(ss.filter(function(s){return TEST.test(s)})).slice(0,4);
+    var CASED=["Later","Wave","Buffer","Lofty","Kit","Apollo","Make.com"];
+    r.tools=TOOLS.map(function(tl){var m=new RegExp("(^|[^A-Za-z])"+tl.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"($|[^A-Za-z])",CASED.indexOf(tl)>=0?"":"i").exec(t);return m?[tl,m.index]:null}).filter(Boolean).sort(function(a,b){return a[1]-b[1]}).map(function(x){return x[0]});
+    r.tools=r.tools.filter(function(x){return !(x==="Kit"&&!/convertkit|\bkit\b\s*(email|newsletter)/i.test(t))&&!(x==="GHL"&&r.tools.indexOf("GoHighLevel")>=0)});
+    var hrs=t.match(/\b\d{1,2}\s*(?:-|to|–)\s*\d{1,2}\s*(?:hours|hrs)(?:\s*(?:per|a|\/)\s*(?:week|wk|day|month))?|\b\d{1,2}\s*(?:hours|hrs)\s*(?:per|a|\/)\s*(?:week|wk|day|month)|\bpart[- ]time\b|\bfull[- ]time\b|\bweekends?\b|\bflexible\s+hours\b/gi)||[];
+    var tz=t.match(/\b(?:EST|EDT|ET|PST|PDT|PT|CST|CDT|CT|MST|MT|AEST|AEDT|GMT|UTC|BST|CET)\b|\b(?:Eastern|Pacific|Central|Mountain)(?:\s+(?:time|standard))?\b|\b(?:US|UK|Australian)\s+(?:business\s+)?hours\b/g)||[];
+    r.hours=uniq(hrs.concat(tz)).slice(0,6);
+    var pay=t.match(/(?:US\$|\$|USD\s?|PHP\s?|₱|£|€|AUD\s?)\s?\d[\d,]*(?:\.\d+)?(?:\s*(?:-|to|–)\s*(?:US\$|\$|₱|£|€)?\s?\d[\d,]*(?:\.\d+)?)?(?:\s*(?:\/|per|an?)\s*(?:hr|hour|month|mo|week|wk|project))?/gi)||[];
+    r.pay=uniq(pay.map(function(p){return p.trim()})).slice(0,4);
+    r.flags=FLAGS.filter(function(f){return f[0].test(t)}).map(function(f){return f[1]});
+    var duty=t.split(/\n/).map(function(l){return l.trim()}).filter(function(l){return /^[-•*·▪●✔✓]\s*\S/.test(l)||/^\d+[.)]\s+\S/.test(l)}).map(function(l){return l.replace(/^[-•*·▪●✔✓\d.)\s]+/,"")});
+    r.duties=duty.slice(0,3);
+    return r;
+  }
+  function render(r){
+    var h="";
+    h+='<div class="dec-card test"><h3>The hidden test</h3>';
+    if(r.tests.length){h+='<p>This post is checking whether you read it. Do exactly this:</p>'+r.tests.map(function(s){return '<blockquote>'+esc(s)+'</blockquote>'}).join("")+'<p class="dim">Most applicants miss it. Missing it usually means your application is deleted unread.</p>';}
+    else{h+='<p>No instruction test found in this post. That makes your first two lines matter even more: name the main task, the tools and the time zone before anything else.</p>';}
+    h+='</div>';
+    h+='<div class="dec-card"><h3>Tools they named</h3>'+(r.tools.length?'<ul class="chips">'+r.tools.map(function(x){return '<li>'+esc(x)+'</li>'}).join("")+'</ul><p class="dim" style="margin-top:0.5rem">Name the ones you have used in your first two lines, with one real example.</p>':'<p class="dim">No specific tools named. Ask which ones they use in your reply, it shows you think ahead.</p>')+'</div>';
+    h+='<div class="dec-card"><h3>Hours and time zone</h3>'+(r.hours.length?'<ul class="chips">'+r.hours.map(function(x){return '<li>'+esc(x)+'</li>'}).join("")+'</ul>':'<p class="dim">Not stated. Say which hours you can cover in their time zone.</p>')+'</div>';
+    h+='<div class="dec-card"><h3>Pay</h3>'+(r.pay.length?'<ul class="chips">'+r.pay.map(function(x){return '<li>'+esc(x)+'</li>'}).join("")+'</ul>':'<p class="dim">Pay is not listed. Decide your number before you reply. <a href="/pricing-tool/" style="color:var(--pink);text-decoration:underline">Work out your rate free</a>.</p>')+'</div>';
+    if(r.flags.length){h+='<div class="dec-card flag"><h3>Scam warning signs</h3><ul style="display:block">'+r.flags.map(function(x){return '<li style="margin-bottom:0.3rem">'+esc(x)+'</li>'}).join("")+'</ul><p class="dim" style="margin-top:0.4rem">Real clients do not ask for money or move you to a private chat app before an interview.</p></div>';}
+    if(r.flags.length){return h+'<div class="dec-card"><h3>Our advice</h3><p>We would skip this one. Spend the time on a post from the <a href="/va-job-board" style="color:var(--pink);text-decoration:underline">job board</a> instead.</p></div>';}
+    var social=["LinkedIn","Instagram","TikTok","Pinterest","YouTube","Facebook","Loom","Zoom","Upwork"];
+    var work=r.tools.filter(function(x){return social.indexOf(x)<0});
+    var task=r.duties[0]?r.duties[0].replace(/[.;:]$/,""):"";
+    task=task?task.charAt(0).toLowerCase()+task.slice(1):"";
+    var zone=null;r.hours.forEach(function(x){if(!zone&&!/^\d/.test(x)&&/EST|ET|PST|PT|CST|CT|GMT|UTC|AEST|Eastern|Pacific|Central|Mountain|business hours/i.test(x))zone=x});
+    var first=(task?"You need someone to "+task:"You need someone who can take this off your plate")+(work.length?", using "+work[0]:"")+(zone?", during "+zone.replace(/\s+hours$/i,"")+" hours":"")+". I have done exactly that, and here is how I would handle your first week.";
+    h+='<div class="dec-card dec-lock"><h3>Your application draft</h3><p class="first">'+esc(first)+'</p><p class="blur">In my last role I took a client from a backlog of unanswered requests to a clean daily routine, using the same setup you described. For your first week I would map every recurring task, set up a simple tracker you can check in two minutes, and send you an end-of-day summary so nothing slips. I am available during your working hours and can start with a paid test task so you can see the work before committing.</p><p class="blur">Interview answers for this post, a test task plan and three follow-up messages for day 3, day 7 and day 14.</p><div class="dec-lock-cta"><a href="https://buy.stripe.com/bJeeVdgv01nW5Z9c2OdAk03" data-rewardful id="dec-unlock">Unlock the full application, $9</a><small>Plus interview answers, the test task plan and follow-ups for this post. One time, use it on every job.</small></div></div>';
+    return h;
+  }
+  var input=document.getElementById("dec-in"), out=document.getElementById("dec-out"), err=document.getElementById("dec-err");
+  document.getElementById("dec-go").addEventListener("click",function(){
+    var t=(input.value||"").trim();
+    if(t.length<120){err.textContent="Paste the whole job post, at least a few lines, so there is something to decode.";input.focus();return;}
+    err.textContent="";
+    out.innerHTML=render(decode(t));out.classList.add("show");
+    try{localStorage.setItem("ghk-last-post",t.slice(0,8000))}catch(e){}
+    try{if(window.clarity)clarity("event","ghk_decoder_run")}catch(e){}
+    try{if(window.fbq)fbq("trackCustom","DecoderRun")}catch(e){}
+    out.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  out.addEventListener("click",function(e){if(e.target&&e.target.id==="dec-unlock"){try{if(window.clarity)clarity("event","ghk_decoder_unlock_click")}catch(x){}}});
+})();
+</script>
 
 <!-- THE PROBLEM -->
 <section class="section problem">
