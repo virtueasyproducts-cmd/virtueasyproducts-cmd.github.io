@@ -40,7 +40,8 @@
     starterkit:     { name: "VA Starter Kit",           value: 27 },
     onboarding:     { name: "VA Client Onboarding Kit", value: 7  },
     "pricing-tool": { name: "Pricing Tool Lifetime",    value: 7  },
-    gethired:       { name: "VA Get Hired Kit",         value: 9  }
+    gethired:       { name: "VA Get Hired Kit",         value: 9  },
+    audit:          { name: "VA First-Win Client Audit", value: 7  }
   };
 
   // Full Stripe payment link id -> product key. These are the WHOLE ids on
@@ -51,7 +52,8 @@
     "bJe14ngv08Qo87h5EqdAk00": "starterkit",
     "cNiaEXfqW0jS73d4AmdAk01": "onboarding",
     "00wdR91A62s0fzJ3widAk02": "pricing-tool",
-    "bJeeVdgv01nW5Z9c2OdAk03": "gethired"
+    "bJeeVdgv01nW5Z9c2OdAk03": "gethired",
+    "3cI28r5Qm6IggDN1oadAk04": "audit"
   };
 
   // Page path (prefix match) -> product key, for ViewContent.
@@ -63,6 +65,7 @@
     ["/onboarding-kit/",      "onboarding"],
     ["/get-hired-kit/index",  "gethired"],
     ["/get-hired-kit/",       "gethired"],
+    ["/client-audit/",        "audit"],
     ["/pricing-tool/pay",   "pricing-tool"],
     ["/pricing-tool/index", "pricing-tool"],
     ["/pricing-tool/",      "pricing-tool"],

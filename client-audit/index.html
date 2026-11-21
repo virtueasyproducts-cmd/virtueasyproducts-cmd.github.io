@@ -18,7 +18,6 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 /></noscript>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, follow">
   <title>Free Client Audit for Virtual Assistants: Find Your First Win</title>
   <link rel="canonical" href="https://virtueasy.com/client-audit/">
   <meta name="description" content="Run a free 2-minute audit on a prospect's business. See the hours their week is leaking and the first win you can pitch.">
@@ -156,7 +155,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
         <div class="au-lock-cta">
           <h3>Turn this into a client-ready report</h3>
           <ul><li>Every gap, ranked</li><li>30-day fix plan</li><li>Hours and value at your rate</li><li>Pitch message</li><li>Print or PDF</li></ul>
-          <a class="btn btn-primary" id="au-buy" href="#">Unlock the full report, $7</a>
+          <a class="btn btn-primary" id="au-buy" href="https://buy.stripe.com/3cI28r5Qm6IggDN1oadAk04" data-rewardful>Unlock the full report, $7</a>
           <small>One time. Use it on every prospect. <a href="/client-audit/login" style="color:inherit;text-decoration:underline">Already bought it?</a></small>
         </div>
       </div>
@@ -178,7 +177,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
 
   <script>
   (function(){
-    var BUY_URL = '';
+    var BUY_URL = 'https://buy.stripe.com/3cI28r5Qm6IggDN1oadAk04';
     var ACCESS_API = 'https://virtueasy-pricing-tool-verification.morgan-2bf.workers.dev';
     var TOKEN_KEY = 'audit-access-token';
     var Q = [
@@ -273,6 +272,12 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       document.getElementById('au-ring').style.strokeDashoffset = 351.9; show(0); window.scrollTo(0,0);
     });
     show(0);
+    try {
+      if (/[?&]full=1/.test(location.search)) {
+        var last = JSON.parse(localStorage.getItem('audit-last') || 'null');
+        if (last && last.a && last.a.length === Q.length) { answers = last.a; document.getElementById('au-biz').value = last.b || ''; finish(); }
+      }
+    } catch(e){}
   })();
   </script>
 

@@ -9,6 +9,7 @@ const allowedPaymentLinks = new Set([
   'bJe14ngv08Qo87h5EqdAk00',
   '00wdR91A62s0fzJ3widAk02',
   'bJeeVdgv01nW5Z9c2OdAk03',
+  '3cI28r5Qm6IggDN1oadAk04',
 ]);
 const textExtensions = new Set(['.html', '.js', '.mjs', '.toml', '.md', '.yml', '.yaml']);
 const ignoredDirectories = new Set(['.git', '.wrangler', 'node_modules']);
