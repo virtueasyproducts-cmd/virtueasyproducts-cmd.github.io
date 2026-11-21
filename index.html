@@ -1988,6 +1988,17 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   </script>
 
 <script src="/assets/js/track.js" defer></script>
+<style id="vz-photo-css">
+.vz-photo{max-width:1100px;margin:0 auto 2.5rem;padding:0 2rem}
+.vz-photo-in{position:relative;border-radius:18px;overflow:hidden;height:300px;box-shadow:0 24px 60px rgba(0,0,0,0.45)}
+.vz-photo-in img{width:100%;height:100%;object-fit:cover;display:block}
+.vz-photo-in::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0) 55%,rgba(10,10,10,0.35))}
+.vz-chip{position:absolute;left:16px;bottom:16px;z-index:1;display:flex;align-items:center;gap:0.6rem;background:rgba(255,255,255,0.96);color:#111;border-radius:12px;padding:0.65rem 0.9rem;font-family:'Barlow',sans-serif;box-shadow:0 12px 30px rgba(0,0,0,0.25);max-width:86%;text-decoration:none}
+.vz-chip b{display:block;font-size:0.9rem;font-weight:700;line-height:1.25}
+.vz-chip small{display:block;font-size:0.74rem;color:#666}
+.vz-chip i{width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,0.2);flex-shrink:0}
+@media(max-width:700px){.vz-photo{padding:0 1rem;margin-bottom:2rem}.vz-photo-in{height:210px}}
+</style>
 </head>
 <body>
 
@@ -2134,6 +2145,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       </div>
     </section>
 
+    <div style="background:#0A0A0A;padding-top:2.5rem"><div class="vz-photo"><div class="vz-photo-in"><img src="/assets/photos/va-couch.jpg" alt="A virtual assistant working on her laptop from the sofa at home" width="960" height="640" loading="lazy" style="object-position:center 35%"><div class="vz-chip"><i></i><div><b>450+ VAs on the list</b><small>Free tools, jobs and guides</small></div></div></div></div></div>
     <section class="hub-section hub-free-sec" aria-label="Free tools">
       <div class="hub-inner">
         <div class="hub-free-row">
@@ -2310,19 +2322,18 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
   /* Hero jobs panel. Mirrors va-job-board.html: same title filters, and the newest 7 days are held
      back for email subscribers, so only jobs the board itself shows publicly appear here. */
   (function(){
-    var RELEVANT = /\b(virtual assistant|executive assistant|administrative assistant|admin assistant|personal assistant|remote office assistant|social media|online business manager|\bOBM\b|operations assistant|project assistant|graphic design assistant)\b/i;
+    var RELEVANT = /\b(virtual assistant|executive assistant|administrative|admin|personal assistant|assistant|social media|online business manager|OBM|operations coordinator|data entry|appointment setter|bookkeep(?:er|ing)?|community manager|content coordinator|chief of staff)\b/i;
     var IRRELEVANT = /\b(retail|store manager|assistant manager|shop assistant|stock assistant|sales assistant|sales associate|loss prevention|post office manager|merchandise coordinator)\b/i;
     var list = document.getElementById('hubJobsList'), count = document.getElementById('hubJobsCount');
     if (!list) return;
     function esc(v){ return String(v || '').replace(/[&<>"']/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]; }); }
-    function ago(d){ var days = Math.floor((Date.now() - new Date(d).getTime()) / 864e5); if (isNaN(days)) return ''; if (days < 14) return days + 'd ago'; if (days < 30) return Math.floor(days / 7) + 'w ago'; return Math.floor(days / 30) + 'mo ago'; }
+    function ago(d){ var days = Math.floor((Date.now() - new Date(d).getTime()) / 864e5); if (isNaN(days)) return ''; if (days <= 0) return 'Today'; if (days === 1) return 'Yesterday'; if (days < 14) return days + 'd ago'; if (days < 30) return Math.floor(days / 7) + 'w ago'; return Math.floor(days / 30) + 'mo ago'; }
     function fail(){ list.innerHTML = '<a class="hub-job" href="/va-job-board"><div class="hub-job-title">See the open VA jobs</div><div class="hub-job-meta">Updated regularly</div></a>'; }
     fetch('https://virtueasy-va-job-board.morgan-2bf.workers.dev/jobs?t=' + Date.now(), { cache: 'no-store' }).then(function(r){ return r.json(); }).then(function(data){
-      var cutoff = Date.now() - 7 * 864e5;
       var jobs = (data.jobs || []).filter(function(j){
         var t = String(j.title || ''); if (!t || IRRELEVANT.test(t)) return false;
         if (!RELEVANT.test([t].concat(j.tags || []).join(' '))) return false;
-        var ts = new Date(j.postedAt).getTime(); return isNaN(ts) || ts <= cutoff;
+        return true;
       }).sort(function(a, b){ return new Date(b.postedAt) - new Date(a.postedAt); });
       if (!jobs.length) return fail();
       count.innerHTML = '<b>' + jobs.length + '</b> open VA jobs';

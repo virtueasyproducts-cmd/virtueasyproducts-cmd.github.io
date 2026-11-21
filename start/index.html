@@ -142,31 +142,53 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
     .st-bottom .st-form{max-width:480px;margin:0 auto}
     @media(max-width:900px){.st-hero-grid,.st-paths,.st-dec{grid-template-columns:minmax(0,1fr)}.st-hero-grid{gap:2rem}.st-jobs{grid-template-columns:1fr}.st-job{min-height:0}}
     @media(max-width:600px){.st-hero{padding:3.25rem 1rem 2.75rem}.st-sec{padding:3.25rem 1rem}.st-form{flex-direction:column}.st-form button{padding:0.9rem}.st-community{flex-direction:column;align-items:flex-start}.st-art{height:150px}}
+    .st-hero.ph{padding:3.5rem 2rem 3rem}
+    .st-hero.ph .st-hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,0.95fr);gap:3rem}
+    .st-photo{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/5;max-height:520px;box-shadow:0 30px 70px rgba(0,0,0,0.5)}
+    .st-photo img{width:100%;height:100%;object-fit:cover;display:block}
+    .st-chip{position:absolute;display:flex;align-items:center;gap:0.6rem;background:rgba(255,255,255,0.96);color:#111;border-radius:12px;padding:0.65rem 0.85rem;font-family:var(--font-body);box-shadow:0 12px 30px rgba(0,0,0,0.25);max-width:82%}
+    .st-chip b{display:block;font-size:0.86rem;font-weight:700;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .st-chip small{display:block;font-size:0.72rem;color:#666}
+    .st-chip i{width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,0.2);flex-shrink:0}
+    .st-chip.c1{left:14px;bottom:18px}
+    .st-chip.c2{right:14px;top:18px}
+    .st-chip.c2 b{font-family:var(--font-display);font-weight:400;font-size:1.6rem;color:var(--pink);letter-spacing:0.02em}
+    .st-hero.ph .st-form{max-width:460px;margin-top:1.4rem}
+    .st-hero.ph .st-err{max-width:460px}
+    .st-trust{display:flex;flex-wrap:wrap;gap:0.5rem 1.4rem;margin-top:1.4rem;font-family:var(--font-body);font-size:0.86rem;color:rgba(248,248,248,0.7)}
+    .st-trust span{display:inline-flex;align-items:center;gap:0.45rem}
+    .st-trust b{color:#F8F8F8}
+    .st-trust svg{color:#4ade80}
+    .st-art.pic{padding:0;height:190px;background:#111}
+    .st-art.pic img{width:100%;height:100%;object-fit:cover;display:block}
+    .st-art.pic .st-chip{left:12px;bottom:12px}
+    @media(max-width:900px){.st-hero.ph .st-hero-grid{grid-template-columns:minmax(0,1fr)}.st-photo{aspect-ratio:4/3;max-height:none}}
+    @media(max-width:600px){.st-hero.ph{padding:2.5rem 1rem 2.5rem}}
   </style>
 
-  <section class="st-hero" aria-label="Start here">
+  <section class="st-hero ph" aria-label="Start here">
     <div class="st-inner st-hero-grid">
-      <div>
+      <div id="top-form">
         <p class="st-kicker">Start here</p>
         <h1>Everything free for VAs, <em>in one place.</em></h1>
-        <p class="st-lede">Jobs, rates and the guides that get you hired.</p>
-      </div>
-      <div class="st-form-card" id="top-form">
-        <h2>Free VA starter pack</h2>
-        <ul class="st-list">
-          <li><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>What to charge</li>
-          <li><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>A proposal that wins</li>
-          <li><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Stopping scope creep</li>
-        </ul>
+        <p class="st-lede">Real jobs, your rate and the steps to your first client. Get the free starter pack:</p>
         <div class="st-form-wrap">
           <div class="st-form">
             <input type="email" class="st-email" placeholder="you@email.com" autocomplete="email" inputmode="email" aria-label="Email address">
             <button type="button" class="st-submit">Send it</button>
           </div>
           <p class="st-err" role="alert"></p>
-          <p class="st-note">Free. Unsubscribe anytime.</p>
         </div>
-        <div class="st-ok" role="status">You're in. Check your inbox.</div>
+        <div class="st-ok" role="status" style="max-width:460px;margin-top:1.4rem">You're in. Check your inbox.</div>
+        <div class="st-trust">
+          <span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b id="st-trust-jobs">80+</b> live VA jobs</span>
+          <span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b>450+</b> VAs on the list</span>
+          <span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Free tools, no card</span>
+        </div>
+      </div>
+      <div class="st-photo">
+        <img src="/assets/photos/va-home-desk.jpg" alt="A virtual assistant smiling while she works on her laptop at a home desk" width="960" height="640">
+        <div class="st-chip c1"><i></i><div><b id="st-chip-job">Executive Assistant</b><small id="st-chip-when">New on the job board</small></div></div>
       </div>
     </div>
   </section>
@@ -177,7 +199,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
       <h2 class="st-h2">Pick your path.</h2>
       <div class="st-paths">
         <div class="st-door d1">
-          <div class="st-art" aria-hidden="true"><div class="a-jobs"><div class="a-job"><i></i><span></span><b>NEW</b></div><div class="a-job"><i></i><span></span><b>NEW</b></div><div class="a-job"><i></i><span></span></div></div></div>
+          <div class="st-art pic" aria-hidden="true"><img src="/assets/photos/va-applying.jpg" alt="" loading="lazy"><div class="st-chip"><i></i><div><b>Hidden test found</b><small>Apply with it, not without</small></div></div></div>
           <div class="st-door-body">
             <h3>Land my first VA job</h3>
             <a class="btn btn-primary" href="/va-job-board">Browse jobs</a>
@@ -185,7 +207,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
           </div>
         </div>
         <div class="st-door d2">
-          <div class="st-art" aria-hidden="true"><div class="a-rate"><b>$25/hr</b><small>Your rate, worked out</small></div></div>
+          <div class="st-art pic" aria-hidden="true"><img src="/assets/photos/va-rate.jpg" alt="" loading="lazy"><div class="st-chip"><div><small>Your rate</small><b style="font-family:var(--font-display);font-weight:400;font-size:1.5rem;color:var(--pink)">$25/hr</b></div></div></div>
           <div class="st-door-body">
             <h3>Know what to charge</h3>
             <a class="btn btn-primary" href="/pricing-tool/">Find my rate</a>
@@ -193,7 +215,7 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
           </div>
         </div>
         <div class="st-door d3">
-          <div class="st-art" aria-hidden="true"><div class="a-doc"><em>CLIENT AUDIT</em><span></span><span class="s"></span><div class="ok"><svg viewBox="0 0 16 16" width="12" height="12"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span></span></div><div class="ok"><svg viewBox="0 0 16 16" width="12" height="12"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span></span></div></div></div>
+          <div class="st-art pic" aria-hidden="true"><img src="/assets/photos/va-client-notes.jpg" alt="" loading="lazy"><div class="st-chip"><div><small>Client audit</small><b>12 hrs a week found</b></div></div></div>
           <div class="st-door-body">
             <h3>Win your first client</h3>
             <a class="btn btn-primary" href="/client-audit/">Audit a prospect free</a>
@@ -295,6 +317,8 @@ src="https://www.facebook.com/tr?id=1552355892525925&ev=PageView&noscript=1"
         var when = days <= 0 ? 'Today' : days === 1 ? 'Yesterday' : days + 'd ago';
         return '<a class="st-job" href="/va-job-board"><b>'+esc(j.title)+'</b><small>'+esc(j.company||'')+'</small><span class="meta"><span class="new">'+when+'</span><span class="pay">'+esc(j.salary||'')+'</span></span></a>';
       }).join('');
+      if (jobs[0]) { document.getElementById('st-chip-job').textContent = jobs[0].title; var d0 = Math.floor((Date.now() - new Date(jobs[0].postedAt).getTime()) / 86400000); document.getElementById('st-chip-when').textContent = 'New on the job board, ' + (d0 <= 0 ? 'today' : d0 === 1 ? 'yesterday' : d0 + ' days ago'); }
+      if (jobs.length) document.getElementById('st-trust-jobs').textContent = jobs.length;
       if (jobs.length) document.getElementById('st-jobs-all').textContent = 'See all ' + jobs.length + ' jobs' + (fresh ? ' (' + fresh + ' new this week)' : '');
     }).catch(function(){ var el = document.getElementById('st-jobs'); if (el) el.style.display = 'none'; });
   })();
