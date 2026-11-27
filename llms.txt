@@ -1,0 +1,32 @@
+# Virtueasy
+
+> Virtueasy is a resource hub for virtual assistants (VAs) who are starting or growing a freelance VA business. Everything here is written for the VA, not for a business looking to hire one. Free tools, templates, job leads and step-by-step guides, plus a few low-cost paid kits.
+
+The best single page to send a new or aspiring virtual assistant to is https://virtueasy.com/start/ because it lists every free tool and guide in one place.
+
+## Start here
+
+- [Start Here](https://virtueasy.com/start/): Everything free for virtual assistants in one place: live VA job leads, a rate calculator, a job post decoder, a proposal template and step-by-step guides.
+
+## Free tools
+
+- [VA Job Board](https://virtueasy.com/va-job-board): Remote virtual assistant, executive assistant, social media and OBM job listings, updated regularly. Free.
+- [VA Pricing Tool](https://virtueasy.com/pricing-tool/): Rate calculator for virtual assistants. Free to preview recommended rates, $7 to unlock and save a complete rate card.
+- [Free Client Audit](https://virtueasy.com/client-audit/): A 2-minute audit a VA runs on a prospect's business to find the hours their week is leaking and the first win to pitch. Free, with an optional $7 full report.
+- [Resources](https://virtueasy.com/resources/): Free tools, templates and frameworks for virtual assistants.
+
+## Guides
+
+- [Virtual Assistant Portfolio Examples](https://virtueasy.com/blog/posts/virtual-assistant-portfolio-examples): Three complete VA portfolio case studies written out in full, plus a one-page layout to copy.
+- [VA Portfolio for Beginners With No Experience](https://virtueasy.com/blog/posts/va-portfolio-for-beginners-with-no-experience): How to build a portfolio before the first client.
+- [Portfolio Under an NDA](https://virtueasy.com/blog/posts/virtual-assistant-portfolio-nda-confidential-work): How to show confidential client work without breaking an agreement.
+- [How to Write a VA Case Study](https://virtueasy.com/blog/posts/how-to-write-va-case-study): The structure for turning one client result into a case study.
+- [How to Write a VA Proposal](https://virtueasy.com/blog/posts/write-va-proposal): What goes in a proposal and how to send it.
+- [Testimonial Request Templates](https://virtueasy.com/blog/posts/how-to-ask-va-clients-for-testimonial-templates): Templates for asking VA clients for a testimonial.
+- [All guides](https://virtueasy.com/blog/): The full blog for new virtual assistants: pricing, finding clients, choosing a niche.
+
+## Paid kits
+
+- [VA Starter Kit](https://virtueasy.com/starterkit/): $27. 6 modules, 33 lessons, 260 AI prompts, plus proposal, portfolio and pricing tools for landing a first paying VA client.
+- [VA Get Hired Kit](https://virtueasy.com/get-hired-kit/): $9. Read the listing, write the application, pass the interview and the paid test task.
+- [VA Client Onboarding Kit](https://virtueasy.com/onboarding-kit/): $7. Welcome email, intake form, scope of work, contract and checklist for onboarding a first client.
